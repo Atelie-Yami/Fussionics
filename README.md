@@ -1,12 +1,10 @@
-# Fussionics
-
 <p align="center">
   <img src="/assets/img/marketing/fussionics.png">
 </p>
 
-### Um jogo RTS de duelos onde você usa elementos como unidades de combate.
+# Fussionics
+#### RTS de duelos onde você usa elementos como unidades de combate.
 
-Sobre o jogo:
 Os jogadores podem soltar elementos com número atômico menor que 8 diretamente da barra de elementos.
 
 Para ter elementos maiores que 8, é necessário fundi-los no forno REACTOR ou colidi-los no forno ACCERL.
