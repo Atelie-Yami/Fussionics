@@ -23,6 +23,11 @@ window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+naming/default_signal_callback_name="_{node_name}_{signal_name}"
+naming/default_signal_callback_to_self_name="_{signal_name}"
+
 [filesystem]
 
 import/blender/enabled=false
