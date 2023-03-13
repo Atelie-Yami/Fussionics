@@ -23,6 +23,7 @@ func next_phase():
 
 func start_turn():
 	current_player = current_player + 1 % 2
+	current_stage = State.PRE_INIT
 	pre_init_turn.emit(current_player)
 
 
