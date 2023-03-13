@@ -15,4 +15,4 @@ A fusão de elementos maiores que 25 danificará a estrela, o valor do dano é a
 
 A fusão é sempre garantida, mas a colisão tem uma margem de erro, dificultando a obtenção de elementos com grandes números atômicos.
 
-É possível conectar elementos vizinhos sem gastar energia, mas desligar custa 1 energia, é preciso ter disponível.
+É possível conectar elementos vizinhos sem gastar energia, mas desligar custa 1 energia, é preciso ter disponível
