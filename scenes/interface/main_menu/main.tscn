@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbc03yuk28s8r"]
-
-[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_2cdj2"]
+[gd_scene format=3 uid="uid://cbc03yuk28s8r"]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -10,8 +8,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
-
-[node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(2, 2, 2, 1)
-position = Vector2(818, 485)
-texture = ExtResource("1_2cdj2")
