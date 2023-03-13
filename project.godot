@@ -11,5 +11,19 @@ config_version=5
 [application]
 
 config/name="Fussionics"
+run/main_scene="res://scenes/interface/splash_screen.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/img/icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
