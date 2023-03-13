@@ -1,8 +1,9 @@
+# Fussionics
+
 <p align="center">
   <img src="/assets/img/marketing/fussionics.png">
 </p>
 
-# Fussionics
 #### RTS de duelos onde você usa elementos como unidades de combate.
 
 Os jogadores podem soltar elementos com número atômico menor que 8 diretamente da barra de elementos.
@@ -13,4 +14,4 @@ A fusão de elementos maiores que 25 danificará a estrela, o valor do dano é a
 
 A fusão é sempre garantida, mas a colisão tem uma margem de erro, dificultando a obtenção de elementos com grandes números atômicos.
 
-É possível conectar elementos vizinhos sem gastar energia, mas desligar custa 1 energia, é preciso ter disponível
+É possível conectar elementos vizinhos sem gastar energia, mas desligar custa 1 energia, é preciso ter disponível.
