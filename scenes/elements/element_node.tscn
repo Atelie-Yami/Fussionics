@@ -10,3 +10,4 @@ offset_top = 296.0
 offset_right = 408.0
 offset_bottom = 376.0
 script = ExtResource("1_od7jv")
+atomic_number = 5

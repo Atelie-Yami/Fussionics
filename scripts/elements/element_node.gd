@@ -14,9 +14,6 @@ var current_state: State
 var current_node_state: NodeState
 
 
-@onready var simbol = $Simbol
-
-
 func _init():
 	mouse_entered.connect(_mouse_entered)
 	mouse_exited .connect(_mouse_exited)
@@ -24,14 +21,15 @@ func _init():
 
 func _draw():
 	draw_rect(Rect2(0, 0, 80, 80), Color(1, 1, 1, 0.1))
-	
-	var size = FUTURE_SALLOW.get_string_size("Fe", HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
-	draw_string(FUTURE_SALLOW, Vector2(41 - size.x, 59), "Fe", HORIZONTAL_ALIGNMENT_CENTER, -1, 60)
+	var size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
+	draw_string(
+		FUTURE_SALLOW, Vector2(41 - size.x, 59), DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
+		-1, 60, COLOR_SERIES[DATA[atomic_number][SERIE]]
+	)
 
 
 func set_current_node_state(state: NodeState):
 	if current_node_state == state: return
-	
 	current_node_state = state
 	
 	match current_node_state:
