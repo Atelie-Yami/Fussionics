@@ -1,5 +1,7 @@
 class_name ElementNode extends Element
 
+const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
+
 enum State {
 	NORMAL, BIND_LINK, REMOVE_LINK, ATTACKING, DEFENDING, MOTION, COOKING
 }
@@ -12,10 +14,19 @@ var current_state: State
 var current_node_state: NodeState
 
 
+@onready var simbol = $Simbol
+
 
 func _init():
 	mouse_entered.connect(_mouse_entered)
 	mouse_exited .connect(_mouse_exited)
+
+
+func _draw():
+	draw_rect(Rect2(0, 0, 80, 80), Color(1, 1, 1, 0.1))
+	
+	var size = FUTURE_SALLOW.get_string_size("Fe", HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
+	draw_string(FUTURE_SALLOW, Vector2(41 - size.x, 59), "Fe", HORIZONTAL_ALIGNMENT_CENTER, -1, 60)
 
 
 func set_current_node_state(state: NodeState):
