@@ -8,7 +8,7 @@ signal end_turn(player: int)
 const TURN_TIME = 30.0
 
 enum State {PRE_INIT, INIT, MAIN, END}
-enum Players {PLAYER_A, PLAYER_B}
+enum Players {A, B}
 
 var current_player: Players = randi() % 2
 var current_stage: State
