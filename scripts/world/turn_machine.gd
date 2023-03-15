@@ -8,14 +8,22 @@ signal end_turn(player: int)
 const TURN_TIME = 30.0
 
 enum State {PRE_INIT, INIT, MAIN, END}
-enum Players {PLAYER_A, PLAYER_B}
+enum Players {A, B}
 
 var current_player: Players = randi() % 2
 var current_stage: State
 
+var _signals: Array[Signal] = [pre_init_turn, init_turn, main_turn, end_turn]
+
+
+func next_phase():
+	current_stage = current_stage + 1 % 4
+	_signals[current_stage].emit(current_player)
+
 
 func start_turn():
 	current_player = current_player + 1 % 2
+	current_stage = State.PRE_INIT
 	pre_init_turn.emit(current_player)
 
 

@@ -1,7 +1,6 @@
-class_name PreInitProcessor extends Timer
+class_name PreInitProcessor extends ElementEffectProcessor
 
 
-@onready var turn_machine: TurnMachine = $".."
 
 
 func _turn_machine_pre_init_turn(player: int):
