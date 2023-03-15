@@ -1,15 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=14 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="Script" path="res://scripts/world/element_effect_processor.gd" id="3_gm0uf"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
-[ext_resource type="Script" path="res://scripts/world/player_A_controller.gd" id="5_7dcg8"]
+[ext_resource type="Script" path="res://scripts/world/player_inputs.gd" id="5_5g8bu"]
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="5_8bvk5"]
 [ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="5_ue3fe"]
 [ext_resource type="Texture2D" uid="uid://cwpil0jtx2tqt" path="res://assets/img/elements/element_moldure3.png" id="6_ycp1w"]
 [ext_resource type="Environment" uid="uid://x8ocfcnq86ue" path="res://resouces/environment/neon_environment.tres" id="6_ye8h0"]
-[ext_resource type="Texture2D" uid="uid://cuevrwn5kfrvu" path="res://assets/img/elements/element_moldure4.png" id="8_mjxqw"]
+[ext_resource type="Material" uid="uid://b4ul30pnk81e2" path="res://resouces/material/element.material" id="11_8u6f4"]
+[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="12_7wlm5"]
 
 [sub_resource type="Shader" id="Shader_h78me"]
 code = "shader_type canvas_item;
@@ -59,7 +60,7 @@ time = 10
 script = ExtResource("4_wfl3f")
 
 [node name="player_A_controller" type="Node" parent="PlayerController"]
-script = ExtResource("5_7dcg8")
+script = ExtResource("5_5g8bu")
 
 [node name="ElementNode" type="Control" parent="PlayerController/player_A_controller"]
 material = SubResource("ShaderMaterial_qb2yk")
@@ -71,15 +72,27 @@ offset_right = 256.0
 offset_bottom = 367.0
 script = ExtResource("5_ue3fe")
 
+[node name="player_B_controller" type="Node" parent="PlayerController"]
+script = ExtResource("5_5g8bu")
+
+[node name="ElementNode" type="Control" parent="PlayerController/player_B_controller"]
+material = SubResource("ShaderMaterial_qb2yk")
+layout_mode = 3
+anchors_preset = 0
+offset_left = 927.0
+offset_top = 310.0
+offset_right = 1007.0
+offset_bottom = 390.0
+script = ExtResource("5_ue3fe")
+atomic_number = 9
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("6_ye8h0")
 
-[node name="TextureRect" type="Sprite2D" parent="."]
-position = Vector2(496, 451)
-scale = Vector2(1.1, 1.1)
-texture = ExtResource("8_mjxqw")
-centered = false
-offset = Vector2(-4, -4)
+[node name="Icon" type="Sprite2D" parent="."]
+material = ExtResource("11_8u6f4")
+position = Vector2(726, 378)
+texture = ExtResource("12_7wlm5")
 
 [connection signal="end_game" from="." to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]

@@ -12,10 +12,15 @@ enum NodeState {
 
 var current_state: State
 var current_node_state: NodeState
+
+var selected: bool
 var active: bool:
 	set(value):
 		active = value
 		if not active: set_current_node_state(NodeState.NORMAL)
+
+
+var _selected_rect: Rect2
 
 
 func _init():
@@ -28,7 +33,8 @@ func _process(delta):
 
 
 func _draw():
-	draw_texture_rect(MOLDURE_1, Rect2(0, 0, 80, 80), false, Color.WHITE * 0.5)
+	var alpha: float = 0.66 if current_node_state == NodeState.HOVER else 0.33
+	draw_texture_rect(MOLDURE_1, Rect2(0, 0, 80, 80), false, Color.WHITE * alpha)
 	
 	var string_size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
 	draw_string(
@@ -47,7 +53,8 @@ func set_current_node_state(state: NodeState):
 	match current_node_state:
 		NodeState.NORMAL: pass
 		NodeState.HOVER: pass
-		NodeState.SELECTED: pass
+		NodeState.SELECTED:
+			Gameplay.selected_element = self
 
 
 func _gui_input(event: InputEvent):
