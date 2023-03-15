@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=7 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="Script" path="res://scripts/world/element_effect_processor.gd" id="3_gm0uf"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
+[ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="5_ue3fe"]
+[ext_resource type="Environment" uid="uid://x8ocfcnq86ue" path="res://resouces/environment/neon_environment.tres" id="6_ye8h0"]
 
 [node name="arena" type="Node2D"]
 script = ExtResource("1_8citt")
@@ -26,6 +28,19 @@ time = 10
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("4_wfl3f")
+
+[node name="ElementNode" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 496.0
+offset_top = 451.0
+offset_right = 576.0
+offset_bottom = 531.0
+script = ExtResource("5_ue3fe")
+atomic_number = 14
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_ye8h0")
 
 [connection signal="end_game" from="." to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]

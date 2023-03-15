@@ -216,20 +216,20 @@ var links = {
 
 func link_element(neighbor: Element):
 	var elements := [self, neighbor]
-	var position: LigamentPosition
+	var orientation: LigamentPosition
 	var link: Ligament
 	
 	if neighbor.grid_position.x == grid_position.x:
-		position = LigamentPosition.UP_DOWN
+		orientation = LigamentPosition.UP_DOWN
 		if neighbor.grid_position.y < grid_position.y: elements = [neighbor, self]
 		
 	elif neighbor.grid_position.y == grid_position.y:
-		position = LigamentPosition.RIGHT_LEFT
+		orientation = LigamentPosition.RIGHT_LEFT
 		if neighbor.grid_position.x > grid_position.x: elements = [neighbor, self]
 	
 	else: return
 	
-	link = Ligament.new(elements[0], elements[1], position)
+	link = Ligament.new(elements[0], elements[1], orientation)
 
 
 

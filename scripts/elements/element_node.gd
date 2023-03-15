@@ -1,6 +1,7 @@
 class_name ElementNode extends Element
 
 const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
+var STYLEBOX := preload("res://resouces/stylebox/element.stylebox")
 
 enum State {
 	NORMAL, BIND_LINK, REMOVE_LINK, ATTACKING, DEFENDING, MOTION, COOKING
@@ -19,12 +20,31 @@ func _init():
 	mouse_exited .connect(_mouse_exited)
 
 
+var time := 0.0
+func _process(delta):
+	time += delta * 2.0
+	
+	var m : int = 16 * abs(cos(time))
+	
+	if current_node_state == NodeState.HOVER:
+		pass
+	
+	STYLEBOX.set_border_width(SIDE_BOTTOM, m)
+	STYLEBOX.set_border_width(SIDE_LEFT, m)
+	STYLEBOX.set_border_width(SIDE_RIGHT, m)
+	STYLEBOX.set_border_width(SIDE_TOP, m)
+	
+	queue_redraw()
+
+
 func _draw():
-	draw_rect(Rect2(0, 0, 80, 80), Color(1, 1, 1, 0.1))
-	var size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
+#	draw_rect(Rect2(0, 0, 80, 80), Color(1, 1, 1, 0.05))
+	draw_style_box(STYLEBOX, Rect2(0, 0, 80, 80))
+	
+	var string_size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
 	draw_string(
-		FUTURE_SALLOW, Vector2(41 - size.x, 59), DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
-		-1, 60, COLOR_SERIES[DATA[atomic_number][SERIE]]
+		FUTURE_SALLOW, Vector2(41 - string_size.x, 59), DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
+		-1, 60, COLOR_SERIES[DATA[atomic_number][SERIE]] * 2.0
 	)
 
 
