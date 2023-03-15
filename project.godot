@@ -15,6 +15,10 @@ run/main_scene="res://scenes/interface/splash_screen.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://assets/img/icon.svg"
 
+[autoload]
+
+ServerManager="*res://scripts/autoloads/server_manager.gd"
+
 [display]
 
 window/size/viewport_width=1920
