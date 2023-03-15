@@ -10,6 +10,8 @@ export_presets.cfg
 .mono/
 data_*/
 
+bin/
+*.dll
 *.so
 *.exe
 *.gdextension

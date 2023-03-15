@@ -1,7 +1,7 @@
 class_name ElementNode extends Element
 
 const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
-var STYLEBOX := preload("res://resouces/stylebox/element.stylebox")
+const MOLDURE_1 := preload("res://assets/img/elements/element_moldure.png")
 
 enum State {
 	NORMAL, BIND_LINK, REMOVE_LINK, ATTACKING, DEFENDING, MOTION, COOKING
@@ -10,9 +10,12 @@ enum NodeState {
 	NORMAL, HOVER, SELECTED
 }
 
-
 var current_state: State
 var current_node_state: NodeState
+var active: bool:
+	set(value):
+		active = value
+		if not active: set_current_node_state(NodeState.NORMAL)
 
 
 func _init():
@@ -20,32 +23,21 @@ func _init():
 	mouse_exited .connect(_mouse_exited)
 
 
-var time := 0.0
 func _process(delta):
-	time += delta * 2.0
-	
-	var m : int = 16 * abs(cos(time))
-	
-	if current_node_state == NodeState.HOVER:
-		pass
-	
-	STYLEBOX.set_border_width(SIDE_BOTTOM, m)
-	STYLEBOX.set_border_width(SIDE_LEFT, m)
-	STYLEBOX.set_border_width(SIDE_RIGHT, m)
-	STYLEBOX.set_border_width(SIDE_TOP, m)
-	
 	queue_redraw()
 
 
 func _draw():
-#	draw_rect(Rect2(0, 0, 80, 80), Color(1, 1, 1, 0.05))
-	draw_style_box(STYLEBOX, Rect2(0, 0, 80, 80))
+	draw_texture_rect(MOLDURE_1, Rect2(0, 0, 80, 80), false, Color.WHITE * 0.5)
 	
 	var string_size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
 	draw_string(
 		FUTURE_SALLOW, Vector2(41 - string_size.x, 59), DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
-		-1, 60, COLOR_SERIES[DATA[atomic_number][SERIE]] * 2.0
+		-1, 60, COLOR_SERIES[DATA[atomic_number][SERIE]]
 	)
+	
+	modulate = (Color.WHITE * 0.5) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.5)
+	material.set_shader_parameter("color", COLOR_SERIES[DATA[atomic_number][SERIE]])
 
 
 func set_current_node_state(state: NodeState):
@@ -59,13 +51,16 @@ func set_current_node_state(state: NodeState):
 
 
 func _gui_input(event: InputEvent):
-	if event.is_action("mouse_click") and current_node_state == NodeState.HOVER:
-		set_current_node_state(NodeState.SELECTED)
+	if event.is_action("mouse_click") and event.is_pressed():
+		if active:
+			set_current_node_state(NodeState.SELECTED)
 
 
 func _mouse_entered():
-	set_current_node_state(NodeState.HOVER)
+	if active:
+		set_current_node_state(NodeState.HOVER)
 	
 
 func _mouse_exited():
-	set_current_node_state(NodeState.NORMAL)
+	if active:
+		set_current_node_state(NodeState.NORMAL)
