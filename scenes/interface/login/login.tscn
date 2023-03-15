@@ -1,0 +1,283 @@
+[gd_scene load_steps=19 format=3 uid="uid://ttuiuitb4jh2"]
+
+[ext_resource type="Script" path="res://scripts/login/main.gd" id="1_7oops"]
+[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="2_4043c"]
+[ext_resource type="FontFile" uid="uid://cvmp1rbj4hst1" path="res://assets/fonts/Future Sallow.ttf" id="3_lb0pb"]
+[ext_resource type="Texture2D" uid="uid://v5awobduf7du" path="res://assets/img/buttons/login/eyes/eye_closed.png" id="4_ubrn8"]
+[ext_resource type="Texture2D" uid="uid://bck8xdfqjac37" path="res://assets/img/buttons/login/enter.png" id="5_ribs8"]
+[ext_resource type="Texture2D" uid="uid://bfgrfgvg6syhs" path="res://assets/img/buttons/login/about/about_person.png" id="6_lb1o5"]
+[ext_resource type="Texture2D" uid="uid://dgn5oejmhyxtq" path="res://assets/img/buttons/login/about/about_love.png" id="7_ljkhp"]
+[ext_resource type="Script" path="res://scripts/login/p_layer.gd" id="8_4cw0n"]
+[ext_resource type="Texture2D" uid="uid://b2xv5gpuwudt8" path="res://assets/img/background/space_0/Background.png" id="9_nr44u"]
+[ext_resource type="Texture2D" uid="uid://c4gtfoe2sx51s" path="res://assets/img/background/space_0/cloud/Cloud_0.png" id="10_8vf5v"]
+[ext_resource type="Texture2D" uid="uid://bbj2o7qoydgtc" path="res://assets/img/background/space_0/cloud/Cloud_1.png" id="11_lr5jb"]
+[ext_resource type="Texture2D" uid="uid://ddomjha280q7" path="res://assets/img/background/space_0/cloud/Cloud_2.png" id="12_jpj5m"]
+[ext_resource type="Texture2D" uid="uid://cldd0qo5wjmod" path="res://assets/img/background/space_0/cloud/Cloud_3.png" id="13_6wfj3"]
+[ext_resource type="Texture2D" uid="uid://bc0vpbk2xpmu2" path="res://assets/img/background/space_0/cloud/Cloud_4.png" id="14_g0x3x"]
+[ext_resource type="Texture2D" uid="uid://61ouml4l8o5p" path="res://assets/img/background/space_0/cloud/Cloud_5.png" id="15_32jf7"]
+[ext_resource type="Texture2D" uid="uid://bemxfq6wcqgg5" path="res://assets/img/background/space_0/stars/Star_1.png" id="16_sbliv"]
+[ext_resource type="Texture2D" uid="uid://bkgt2mu388jyn" path="res://assets/img/background/space_0/stars/Star_0.png" id="17_u7h0i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipktk"]
+draw_center = false
+
+[node name="Login" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7oops")
+
+[node name="login_painel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.339583
+anchor_top = 0.194907
+anchor_right = 0.660417
+anchor_bottom = 0.805093
+offset_top = 99.5
+offset_bottom = -99.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="lines_box" type="VBoxContainer" parent="login_painel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="logo" type="HBoxContainer" parent="login_painel/lines_box"]
+layout_mode = 2
+alignment = 1
+
+[node name="center_box" type="VBoxContainer" parent="login_painel/lines_box/logo"]
+layout_mode = 2
+alignment = 1
+
+[node name="icon" type="TextureRect" parent="login_painel/lines_box/logo/center_box"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_4043c")
+stretch_mode = 2
+
+[node name="game_name" type="Label" parent="login_painel/lines_box/logo/center_box"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lb0pb")
+theme_override_font_sizes/font_size = 52
+text = "FUSSIONICS"
+horizontal_alignment = 1
+
+[node name="sep_up" type="HSeparator" parent="login_painel/lines_box"]
+layout_mode = 2
+theme_override_constants/separation = 45
+
+[node name="login" type="VBoxContainer" parent="login_painel/lines_box"]
+layout_mode = 2
+
+[node name="email_pass" type="VBoxContainer" parent="login_painel/lines_box/login"]
+layout_mode = 2
+theme_override_constants/separation = 11
+alignment = 1
+
+[node name="Email" type="LineEdit" parent="login_painel/lines_box/login/email_pass"]
+layout_mode = 2
+tooltip_text = "e-mail"
+theme_override_font_sizes/font_size = 24
+placeholder_text = "E-MAIL"
+
+[node name="Password" type="LineEdit" parent="login_painel/lines_box/login/email_pass"]
+layout_mode = 2
+tooltip_text = "password"
+theme_override_font_sizes/font_size = 24
+placeholder_text = "PASSWORD"
+secret = true
+
+[node name="view" type="Button" parent="login_painel/lines_box/login/email_pass/Password"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.876623
+anchor_top = -0.463415
+anchor_right = 1.00325
+anchor_bottom = 1.43902
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ipktk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ipktk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ipktk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ipktk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ipktk")
+icon = ExtResource("4_ubrn8")
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="stay_connected" type="HBoxContainer" parent="login_painel/lines_box/login/email_pass"]
+layout_mode = 2
+alignment = 1
+
+[node name="stay_button" type="CheckButton" parent="login_painel/lines_box/login/email_pass/stay_connected"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "STAY_CONNECTED"
+alignment = 1
+
+[node name="sep_down2" type="HSeparator" parent="login_painel/lines_box/login"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="enter_button" type="Button" parent="login_painel/lines_box/login"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+disabled = true
+icon = ExtResource("5_ribs8")
+
+[node name="sep_barrer" type="HSeparator" parent="login_painel/lines_box/login"]
+layout_mode = 2
+theme_override_constants/separation = 45
+
+[node name="forgot_link" type="LinkButton" parent="login_painel/lines_box/login"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "I forgot the password"
+uri = "https://www.youtube.com/shorts/VEllu-4Vq3E"
+structured_text_bidi_override = 1
+
+[node name="enter_direction" type="VBoxContainer" parent="login_painel/lines_box"]
+visible = false
+layout_mode = 2
+
+[node name="enter" type="Button" parent="login_painel/lines_box/enter_direction"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_lb0pb")
+theme_override_font_sizes/font_size = 42
+text = "ENTRAR"
+
+[node name="sep_down" type="HSeparator" parent="login_painel/lines_box"]
+layout_mode = 2
+theme_override_constants/separation = 45
+
+[node name="about_painel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.901563
+anchor_top = 0.912037
+anchor_right = 0.997396
+anchor_bottom = 0.99537
+grow_horizontal = 0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="hb" type="HBoxContainer" parent="about_painel"]
+layout_mode = 2
+alignment = 1
+
+[node name="about_client" type="TextureButton" parent="about_painel/hb"]
+layout_mode = 2
+texture_normal = ExtResource("6_lb1o5")
+
+[node name="about_love" type="TextureButton" parent="about_painel/hb"]
+layout_mode = 2
+texture_normal = ExtResource("7_ljkhp")
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="parallax" type="ParallaxBackground" parent="Background"]
+
+[node name="p_layer_background" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 18.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer_background"]
+texture = ExtResource("9_nr44u")
+centered = false
+
+[node name="p_layer" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 10.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer"]
+texture = ExtResource("10_8vf5v")
+centered = false
+
+[node name="p_layer2" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 12.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer2"]
+texture = ExtResource("11_lr5jb")
+centered = false
+
+[node name="p_layer3" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 14.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer3"]
+texture = ExtResource("12_jpj5m")
+centered = false
+
+[node name="p_layer4" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 14.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer4"]
+texture = ExtResource("13_6wfj3")
+centered = false
+
+[node name="p_layer5" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 16.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer5"]
+texture = ExtResource("14_g0x3x")
+centered = false
+
+[node name="p_layer6" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 18.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer6"]
+texture = ExtResource("15_32jf7")
+centered = false
+
+[node name="p_layer_star" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 20.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer_star"]
+texture = ExtResource("16_sbliv")
+centered = false
+
+[node name="p_layer_star2" type="ParallaxLayer" parent="Background/parallax"]
+motion_mirroring = Vector2(0, 1080)
+script = ExtResource("8_4cw0n")
+speed = 15.0
+
+[node name="image" type="Sprite2D" parent="Background/parallax/p_layer_star2"]
+texture = ExtResource("17_u7h0i")
+centered = false
+
+[node name="verific_info" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Email" to="." method="_email_text_changed"]
+[connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Password" to="." method="_password_text_changed"]
+[connection signal="pressed" from="login_painel/lines_box/login/email_pass/Password/view" to="." method="_view_pressed"]
+[connection signal="pressed" from="login_painel/lines_box/enter_direction/enter" to="." method="_enter_pressed"]
+[connection signal="timeout" from="verific_info" to="." method="_verific_info_timeout"]
