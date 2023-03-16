@@ -27,3 +27,8 @@ func _process(delta):
 		time += delta
 		var scale = abs(cos(time * 4.0)) * 0.1
 		element_focus.scale = Vector2(1.0 + scale, 1.0 + scale)
+
+
+func _unhandled_input(event):
+	if event.is_action("mouse_click") and event.is_pressed():
+		self.selected_element = null

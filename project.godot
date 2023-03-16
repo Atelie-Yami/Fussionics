@@ -54,4 +54,5 @@ mouse_click={
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.101961, 0.0941176, 0.137255, 1)

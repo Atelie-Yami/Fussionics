@@ -14,13 +14,10 @@ var current_state: State
 var current_node_state: NodeState
 
 var selected: bool
-var active: bool:
+var active: bool = true:
 	set(value):
 		active = value
 		if not active: set_current_node_state(NodeState.NORMAL)
-
-
-var _selected_rect: Rect2
 
 
 func _init():
@@ -33,17 +30,25 @@ func _process(delta):
 
 
 func _draw():
-	var alpha: float = 0.66 if current_node_state == NodeState.HOVER else 0.33
+	var alpha: float = 0.2
+	if current_node_state == NodeState.HOVER or current_node_state == NodeState.SELECTED: alpha = 0.6
+	alpha += 0.2 if active else 0.0
+	
 	draw_texture_rect(MOLDURE_1, Rect2(0, 0, 80, 80), false, Color.WHITE * alpha)
+	
+	var symbol_color: Color = COLOR_SERIES[DATA[atomic_number][SERIE]]
+	if not active:
+		var gray := (symbol_color.r + symbol_color.g + symbol_color.b) / 3.0
+		symbol_color = Color(gray, gray, gray)
 	
 	var string_size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
 	draw_string(
 		FUTURE_SALLOW, Vector2(41 - string_size.x, 59), DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
-		-1, 60, COLOR_SERIES[DATA[atomic_number][SERIE]]
+		-1, 60, symbol_color
 	)
 	
-	modulate = (Color.WHITE * 0.5) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.5)
-	material.set_shader_parameter("color", COLOR_SERIES[DATA[atomic_number][SERIE]])
+	modulate = (Color.WHITE * 0.6) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.4)
+#	material.set_shader_parameter("color", COLOR_SERIES[DATA[atomic_number][SERIE]])
 
 
 func set_current_node_state(state: NodeState):

@@ -1,30 +1,91 @@
 class_name Arena extends Node2D
 
-
 signal end_game(winner: int)
 
-var server = TCPServer.new()
+const GRID_OFFSET := Vector2i(605, 320)
+const SLOT_SIZE := Vector2i(90, 90)
 
-func _ready():
-	server.listen(4545, "*")
+class Slot:
+	var player: PlayerController.Players
+	var element: Element
+	var molecule: Molecule
 	
-	ServerManager.request_completed.connect(_on_request)
-	ServerManager.request("https://alekyo4-congenial-space-adventure-qxwrp55gj7jh494-8081.preview.app.github.dev/?port=4545")
-
-
-func _on_request(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
-	var json := JSON.new()
-	json.parse(body.get_string_from_utf8())
-	print(json.get_data())
-
-
-func _process(_delta):
-	var client: StreamPeerTCP = server.take_connection()
+	var can_act: bool
 	
-	if client:
-		var status: int = client.get_status()
+	func _init(_e: Element, _p: PlayerController.Players):
+		element = _e; player = _p
+
+
+## {Vector2i position : Slot slot}
+var elements: Dictionary
+
+@onready var player_controller: Array[PlayerInputs] = [
+	$PlayerController/player_A_controller as PlayerInputs,
+	$PlayerController/player_B_controller as PlayerInputs
+]
+
+
+func check_slot_empty(slot: Vector2i): return not elements.has(slot)
+
+
+func move_element(pre_slot: Vector2i, final_slot: Vector2i):
+	if not check_slot_empty(final_slot) or  elements[pre_slot].element.has_link: return
+	
+	var slot = elements[pre_slot]
+	elements.erase(pre_slot)
+	elements[final_slot] = slot
+	
+	slot.element.global_position = (SLOT_SIZE * final_slot) + GRID_OFFSET
+	
+
+
+func remove_element(slot_position: Vector2i):
+	var slot: Slot = elements[slot_position]
+	if slot.molecule:
+		slot.molecule.remove_element(slot.element)
+	
+	slot.element.queue_free()
+	elements.erase(slot_position)
+
+
+func create_element(atomic_number: int, player: PlayerController.Players, _position: Vector2i):
+	if not check_slot_empty(_position): return
+	
+	var element = ElementNode.new()
+	var slot = Slot.new(element, player)
+	
+	element.atomic_number = atomic_number
+	Gameplay.selected_element = element
+	
+	elements[_position] = slot
+	
+	player_controller[player].add_child(element)
+	player_controller[player].elements.append(element)
+	
+	match _position.y:
+		10: # slot 1, fusão, Player A
+			pass
 		
-		if status == StreamPeerTCP.STATUS_CONNECTED:
-			print("Usuário - ", client.get_connected_host(), " - bonito entrou: ", client.get_connected_port())
-			
-			client.put_string("Funfo garaio")
+		11: # slot 2, fusão, Player A
+			pass
+		
+		12: # slot 1, accelr, Player A
+			pass
+		
+		13: # slot 2, accelr, Player A
+			pass
+		
+		14: # slot 1, fusão, Player B
+			pass
+		
+		15: # slot 2, fusão, Player B
+			pass
+		
+		16: # slot 1, accelr, Player B
+			pass
+		
+		17: # slot 2, accelr, Player B
+			pass
+		
+		_:
+			element.global_position = (SLOT_SIZE * _position) + GRID_OFFSET

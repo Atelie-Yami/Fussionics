@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" path="res://scripts/login/main.gd" id="1_7oops"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="2_4043c"]
-[ext_resource type="FontFile" uid="uid://cvmp1rbj4hst1" path="res://assets/fonts/Future Sallow.ttf" id="3_lb0pb"]
+[ext_resource type="FontFile" uid="uid://ramwx6m07lc8" path="res://assets/fonts/Future Sallow.ttf" id="3_lb0pb"]
 [ext_resource type="Texture2D" uid="uid://v5awobduf7du" path="res://assets/img/buttons/login/eyes/eye_closed.png" id="4_ubrn8"]
 [ext_resource type="Texture2D" uid="uid://bck8xdfqjac37" path="res://assets/img/buttons/login/enter.png" id="5_ribs8"]
 [ext_resource type="Texture2D" uid="uid://bfgrfgvg6syhs" path="res://assets/img/buttons/login/about/about_person.png" id="6_lb1o5"]
 [ext_resource type="Texture2D" uid="uid://dgn5oejmhyxtq" path="res://assets/img/buttons/login/about/about_love.png" id="7_ljkhp"]
 [ext_resource type="Script" path="res://scripts/login/p_layer.gd" id="8_4cw0n"]
-[ext_resource type="Texture2D" uid="uid://b2xv5gpuwudt8" path="res://assets/img/background/space_0/Background.png" id="9_nr44u"]
-[ext_resource type="Texture2D" uid="uid://c4gtfoe2sx51s" path="res://assets/img/background/space_0/cloud/Cloud_0.png" id="10_8vf5v"]
-[ext_resource type="Texture2D" uid="uid://bbj2o7qoydgtc" path="res://assets/img/background/space_0/cloud/Cloud_1.png" id="11_lr5jb"]
-[ext_resource type="Texture2D" uid="uid://ddomjha280q7" path="res://assets/img/background/space_0/cloud/Cloud_2.png" id="12_jpj5m"]
-[ext_resource type="Texture2D" uid="uid://cldd0qo5wjmod" path="res://assets/img/background/space_0/cloud/Cloud_3.png" id="13_6wfj3"]
-[ext_resource type="Texture2D" uid="uid://bc0vpbk2xpmu2" path="res://assets/img/background/space_0/cloud/Cloud_4.png" id="14_g0x3x"]
-[ext_resource type="Texture2D" uid="uid://61ouml4l8o5p" path="res://assets/img/background/space_0/cloud/Cloud_5.png" id="15_32jf7"]
-[ext_resource type="Texture2D" uid="uid://bemxfq6wcqgg5" path="res://assets/img/background/space_0/stars/Star_1.png" id="16_sbliv"]
-[ext_resource type="Texture2D" uid="uid://bkgt2mu388jyn" path="res://assets/img/background/space_0/stars/Star_0.png" id="17_u7h0i"]
+[ext_resource type="Texture2D" uid="uid://duf474wuoa06p" path="res://assets/img/background/space_0/Background.png" id="9_nr44u"]
+[ext_resource type="Texture2D" uid="uid://dt71lqif5kja0" path="res://assets/img/background/space_0/cloud/Cloud_0.png" id="10_8vf5v"]
+[ext_resource type="Texture2D" uid="uid://beg80ecls0goj" path="res://assets/img/background/space_0/cloud/Cloud_1.png" id="11_lr5jb"]
+[ext_resource type="Texture2D" uid="uid://b5bh75qh7gpna" path="res://assets/img/background/space_0/cloud/Cloud_2.png" id="12_jpj5m"]
+[ext_resource type="Texture2D" uid="uid://d3pqejv02kd4q" path="res://assets/img/background/space_0/cloud/Cloud_3.png" id="13_6wfj3"]
+[ext_resource type="Texture2D" uid="uid://dojtp8e27ybrv" path="res://assets/img/background/space_0/cloud/Cloud_4.png" id="14_g0x3x"]
+[ext_resource type="Texture2D" uid="uid://di5wqs11kdpj4" path="res://assets/img/background/space_0/cloud/Cloud_5.png" id="15_32jf7"]
+[ext_resource type="Texture2D" uid="uid://dph8eko7xuis0" path="res://assets/img/background/space_0/stars/Star_1.png" id="16_sbliv"]
+[ext_resource type="Texture2D" uid="uid://i1oqr2ajs6pc" path="res://assets/img/background/space_0/stars/Star_0.png" id="17_u7h0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipktk"]
 draw_center = false
@@ -86,6 +86,7 @@ layout_mode = 2
 tooltip_text = "e-mail"
 theme_override_font_sizes/font_size = 24
 placeholder_text = "E-MAIL"
+virtual_keyboard_type = 5
 
 [node name="Password" type="LineEdit" parent="login_painel/lines_box/login/email_pass"]
 layout_mode = 2
@@ -93,6 +94,7 @@ tooltip_text = "password"
 theme_override_font_sizes/font_size = 24
 placeholder_text = "PASSWORD"
 secret = true
+virtual_keyboard_type = 6
 
 [node name="view" type="Button" parent="login_painel/lines_box/login/email_pass/Password"]
 layout_mode = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=12 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -8,9 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="5_8bvk5"]
 [ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="5_ue3fe"]
 [ext_resource type="Texture2D" uid="uid://cwpil0jtx2tqt" path="res://assets/img/elements/element_moldure3.png" id="6_ycp1w"]
-[ext_resource type="Environment" uid="uid://x8ocfcnq86ue" path="res://resouces/environment/neon_environment.tres" id="6_ye8h0"]
-[ext_resource type="Material" uid="uid://b4ul30pnk81e2" path="res://resouces/material/element.material" id="11_8u6f4"]
-[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="12_7wlm5"]
 
 [sub_resource type="Shader" id="Shader_h78me"]
 code = "shader_type canvas_item;
@@ -36,6 +33,9 @@ shader = SubResource("Shader_h78me")
 shader_parameter/color = Color(0, 0, 0, 0)
 shader_parameter/legancy = ExtResource("6_ycp1w")
 shader_parameter/border = ExtResource("5_8bvk5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hx81u"]
+bg_color = Color(0.6, 0.6, 0.6, 0.117647)
 
 [node name="arena" type="Node2D"]
 script = ExtResource("1_8citt")
@@ -86,13 +86,232 @@ offset_bottom = 390.0
 script = ExtResource("5_ue3fe")
 atomic_number = 9
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("6_ye8h0")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="Icon" type="Sprite2D" parent="."]
-material = ExtResource("11_8u6f4")
-position = Vector2(726, 378)
-texture = ExtResource("12_7wlm5")
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 8
+
+[node name="Panel" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel3" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel4" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel5" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel6" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel7" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel8" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel9" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel10" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel11" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel12" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel13" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel14" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel15" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel16" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel17" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel18" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel19" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel20" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel21" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel22" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel23" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel24" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel25" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel26" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel27" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel28" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel29" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel30" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel31" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel32" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel33" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel34" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel35" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel36" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel37" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel38" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel39" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
+
+[node name="Panel40" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
 
 [connection signal="end_game" from="." to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
