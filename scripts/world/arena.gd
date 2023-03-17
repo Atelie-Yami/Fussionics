@@ -36,7 +36,6 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	elements[final_slot] = slot
 	
 	slot.element.global_position = (SLOT_SIZE * final_slot) + GRID_OFFSET
-	
 
 
 func remove_element(slot_position: Vector2i):
@@ -69,23 +68,40 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 		11: # slot 2, fusão, Player A
 			pass
 		
-		12: # slot 1, accelr, Player A
+		12: # slot 3, fusão, Player A # slot onde fica o resultado cozido
 			pass
 		
-		13: # slot 2, accelr, Player A
+		13: # slot 1, accelr, Player A
 			pass
 		
-		14: # slot 1, fusão, Player B
+		14: # slot 2, accelr, Player A
 			pass
 		
-		15: # slot 2, fusão, Player B
+		15: # slot 3, accelr, Player A # slot onde fica o resultado cozido
 			pass
 		
-		16: # slot 1, accelr, Player B
+		16: # slot 1, fusão, Player B
 			pass
 		
-		17: # slot 2, accelr, Player B
+		17: # slot 2, fusão, Player B
 			pass
 		
+		18: # slot 3, fusão, Player B # slot onde fica o resultado cozido
+			pass
+		
+		19: #slot 1, accelr, Player B
+			pass
+		
+		20: #slot 2, accelr, Player B
+			pass
+		
+		21: #slot 3, accelr, Player B # slot onde fica o resultado cozido
+			pass
 		_:
 			element.global_position = (SLOT_SIZE * _position) + GRID_OFFSET
+
+
+func attack_element(attacker: Slot, defelnder: Slot):
+	pass
+
+
