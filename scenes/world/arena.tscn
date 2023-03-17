@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=13 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="5_8bvk5"]
 [ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="5_ue3fe"]
 [ext_resource type="Texture2D" uid="uid://cwpil0jtx2tqt" path="res://assets/img/elements/element_moldure3.png" id="6_ycp1w"]
+[ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
 
 [sub_resource type="Shader" id="Shader_h78me"]
 code = "shader_type canvas_item;
@@ -85,6 +86,10 @@ offset_right = 1007.0
 offset_bottom = 390.0
 script = ExtResource("5_ue3fe")
 atomic_number = 9
+
+[node name="VFX_handler" type="Timer" parent="."]
+one_shot = true
+script = ExtResource("9_orbja")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -314,3 +319,4 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
 
 [connection signal="end_game" from="." to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
+[connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]

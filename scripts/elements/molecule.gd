@@ -48,10 +48,10 @@ class Ligament:
 				element_B.links[Vector2i.LEFT ] = null
 #------------------------------------------------------------------------------#
 
-var configuration: Array[Element]
+var configuration: Array[ElementNode]
 
 
-func link_elements(element_a: Element, element_b: Element):
+func link_elements(element_a: ElementNode, element_b: ElementNode):
 	var elements_array := [element_a, element_b]
 	var orientation: LigamentPosition
 	var link: Ligament
@@ -73,8 +73,16 @@ func link_elements(element_a: Element, element_b: Element):
 	link = Ligament.new(elements_array[0], elements_array[1], orientation)
 
 
-func remove_element(element: Element):
+func remove_element(element: ElementNode):
 	configuration.erase(element)
 	
 	for link in element.links:
 		(link as Ligament).remove()
+
+
+func get_eletron_power() -> int:
+	var power: int
+	for element in configuration:
+		power += element.eletrons
+	
+	return power

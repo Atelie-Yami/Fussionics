@@ -150,7 +150,7 @@ const DATA = [
 ## valor de ataque, é variável, ou seja, esse valor pode mudar de acordo com oque acontece durante o jogo.
 var eletrons: int
 
-## isotopo, geralmente o mesmo valor q o numero atomico.
+## isotopo, geralmente o mesmo valor q o numero atomico, determina a vida.
 var neutrons: int
 
 ## Indica quantos links esse elemento pode ter em simultâneo.
@@ -184,6 +184,16 @@ var has_link: bool:
 		return false
 
 
+func reset():
+	if neutrons > atomic_number:
+		neutrons -= 1
+	
+	if neutrons < atomic_number:
+		eletrons = neutrons
+	
+	else:
+		eletrons = atomic_number
+	
 
 
 

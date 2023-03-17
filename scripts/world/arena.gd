@@ -10,14 +10,22 @@ class Slot:
 	var element: Element
 	var molecule: Molecule
 	
-	var can_act: bool
+	var can_act: bool:
+		set(value):
+			can_act = value
+			
+			if not can_act:
+				molecule.configuration.map(func(e): e.active = false)
 	
 	func _init(_e: Element, _p: PlayerController.Players):
 		element = _e; player = _p
+	
 
 
 ## {Vector2i position : Slot slot}
 var elements: Dictionary
+var combat_in_process: bool
+var game_judge := GameJudge.new()
 
 @onready var player_controller: Array[PlayerInputs] = [
 	$PlayerController/player_A_controller as PlayerInputs,
@@ -101,7 +109,34 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 			element.global_position = (SLOT_SIZE * _position) + GRID_OFFSET
 
 
-func attack_element(attacker: Slot, defelnder: Slot):
-	pass
+## Skill depende da molecula, há moleculas q terão, para isso esse valor vai ser esperado
+func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
+	if not elements[attacker].can_act or combat_in_process: return
+	
+	var slot_attacker = elements[attacker]
+	var slot_defender = elements[defender]
+	
+	slot_attacker.can_act = false
+	combat_in_process = true
+	
+	if slot_attacker.molecule:
+		pass
+#		attacker.molecule.get_eletron_power()
+	
+	else:
+		var result: GameJudge.Result = game_judge.combat_check_result(slot_attacker.element, slot_defender.element)
+		
+		match result:
+			GameJudge.Result.WINNER: 
+				remove_element(defender)
+			
+			GameJudge.Result.COUNTERATTACK:
+				remove_element(attacker)
+			
+			GameJudge.Result.DRAW:
+				return
+
+
+
 
 
