@@ -1,13 +1,9 @@
-class_name PlayerInputs extends Node
+class_name PlayerInputs extends Control
 
 
 var elements: Array[ElementNode]
 
-@onready var arena = $"../.."
-
-
-func _ready():
-	elements.append(get_child(0))
+@onready var arena = $"../../arena"
 
 
 func _input(event):
@@ -22,9 +18,7 @@ func _input(event):
 
 
 func set_my_turn(active: bool):
+#	if not elements.is_empty():
 	elements.map(func(e): e.active = active)
-
-
-
 
 

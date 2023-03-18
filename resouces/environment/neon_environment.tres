@@ -7,7 +7,6 @@ ambient_light_source = 1
 reflected_light_source = 1
 tonemap_mode = 2
 tonemap_white = 8.0
-glow_enabled = true
 glow_levels/1 = 0.5
 glow_levels/2 = 0.5
 glow_levels/3 = 2.0

@@ -1,45 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=11 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="Script" path="res://scripts/world/element_effect_processor.gd" id="3_gm0uf"]
+[ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
-[ext_resource type="Script" path="res://scripts/world/player_inputs.gd" id="5_5g8bu"]
-[ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="5_8bvk5"]
-[ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="5_ue3fe"]
-[ext_resource type="Texture2D" uid="uid://cwpil0jtx2tqt" path="res://assets/img/elements/element_moldure3.png" id="6_ycp1w"]
+[ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
+[ext_resource type="Material" uid="uid://b4ul30pnk81e2" path="res://resouces/material/element.material" id="6_utwfm"]
+[ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="7_i1tmj"]
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
 
-[sub_resource type="Shader" id="Shader_h78me"]
-code = "shader_type canvas_item;
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mr8q5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-uniform sampler2D legancy: repeat_enable;
-uniform sampler2D border;
-uniform vec4 color: source_color;
-
-
-void fragment() {
-	float d = distance(UV, vec2(0.5)) * 2.0;
-	float center_desfoque = clamp(pow(d, 6.0), 0.0, 1.0);
-	
-	vec4 _legancy = texture(legancy, UV + vec2(TIME * 0.05));
-	vec4 _border = texture(border, UV);
-	vec4 base_color = _legancy * _legancy.a * center_desfoque * (1.0 - pow(_border.a * 1.1, 0.5));
-	base_color.rgb *= color.rgb;
-	COLOR += clamp(base_color, vec4(0.0), vec4(1.0));
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qb2yk"]
-shader = SubResource("Shader_h78me")
-shader_parameter/color = Color(0, 0, 0, 0)
-shader_parameter/legancy = ExtResource("6_ycp1w")
-shader_parameter/border = ExtResource("5_8bvk5")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hx81u"]
-bg_color = Color(0.6, 0.6, 0.6, 0.117647)
-
-[node name="arena" type="Node2D"]
-script = ExtResource("1_8citt")
+[node name="world" type="CanvasLayer"]
 
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -57,266 +31,554 @@ time = 1
 script = ExtResource("3_gm0uf")
 time = 10
 
+[node name="arena" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(605, 320)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.0
+offset_top = -220.0
+offset_right = 355.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8citt")
+metadata/_edit_lock_ = true
+
+[node name="GridContainer" type="Control" parent="arena"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Slot_1" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_2" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_right = 170.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_3" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_right = 260.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_4" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_right = 350.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_5" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_right = 440.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_6" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_right = 530.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_7" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_right = 620.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_8" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_right = 710.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_9" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_10" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 90.0
+offset_right = 170.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_11" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 90.0
+offset_right = 260.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_12" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 90.0
+offset_right = 350.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_13" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 90.0
+offset_right = 440.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_14" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 90.0
+offset_right = 530.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_15" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 90.0
+offset_right = 620.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_16" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 90.0
+offset_right = 710.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_17" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 180.0
+offset_right = 80.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_18" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 180.0
+offset_right = 170.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_19" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 180.0
+offset_right = 260.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_20" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 180.0
+offset_right = 350.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_21" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 180.0
+offset_right = 440.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_22" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 180.0
+offset_right = 530.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_23" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 180.0
+offset_right = 620.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_24" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 180.0
+offset_right = 710.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_25" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 270.0
+offset_right = 80.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_26" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 270.0
+offset_right = 170.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_27" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 270.0
+offset_right = 260.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_28" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 270.0
+offset_right = 350.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_29" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 270.0
+offset_right = 440.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_30" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 270.0
+offset_right = 530.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_31" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 270.0
+offset_right = 620.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_32" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 270.0
+offset_right = 710.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_33" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 360.0
+offset_right = 80.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_34" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 360.0
+offset_right = 170.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_35" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 360.0
+offset_right = 260.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_36" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 360.0
+offset_right = 350.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_37" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 360.0
+offset_right = 440.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_38" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 360.0
+offset_right = 530.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_39" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 360.0
+offset_right = 620.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_40" type="Panel" parent="arena/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 360.0
+offset_right = 710.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("4_wfl3f")
-
-[node name="player_A_controller" type="Node" parent="PlayerController"]
-script = ExtResource("5_5g8bu")
-
-[node name="ElementNode" type="Control" parent="PlayerController/player_A_controller"]
-material = SubResource("ShaderMaterial_qb2yk")
-layout_mode = 3
-anchors_preset = 0
-offset_left = 176.0
-offset_top = 287.0
-offset_right = 256.0
-offset_bottom = 367.0
-script = ExtResource("5_ue3fe")
-
-[node name="player_B_controller" type="Node" parent="PlayerController"]
-script = ExtResource("5_5g8bu")
-
-[node name="ElementNode" type="Control" parent="PlayerController/player_B_controller"]
-material = SubResource("ShaderMaterial_qb2yk")
-layout_mode = 3
-anchors_preset = 0
-offset_left = 927.0
-offset_top = 310.0
-offset_right = 1007.0
-offset_bottom = 390.0
-script = ExtResource("5_ue3fe")
-atomic_number = 9
 
 [node name="VFX_handler" type="Timer" parent="."]
 one_shot = true
 script = ExtResource("9_orbja")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ElementNode" type="Panel" parent="."]
+material = ExtResource("6_utwfm")
+offset_left = 882.0
+offset_top = 118.0
+offset_right = 962.0
+offset_bottom = 198.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mr8q5")
+script = ExtResource("7_i1tmj")
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 8
-
-[node name="Panel" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel2" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel3" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel4" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel5" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel6" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel7" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel8" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel9" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel10" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel11" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel12" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel13" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel14" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel15" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel16" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel17" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel18" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel19" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel20" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel21" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel22" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel23" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel24" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel25" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel26" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel27" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel28" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel29" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel30" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel31" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel32" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel33" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel34" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel35" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel36" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel37" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel38" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel39" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[node name="Panel40" type="Panel" parent="CanvasLayer/CenterContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hx81u")
-
-[connection signal="end_game" from="." to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
+[connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]

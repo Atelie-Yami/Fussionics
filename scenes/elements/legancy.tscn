@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb1pucoykxv3t"]
+
+[ext_resource type="Material" uid="uid://b4ul30pnk81e2" path="res://resouces/material/element.material" id="1_a33ej"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nq8mw"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="GDScript" id="GDScript_lmd5p"]
+script/source = "extends Panel
+
+var fade: float
+var tween: Tween
+
+
+func _process(delta):
+	(material as ShaderMaterial).set_shader_parameter(\"fade\", fade)
+
+
+func set_fade(value: float):
+	if tween and tween.is_valid():
+		tween.kill()
+	
+	tween = create_tween()
+	
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, \"fade\", value, 0.3);
+"
+
+[node name="legancy" type="Panel"]
+material = ExtResource("1_a33ej")
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nq8mw")
+script = SubResource("GDScript_lmd5p")

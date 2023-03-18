@@ -4,6 +4,7 @@ var element_focus := Sprite2D.new()
 var time: float = 0.0
 var selected_element: ElementNode:
 	set(value):
+		if selected_element: selected_element.selected = false
 		selected_element = value
 		
 		if selected_element:

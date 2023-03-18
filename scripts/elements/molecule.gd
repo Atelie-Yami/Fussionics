@@ -81,7 +81,7 @@ func remove_element(element: ElementNode):
 
 
 func get_eletron_power() -> int:
-	var power: int
+	var power := 0
 	for element in configuration:
 		power += element.eletrons
 	

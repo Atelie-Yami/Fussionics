@@ -1,4 +1,4 @@
-class_name Arena extends Node2D
+class_name Arena extends Control
 
 signal end_game(winner: int)
 
@@ -27,22 +27,30 @@ var elements: Dictionary
 var combat_in_process: bool
 var game_judge := GameJudge.new()
 
-@onready var player_controller: Array[PlayerInputs] = [
-	$PlayerController/player_A_controller as PlayerInputs,
-	$PlayerController/player_B_controller as PlayerInputs
-]
+
+@onready var player_controller: PlayerController = $"../PlayerController"
+@onready var grid_container = $GridContainer
+
+
+func _ready():
+	await  get_tree().create_timer(0.5).timeout
+	
+	for c in grid_container.get_children():
+		await  get_tree().create_timer(0.03).timeout
+		c.a()
 
 
 func check_slot_empty(slot: Vector2i): return not elements.has(slot)
 
 
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
-	if not check_slot_empty(final_slot) or  elements[pre_slot].element.has_link: return
+	if not check_slot_empty(final_slot) or elements[pre_slot].element.has_link: return
 	
 	var slot = elements[pre_slot]
 	elements.erase(pre_slot)
 	elements[final_slot] = slot
 	
+	slot.element.grid_position = final_slot
 	slot.element.global_position = (SLOT_SIZE * final_slot) + GRID_OFFSET
 
 
@@ -61,13 +69,13 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 	var element = ElementNode.new()
 	var slot = Slot.new(element, player)
 	
+	element.grid_position = _position
 	element.atomic_number = atomic_number
-	Gameplay.selected_element = element
-	
 	elements[_position] = slot
 	
-	player_controller[player].add_child(element)
-	player_controller[player].elements.append(element)
+	Gameplay.selected_element = element
+	player_controller.add_child(element)
+	player_controller.current_players[player].elements.append(element)
 	
 	match _position.y:
 		10: # slot 1, fusão, Player A
@@ -137,6 +145,12 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 				return
 
 
+func _can_drop_data(_p, data):
+	return data is ElementNode
 
+
+func _drop_data(_p, data):
+	var final_position: Vector2i = Vector2i(get_global_mouse_position() - Vector2(GRID_OFFSET)) / SLOT_SIZE
+	move_element((data as ElementNode).grid_position, final_position)
 
 
