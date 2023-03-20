@@ -31,14 +31,17 @@ func _login_error_verific():
 func verify_provenance():
 	Enter_Button.disabled = true
 	main.error_text.text = "Falta caracteres para o nome."
-	if username.text.length() >= main.needed_char.username:
-		main.error_text.text = "Falta caracteres para a senha."
-		if password.text.length() >= main.needed_char.password:
-			main.error_text.text = "A confirmação e a senha estão incorretas."
-			if password_Confirmed.text == password.text:
-				password_Confirmed.self_modulate = Color(1,1,1)
-				Enter_Button.disabled = false
-				main.error_text.text = "Correto."
+	if username.text.length() >= main.needed_char.username: 
+		main.error_text.text = "Alcançou o limite de caracteres."
+		if username.text.length() <= main.needed_char.max_username:
+			main.error_text.text = "Falta caracteres para a senha."
+			if password.text.length() >= main.needed_char.password:
+				main.error_text.text = "A confirmação e a senha estão incorretas."
+				if password_Confirmed.text == password.text:
+					password_Confirmed.self_modulate = Color(1,1,1)
+					Enter_Button.disabled = false
+					main.error_text.text = "Correto."
+
 
 #O botao de confirmar do registro
 func _enter_button_pressed():
