@@ -2,38 +2,45 @@ extends VBoxContainer
 
 @onready var main : Control = $"../../.."
 
-@onready var Email : LineEdit = $email_pass/Email
-@onready var Email_Confirmed : LineEdit = $email_pass/Email_Confirmed
-@onready var Password : LineEdit = $email_pass/Password
-@onready var Password_Confirmed : LineEdit = $email_pass/Password_Confirmed
-@onready var Password_View : TextureButton = $email_pass/Password_Confirmed/view
+@onready var username : LineEdit = $email_pass/Username
+@onready var password : LineEdit = $email_pass/Password
+@onready var password_Confirmed : LineEdit = $email_pass/Password_Confirmed
+@onready var password_View : TextureButton = $email_pass/Password_Confirmed/view
 @onready var Enter_Button : Button = $enter_button
 
 #Visualizar a senha.
 func _view_pressed() -> void:
-	Password_Confirmed.secret = !Password_Confirmed.secret
-	Password_View.texture_normal = load(main.view_tex[int(Password_Confirmed.secret)])
+	password_Confirmed.secret = !password_Confirmed.secret
+	password_View.texture_normal = load(main.view_tex[int(password_Confirmed.secret)])
 
-#Verifica e avisa o que tem de errado nos caracteres do email.
-func _email_text_changed(new_text):
-	main.erro(Email,main.needed_char.email)
+func _username_text_changed(new_text):
+	main.erro(username,main.needed_char.username)
+	_login_error_verific()
 func _password_text_changed(new_text):
-	main.erro(Password,main.needed_char.password)
+	main.erro(password,main.needed_char.password)
+	_login_error_verific()
 func _password_confirmed_text_changed(new_text):
-	main.verific_confirmed(Password,Password_Confirmed)
-func _email_confirmed_text_changed(new_text):
-	main.verific_confirmed(Email,Email_Confirmed)
+	main.verific_confirmed(password,password_Confirmed)
 
 
-#Verifica se existe caracteres o suficiente para prosseguir.
 func _login_error_verific():
-	Enter_Button.disabled = !(Email.text.length() > 13 and Password.text.length() > 6)
-	if Email_Confirmed.text == Email.text:
-		Email_Confirmed.self_modulate = Color(1,1,1)
-	if Password_Confirmed.text == Password.text:
-		Password_Confirmed.self_modulate = Color(1,1,1)
+	if visible == true:
+		verify_provenance()
 
+#verifica todas as procedencias
+func verify_provenance():
+	Enter_Button.disabled = true
+	main.error_text.text = "Falta caracteres para o nome."
+	if username.text.length() >= main.needed_char.username:
+		main.error_text.text = "Falta caracteres para a senha."
+		if password.text.length() >= main.needed_char.password:
+			main.error_text.text = "A confirmação e a senha estão incorretas."
+			if password_Confirmed.text == password.text:
+				password_Confirmed.self_modulate = Color(1,1,1)
+				Enter_Button.disabled = false
+				main.error_text.text = "Correto."
 
-
+#O botao de confirmar do registro
 func _enter_button_pressed():
-	print("SE REGISTROU!")
+	main.game_register(username.text,password.text)
+	main.emit_signal("register_confirm")
