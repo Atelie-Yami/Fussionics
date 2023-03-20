@@ -4,6 +4,8 @@ const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
 const MOLDURE_1 := preload("res://assets/img/elements/element_moldure.png")
 const LEGANCY := preload("res://scenes/elements/legancy.tscn")
 
+const FONT_SIZE := 48.0
+
 enum State {
 	NORMAL, BIND_LINK, REMOVE_LINK, ATTACKING, DEFENDING, MOTION, COOKING
 }
@@ -52,14 +54,15 @@ func _draw():
 		symbol_color = Color(gray, gray, gray)
 	
 	# escrever simbolo centralizado
-	var string_size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, 60) / 2
+	var string_size = FUTURE_SALLOW.get_string_size(DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, FONT_SIZE) / 2
 	draw_string(
-		FUTURE_SALLOW, Vector2(41 - string_size.x, 59) + position_offset, DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
-		-1, 60, symbol_color
+		FUTURE_SALLOW, Vector2(41 - string_size.x, ((string_size.y + 7) / 2) + 40) + position_offset, DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
+		-1, FONT_SIZE, symbol_color
 	)
 	
 	# dar uma corzinha pra tudo
 	modulate = (Color.WHITE * 0.6) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.4)
+	modulate.a = 1.0
 
 
 func set_current_node_state(state: NodeState):
