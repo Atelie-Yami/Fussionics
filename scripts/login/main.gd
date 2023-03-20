@@ -31,7 +31,7 @@ func game_login(username : String, password : String) -> void:
 	var error = manager.make_auth(username, password)
 	
 	var response = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
-		print(response_code, body)
+		print(response_code)
 		manager.queue_free()
 		if response_code == 200:
 			Gameplay.token = body.data.token
