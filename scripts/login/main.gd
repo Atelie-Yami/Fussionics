@@ -24,28 +24,39 @@ var needed_char = {
 	username = 4
 }
 
-#Body da conta
-var body :Dictionary = {
-	verific_username = "bielas",
-	verific_password = "helloworld"
-}
-
 #Verificação de email e senha após apertar enter (Login)
-func game_login(username : String,password : String) -> void: 
-	if username == body.verific_username and password == body.verific_password:
-		login_panel.hide()
-		enter_panel.show()
-	else:
-		warning.popup()
+func game_login(username : String, password : String) -> void: 
+	var manager = ServerManager.new()
+	add_child(manager)
+	var error = manager.make_auth(username, password)
+	
+	var response = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
+		print(response_code)
+		manager.queue_free()
+		if response_code == 200:
+			Gameplay.token = body.data.token
+			login_panel.hide()
+			enter_panel.show()
+		else:
+			warning.popup()
+	
+	manager.data_recieved.connect(response)
+	
 
 #Verificação de email e senha após apertar enter (Registro)
-func game_register(username : String,password : String) -> void: 
-	body.verific_username = username
-	body.verific_password = password
+func game_register(username : String, password : String) -> void: 
+	var manager = ServerManager.new()
+	add_child(manager)
+	var error = manager.make_register(username, password)
 	
-	login_panel.show()
-	register_panel.hide()
+	var response = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
+		print(response_code, body)
+		manager.queue_free()
+		if response_code == 200:
+			login_panel.show()
+			register_panel.hide()
 
+	manager.data_recieved.connect(response)
 
 #Erros sobre as informações.
 func erro(line : LineEdit,lenght : int) -> void:
