@@ -81,13 +81,14 @@ func _gui_input(event: InputEvent):
 	if event.is_action("mouse_click") and event.is_pressed():
 		if active:
 			set_current_node_state(NodeState.SELECTED)
+	
 
 
 func _get_drag_data(_p):
 	if not active or self.has_link: return null
 	var e = get_preview_control()
 	Gameplay.element_drag_preview.add_child(e)
-	e.position = Vector2(-40, -60)
+	e.position = Vector2(-40, -40)
 	return self
 
 

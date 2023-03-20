@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ttuiuitb4jh2"]
+[gd_scene load_steps=11 format=3 uid="uid://ttuiuitb4jh2"]
 
 [ext_resource type="Script" path="res://scripts/login/main.gd" id="1_7oops"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="2_4043c"]
@@ -8,17 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bfgrfgvg6syhs" path="res://assets/img/buttons/login/about/about_person.png" id="6_lb1o5"]
 [ext_resource type="Script" path="res://scripts/login/register.gd" id="7_4xo1u"]
 [ext_resource type="Texture2D" uid="uid://dgn5oejmhyxtq" path="res://assets/img/buttons/login/about/about_love.png" id="7_ljkhp"]
-[ext_resource type="Script" path="res://scripts/login/p_layer.gd" id="8_4cw0n"]
 [ext_resource type="Texture2D" uid="uid://cnlgx13hc51ok" path="res://assets/img/buttons/login/padlock/lock.png" id="8_wohie"]
-[ext_resource type="Texture2D" uid="uid://duf474wuoa06p" path="res://assets/img/background/space_0/Background.png" id="9_nr44u"]
-[ext_resource type="Texture2D" uid="uid://dt71lqif5kja0" path="res://assets/img/background/space_0/cloud/Cloud_0.png" id="10_8vf5v"]
-[ext_resource type="Texture2D" uid="uid://beg80ecls0goj" path="res://assets/img/background/space_0/cloud/Cloud_1.png" id="11_lr5jb"]
-[ext_resource type="Texture2D" uid="uid://b5bh75qh7gpna" path="res://assets/img/background/space_0/cloud/Cloud_2.png" id="12_jpj5m"]
-[ext_resource type="Texture2D" uid="uid://d3pqejv02kd4q" path="res://assets/img/background/space_0/cloud/Cloud_3.png" id="13_6wfj3"]
-[ext_resource type="Texture2D" uid="uid://dojtp8e27ybrv" path="res://assets/img/background/space_0/cloud/Cloud_4.png" id="14_g0x3x"]
-[ext_resource type="Texture2D" uid="uid://di5wqs11kdpj4" path="res://assets/img/background/space_0/cloud/Cloud_5.png" id="15_32jf7"]
-[ext_resource type="Texture2D" uid="uid://dph8eko7xuis0" path="res://assets/img/background/space_0/stars/Star_1.png" id="16_sbliv"]
-[ext_resource type="Texture2D" uid="uid://i1oqr2ajs6pc" path="res://assets/img/background/space_0/stars/Star_0.png" id="17_u7h0i"]
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="10_6503g"]
 
 [node name="Login" type="Control"]
 layout_mode = 3
@@ -270,90 +261,7 @@ texture_normal = ExtResource("6_lb1o5")
 layout_mode = 2
 texture_normal = ExtResource("7_ljkhp")
 
-[node name="Background" type="CanvasLayer" parent="."]
-
-[node name="parallax" type="ParallaxBackground" parent="Background"]
-
-[node name="p_layer_background" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 18.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer_background"]
-texture = ExtResource("9_nr44u")
-centered = false
-
-[node name="p_layer" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 10.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer"]
-texture = ExtResource("10_8vf5v")
-centered = false
-
-[node name="p_layer2" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 12.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer2"]
-texture = ExtResource("11_lr5jb")
-centered = false
-
-[node name="p_layer3" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 14.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer3"]
-texture = ExtResource("12_jpj5m")
-centered = false
-
-[node name="p_layer4" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 14.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer4"]
-texture = ExtResource("13_6wfj3")
-centered = false
-
-[node name="p_layer5" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 16.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer5"]
-texture = ExtResource("14_g0x3x")
-centered = false
-
-[node name="p_layer6" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 18.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer6"]
-texture = ExtResource("15_32jf7")
-centered = false
-
-[node name="p_layer_star" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 20.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer_star"]
-texture = ExtResource("16_sbliv")
-centered = false
-
-[node name="p_layer_star2" type="ParallaxLayer" parent="Background/parallax"]
-motion_mirroring = Vector2(0, 1080)
-script = ExtResource("8_4cw0n")
-speed = 15.0
-
-[node name="image" type="Sprite2D" parent="Background/parallax/p_layer_star2"]
-texture = ExtResource("17_u7h0i")
-centered = false
+[node name="background_2" parent="." instance=ExtResource("10_6503g")]
 
 [connection signal="error_verific" from="." to="login_painel/lines_box/login" method="_login_error_verific"]
 [connection signal="error_verific" from="." to="login_painel/lines_box/register" method="_login_error_verific"]

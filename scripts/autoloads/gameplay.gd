@@ -53,3 +53,14 @@ func _notification(what: int):
 	if what == NOTIFICATION_DRAG_END:
 		element_drag_preview.visible = false
 		for c in element_drag_preview.get_children(): c.queue_free()
+
+
+#func pra_depois():
+#	var angle = 180
+#	var dd = angle / get_child_count()
+#	var d = dd * (get_child_count() / 2)
+#
+#	for i in get_child_count():
+#		var rad = deg_to_rad((dd * i) - (angle - (dd / 2)))
+#		var polar = Vector2(cos(rad), sin(rad))
+#		get_child(i).position = polar * 100

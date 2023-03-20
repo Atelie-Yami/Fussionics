@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=10 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
 [ext_resource type="Script" path="res://scripts/world/element_effect_processor.gd" id="3_gm0uf"]
 [ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
@@ -10,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
 
 [node name="world" type="Node2D"]
+
+[node name="background_2" parent="." instance=ExtResource("1_ylyog")]
 
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -570,6 +573,7 @@ position = Vector2(960, 0)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 script = ExtResource("10_6paj4")
+background_path = NodePath("../background_2")
 
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
 [connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]

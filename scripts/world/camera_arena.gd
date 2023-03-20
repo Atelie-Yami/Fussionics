@@ -6,6 +6,9 @@ const MAX_ZOOM := 1.6
 
 @export var turbulence_force := 1.0
 
+@export_node_path("CanvasLayer") var background_path: NodePath
+@onready var background: CanvasLayer = get_node(background_path)
+
 var time := 0.0
 var extra_zoom := 1.0
 var turbulence: Vector2
@@ -21,7 +24,7 @@ func _physics_process(delta):
 		time -= delta
 		
 		turbulence_target_1 = turbulence_target_1.lerp(turbulence_target_0, 0.06)
-		turbulence          = turbulence.         lerp(turbulence_target_1, 0.02)
+		turbulence = turbulence.lerp(turbulence_target_1, 0.02)
 	
 	if Gameplay.selected_element:
 		if is_instance_valid(Gameplay.selected_element):
@@ -30,6 +33,8 @@ func _physics_process(delta):
 	else:
 		global_position = POSITION_CENTER + turbulence
 		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom), 0.1)
+	
+	background.position_offset = (global_position - POSITION_CENTER) / 4.0
 
 
 func _unhandled_input(event):
