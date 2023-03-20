@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ttuiuitb4jh2"]
+[gd_scene load_steps=12 format=3 uid="uid://ttuiuitb4jh2"]
 
 [ext_resource type="Script" path="res://scripts/login/main.gd" id="1_7oops"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="2_4043c"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bfgrfgvg6syhs" path="res://assets/img/buttons/login/about/about_person.png" id="6_lb1o5"]
 [ext_resource type="Script" path="res://scripts/login/register.gd" id="7_4xo1u"]
 [ext_resource type="Texture2D" uid="uid://dgn5oejmhyxtq" path="res://assets/img/buttons/login/about/about_love.png" id="7_ljkhp"]
+[ext_resource type="Script" path="res://scripts/login/enter_direction.gd" id="8_tmxcd"]
 [ext_resource type="Texture2D" uid="uid://cnlgx13hc51ok" path="res://assets/img/buttons/login/padlock/lock.png" id="8_wohie"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="10_6503g"]
 
@@ -59,11 +60,27 @@ theme_override_font_sizes/font_size = 52
 text = "FUSSIONICS"
 horizontal_alignment = 1
 
-[node name="sep_up" type="HSeparator" parent="login_painel/lines_box"]
+[node name="sep_up" type="Control" parent="login_painel/lines_box"]
+custom_minimum_size = Vector2(0, 24.887)
 layout_mode = 2
-theme_override_constants/separation = 45
+
+[node name="error" type="Label" parent="login_painel/lines_box/sep_up"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+
+[node name="warning" type="AcceptDialog" parent="login_painel/lines_box/sep_up"]
+title = "ATENÇÃO"
+position = Vector2i(835, 470)
+size = Vector2i(257, 100)
+dialog_text = "EMAIL OU SENHA INCORRETAS!"
 
 [node name="login" type="VBoxContainer" parent="login_painel/lines_box"]
+visible = false
 layout_mode = 2
 script = ExtResource("4_cmscb")
 
@@ -72,11 +89,11 @@ layout_mode = 2
 theme_override_constants/separation = 11
 alignment = 1
 
-[node name="Email" type="LineEdit" parent="login_painel/lines_box/login/email_pass"]
+[node name="Username" type="LineEdit" parent="login_painel/lines_box/login/email_pass"]
 layout_mode = 2
-tooltip_text = "e-mail"
+tooltip_text = "username"
 theme_override_font_sizes/font_size = 24
-placeholder_text = "E-MAIL"
+placeholder_text = "USERNAME"
 virtual_keyboard_type = 5
 
 [node name="Password" type="LineEdit" parent="login_painel/lines_box/login/email_pass"]
@@ -92,10 +109,10 @@ self_modulate = Color(0.431373, 0.431373, 0.431373, 1)
 texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.902598
-anchor_top = -0.464286
-anchor_right = 0.991884
-anchor_bottom = 1.10714
+anchor_left = 0.904222
+anchor_top = -0.166667
+anchor_right = 0.993508
+anchor_bottom = 0.928571
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -147,18 +164,11 @@ layout_mode = 2
 theme_override_constants/separation = 11
 alignment = 1
 
-[node name="Email" type="LineEdit" parent="login_painel/lines_box/register/email_pass"]
+[node name="Username" type="LineEdit" parent="login_painel/lines_box/register/email_pass"]
 layout_mode = 2
-tooltip_text = "e-mail"
+tooltip_text = "username"
 theme_override_font_sizes/font_size = 24
-placeholder_text = "E-MAIL"
-virtual_keyboard_type = 5
-
-[node name="Email_Confirmed" type="LineEdit" parent="login_painel/lines_box/register/email_pass"]
-layout_mode = 2
-tooltip_text = "e-mail"
-theme_override_font_sizes/font_size = 24
-placeholder_text = "CONFIRM E-MAIL"
+placeholder_text = "USERNAME"
 virtual_keyboard_type = 5
 
 [node name="sep_up" type="HSeparator" parent="login_painel/lines_box/register/email_pass"]
@@ -223,6 +233,7 @@ icon = ExtResource("5_ribs8")
 [node name="enter_direction" type="VBoxContainer" parent="login_painel/lines_box"]
 visible = false
 layout_mode = 2
+script = ExtResource("8_tmxcd")
 
 [node name="enter" type="Button" parent="login_painel/lines_box/enter_direction"]
 layout_mode = 2
@@ -264,16 +275,14 @@ texture_normal = ExtResource("7_ljkhp")
 
 [connection signal="error_verific" from="." to="login_painel/lines_box/login" method="_login_error_verific"]
 [connection signal="error_verific" from="." to="login_painel/lines_box/register" method="_login_error_verific"]
-[connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Email" to="." method="_email_text_changed"]
-[connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Email" to="login_painel/lines_box/login" method="_email_text_changed"]
-[connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Password" to="." method="_password_text_changed"]
+[connection signal="confirmed" from="login_painel/lines_box/sep_up/warning" to="." method="_warning_confirmed"]
+[connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Username" to="login_painel/lines_box/login" method="_username_text_changed"]
 [connection signal="text_changed" from="login_painel/lines_box/login/email_pass/Password" to="login_painel/lines_box/login" method="_password_text_changed"]
 [connection signal="pressed" from="login_painel/lines_box/login/email_pass/Password/view" to="login_painel/lines_box/login" method="_view_pressed"]
 [connection signal="pressed" from="login_painel/lines_box/login/enter_button" to="login_painel/lines_box/login" method="_enter_button_pressed"]
-[connection signal="text_changed" from="login_painel/lines_box/register/email_pass/Email" to="login_painel/lines_box/register" method="_email_text_changed"]
-[connection signal="text_changed" from="login_painel/lines_box/register/email_pass/Email_Confirmed" to="login_painel/lines_box/register" method="_email_confirmed_text_changed"]
+[connection signal="text_changed" from="login_painel/lines_box/register/email_pass/Username" to="login_painel/lines_box/register" method="_username_text_changed"]
 [connection signal="text_changed" from="login_painel/lines_box/register/email_pass/Password" to="login_painel/lines_box/register" method="_password_text_changed"]
 [connection signal="text_changed" from="login_painel/lines_box/register/email_pass/Password_Confirmed" to="login_painel/lines_box/register" method="_password_confirmed_text_changed"]
 [connection signal="pressed" from="login_painel/lines_box/register/email_pass/Password_Confirmed/view" to="login_painel/lines_box/register" method="_view_pressed"]
 [connection signal="pressed" from="login_painel/lines_box/register/enter_button" to="login_painel/lines_box/register" method="_enter_button_pressed"]
-[connection signal="pressed" from="login_painel/lines_box/enter_direction/enter" to="." method="_enter_pressed"]
+[connection signal="pressed" from="login_painel/lines_box/enter_direction/enter" to="login_painel/lines_box/enter_direction" method="_enter_pressed"]
