@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=9 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -6,14 +6,10 @@
 [ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
 [ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
-[ext_resource type="Material" uid="uid://b4ul30pnk81e2" path="res://resouces/material/element.material" id="6_utwfm"]
-[ext_resource type="Script" path="res://scripts/elements/element_node.gd" id="7_i1tmj"]
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
+[ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mr8q5"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[node name="world" type="CanvasLayer"]
+[node name="world" type="Node2D"]
 
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -38,14 +34,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -355.0
-offset_top = -220.0
-offset_right = 355.0
-offset_bottom = 220.0
+offset_left = 605.0
+offset_top = 320.0
+offset_right = 1315.0
+offset_bottom = 760.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8citt")
-metadata/_edit_lock_ = true
 
 [node name="GridContainer" type="Control" parent="arena"]
 layout_mode = 1
@@ -570,14 +565,11 @@ script = ExtResource("4_wfl3f")
 one_shot = true
 script = ExtResource("9_orbja")
 
-[node name="ElementNode" type="Panel" parent="."]
-material = ExtResource("6_utwfm")
-offset_left = 882.0
-offset_top = 118.0
-offset_right = 962.0
-offset_bottom = 198.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_mr8q5")
-script = ExtResource("7_i1tmj")
+[node name="CameraArena" type="Camera2D" parent="."]
+position = Vector2(960, 0)
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+script = ExtResource("10_6paj4")
 
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
 [connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]

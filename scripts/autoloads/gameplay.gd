@@ -1,7 +1,12 @@
 extends Node
 
-var element_focus := Sprite2D.new()
+
+
 var time: float = 0.0
+
+var canvas := CanvasLayer.new()
+var element_drag_preview := Node2D.new()
+var element_focus := Sprite2D.new()
 var selected_element: ElementNode:
 	set(value):
 		if selected_element: selected_element.selected = false
@@ -19,6 +24,9 @@ func _ready():
 	add_child(element_focus)
 	element_focus.visible = false
 	element_focus.texture = preload("res://assets/img/elements/element_moldure4.png")
+	
+	add_child(canvas)
+	add_child(element_drag_preview)
 
 
 func _process(delta):
@@ -28,8 +36,20 @@ func _process(delta):
 		time += delta
 		var scale = abs(cos(time * 4.0)) * 0.1
 		element_focus.scale = Vector2(1.0 + scale, 1.0 + scale)
+	
+	if element_drag_preview.visible:
+		element_drag_preview.position = element_drag_preview.get_global_mouse_position()
 
 
 func _unhandled_input(event):
 	if event.is_action("mouse_click") and event.is_pressed():
 		self.selected_element = null
+
+
+func _notification(what: int):
+	if what == NOTIFICATION_DRAG_BEGIN:
+		element_drag_preview.visible = true
+	
+	if what == NOTIFICATION_DRAG_END:
+		element_drag_preview.visible = false
+		for c in element_drag_preview.get_children(): c.queue_free()

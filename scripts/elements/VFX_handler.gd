@@ -1,7 +1,7 @@
 extends Timer
 
 enum SkillName {
-	LASER, BULLET, ORB
+	LASER, BULLET, ORB, LIGHTNING
 }
 
 

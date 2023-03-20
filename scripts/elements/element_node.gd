@@ -41,11 +41,11 @@ func _process(delta):
 
 func _draw():
 	# desenhar o retangulo
-	var alpha: float = 0.2
-	if current_node_state == NodeState.HOVER or selected: alpha = 0.6
+	var alpha: float = 0.4
+	if current_node_state == NodeState.HOVER or current_node_state == NodeState.SELECTED: alpha = 0.6
 	alpha += 0.2 if active else 0.0
 	
-	draw_texture_rect(MOLDURE_1, Rect2(position_offset.x, position_offset.y, 80, 80), false, Color.WHITE * alpha)
+	draw_texture_rect(MOLDURE_1, Rect2(0, 0, 80, 80), false, Color.WHITE * alpha)
 	
 	# obter a cor
 	var symbol_color: Color = COLOR_SERIES[DATA[atomic_number][SERIE]]
@@ -85,16 +85,16 @@ func _gui_input(event: InputEvent):
 
 func _get_drag_data(_p):
 	if not active or self.has_link: return null
-	
-	set_drag_preview(_get_preview_control())
+	var e = get_preview_control()
+	Gameplay.element_drag_preview.add_child(e)
+	e.position = Vector2(-40, -60)
 	return self
 
 
-func _get_preview_control()->Control:
+func get_preview_control()->Control:
 	var preview: ElementNode = duplicate()
-	preview.scale *= 0.75
 	preview.modulate.a = 0.66
-	preview.position_offset = Vector2(-40, -60)
+	preview.scale *= 0.75
 	return preview
 
 

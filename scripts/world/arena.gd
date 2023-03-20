@@ -33,11 +33,11 @@ var game_judge := GameJudge.new()
 
 
 func _ready():
-	await  get_tree().create_timer(0.5).timeout
+	await  get_tree().create_timer(0.1).timeout
 	
 	for c in grid_container.get_children():
 		await  get_tree().create_timer(0.03).timeout
-		c.a()
+		c.animation()
 
 
 func check_slot_empty(slot: Vector2i): return not elements.has(slot)
