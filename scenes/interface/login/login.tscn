@@ -139,7 +139,6 @@ uri = "https://www.youtube.com/shorts/VEllu-4Vq3E"
 structured_text_bidi_override = 1
 
 [node name="register" type="VBoxContainer" parent="login_painel/lines_box"]
-visible = false
 layout_mode = 2
 script = ExtResource("7_4xo1u")
 

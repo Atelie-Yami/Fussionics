@@ -36,4 +36,13 @@ func _login_error_verific():
 
 
 func _enter_button_pressed():
-	print("SE REGISTROU!")
+	var manager = ServerManager.new()
+	add_child(manager)
+	var error = manager.make_register(Email.text, Email.text, Password.text)
+	
+	var response = func(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+		print(response_code)
+		manager.queue_free()
+
+	manager.request_completed.connect(response)
+ 

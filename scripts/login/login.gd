@@ -26,4 +26,5 @@ func _login_error_verific():
 
 #Após apertar o botão para prosseguir.
 func _enter_button_pressed():
-	print("SE LOGOU!")
+	pass
+#	ServerManager.make_auth(Email.text, Password.text)
