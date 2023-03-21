@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=12 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
 [ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
+[ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
+[ext_resource type="PackedScene" uid="uid://cx22mwdgj1oja" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 
 [node name="world" type="Node2D"]
 
@@ -574,6 +576,24 @@ position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 script = ExtResource("10_6paj4")
 background_path = NodePath("../background_2")
+
+[node name="actions" type="Node2D" parent="."]
+script = ExtResource("10_6e11s")
+
+[node name="element_action" parent="actions" instance=ExtResource("10_jw2y0")]
+text = "A"
+
+[node name="element_action2" parent="actions" instance=ExtResource("10_jw2y0")]
+text = "L"
+action = 1
+
+[node name="element_action3" parent="actions" instance=ExtResource("10_jw2y0")]
+text = "U"
+action = 2
+
+[node name="element_action4" parent="actions" instance=ExtResource("10_jw2y0")]
+text = "E"
+action = 3
 
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
 [connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]

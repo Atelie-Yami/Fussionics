@@ -155,7 +155,7 @@ var neutrons: int
 
 ## Indica quantos links esse elemento pode ter em simultâneo.
 var valentia: int
-var number_electrons_in_valencia: int = valentia
+@onready var number_electrons_in_valencia: int = valentia
 
 ## isso é basicamente oque define que tipo de elemento é, seu valor é o custo para instanciar.
 @export var atomic_number: int:
