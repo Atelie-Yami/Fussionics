@@ -1,16 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://ttuiuitb4jh2"]
+[gd_scene load_steps=14 format=3 uid="uid://b680cvxrx6dad"]
 
 [ext_resource type="Script" path="res://scripts/login/main.gd" id="1_7oops"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="2_4043c"]
 [ext_resource type="FontFile" uid="uid://ramwx6m07lc8" path="res://assets/fonts/Future Sallow.ttf" id="3_lb0pb"]
 [ext_resource type="Script" path="res://scripts/login/login.gd" id="4_cmscb"]
 [ext_resource type="Texture2D" uid="uid://bck8xdfqjac37" path="res://assets/img/buttons/login/enter.png" id="5_ribs8"]
-[ext_resource type="Texture2D" uid="uid://bfgrfgvg6syhs" path="res://assets/img/buttons/login/about/about_person.png" id="6_lb1o5"]
 [ext_resource type="Script" path="res://scripts/login/register.gd" id="7_4xo1u"]
-[ext_resource type="Texture2D" uid="uid://dgn5oejmhyxtq" path="res://assets/img/buttons/login/about/about_love.png" id="7_ljkhp"]
 [ext_resource type="Script" path="res://scripts/login/enter_direction.gd" id="8_tmxcd"]
 [ext_resource type="Texture2D" uid="uid://cnlgx13hc51ok" path="res://assets/img/buttons/login/padlock/lock.png" id="8_wohie"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="10_6503g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dgfwr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kb4i6"]
+load_path = "res://.godot/imported/icons.svg-d63991db5f1fb6f2d840fb83bc7bca2d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhwmv"]
+atlas = SubResource("CompressedTexture2D_kb4i6")
+region = Rect2(0, 280, 200, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jl32"]
+atlas = SubResource("CompressedTexture2D_kb4i6")
+region = Rect2(230, 310, 200, 180)
 
 [node name="Login" type="Control"]
 layout_mode = 3
@@ -250,26 +261,44 @@ theme_override_constants/separation = 45
 
 [node name="about_painel" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.901563
-anchor_top = 0.912037
-anchor_right = 0.997396
-anchor_bottom = 0.99537
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -153.0
+offset_top = -41.0
 grow_horizontal = 0
 grow_vertical = 0
-metadata/_edit_use_anchors_ = true
 
 [node name="hb" type="HBoxContainer" parent="about_painel"]
 layout_mode = 2
+theme_override_constants/separation = 6
 alignment = 1
+
+[node name="v" type="VSeparator" parent="about_painel/hb"]
+layout_mode = 2
+theme_override_constants/separation = 28
+theme_override_styles/separator = SubResource("StyleBoxEmpty_dgfwr")
 
 [node name="about_client" type="TextureButton" parent="about_painel/hb"]
 layout_mode = 2
-texture_normal = ExtResource("6_lb1o5")
+size_flags_horizontal = 3
+texture_normal = SubResource("AtlasTexture_yhwmv")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="about_love" type="TextureButton" parent="about_painel/hb"]
 layout_mode = 2
-texture_normal = ExtResource("7_ljkhp")
+size_flags_horizontal = 3
+texture_normal = SubResource("AtlasTexture_3jl32")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="v2" type="VSeparator" parent="about_painel/hb"]
+layout_mode = 2
+theme_override_constants/separation = 28
+theme_override_styles/separator = SubResource("StyleBoxEmpty_dgfwr")
 
 [node name="background_2" parent="." instance=ExtResource("10_6503g")]
 

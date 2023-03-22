@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=20 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -8,7 +8,37 @@
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
 [ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
+[ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
+[ext_resource type="PackedScene" uid="uid://cx22mwdgj1oja" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
+[ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
+[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="13_usloi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruh63"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnb5y"]
+atlas = ExtResource("13_usloi")
+region = Rect2(520, 360, 230, 230)
+margin = Rect2(20, 20, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwb2n"]
+atlas = ExtResource("13_usloi")
+region = Rect2(1030, 610, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u78wn"]
+atlas = ExtResource("13_usloi")
+region = Rect2(1300, 600, 270, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy12e"]
+atlas = ExtResource("13_usloi")
+region = Rect2(770, 330, 260, 260)
+margin = Rect2(10, 10, 20, 20)
 
 [node name="world" type="Node2D"]
 
@@ -574,6 +604,133 @@ position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 script = ExtResource("10_6paj4")
 background_path = NodePath("../background_2")
+
+[node name="actions" type="Node2D" parent="."]
+z_index = 1
+script = ExtResource("10_6e11s")
+
+[node name="element_action" parent="actions" instance=ExtResource("10_jw2y0")]
+visible = true
+offset_left = -124.0
+offset_top = -83.0
+offset_right = -74.0
+offset_bottom = -33.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="actions/element_action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_vnb5y")
+expand_mode = 1
+
+[node name="element_action2" parent="actions" instance=ExtResource("10_jw2y0")]
+visible = true
+offset_left = -38.0
+offset_top = -131.0
+offset_right = 12.0
+offset_bottom = -81.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+action = 1
+
+[node name="TextureRect2" type="TextureRect" parent="actions/element_action2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_wwb2n")
+expand_mode = 1
+
+[node name="element_action3" parent="actions" instance=ExtResource("10_jw2y0")]
+visible = true
+offset_left = 54.0
+offset_top = -126.0
+offset_right = 104.0
+offset_bottom = -76.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+action = 2
+
+[node name="TextureRect3" type="TextureRect" parent="actions/element_action3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_u78wn")
+expand_mode = 1
+
+[node name="element_action4" parent="actions" instance=ExtResource("10_jw2y0")]
+visible = true
+offset_left = 133.0
+offset_top = -84.0
+offset_right = 183.0
+offset_bottom = -34.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+action = 3
+
+[node name="TextureRect4" type="TextureRect" parent="actions/element_action4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_oy12e")
+expand_mode = 1
 
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
 [connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]

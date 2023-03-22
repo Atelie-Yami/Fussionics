@@ -21,6 +21,7 @@ Gameplay="*res://scripts/autoloads/gameplay.gd"
 
 [debug]
 
+gdscript/warnings/unassigned_variable=0
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/narrowing_conversion=0
@@ -62,3 +63,6 @@ mouse_click={
 
 renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.101961, 0.0941176, 0.137255, 1)
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/screen_space_aa=1

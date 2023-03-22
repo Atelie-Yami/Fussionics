@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dupx1tbtbjfss" path="res://assets/img/background/space_1/layer_2.png" id="4_prd2d"]
 
 [sub_resource type="Gradient" id="Gradient_xd2ix"]
+interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.359155, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
@@ -28,13 +29,14 @@ spread = 180.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 0.1
 initial_velocity_max = 2.0
+angular_velocity_max = 0.01
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 angle_max = 720.0
 scale_min = 0.1
-scale_max = 0.5
+scale_max = 0.66
 scale_curve = SubResource("CurveTexture_t058m")
-color = Color(1, 1, 1, 0.47451)
+color = Color(1, 1, 1, 0.529412)
 color_ramp = SubResource("GradientTexture1D_s1p0j")
 turbulence_noise_strength = 5.0
 turbulence_noise_scale = 5.0
@@ -65,7 +67,7 @@ position = Vector2(960, 540)
 amount = 128
 process_material = SubResource("ParticleProcessMaterial_f77cl")
 texture = ExtResource("3_k22gq")
-lifetime = 12.0
+lifetime = 10.0
 randomness = 0.9
 visibility_rect = Rect2(-960, -540, 1920, 1080)
 local_coords = true

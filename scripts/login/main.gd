@@ -19,9 +19,10 @@ var view_tex := [
 
 #A quantidade de caracteres precisos.
 var needed_char = {
-	password = 6,
+	password = 4,
 	email = 13,
-	username = 4
+	username = 4,
+	max_username = 12
 }
 
 #Verificação de email e senha após apertar enter (Login)

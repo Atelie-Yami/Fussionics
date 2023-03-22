@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl6cg4sxrlcsc"]
+
+[ext_resource type="Texture2D" uid="uid://dtnh8cqkc866b" path="res://resouces/atlas/new_notifc.atlastex" id="1_5ccy8"]
+[ext_resource type="Script" path="res://scripts/main/notific.gd" id="1_k6k2r"]
+
+[node name="Notific" type="PanelContainer"]
+custom_minimum_size = Vector2(392, 0)
+offset_right = 392.0
+offset_bottom = 31.0
+size_flags_vertical = 0
+script = ExtResource("1_k6k2r")
+
+[node name="VNotific" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="Title" type="Button" parent="VNotific"]
+layout_mode = 2
+text = "TITLE"
+icon = ExtResource("1_5ccy8")
+expand_icon = true
+
+[node name="Mensage" type="VBoxContainer" parent="VNotific"]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="text" type="Label" parent="VNotific/Mensage"]
+modulate = Color(0.45098, 0.45098, 0.443137, 1)
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Mensage"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="VNotific/Mensage"]
+layout_mode = 2
+alignment = 1
+
+[node name="Ok" type="Button" parent="VNotific/Mensage/Buttons"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "OK"
+
+[node name="Ignore" type="Button" parent="VNotific/Mensage/Buttons"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "IGNORE"
+
+[connection signal="pressed" from="VNotific/Title" to="." method="_tittle_pressed"]
+[connection signal="pressed" from="VNotific/Mensage/Buttons/Ok" to="." method="_ok_pressed"]
+[connection signal="pressed" from="VNotific/Mensage/Buttons/Ignore" to="." method="_ignore_pressed"]
