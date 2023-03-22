@@ -2,7 +2,7 @@ class_name ElementNode extends Element
 
 signal selected_changed(value: bool)
 const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
-const MOLDURE_1 := preload("res://assets/img/elements/element_moldure.png")
+const GIANT_ROBOT := preload("res://assets/fonts/GiantRobotArmy-Medium.ttf")
 const SLOT := preload("res://assets/img/elements/Slot_0.png")
 const LEGANCY := preload("res://scenes/elements/legancy.tscn")
 
@@ -44,21 +44,22 @@ func _process(delta):
 
 func _draw():
 	# desenhar os ligamentos
-	
 	if has_link:
 		for link in links:
 			var ligament : Molecule.Ligament = links[link]
 			
-			if ligament:
-				for i in ligament.level:
-					var p = (i * 10.0) - (ligament.level / 2.0 * 10.0) + 5.0
-					var base = Vector2(40, 40) - (Vector2(Vector2i.ONE - abs(link)) * p)
-					
-					draw_line(
-						base + Vector2(-link) * (Vector2(30, 30)),
-						base + Vector2(-link) * (Vector2(45, 45)),
-						Color.WHITE, 5, true
-					)
+			if not ligament:
+				continue
+			
+			for i in ligament.level:
+				var p = (i * 10.0) - (ligament.level / 2.0 * 10.0) + 5.0
+				var base = Vector2(40, 40) - (Vector2(Vector2i.ONE - abs(link)) * p)
+				
+				draw_line(
+					base + Vector2(-link) * (Vector2(30, 30)),
+					base + Vector2(-link) * (Vector2(45, 45)),
+					Color.WHITE, 5, true
+				)
 				
 	# desenhar o retangulo
 	var alpha: float = 0.5
@@ -81,10 +82,25 @@ func _draw():
 		FUTURE_SALLOW, Vector2(41 - string_size.x, ((string_size.y + 7) / 2) + 40) + position_offset, DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER,
 		-1, FONT_SIZE, symbol_color
 	)
+	draw_string(
+		GIANT_ROBOT, Vector2(11, 16), str(atomic_number +1), HORIZONTAL_ALIGNMENT_RIGHT, -1, 12, symbol_color
+	)
+	
+	var eletrons_string_size = GIANT_ROBOT.get_string_size(str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	draw_string(
+		GIANT_ROBOT, Vector2(69 - eletrons_string_size.x, 16), str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, 200, 12, symbol_color
+	)
+	
+	var neutrons_string_size = GIANT_ROBOT.get_string_size(str(neutrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	draw_string(
+		GIANT_ROBOT, Vector2(69 - neutrons_string_size.x, 74), str(neutrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, symbol_color,
+		TextServer.JUSTIFICATION_TRIM_EDGE_SPACES, TextServer.DIRECTION_LTR
+	)
 	
 	# dar uma corzinha pra tudo
 	modulate = (Color.WHITE * 0.6) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.4)
 	modulate.a = 1.0
+#	modulate *= 1.5
 
 
 func set_current_node_state(state: NodeState):
@@ -122,10 +138,12 @@ func _gui_input(event: InputEvent):
 						Gameplay.selected_element_target = self
 					else:
 						Gameplay.action_state = Gameplay.ActionState.NORMAL
+					
+				Gameplay.ActionState.ATTACK:
+					Gameplay.action_state = Gameplay.ActionState.NORMAL
 		
 		if Gameplay.action_state == Gameplay.ActionState.ATTACK:
 			Gameplay.selected_element_target = self
-	
 
 
 func _get_drag_data(_p):

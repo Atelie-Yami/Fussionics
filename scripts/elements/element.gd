@@ -162,7 +162,9 @@ var valentia: int
 	set(value):
 		atomic_number = value
 		eletrons = value
+		neutrons = value
 		valentia = DATA[atomic_number][VALENTIA]
+		tooltip_text = DATA[atomic_number][NAME]
 
 ## Dicionario que define os efeitos em seus tempos de ação:[br]
 ## [codeblock]

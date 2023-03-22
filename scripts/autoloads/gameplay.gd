@@ -98,13 +98,14 @@ func _action_pressed(action: Arena.ElementActions):
 	callback_action = action
 	match action:
 		Arena.ElementActions.ATTACK:
-			action_state = ActionState.ATTACK
+			if arena.combat_in_process: return
+			self.action_state = ActionState.ATTACK
 		
 		Arena.ElementActions.LINK:
-			action_state = ActionState.LINK
+			self.action_state = ActionState.LINK
 		
 		Arena.ElementActions.UNLINK:
-			action_state = ActionState.UNLINK
+			self.action_state = ActionState.UNLINK
 		
 		Arena.ElementActions.EFFECT:
 			arena.element_use_effect(selected_element)

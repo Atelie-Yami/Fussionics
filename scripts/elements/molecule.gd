@@ -75,7 +75,11 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 
 func remove_element(element: ElementNode):
 	configuration.erase(element)
-	element.links.map(func(link: Ligament): link.remove())
+	for link in element.links:
+		if element.links[link]:
+			element.links[link].remove()
+		
+#	element.links.map(func(link: Ligament): link.remove())
 
 
 func get_eletron_power() -> int:

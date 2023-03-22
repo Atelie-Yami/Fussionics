@@ -18,12 +18,11 @@ class Slot:
 		set(value):
 			can_act = value
 			
-			if not can_act:
+			if not can_act and molecule:
 				molecule.configuration.map(func(e): e.active = false)
 	
 	func _init(_e: Element, _p: PlayerController.Players):
 		element = _e; player = _p
-	
 
 
 ## {Vector2i position : Slot slot}
@@ -65,8 +64,28 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 func remove_element(slot_position: Vector2i):
 	var slot: Slot = elements[slot_position]
 	if slot.molecule:
-		slot.molecule.remove_element(slot.element)
+		var neigbors: Array[ElementNode]
+		
+		for link in slot.element.links:
+			if not slot.element.links[link]:
+				continue
+			
+			if slot.element.links[link].element_A == slot.element:
+				neigbors.append(slot.element.links[link].element_B)
+				
+			elif slot.element.links[link].element_B == slot.element:
+				neigbors.append(slot.element.links[link].element_A)
+			
+			slot.element.links[link].remove()
+		
+		for element in neigbors:
+			_handle_molecule(element)
 	
+	_remove_element(slot, slot_position)
+
+
+func _remove_element(slot: Slot, slot_position: Vector2i):
+	player_controller.current_players[slot.player].elements.erase(slot.element)
 	slot.element.queue_free()
 	elements.erase(slot_position)
 
@@ -172,13 +191,6 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 		slot_a.molecule = molecule; slot_b.molecule = molecule
 
 
-func unlink_element_direction(element: ElementNode, direction: Vector2i):
-	element.links[direction].remove()
-	
-	_handle_molecule(element.links[direction].element_A)
-	_handle_molecule(element.links[direction].element_B)
-
-
 func unlink_elements(element_A: ElementNode, element_B: ElementNode):
 	var has_link := false
 	
@@ -222,7 +234,6 @@ func _handle_molecule(element: ElementNode):
 func _procedural_search_link_nodes(element_parent: ElementNode, anchored_array: Array[ElementNode]):
 	for l in element_parent.links:
 		var link: Molecule.Ligament = element_parent.links[l]
-		
 		if not link: continue
 		
 		if link.element_A == element_parent:
@@ -270,6 +281,8 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 			
 			GameJudge.Result.DRAW:
 				return
+				
+	combat_in_process = false
 
 
 func slot_get_actions(slot: Slot):
