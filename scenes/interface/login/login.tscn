@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b680cvxrx6dad"]
+[gd_scene load_steps=14 format=3 uid="uid://ttuiuitb4jh2"]
 
 [ext_resource type="Script" path="res://scripts/login/main.gd" id="1_7oops"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="2_4043c"]
@@ -91,7 +91,6 @@ size = Vector2i(257, 100)
 dialog_text = "EMAIL OU SENHA INCORRETAS!"
 
 [node name="login" type="VBoxContainer" parent="login_painel/lines_box"]
-visible = false
 layout_mode = 2
 script = ExtResource("4_cmscb")
 

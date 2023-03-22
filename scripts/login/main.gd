@@ -27,7 +27,7 @@ var needed_char = {
 
 #Verificação de email e senha após apertar enter (Login)
 func game_login(username : String, password : String) -> void: 
-	var callback = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
+	var callback = func(result: int, response_code: int, headers: PackedStringArray, body):
 		print(response_code)
 		if response_code == 200:
 			Gameplay.token = body.data.token
@@ -39,7 +39,7 @@ func game_login(username : String, password : String) -> void:
 	
 #Verificação de email e senha após apertar enter (Registro)
 func game_register(username : String, password : String) -> void:
-	var callback = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
+	var callback = func(result: int, response_code: int, headers: PackedStringArray, body):
 		print(response_code, body)
 		if response_code == 200:
 			login_panel.show()
@@ -48,7 +48,12 @@ func game_register(username : String, password : String) -> void:
 	ServerManager.make_register(username, password, callback)
 
 func game_user_data():
-	ServerManager.request_user(Gameplay.token)
+	var callback = func(result: int, response_code: int, headers: PackedStringArray, body):
+		print(response_code, body)
+		if response_code == 200:
+			pass # usar depois
+	
+	ServerManager.request_user(Gameplay.token, callback)
 
 #Erros sobre as informações.
 func erro(line : LineEdit,lenght : int) -> void:

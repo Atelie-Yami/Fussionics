@@ -18,6 +18,7 @@ config/icon="res://assets/img/icon.svg"
 [autoload]
 
 Gameplay="*res://scripts/autoloads/gameplay.gd"
+ServerManager="*res://scripts/autoloads/server_manager.gd"
 
 [debug]
 
