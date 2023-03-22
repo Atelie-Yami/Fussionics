@@ -60,6 +60,7 @@ func _input(event):
 		current_players[0].set_my_turn(true)
 		
 		arena.create_element(randi_range(0, 118), 0, Vector2i(randi_range(0, 7), randi_range(0, 4)))
+		arena.create_element(randi_range(0, 118), 1, Vector2i(randi_range(0, 7), randi_range(0, 4)))
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		current_players[0].set_my_turn(false)

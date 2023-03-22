@@ -24,5 +24,5 @@ void fragment() {
 	
 	base_color = mix(base_color * (1.0 - (_border * _border)), base_color_2, rect);
 	
-	COLOR += vec4(base_color) * 0.2 * fade;
+	COLOR += vec4(base_color) * 0.4 * fade;
 }

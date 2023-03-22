@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnw3ml8vtpfny"]
+
+[ext_resource type="Texture2D" uid="uid://b0oy7we6qc8vx" path="res://assets/img/elements/light.png" id="1_jgtsy"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u5q7p"]
+
+[node name="glow" type="Sprite2D"]
+self_modulate = Color(1, 1, 1, 0.592157)
+material = SubResource("CanvasItemMaterial_u5q7p")
+texture = ExtResource("1_jgtsy")

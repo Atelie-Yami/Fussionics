@@ -104,8 +104,6 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 	player_controller.add_child(element)
 	player_controller.current_players[player].elements.append(element)
 	
-	element.active = true
-	
 	match _position.y:
 		10: # slot 1, fusão, Player A
 			pass

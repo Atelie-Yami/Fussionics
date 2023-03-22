@@ -45,6 +45,6 @@ func _show_action_buttons(actions: Array[Arena.ElementActions]):
 			rad = deg_to_rad((deg_diff * count) - (angle - (deg_diff / 2.0)))
 		
 		var polar = Vector2(cos(rad), sin(rad))
-		get_child(action).position = (polar * 80) - Vector2(20, 20)
+		get_child(action).position = (polar * 80) - Vector2(25, 25)
 		get_child(action).visible = true
 		count += 1
