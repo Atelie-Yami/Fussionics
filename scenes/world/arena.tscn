@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
 [ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
-[ext_resource type="PackedScene" uid="uid://cx22mwdgj1oja" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
+[ext_resource type="PackedScene" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="13_usloi"]
 

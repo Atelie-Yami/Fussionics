@@ -148,6 +148,7 @@ size = Vector2i(257, 100)
 dialog_text = "EMAIL OU SENHA INCORRETAS!"
 
 [node name="login" type="VBoxContainer" parent="login_painel/lines_box"]
+visible = false
 layout_mode = 2
 script = ExtResource("4_cmscb")
 
@@ -228,7 +229,6 @@ disabled = true
 icon = ExtResource("5_ribs8")
 
 [node name="register" type="VBoxContainer" parent="login_painel/lines_box"]
-visible = false
 layout_mode = 2
 script = ExtResource("7_4xo1u")
 
