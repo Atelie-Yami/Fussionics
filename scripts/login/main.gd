@@ -26,37 +26,28 @@ var needed_char = {
 
 #Verificação de email e senha após apertar enter (Login)
 func game_login(username : String, password : String) -> void: 
-	var manager = ServerManager.new()
-	add_child(manager)
-	var error = manager.make_auth(username, password)
-	
-	var response = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
+	var callback = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
 		print(response_code)
-		manager.queue_free()
 		if response_code == 200:
 			Gameplay.token = body.data.token
 			login_panel.hide()
 			enter_panel.show()
 		else:
 			warning.popup()
+	ServerManager.make_auth(username, password, callback)
 	
-	manager.data_recieved.connect(response)
-	
-
 #Verificação de email e senha após apertar enter (Registro)
-func game_register(username : String, password : String) -> void: 
-	var manager = ServerManager.new()
-	add_child(manager)
-	var error = manager.make_register(username, password)
-	
-	var response = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
+func game_register(username : String, password : String) -> void:
+	var callback = func(result: int, response_code: int, headers: PackedStringArray, body: Dictionary):
 		print(response_code, body)
-		manager.queue_free()
 		if response_code == 200:
 			login_panel.show()
 			register_panel.hide()
+	
+	ServerManager.make_register(username, password, callback)
 
-	manager.data_recieved.connect(response)
+func game_user_data():
+	ServerManager.request_user(Gameplay.token)
 
 #Erros sobre as informações.
 func erro(line : LineEdit,lenght : int) -> void:
