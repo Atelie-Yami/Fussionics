@@ -185,6 +185,10 @@ var has_link: bool:
 		
 		return false
 
+var debuffs: Array[GameJudge.DebuffEffect]
+var buffs: Array[GameJudge.BuffEffect]
+var effect: GameJudge.SkillEffect
+
 
 func reset():
 	if neutrons > atomic_number:

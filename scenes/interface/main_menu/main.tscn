@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdx0vct6y7g4b"]
+[gd_scene load_steps=12 format=3 uid="uid://cdx0vct6y7g4b"]
 
 [ext_resource type="Script" path="res://scripts/main/main.gd" id="1_6niv8"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_w7vcx"]
@@ -15,6 +15,10 @@ region = Rect2(60, 640, 210, 200)
 [sub_resource type="AtlasTexture" id="AtlasTexture_afx8c"]
 atlas = ExtResource("2_yk1hs")
 region = Rect2(50, 340, 230, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8q8j"]
+atlas = ExtResource("2_yk1hs")
+region = Rect2(633, 60, 230, 230)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_036ob"]
 atlas = ExtResource("2_yk1hs")
@@ -96,11 +100,10 @@ expand_mode = 1
 self_modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-anchor_left = -0.0166667
-offset_left = 1592.0
-offset_top = 32.0
-offset_right = 1892.0
-offset_bottom = 160.0
+anchor_left = 0.8125
+anchor_top = 0.0296296
+anchor_right = 0.985417
+anchor_bottom = 0.148148
 grow_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
@@ -129,7 +132,7 @@ alignment = 1
 [node name="Name" type="Label" parent="main_player/Tab/Menu/h/Tab"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Player02 #1"
+text = "Username #ID"
 horizontal_alignment = 1
 
 [node name="hs" type="HSeparator" parent="main_player/Tab/Menu/h/Tab"]
@@ -148,9 +151,17 @@ expand_icon = true
 script = ExtResource("3_fkelm")
 Node_Show = NodePath("../../../../Friends_Main")
 
+[node name="Configuration" type="Button" parent="main_player/Tab/Menu/h/Tab/Options"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_f8q8j")
+expand_icon = true
+
 [node name="Bug_Report" type="Button" parent="main_player/Tab/Menu/h/Tab/Options"]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
+tooltip_text = "Este node é para testes do menu. Tenha um bom dia."
 mouse_default_cursor_shape = 2
 icon = SubResource("AtlasTexture_036ob")
 expand_icon = true
@@ -257,6 +268,7 @@ script = ExtResource("3_fkelm")
 Node_Show = NodePath("../../..")
 
 [node name="Pop_Common" type="AcceptDialog" parent="main_player/Pop-up"]
+title = ""
 position = Vector2i(843, 485)
 size = Vector2i(330, 190)
 script = ExtResource("5_nlnuo")

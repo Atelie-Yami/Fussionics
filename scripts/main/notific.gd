@@ -9,7 +9,7 @@ signal ignore
 @onready var Text : Label = $VNotific/Mensage/text
 @onready var Mensage_Node : VBoxContainer = $VNotific/Mensage
 
-func start(title : String,mensage : String,ok_var : bool = true,ignore_var : bool = true) -> void:
+func start(title : String,mensage : String,ignore_var : bool = true, ok_var : bool = true) -> void:
 	Title_Node.text = title
 	Text.text = mensage
 	Ignore.visible = ignore_var

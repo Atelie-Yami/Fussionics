@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=22 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -10,9 +10,10 @@
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
 [ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
-[ext_resource type="PackedScene" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
+[ext_resource type="PackedScene" uid="uid://cx22mwdgj1oja" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="13_usloi"]
+[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -39,6 +40,10 @@ region = Rect2(1300, 600, 270, 270)
 atlas = ExtResource("13_usloi")
 region = Rect2(770, 330, 260, 260)
 margin = Rect2(10, 10, 20, 20)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
+font = ExtResource("14_virs7")
+font_size = 32
 
 [node name="world" type="Node2D"]
 
@@ -610,7 +615,6 @@ z_index = 1
 script = ExtResource("10_6e11s")
 
 [node name="element_action" parent="actions" instance=ExtResource("10_jw2y0")]
-visible = true
 offset_left = -124.0
 offset_top = -83.0
 offset_right = -74.0
@@ -640,7 +644,6 @@ texture = SubResource("AtlasTexture_vnb5y")
 expand_mode = 1
 
 [node name="element_action2" parent="actions" instance=ExtResource("10_jw2y0")]
-visible = true
 offset_left = -38.0
 offset_top = -131.0
 offset_right = 12.0
@@ -671,7 +674,6 @@ texture = SubResource("AtlasTexture_wwb2n")
 expand_mode = 1
 
 [node name="element_action3" parent="actions" instance=ExtResource("10_jw2y0")]
-visible = true
 offset_left = 54.0
 offset_top = -126.0
 offset_right = 104.0
@@ -702,7 +704,6 @@ texture = SubResource("AtlasTexture_u78wn")
 expand_mode = 1
 
 [node name="element_action4" parent="actions" instance=ExtResource("10_jw2y0")]
-visible = true
 offset_left = 133.0
 offset_top = -84.0
 offset_right = 183.0
@@ -731,6 +732,34 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_oy12e")
 expand_mode = 1
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="life_self" type="Label" parent="GUI"]
+offset_right = 158.0
+offset_bottom = 36.0
+text = "life: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+
+[node name="life_oponnent" type="Label" parent="GUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -158.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "life: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+
+[node name="energy" type="Label" parent="GUI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+offset_right = 158.0
+grow_vertical = 0
+text = "Energy: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
 
 [connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
 [connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]

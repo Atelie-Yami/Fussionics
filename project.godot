@@ -19,6 +19,7 @@ config/icon="res://assets/img/icon.svg"
 
 Gameplay="*res://scripts/autoloads/gameplay.gd"
 ServerManager="*res://scripts/autoloads/server_manager.gd"
+ElementEffectManager="*res://scripts/autoloads/element_effect_manager.gd"
 
 [debug]
 
