@@ -28,7 +28,6 @@ class Slot:
 ## {Vector2i position : Slot slot}
 var elements: Dictionary
 var combat_in_process: bool
-var game_judge := GameJudge.new()
 
 
 @onready var player_controller: PlayerController = $"../PlayerController"
@@ -47,7 +46,8 @@ func _ready():
 		c.animation()
 
 
-func check_slot_empty(slot: Vector2i): return not elements.has(slot)
+func check_slot_empty(slot: Vector2i):
+	return not elements.has(slot)
 
 
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
@@ -268,7 +268,7 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 #		attacker.molecule.get_eletron_power()
 	
 	else:
-		var result: GameJudge.Result = game_judge.combat_check_result(slot_attacker.element, slot_defender.element, skill)
+		var result: GameJudge.Result = GameJudge.combat_check_result(slot_attacker.element, slot_defender.element, skill)
 		
 		match result:
 			GameJudge.Result.WINNER: 

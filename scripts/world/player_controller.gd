@@ -3,12 +3,13 @@ class_name PlayerController extends Node
 enum Players {A, B}
 
 const PLAYERS_MAX_LIFE := 30
-
+const ENERGY_MAX := 16
 
 #------------------------------------------------------------------------------#
 ## Classe que detem as propriedades dos jogadores
 class Player:
-	var energy: int
+	var energy_max := 1
+	var energy := 1
 	
 	var player: Players
 	var end_game: Signal
@@ -33,6 +34,10 @@ var current_players: Array[Player]
 @onready var turn_machine: TurnMachine = %turn_machine
 
 
+func _init():
+	Gameplay.player_controller = self
+
+
 func _ready():
 	current_players.append(Player.new(Players.A, arena.end_game))
 	current_players.append(Player.new(Players.B, arena.end_game))
@@ -43,6 +48,10 @@ func _ready():
 
 func set_current_player_controller(player: Players):
 	current_players[player].set_my_turn(true)
+	current_players[player].energy_max = min(current_players[player].energy_max + 1, ENERGY_MAX)
+	current_players[player].energy = current_players[player].energy_max
+	
+	ElementEffectManager.start_main_phase(player)
 	
 	if player == Players.A:
 		pass

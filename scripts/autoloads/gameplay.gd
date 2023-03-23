@@ -18,6 +18,7 @@ var element_focus := Sprite2D.new()
 var in_link_state: bool
 var in_unlink_state: bool
 var arena: Arena
+var player_controller: PlayerController
 
 var callback_action: int
 var selected_element_target: ElementNode:
@@ -100,7 +101,9 @@ func _action_pressed(action: Arena.ElementActions):
 	callback_action = action
 	match action:
 		Arena.ElementActions.ATTACK:
-			if arena.combat_in_process: return
+			if arena.combat_in_process or not GameJudge.can_element_attack(selected_element):
+				return
+			
 			self.action_state = ActionState.ATTACK
 		
 		Arena.ElementActions.LINK:
