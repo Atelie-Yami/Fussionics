@@ -1,0 +1,285 @@
+[gd_scene load_steps=3 format=3 uid="uid://6afsmqsigq0f"]
+
+[ext_resource type="Script" path="res://scenes/interface/pause_menu/pause_menu.gd" id="1_ejb5h"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4qwqi"]
+
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("DisplayModeButton", "MaxFpsValueLabel", "MaxFpsSlider", "MasterVolumeValueLabel", "MasterVolumeSlider", "MusicVolumeValueLabel", "MusicVolumeSlider", "SFXVolumeValueLabel", "SFXVolumeSlider", "OptionsSettings", "OptionsMenu")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+size_flags_horizontal = 4
+script = ExtResource("1_ejb5h")
+DisplayModeButton = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/DisplayModeButton")
+MaxFpsValueLabel = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsValueLabel")
+MaxFpsSlider = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsSlider")
+MasterVolumeValueLabel = NodePath("OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer/MasterVolumeValueLabel")
+MasterVolumeSlider = NodePath("OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer/MasterVolumeSlider")
+MusicVolumeValueLabel = NodePath("OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2/MusicVolumeValueLabel")
+MusicVolumeSlider = NodePath("OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2/MusicVolumeSlider")
+SFXVolumeValueLabel = NodePath("OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3/SFXVolumeValueLabel")
+SFXVolumeSlider = NodePath("OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3/SFXVolumeSlider")
+OptionsSettings = NodePath("OptionsSettings")
+OptionsMenu = NodePath("OptionsMenu")
+
+[node name="OptionsSettings" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.688
+offset_top = -180.5
+offset_right = 265.688
+offset_bottom = 180.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsSettings2" type="TabContainer" parent="OptionsSettings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -180.5
+offset_right = 265.0
+offset_bottom = 179.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Video" type="TabBar" parent="OptionsSettings/OptionsSettings2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsSettings/OptionsSettings2/Video"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="ConfiguraçõesVideo" type="GridContainer" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="DisplayModeLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+layout_mode = 2
+text = "DisplayMode:"
+
+[node name="DisplayModeButton" type="OptionButton" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 10
+button_group = SubResource("ButtonGroup_4qwqi")
+
+[node name="VsyncLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+layout_mode = 2
+text = "Vsync:"
+
+[node name="VsyncButton" type="CheckButton" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+layout_mode = 2
+
+[node name="MaxFpsLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+layout_mode = 2
+text = "MaxFps:"
+
+[node name="MaxFpsContainer" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+layout_mode = 2
+
+[node name="MaxFpsValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "50
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MaxFpsSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 360.0
+value = 50.0
+
+[node name="BloomLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+visible = false
+layout_mode = 2
+text = "Vsync:"
+
+[node name="BloomButton" type="CheckButton" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+visible = false
+layout_mode = 2
+
+[node name="BrightnessLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+visible = false
+layout_mode = 2
+text = "Brightness:"
+
+[node name="BrightnessContainer" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo"]
+visible = false
+layout_mode = 2
+
+[node name="BrightnessValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/BrightnessContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "MAX:000"
+
+[node name="BrightnessSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/BrightnessContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="Audio" type="TabBar" parent="OptionsSettings/OptionsSettings2"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsSettings/OptionsSettings2/Audio"]
+layout_mode = 1
+offset_left = -4.0
+offset_top = 32.0
+offset_right = 540.0
+offset_bottom = 361.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="ConfiguraçõesAudio" type="GridContainer" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer"]
+layout_direction = 1
+layout_mode = 2
+columns = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio"]
+layout_direction = 1
+layout_mode = 2
+text = "MasterVolume:    "
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MasterVolumeValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="MusicVolumeLabel2" type="Label" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio"]
+layout_direction = 1
+layout_mode = 2
+text = "MusicVolume:    "
+
+[node name="MusicVolumeContainer2" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MusicVolumeValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="SFXVolumeLabel3" type="Label" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio"]
+layout_direction = 1
+layout_mode = 2
+text = "SFXVolume:    "
+
+[node name="SFXVolumeContainer3" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SFXVolumeValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="Close_OptionsSettings" type="Button" parent="OptionsSettings"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Close"
+
+[node name="OptionsMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Voltar" type="Button" parent="OptionsMenu"]
+layout_mode = 2
+text = "Voltar"
+
+[node name="Reiniciar" type="Button" parent="OptionsMenu"]
+layout_mode = 2
+text = "Reiniciar"
+
+[node name="Settings" type="Button" parent="OptionsMenu"]
+layout_mode = 2
+text = "Configurações"
+
+[node name="Menu Inicial" type="Button" parent="OptionsMenu"]
+layout_mode = 2
+text = "Menu Inicial"
+
+[connection signal="item_selected" from="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/DisplayModeButton" to="." method="_display_mode_button_item_selected"]
+[connection signal="toggled" from="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/VsyncButton" to="." method="_vsync_button_toggled"]
+[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsSlider" to="." method="_max_fps_slider_value_changed"]
+[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer/MasterVolumeSlider" to="." method="_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2/MusicVolumeSlider" to="." method="_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/Audio/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3/SFXVolumeSlider" to="." method="_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="OptionsSettings/Close_OptionsSettings" to="." method="_close_options_settings_pressed"]
+[connection signal="pressed" from="OptionsMenu/Voltar" to="." method="_voltar_pressed"]
+[connection signal="pressed" from="OptionsMenu/Reiniciar" to="." method="_reiniciar_pressed"]
+[connection signal="pressed" from="OptionsMenu/Settings" to="." method="_settings_pressed"]
+[connection signal="pressed" from="OptionsMenu/Menu Inicial" to="." method="_menu_inicial_pressed"]
