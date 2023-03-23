@@ -1,27 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdx0vct6y7g4b"]
+[gd_scene load_steps=12 format=3 uid="uid://t0mfbvf2u4s4"]
 
 [ext_resource type="Script" path="res://scripts/main/main.gd" id="1_6niv8"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_w7vcx"]
 [ext_resource type="Script" path="res://scripts/main/Notification.gd" id="2_5rkd4"]
-[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="2_yk1hs"]
-[ext_resource type="Texture2D" uid="uid://dtnh8cqkc866b" path="res://resouces/atlas/new_notifc.atlastex" id="3_d1kyi"]
+[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="3_dpn8s"]
 [ext_resource type="Script" path="res://scripts/login/Show.gd" id="3_fkelm"]
 [ext_resource type="Script" path="res://scripts/main/Pop_Common.gd" id="5_nlnuo"]
+[ext_resource type="Texture2D" uid="uid://uvcjsg3jld5x" path="res://resouces/atlas/main/Person.tres" id="7_5xyol"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rjn5k"]
-atlas = ExtResource("2_yk1hs")
+[sub_resource type="AtlasTexture" id="AtlasTexture_bctxt"]
+atlas = ExtResource("3_dpn8s")
 region = Rect2(60, 640, 210, 200)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_afx8c"]
-atlas = ExtResource("2_yk1hs")
-region = Rect2(50, 340, 230, 230)
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2408"]
+atlas = ExtResource("3_dpn8s")
+region = Rect2(350, 670, 130, 130)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f8q8j"]
-atlas = ExtResource("2_yk1hs")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm82i"]
+atlas = ExtResource("3_dpn8s")
 region = Rect2(633, 60, 230, 230)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_036ob"]
-atlas = ExtResource("2_yk1hs")
+[sub_resource type="AtlasTexture" id="AtlasTexture_06u5g"]
+atlas = ExtResource("3_dpn8s")
 region = Rect2(1020, 340, 220, 240)
 margin = Rect2(8, 0, 0, 0)
 
@@ -83,7 +83,7 @@ offset_right = 472.0
 offset_bottom = 96.0
 size_flags_vertical = 4
 mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_rjn5k")
+icon = SubResource("AtlasTexture_bctxt")
 expand_icon = true
 script = ExtResource("3_fkelm")
 Node_Show = NodePath("../List_Panel")
@@ -93,7 +93,7 @@ modulate = Color(1, 0.321569, 0.372549, 1)
 layout_mode = 0
 offset_right = 24.0
 offset_bottom = 24.0
-texture = ExtResource("3_d1kyi")
+texture = SubResource("AtlasTexture_o2408")
 expand_mode = 1
 
 [node name="Tab" type="PanelContainer" parent="main_player"]
@@ -146,7 +146,7 @@ alignment = 1
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_afx8c")
+icon = ExtResource("7_5xyol")
 expand_icon = true
 script = ExtResource("3_fkelm")
 Node_Show = NodePath("../../../../Friends_Main")
@@ -155,7 +155,7 @@ Node_Show = NodePath("../../../../Friends_Main")
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_f8q8j")
+icon = SubResource("AtlasTexture_tm82i")
 expand_icon = true
 
 [node name="Bug_Report" type="Button" parent="main_player/Tab/Menu/h/Tab/Options"]
@@ -163,7 +163,7 @@ custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Este node é para testes do menu. Tenha um bom dia."
 mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_036ob")
+icon = SubResource("AtlasTexture_06u5g")
 expand_icon = true
 
 [node name="Friends_Main" type="PanelContainer" parent="main_player/Tab/Menu"]

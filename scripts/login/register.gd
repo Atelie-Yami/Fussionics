@@ -5,7 +5,7 @@ extends VBoxContainer
 @onready var username : LineEdit = $email_pass/Username
 @onready var password : LineEdit = $email_pass/Password
 @onready var password_Confirmed : LineEdit = $email_pass/Password_Confirmed
-@onready var password_View : TextureButton = $email_pass/Password_Confirmed/view
+@onready var password_View : TextureButton = $email_pass/Password/view
 @onready var Enter_Button : Button = $enter_button
 
 #Visualizar a senha.

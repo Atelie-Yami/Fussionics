@@ -4,7 +4,7 @@ extends Control
 @onready var New_notific_icon : TextureRect = $Show_Notific/new_notific
 @onready var Main_Player : Control = $".."
 
-var new_notific : PackedScene = preload("res://scenes/interface/main_menu/notific.tscn")
+var new_notific : PackedScene = preload("res://scenes/interface/main_menu/Notification.tscn")
 
 func create_notific(title : String,mensage : String = "",ok : bool = true,ignore : bool = true):
 	
