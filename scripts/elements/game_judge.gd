@@ -44,6 +44,15 @@ const SKILL_DATA := {}
 
 class SkillEffect:
 	var skill_type: SkillType
+	
+	func register(player: PlayerController.Players):
+		ElementEffectManager.effects_pool_players[player][skill_type] = self
+	
+	func unregister(player: PlayerController.Players):
+		ElementEffectManager.effects_pool_players[player][skill_type].erase(self)
+	
+	func execute():
+		Gameplay.arena
 
 
 class PassiveEffect:

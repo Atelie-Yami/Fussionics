@@ -42,23 +42,30 @@ func _ready():
 	current_players.append(Player.new(Players.A, arena.end_game))
 	current_players.append(Player.new(Players.B, arena.end_game))
 	
-	turn_machine.main_turn.connect(set_current_player_controller)
-	turn_machine.end_turn.connect(remove_players_control)
+	turn_machine.pre_init_turn.connect(_pre_init_turn)
+	turn_machine.main_turn.connect(_set_current_player_controller)
+	turn_machine.end_turn.connect(_remove_players_control)
 
 
-func set_current_player_controller(player: Players):
+func _pre_init_turn(player: Players):
+	pass
+
+
+func _set_current_player_controller(player: Players):
 	current_players[player].set_my_turn(true)
 	current_players[player].energy_max = min(current_players[player].energy_max + 1, ENERGY_MAX)
 	current_players[player].energy = current_players[player].energy_max
 	
-	ElementEffectManager.start_main_phase(player)
+	ElementEffectManager.call_effects(player, ElementEffectManager.SkillType.MAIN_PHASE)
 	
 	if player == Players.A:
 		pass
 
 
-func remove_players_control(player: Players):
+func _remove_players_control(player: Players):
 	current_players[player].set_my_turn(false)
+	
+	ElementEffectManager.call_effects(player, ElementEffectManager.SkillType.END_PHASE)
 	
 	if player == Players.A:
 		pass

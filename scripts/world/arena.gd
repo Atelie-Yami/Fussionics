@@ -148,29 +148,17 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 	var slot_a: Slot = elements[element_a.grid_position]
 	var slot_b: Slot = elements[element_b.grid_position]
 	
-	if slot_a.molecule and slot_a.molecule == slot_b.molecule:
-		for link in element_a.links:
-			var ligament_a = element_a.links[link]
-			if not ligament_a:
-				continue
-			
-			for _link in element_b.links:
-				var ligament_b = element_b.links[_link]
-				if not ligament_b:
-					continue
-				
-				if ligament_a == ligament_b and ligament_a.level < 3:
-					ligament_a.evolve_ligament()
-					return
-		return
-	
 	if slot_a.molecule and slot_b.molecule:
-		slot_a.molecule.configuration.append_array(slot_b.molecule.configuration)
-		slot_a.molecule.link_elements(element_a, element_b)
-		
-		slot_b.molecule.configuration.map(
-				func(e: ElementNode): elements[e.grid_position].molecule = slot_a.molecule
-		)
+		if slot_a.molecule == slot_b.molecule:
+			_link_elements(element_a, element_b)
+			
+		else:
+			slot_a.molecule.configuration.append_array(slot_b.molecule.configuration)
+			slot_a.molecule.link_elements(element_a, element_b)
+			
+			slot_b.molecule.configuration.map(
+					func(e: ElementNode): elements[e.grid_position].molecule = slot_a.molecule
+			)
 	
 	elif slot_a.molecule:
 		slot_a.molecule.configuration.append(element_b)
@@ -187,6 +175,24 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 		molecule.configuration.append(element_a); molecule.configuration.append(element_b)
 		molecule.link_elements(element_a, element_b)
 		slot_a.molecule = molecule; slot_b.molecule = molecule
+	
+	ElementEffectManager.call_effects(slot_a.player, ElementEffectManager.SkillType.LINKED)
+
+
+func _link_elements(element_a: ElementNode, element_b: ElementNode):
+	for link in element_a.links:
+		var ligament_a = element_a.links[link]
+		if not ligament_a:
+			continue
+		
+		for _link in element_b.links:
+			var ligament_b = element_b.links[_link]
+			if not ligament_b:
+				continue
+			
+			if ligament_a == ligament_b and ligament_a.level < 3:
+				ligament_a.evolve_ligament()
+				return
 
 
 func unlink_elements(element_A: ElementNode, element_B: ElementNode):
@@ -207,6 +213,10 @@ func unlink_elements(element_A: ElementNode, element_B: ElementNode):
 	if has_link:
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
+		
+		ElementEffectManager.call_effects(
+				elements[element_A.grid_position].player, ElementEffectManager.SkillType.UNLINKED
+		)
 	
 	else:
 		print("has not link")
@@ -263,12 +273,16 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	slot_attacker.can_act = false
 	combat_in_process = true
 	
+	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.PRE_ATTACK)
+	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
+	
 	if slot_attacker.molecule:
 		pass
-#		attacker.molecule.get_eletron_power()
 	
 	else:
-		var result: GameJudge.Result = GameJudge.combat_check_result(slot_attacker.element, slot_defender.element, skill)
+		var result: GameJudge.Result = GameJudge.combat_check_result(
+			slot_attacker.element, slot_defender.element, skill
+		)
 		
 		match result:
 			GameJudge.Result.WINNER: 
@@ -276,10 +290,10 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 			
 			GameJudge.Result.COUNTERATTACK:
 				remove_element(attacker)
-			
-			GameJudge.Result.DRAW:
-				return
-				
+	
+	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
+	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
+	
 	combat_in_process = false
 
 

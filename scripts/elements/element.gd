@@ -144,7 +144,7 @@ const DATA = [
 	{SIMBOL : "Lv", NAME : "LIVERMÓRIO", VALENTIA :6, SERIE : OTHERS},
 	{SIMBOL : "Ts", NAME : "TENESSO", VALENTIA :6, SERIE : HALOGEN},
 	{SIMBOL : "Og", NAME : "OGANESSÔNIO", VALENTIA :0, SERIE : NOBLE},
-	{SIMBOL : "Uue", NAME : "Ununénnio", VALENTIA :1, SERIE : ALKALINE},
+	{SIMBOL : "Uue", NAME : "UNUNÉNNIO", VALENTIA :1, SERIE : ALKALINE},
 ]
 
 ## valor de ataque, é variável, ou seja, esse valor pode mudar de acordo com oque acontece durante o jogo.
