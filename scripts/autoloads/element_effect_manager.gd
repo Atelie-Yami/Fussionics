@@ -21,10 +21,10 @@ enum SkillType {
 const TIME_CAST_EFFECT := 0.1
 ## Quando um efeito de turno for iniciado, ele vai se registrar aqui e esperar se chamado
 const EFFECTS_POOL := {
-	SkillType.PRE_INIT_PHASE: [],
-	SkillType.COOKED_FUSION: [],
-	SkillType.COOKED_ACCELR: [],
-	SkillType.INIT_PHASE: [],
+	SkillType.PRE_INIT_PHASE: [], #
+	SkillType.COOKED_FUSION: [], #
+	SkillType.COOKED_ACCELR: [], #
+	SkillType.INIT_PHASE: [], #
 	SkillType.MAIN_PHASE: [], #
 	SkillType.END_PHASE: [], #
 	SkillType.LINKED: [], #

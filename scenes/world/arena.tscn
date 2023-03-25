@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=21 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
-[ext_resource type="Script" path="res://scripts/world/element_effect_processor.gd" id="3_gm0uf"]
 [ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
 [ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
@@ -53,17 +52,6 @@ font_size = 32
 unique_name_in_owner = true
 one_shot = true
 script = ExtResource("1_hlcug")
-
-[node name="pre_init_ElementEffectProcessor" type="Timer" parent="turn_machine"]
-script = ExtResource("3_gm0uf")
-
-[node name="init_ElementEffectProcessor" type="Timer" parent="turn_machine"]
-script = ExtResource("3_gm0uf")
-time = 1
-
-[node name="end_turn_ElementEffectProcessor" type="Timer" parent="turn_machine"]
-script = ExtResource("3_gm0uf")
-time = 10
 
 [node name="arena" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(605, 320)
@@ -761,6 +749,5 @@ grow_vertical = 0
 text = "Energy: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
-[connection signal="timeout" from="turn_machine" to="turn_machine" method="_timeout"]
 [connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]

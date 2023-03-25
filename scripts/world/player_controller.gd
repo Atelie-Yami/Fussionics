@@ -56,8 +56,6 @@ func _set_current_player_controller(player: Players):
 	current_players[player].energy_max = min(current_players[player].energy_max + 1, ENERGY_MAX)
 	current_players[player].energy = current_players[player].energy_max
 	
-	ElementEffectManager.call_effects(player, ElementEffectManager.SkillType.MAIN_PHASE)
-	
 	if player == Players.A:
 		pass
 
