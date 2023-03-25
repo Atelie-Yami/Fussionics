@@ -34,7 +34,7 @@ const EFFECTS_POOL := {
 	SkillType.PRE_DEFEND: [], #
 	SkillType.POS_DEFEND: [], #
 	SkillType.POS_ACTION: [], #
-	SkillType.PASSIVE: [],
+	SkillType.PASSIVE: [], #
 }
 
 var effects_pool_players := {
@@ -54,6 +54,12 @@ func _reset_pool(player: PlayerController.Players):
 		effects_pool_players[player][type] = []
 
 
+func _process(delta):
+	for _players in 2:
+		for effect in effects_pool_players[_players][SkillType.PASSIVE]:
+			effect.execute()
+
+
 func call_effects(player: PlayerController.Players, type: SkillType):
 	is_processing_tasks = true
 	for effect in effects_pool_players[player][type]:
@@ -61,13 +67,13 @@ func call_effects(player: PlayerController.Players, type: SkillType):
 		print("execultando ", effect)
 		start(TIME_CAST_EFFECT)
 		await timeout
-	
-	for _players in 2:
-		for effect in effects_pool_players[_players][SkillType.POS_ACTION]:
-			effect.execute()
-			print("execultando ", effect)
-			start(TIME_CAST_EFFECT)
-			await timeout
+		
+		for _players in 2:
+			for _effect in effects_pool_players[_players][SkillType.POS_ACTION]:
+				_effect.execute()
+				print("execultando ", _effect)
+				start(TIME_CAST_EFFECT)
+				await timeout
 	
 	is_processing_tasks = false
 
