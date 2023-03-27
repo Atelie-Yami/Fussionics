@@ -62,6 +62,10 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 
 func remove_element(slot_position: Vector2i):
 	var slot: Slot = elements[slot_position]
+	
+	if not GameJudge.can_remove_element(slot.element):
+		return
+	
 	if slot.molecule:
 		var neigbors: Array[ElementNode]
 		
@@ -199,10 +203,12 @@ func unlink_elements(element_A: ElementNode, element_B: ElementNode):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
 		
+		var player = elements[element_A.grid_position].player
+		
 		ElementEffectManager.call_effects(
-				elements[element_A.grid_position].player, ElementEffectManager.SkillType.UNLINKED
+				player, ElementEffectManager.SkillType.UNLINKED
 		)
-	
+		player_controller.spend_energy(player, 1)
 	else:
 		print("has not link")
 
@@ -274,8 +280,8 @@ func element_use_effect(element: ElementNode):
 func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	if not elements[attacker].can_act or combat_in_process: return
 	
-	var slot_attacker = elements[attacker]
-	var slot_defender = elements[defender]
+	var slot_attacker: Slot = elements[attacker]
+	var slot_defender: Slot = elements[defender]
 	
 	slot_attacker.can_act = false
 	combat_in_process = true
@@ -290,9 +296,11 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 		var result: GameJudge.Result = GameJudge.combat_check_result(
 				slot_attacker.element, slot_defender.element, skill
 		)
-		
 		match result:
 			GameJudge.Result.WINNER:
+				await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
+				await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
+				player_controller.take_damage(slot_defender.player, slot_attacker.element.eletrons - slot_defender.element.neutrons)
 				remove_element(defender)
 			
 			GameJudge.Result.COUNTERATTACK:
@@ -301,11 +309,10 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 								slot_defender.element, slot_attacker.element, skill
 						) == GameJudge.Result.WINNER
 				):
+					await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
+					await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
+					player_controller.take_damage(slot_attacker.player, slot_defender.element.neutrons - slot_attacker.element.eletrons)
 					remove_element(attacker)
-	
-	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
-	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
-	
 	combat_in_process = false
 
 
@@ -316,7 +323,8 @@ func slot_get_actions(slot: Slot):
 		if slot.element.number_electrons_in_valencia > 0:
 			actions.append(ElementActions.LINK)
 		
-		actions.append(ElementActions.UNLINK)
+		if player_controller.current_players[slot.player].energy > 0:
+			actions.append(ElementActions.UNLINK)
 		
 	else:
 		actions.append(ElementActions.LINK)

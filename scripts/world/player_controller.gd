@@ -52,6 +52,10 @@ func take_damage(player: Players, danage: int):
 	current_players[player].life -= danage
 
 
+func spend_energy(player: Players, energy: int):
+	current_players[player].energy -= energy
+
+
 func _pre_init_turn(player: Players):
 	pass
 

@@ -12,6 +12,7 @@ enum Debuff {
 }
 enum Buff {
 	DOUBLE_ATTACK, # permite atacar mais uma vez
+	IMORTAL, # não pode ser destruido
 }
 
 class DebuffEffect extends PassiveEffect:

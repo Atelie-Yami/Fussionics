@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=22 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -39,6 +39,42 @@ region = Rect2(1300, 600, 270, 270)
 atlas = ExtResource("13_usloi")
 region = Rect2(770, 330, 260, 260)
 margin = Rect2(10, 10, 20, 20)
+
+[sub_resource type="GDScript" id="GDScript_pjl2s"]
+script/source = "extends CanvasLayer
+
+
+
+@onready var turn_machine = %turn_machine
+@onready var player_controller = $\"../PlayerController\"
+
+@onready var life_self = $life_self
+@onready var life_oponnent = $life_oponnent
+@onready var energy = $energy
+@onready var next_turn = $next_turn
+
+
+func _process(delta):
+	life_self.text =   \"life: \" + str(player_controller.current_players[0].life)
+	energy   .text = \"energy: \" + str(player_controller.current_players[0].energy)
+	
+	life_oponnent.text = str(turn_machine.current_stage)
+
+
+
+
+func _turn_machine_main_turn(player):
+	next_turn.disabled = player != TurnMachine.Players.A
+	print(\"a\")
+
+
+func _turn_machine_end_turn(player):
+	next_turn.disabled = true
+
+
+func _next_turn_pressed():
+	print(\"A\")
+"
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
 font = ExtResource("14_virs7")
@@ -722,6 +758,7 @@ texture = SubResource("AtlasTexture_oy12e")
 expand_mode = 1
 
 [node name="GUI" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_pjl2s")
 
 [node name="life_self" type="Label" parent="GUI"]
 offset_right = 158.0
@@ -749,4 +786,18 @@ grow_vertical = 0
 text = "Energy: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
+[node name="next_turn" type="Button" parent="GUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_right = 108.0
+offset_bottom = 58.0
+grow_horizontal = 2
+disabled = true
+text = "pular turno"
+
+[connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
+[connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]
 [connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]
+[connection signal="pressed" from="GUI/next_turn" to="GUI" method="_next_turn_pressed"]

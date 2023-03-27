@@ -7,7 +7,7 @@ signal init_turn(player: int)
 signal main_turn(player: int)
 signal end_turn(player: int)
 
-const TURN_TIME = 30.0
+const TURN_TIME = 3.0
 const COOK_FUSION_TIME = 0.15
 const COOK_ACCELR_TIME = 0.15
 
@@ -15,8 +15,6 @@ enum State {PRE_INIT, INIT, MAIN, END}
 enum Players {A, B}
 
 var current_player: Players = randi() % Players.size() as Players
-
-var _signals: Array[Signal] = [pre_init_turn, init_turn, main_turn, end_turn]
 
 var current_stage: State:
 	set(value):
@@ -29,6 +27,7 @@ var current_stage: State:
 						ElementEffectManager.SkillType.PRE_INIT_PHASE
 				)
 				next_phase()
+				pre_init_turn.emit(current_player)
 			
 			State.INIT:
 				await ElementEffectManager.call_effects(
@@ -37,6 +36,7 @@ var current_stage: State:
 				)
 				await cook()
 				next_phase()
+				init_turn.emit(current_player)
 			
 			State.MAIN:
 				await ElementEffectManager.call_effects(
@@ -44,7 +44,10 @@ var current_stage: State:
 						ElementEffectManager.SkillType.MAIN_PHASE
 				)
 				start(TURN_TIME)
-				timeout.connect(_main_phase_timeout, CONNECT_ONE_SHOT)
+				if not timeout.is_connected(_main_phase_timeout):
+					timeout.connect(_main_phase_timeout, CONNECT_ONE_SHOT)
+				
+				main_turn.emit(current_player)
 			
 			State.END:
 				await ElementEffectManager.call_effects(
@@ -52,9 +55,15 @@ var current_stage: State:
 						ElementEffectManager.SkillType.END_PHASE
 				)
 				next_phase()
+				end_turn.emit(current_player)
 
 
 @onready var arena: Arena = $"../arena"
+
+
+func _ready():
+	await get_tree().create_timer(1).timeout
+	start_turn()
 
 
 func start_turn():
@@ -69,9 +78,9 @@ func next_phase():
 		stop()
 	
 	if current_stage == State.END:
-		current_player = current_player + 1 % Players.size() as Players
+		current_player = (current_player + 1) % Players.size() as Players
 	
-	self.current_stage = current_stage + 1 % State.size() as State
+	self.current_stage = (current_stage + 1) % State.size() as State
 
 
 func cook():

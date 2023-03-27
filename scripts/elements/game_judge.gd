@@ -23,5 +23,11 @@ static func can_element_attack(element: ElementNode) -> bool:
 	for debuff in element.debuffs:
 		if debuff.type == PassiveEffect.Debuff.ATTACK_BLOQ:
 			return false
-	
+	return true
+
+
+static func can_remove_element(element: ElementNode) -> bool:
+	for debuff in element.debuffs:
+		if debuff.type == PassiveEffect.Buff.IMORTAL:
+			return false
 	return true
