@@ -101,6 +101,7 @@ func _draw():
 
 
 func _draw_ligaments():
+	
 	for link in links:
 		var ligament : Molecule.Ligament = links[link]
 		if not ligament:
