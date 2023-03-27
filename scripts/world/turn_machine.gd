@@ -7,7 +7,7 @@ signal init_turn(player: int)
 signal main_turn(player: int)
 signal end_turn(player: int)
 
-const TURN_TIME = 3.0
+const TURN_TIME = 10.0
 const COOK_FUSION_TIME = 0.15
 const COOK_ACCELR_TIME = 0.15
 
@@ -26,6 +26,7 @@ var current_stage: State:
 						current_player as PlayerController.Players,
 						ElementEffectManager.SkillType.PRE_INIT_PHASE
 				)
+				await get_tree().create_timer(0.2).timeout # teste
 				next_phase()
 				pre_init_turn.emit(current_player)
 			
@@ -35,6 +36,7 @@ var current_stage: State:
 						ElementEffectManager.SkillType.INIT_PHASE
 				)
 				await cook()
+				await get_tree().create_timer(0.2).timeout # teste
 				next_phase()
 				init_turn.emit(current_player)
 			
@@ -46,7 +48,6 @@ var current_stage: State:
 				start(TURN_TIME)
 				if not timeout.is_connected(_main_phase_timeout):
 					timeout.connect(_main_phase_timeout, CONNECT_ONE_SHOT)
-				
 				main_turn.emit(current_player)
 			
 			State.END:
@@ -54,6 +55,7 @@ var current_stage: State:
 						current_player as PlayerController.Players,
 						ElementEffectManager.SkillType.END_PHASE
 				)
+				await get_tree().create_timer(0.2).timeout # teste
 				next_phase()
 				end_turn.emit(current_player)
 

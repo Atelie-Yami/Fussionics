@@ -58,14 +58,20 @@ func _process(delta):
 	life_self.text =   \"life: \" + str(player_controller.current_players[0].life)
 	energy   .text = \"energy: \" + str(player_controller.current_players[0].energy)
 	
-	life_oponnent.text = str(turn_machine.current_stage)
+	match turn_machine.current_stage:
+		0: life_oponnent.text = \"PRE INIT\"
+		1: life_oponnent.text = \"INIT STORVE\"
+		2: life_oponnent.text = \"MAIN\"
+		3: life_oponnent.text = \"END\"
+	
+	life_oponnent.text += \" rival\" if turn_machine.current_player else \" jogador\"
 
 
 
 
 func _turn_machine_main_turn(player):
 	next_turn.disabled = player != TurnMachine.Players.A
-	print(\"a\")
+
 
 
 func _turn_machine_end_turn(player):
@@ -73,7 +79,7 @@ func _turn_machine_end_turn(player):
 
 
 func _next_turn_pressed():
-	print(\"A\")
+	turn_machine.next_phase()
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
@@ -104,16 +110,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8citt")
 
-[node name="GridContainer" type="Control" parent="arena"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Slot_1" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_1" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -124,7 +121,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_2" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_2" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -136,7 +133,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_3" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_3" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -148,7 +145,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_4" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_4" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -160,7 +157,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_5" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_5" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -172,7 +169,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_6" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_6" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -184,7 +181,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_7" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_7" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -196,7 +193,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_8" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_8" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -208,7 +205,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_9" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_9" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -220,7 +217,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_10" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_10" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -233,7 +230,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_11" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_11" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -246,7 +243,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_12" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_12" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -259,7 +256,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_13" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_13" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -272,7 +269,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_14" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_14" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -285,7 +282,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_15" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_15" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -298,7 +295,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_16" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_16" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -311,7 +308,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_17" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_17" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -323,7 +320,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_18" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_18" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -336,7 +333,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_19" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_19" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -349,7 +346,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_20" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_20" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -362,7 +359,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_21" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_21" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -375,7 +372,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_22" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_22" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -388,7 +385,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_23" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_23" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -401,7 +398,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_24" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_24" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -414,7 +411,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_25" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_25" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -426,7 +423,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_26" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_26" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -439,7 +436,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_27" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_27" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -452,7 +449,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_28" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_28" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -465,7 +462,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_29" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_29" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -478,7 +475,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_30" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_30" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -491,7 +488,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_31" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_31" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -504,7 +501,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_32" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_32" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -517,7 +514,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_33" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_33" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -529,7 +526,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_34" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_34" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -542,7 +539,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_35" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_35" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -555,7 +552,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_36" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_36" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -568,7 +565,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_37" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_37" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -581,7 +578,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_38" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_38" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -594,7 +591,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_39" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_39" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -607,7 +604,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
-[node name="Slot_40" type="Panel" parent="arena/GridContainer"]
+[node name="Slot_40" type="Panel" parent="arena"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -615,6 +612,144 @@ offset_left = 630.0
 offset_top = 360.0
 offset_right = 710.0
 offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_41" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -360.0
+offset_right = -280.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_42" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -180.0
+offset_right = -100.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_43" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -270.0
+offset_right = -190.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_44" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -270.0
+offset_top = 450.0
+offset_right = -190.0
+offset_bottom = 530.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_45" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -90.0
+offset_top = 450.0
+offset_right = -10.0
+offset_bottom = 530.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_46" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -180.0
+offset_top = 540.0
+offset_right = -100.0
+offset_bottom = 620.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_47" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 810.0
+offset_right = 890.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_48" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 990.0
+offset_right = 1070.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_49" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 900.0
+offset_right = 980.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_50" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 720.0
+offset_top = 450.0
+offset_right = 800.0
+offset_bottom = 530.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_51" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 900.0
+offset_top = 450.0
+offset_right = 980.0
+offset_bottom = 530.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_52" type="Panel" parent="arena"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 810.0
+offset_top = 540.0
+offset_right = 890.0
+offset_bottom = 620.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_cjbuv")
@@ -628,6 +763,7 @@ one_shot = true
 script = ExtResource("9_orbja")
 
 [node name="CameraArena" type="Camera2D" parent="."]
+visible = false
 position = Vector2(960, 0)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
@@ -767,14 +903,17 @@ text = "life: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
 [node name="life_oponnent" type="Label" parent="GUI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -158.0
-offset_bottom = 36.0
-grow_horizontal = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 81.0
+offset_right = 131.0
+offset_bottom = 117.0
+grow_horizontal = 2
 text = "life: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
 
 [node name="energy" type="Label" parent="GUI"]
 anchors_preset = 2

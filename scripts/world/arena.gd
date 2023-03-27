@@ -5,6 +5,12 @@ enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 
 const GRID_OFFSET := Vector2i(605, 320)
 const SLOT_SIZE := Vector2i(90, 90)
+const FORJE_SLOTS_OFFSET := [
+	Vector2i(-360, 0), Vector2i(-180, 0), Vector2i(-270, 0),
+	Vector2i(-270, 450), Vector2i(-90, 450), Vector2i(-180, 540),
+	Vector2i(810, 0), Vector2i(990, 0), Vector2i(900, 0),
+	Vector2i(720, 450), Vector2i(900, 450), Vector2i(810, 540),
+]
 
 class Slot:
 	var player: PlayerController.Players
@@ -30,7 +36,6 @@ var combat_in_process: bool
 
 
 @onready var player_controller: PlayerController = $"../PlayerController"
-@onready var grid_container = $GridContainer
 
 
 func _init():
@@ -40,17 +45,32 @@ func _init():
 func _ready():
 	await  get_tree().create_timer(0.1).timeout
 	
-	for c in grid_container.get_children():
+	for c in get_children():
 		await  get_tree().create_timer(0.03).timeout
 		c.animation()
 
 
-func check_slot_empty(slot: Vector2i):
+func _check_slot_empty(slot: Vector2i):
 	return not elements.has(slot)
 
 
+func _check_slot_only_out(slot: Vector2i):
+	return slot.y == 12 or slot.y == 15 or slot.y == 18 or slot.y == 21
+
+
+func _get_snapped_slot_position(slot: Vector2i):
+	if slot.y > 9:
+		return FORJE_SLOTS_OFFSET[slot.y - 10]
+	else:
+		return (SLOT_SIZE * slot) + GRID_OFFSET
+
+
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
-	if not check_slot_empty(final_slot) or elements[pre_slot].element.has_link: return
+	if (
+			not _check_slot_empty(final_slot)
+			or _check_slot_only_out(final_slot)
+			or elements[pre_slot].element.has_link
+	): return
 	
 	var slot = elements[pre_slot]
 	elements.erase(pre_slot)
@@ -94,7 +114,8 @@ func _remove_element(slot: Slot, slot_position: Vector2i):
 
 
 func create_element(atomic_number: int, player: PlayerController.Players, _position: Vector2i):
-	if not check_slot_empty(_position): return
+	if not _check_slot_empty(_position) or _check_slot_only_out(_position):
+		return
 	
 	var element = ElementNode.new()
 	var slot = Slot.new(element, player)
@@ -114,16 +135,10 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 		11: # slot 2, fusão, Player A
 			pass
 		
-		12: # slot 3, fusão, Player A # slot onde fica o resultado cozido
-			pass
-		
 		13: # slot 1, accelr, Player A
 			pass
 		
 		14: # slot 2, accelr, Player A
-			pass
-		
-		15: # slot 3, accelr, Player A # slot onde fica o resultado cozido
 			pass
 		
 		16: # slot 1, fusão, Player B
@@ -132,17 +147,12 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 		17: # slot 2, fusão, Player B
 			pass
 		
-		18: # slot 3, fusão, Player B # slot onde fica o resultado cozido
-			pass
-		
 		19: #slot 1, accelr, Player B
 			pass
 		
 		20: #slot 2, accelr, Player B
 			pass
 		
-		21: #slot 3, accelr, Player B # slot onde fica o resultado cozido
-			pass
 		_:
 			element.global_position = (SLOT_SIZE * _position) + GRID_OFFSET
 
