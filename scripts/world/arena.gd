@@ -1,6 +1,5 @@
 class_name Arena extends Control
 
-signal end_game(winner: int)
 
 enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 
@@ -196,21 +195,7 @@ func _link_elements(element_a: ElementNode, element_b: ElementNode):
 
 
 func unlink_elements(element_A: ElementNode, element_B: ElementNode):
-	var has_link := false
-	
-	for link in element_A.links:
-		var ligament_A = element_A.links[link]
-		if not ligament_A: continue
-		
-		for _link in element_B.links:
-			var ligament_B = element_B.links[_link]
-			if not ligament_B: continue
-			
-			if ligament_A == ligament_B:
-				ligament_A.remove()
-				has_link = true
-	
-	if has_link:
+	if _unlink_elements(element_A, element_B):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
 		
@@ -220,6 +205,28 @@ func unlink_elements(element_A: ElementNode, element_B: ElementNode):
 	
 	else:
 		print("has not link")
+
+
+func _unlink_elements(element_A: ElementNode, element_B: ElementNode):
+	for link in element_A.links:
+		var ligament_A: Molecule.Ligament = element_A.links[link]
+		if not ligament_A:
+			continue
+		
+		for _link in element_B.links:
+			var ligament_B: Molecule.Ligament = element_B.links[_link]
+			if not ligament_B:
+				continue
+			
+			if ligament_A == ligament_B:
+				if ligament_A.level > 1:
+					ligament_A.demote_ligament()
+				
+				else:
+					ligament_A.remove()
+				
+				return true
+	return false
 
 
 func _handle_molecule(element: ElementNode):
@@ -281,15 +288,20 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	
 	else:
 		var result: GameJudge.Result = GameJudge.combat_check_result(
-			slot_attacker.element, slot_defender.element, skill
+				slot_attacker.element, slot_defender.element, skill
 		)
 		
 		match result:
-			GameJudge.Result.WINNER: 
+			GameJudge.Result.WINNER:
 				remove_element(defender)
 			
 			GameJudge.Result.COUNTERATTACK:
-				remove_element(attacker)
+				if (
+						GameJudge.combat_check_result(
+								slot_defender.element, slot_attacker.element, skill
+						) == GameJudge.Result.WINNER
+				):
+					remove_element(attacker)
 	
 	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)

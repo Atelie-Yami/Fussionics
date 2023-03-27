@@ -34,6 +34,11 @@ class Ligament:
 		element_B.number_electrons_in_valencia -= 1
 		level += 1
 	
+	func demote_ligament():
+		element_A.number_electrons_in_valencia += 1
+		element_B.number_electrons_in_valencia += 1
+		level -= 1
+	
 	func remove():
 		element_A.number_electrons_in_valencia += level
 		element_B.number_electrons_in_valencia += level

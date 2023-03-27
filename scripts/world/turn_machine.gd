@@ -1,7 +1,7 @@
 class_name TurnMachine extends Timer
 
 signal start_game
-signal end_game
+signal end_game(player)
 signal pre_init_turn(player: int)
 signal init_turn(player: int)
 signal main_turn(player: int)
@@ -89,6 +89,13 @@ func cook():
 		start(COOK_FUSION_TIME)
 		# animação de fundir aqui
 		await timeout
+		
+		if atn > 25:
+			var diff = atn - 25
+			Gameplay.player_controller.take
+			arena.take
+			
+		
 		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_FUSION)
 	
 	if arena.elements.has(Vector2i(slot_accelr, 0)) and arena.elements.has(Vector2i(slot_accelr +1, 0)):

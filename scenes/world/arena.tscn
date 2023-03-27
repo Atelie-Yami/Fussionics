@@ -749,5 +749,4 @@ grow_vertical = 0
 text = "Energy: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
-[connection signal="end_game" from="arena" to="turn_machine" method="_arena_end_game"]
 [connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]

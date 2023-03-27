@@ -18,7 +18,8 @@ class Player:
 	var life: int = PLAYERS_MAX_LIFE:
 		set(value):
 			life = max(value, 0)
-			if life == 0: end_game.emit(player)
+			if life == 0:
+				end_game.emit(player)
 	
 	func _init(_player: Players, _end_game: Signal):
 		player = _player; end_game = _end_game
@@ -39,12 +40,16 @@ func _init():
 
 
 func _ready():
-	current_players.append(Player.new(Players.A, arena.end_game))
-	current_players.append(Player.new(Players.B, arena.end_game))
+	for p in Players.size():
+		current_players.append(Player.new(p, turn_machine.end_game))
 	
 	turn_machine.pre_init_turn.connect(_pre_init_turn)
 	turn_machine.main_turn.connect(_set_current_player_controller)
 	turn_machine.end_turn.connect(_remove_players_control)
+
+
+func take_damage(player: Players, danage: int):
+	current_players[player].life -= danage
 
 
 func _pre_init_turn(player: Players):

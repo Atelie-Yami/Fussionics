@@ -185,9 +185,9 @@ var has_link: bool:
 		
 		return false
 
-var debuffs: Array[GameJudge.DebuffEffect]
-var buffs: Array[GameJudge.BuffEffect]
-var effect: GameJudge.SkillEffect
+var debuffs: Array[PassiveEffect.DebuffEffect]
+var buffs: Array[PassiveEffect.BuffEffect]
+var effect: SkillEffect
 
 
 func reset():
