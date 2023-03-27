@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=23 format=3 uid="uid://donm2fkhv3pdo"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cx22mwdgj1oja" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="13_usloi"]
+[ext_resource type="PackedScene" uid="uid://dbx42u5o60yuk" path="res://scenes/world/line_contorno.tscn" id="14_mugul"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
@@ -796,6 +797,8 @@ offset_bottom = 58.0
 grow_horizontal = 2
 disabled = true
 text = "pular turno"
+
+[node name="LineContorno" parent="." instance=ExtResource("14_mugul")]
 
 [connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
 [connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]
