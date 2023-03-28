@@ -121,18 +121,17 @@ func _draw_ligaments():
 func set_current_node_state(state: NodeState):
 	if current_node_state == state: return
 	
-	match current_node_state:
-		NodeState.SELECTED:
-			selected_changed.emit(false)
+	if current_node_state == NodeState.SELECTED:
+		selected_changed.emit(false)
 	
 	current_node_state = state
 	
-	match current_node_state:
-		NodeState.NORMAL: pass
-		NodeState.HOVER: pass
-		NodeState.SELECTED:
-			Gameplay.selected_element = self
-			selected_changed.emit(true)
+	if current_node_state == NodeState.SELECTED:
+		Gameplay.selected_element = self
+		selected_changed.emit(true)
+	
+	elif current_node_state == NodeState.HOVER:
+		pass
 
 
 func _gui_input(event: InputEvent):

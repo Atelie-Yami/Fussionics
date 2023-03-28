@@ -6,10 +6,10 @@ enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 const GRID_OFFSET := Vector2i(605, 320)
 const SLOT_SIZE := Vector2i(90, 90)
 const FORJE_SLOTS_OFFSET := [
-	Vector2i(-360, 0), Vector2i(-180, 0), Vector2i(-270, 0),
-	Vector2i(-270, 450), Vector2i(-90, 450), Vector2i(-180, 540),
-	Vector2i(810, 0), Vector2i(990, 0), Vector2i(900, 0),
-	Vector2i(720, 450), Vector2i(900, 450), Vector2i(810, 540),
+	Vector2i(-360, 100), Vector2i(-180, 0), Vector2i(-270, 0),    # slots 10, 11, 12
+	Vector2i(-270, 450), Vector2i(-90, 450), Vector2i(-180, 540), # slots 13, 14, 15
+	Vector2i(810, 0), Vector2i(990, 0), Vector2i(900, 0),         # slots 16, 17, 18
+	Vector2i(720, 450), Vector2i(900, 450), Vector2i(810, 540),   # slots 19, 20, 21
 ]
 
 class Slot:
@@ -59,10 +59,8 @@ func _check_slot_only_out(slot: Vector2i):
 
 
 func _get_snapped_slot_position(slot: Vector2i):
-	if slot.y > 9:
-		return FORJE_SLOTS_OFFSET[slot.y - 10]
-	else:
-		return (SLOT_SIZE * slot) + GRID_OFFSET
+	var _slot = (slot - Vector2i(16, 0)) if slot.x > 11 else slot
+	return (SLOT_SIZE * _slot) + GRID_OFFSET
 
 
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
@@ -77,7 +75,7 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	elements[final_slot] = slot
 	
 	slot.element.grid_position = final_slot
-	slot.element.global_position = (SLOT_SIZE * final_slot) + GRID_OFFSET
+	slot.element.global_position = _get_snapped_slot_position(final_slot)
 
 
 func remove_element(slot_position: Vector2i):
@@ -128,33 +126,8 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 	player_controller.add_child(element)
 	player_controller.current_players[player].elements.append(element)
 	
-	match _position.y:
-		10: # slot 1, fusão, Player A
-			pass
-		
-		11: # slot 2, fusão, Player A
-			pass
-		
-		13: # slot 1, accelr, Player A
-			pass
-		
-		14: # slot 2, accelr, Player A
-			pass
-		
-		16: # slot 1, fusão, Player B
-			pass
-		
-		17: # slot 2, fusão, Player B
-			pass
-		
-		19: #slot 1, accelr, Player B
-			pass
-		
-		20: #slot 2, accelr, Player B
-			pass
-		
-		_:
-			element.global_position = (SLOT_SIZE * _position) + GRID_OFFSET
+	element.active = _position.y < 9
+	element.global_position = _get_snapped_slot_position(_position)
 
 
 func link_elements(element_a: ElementNode, element_b: ElementNode):
@@ -172,22 +145,26 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 			slot_b.molecule.configuration.map(
 					func(e: ElementNode): elements[e.grid_position].molecule = slot_a.molecule
 			)
+			slot_a.molecule.gain_ref()
 	
 	elif slot_a.molecule:
 		slot_a.molecule.configuration.append(element_b)
 		slot_a.molecule.link_elements(element_a, element_b)
 		slot_b.molecule = slot_a.molecule
+		slot_a.molecule.gain_ref()
 	
 	elif slot_b.molecule:
 		slot_b.molecule.configuration.append(element_a)
 		slot_b.molecule.link_elements(element_a, element_b)
 		slot_a.molecule = slot_b.molecule
+		slot_b.molecule.gain_ref()
 	
 	else:
 		var molecule := Molecule.new()
 		molecule.configuration.append(element_a); molecule.configuration.append(element_b)
 		molecule.link_elements(element_a, element_b)
 		slot_a.molecule = molecule; slot_b.molecule = molecule
+		molecule.update_border()
 	
 	ElementEffectManager.call_effects(slot_a.player, ElementEffectManager.SkillType.LINKED)
 
@@ -253,13 +230,18 @@ func _handle_molecule(element: ElementNode):
 		_procedural_search_link_nodes(element, molecule_config)
 	
 	if molecule_config.is_empty():
+		if elements[element.grid_position].molecule:
+			elements[element.grid_position].molecule.redux_ref()
 		elements[element.grid_position].molecule = null
+		
 	else:
 		molecula = Molecule.new()
 		molecula.configuration = molecule_config
+		elements[element.grid_position].molecule.border_line.queue_free()
 		
 		for e in molecule_config:
 			elements[e.grid_position].molecule = molecula
+			molecula.gain_ref()
 
 
 func _procedural_search_link_nodes(element_parent: ElementNode, anchored_array: Array[ElementNode]):
@@ -275,7 +257,7 @@ func _procedural_search_link_nodes(element_parent: ElementNode, anchored_array: 
 
 
 func _procedural_search_test(element: ElementNode, anchored_array: Array[ElementNode]):
-	if anchored_array.find(element) == -1:
+	if anchored_array.find(element) != -1:
 		return
 	
 	anchored_array.append(element)
@@ -353,6 +335,10 @@ func _can_drop_data(_p, data):
 
 func _drop_data(_p, data):
 	var final_position: Vector2i = Vector2i(get_global_mouse_position() - Vector2(GRID_OFFSET)) / SLOT_SIZE
+	
+	if get_global_mouse_position().x - GRID_OFFSET.x < 0:
+		final_position.x = 15 + final_position.x
+	
 	move_element((data as ElementNode).grid_position, final_position)
 
 

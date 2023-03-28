@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://t0mfbvf2u4s4"]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="Script" path="res://scripts/main/main.gd" id="1_6niv8"]
+[ext_resource type="Script" path="res://scripts/interface/main/main.gd" id="1_6niv8"]
 [ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_w7vcx"]
-[ext_resource type="Script" path="res://scripts/main/Notification.gd" id="2_5rkd4"]
+[ext_resource type="Script" path="res://scripts/interface/main/Notification.gd" id="2_5rkd4"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="3_dpn8s"]
-[ext_resource type="Script" path="res://scripts/login/Show.gd" id="3_fkelm"]
-[ext_resource type="Script" path="res://scripts/main/Pop_Common.gd" id="5_nlnuo"]
+[ext_resource type="Script" path="res://scripts/interface/login/Show.gd" id="3_fkelm"]
+[ext_resource type="Script" path="res://scripts/interface/main/Pop_Common.gd" id="5_nlnuo"]
 [ext_resource type="Texture2D" uid="uid://uvcjsg3jld5x" path="res://resouces/atlas/main/Person.tres" id="7_5xyol"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bctxt"]

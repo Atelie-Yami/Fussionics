@@ -80,10 +80,15 @@ func _remove_players_control(player: Players):
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
-		current_players[0].set_my_turn(true)
+#		current_players[0].set_my_turn(true)
 		
-		arena.create_element(randi_range(0, 118), 0, Vector2i(randi_range(0, 7), randi_range(0, 4)))
-		arena.create_element(randi_range(0, 118), 1, Vector2i(randi_range(0, 7), randi_range(0, 4)))
+		arena.create_element(8, 0, Vector2i(1, 2))
+		arena.create_element(91, 1, Vector2i(2, 2))
+		arena.create_element(15, 0, Vector2i(3, 2))
+		arena.create_element(13, 1, Vector2i(4, 2))
+		arena.create_element(7, 0, Vector2i(5, 2))
+		arena.create_element(27, 1, Vector2i(6, 2))
+		arena.create_element(54, 0, Vector2i(7, 2))
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		current_players[0].set_my_turn(false)

@@ -4,6 +4,8 @@ enum LigamentPosition {
 	UP_DOWN, RIGHT_LEFT
 }
 
+const BORDELINE := preload("res://scenes/world/line_contorno.tscn")
+
 #------------------------------------------------------------------------------#
 ## classe que vai ser a coneção entre 2 elementos
 class Ligament:
@@ -53,7 +55,37 @@ class Ligament:
 				element_B.links[Vector2i.LEFT ] = null
 #------------------------------------------------------------------------------#
 
+var ref_count: int = 1
 var configuration: Array[ElementNode]
+var border_line: LineMap = BORDELINE.instantiate()
+
+
+func _init():
+	Gameplay.arena.add_child(border_line)
+	border_line.global_position = Gameplay.arena.GRID_OFFSET - Vector2i(5, 5)
+
+
+func update_border():
+	var array: Array[Vector2]
+	
+	for element in configuration:
+		array.append(Vector2(element.grid_position))
+	
+	border_line.Update(array)
+
+
+func gain_ref():
+	ref_count += 1
+	update_border()
+
+
+func redux_ref():
+	ref_count -= 1
+	if ref_count <= 1:
+		border_line.queue_free()
+	
+	else:
+		update_border()
 
 
 func link_elements(element_a: ElementNode, element_b: ElementNode):
@@ -83,8 +115,7 @@ func remove_element(element: ElementNode):
 	for link in element.links:
 		if element.links[link]:
 			element.links[link].remove()
-		
-#	element.links.map(func(link: Ligament): link.remove())
+	border_line.Update([])
 
 
 func get_eletron_power() -> int:
