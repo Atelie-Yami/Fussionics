@@ -54,6 +54,7 @@ script/source = "extends CanvasLayer
 @onready var life_oponnent = $life_oponnent
 @onready var energy = $energy
 @onready var next_turn = $next_turn
+@onready var timer = $timer
 
 
 func _process(delta):
@@ -61,12 +62,15 @@ func _process(delta):
 	energy   .text = \"energy: \" + str(player_controller.current_players[0].energy)
 	
 	match turn_machine.current_stage:
-		0: life_oponnent.text = \"PRE INIT\"
-		1: life_oponnent.text = \"INIT STORVE\"
-		2: life_oponnent.text = \"MAIN\"
-		3: life_oponnent.text = \"END\"
+		0: timer.text = \"PRE INIT\"
+		1: timer.text = \"INIT STORVE\"
+		2: timer.text = \"MAIN\"
+		3: timer.text = \"END\"
 	
-	life_oponnent.text += \" rival\" if turn_machine.current_player else \" jogador\"
+	timer.text += \" rival\" if turn_machine.current_player else \" jogador\"
+	
+	if turn_machine.current_stage == 2:
+		timer.text +=  \": \" + str(int(turn_machine.time_left))
 
 
 
@@ -729,7 +733,6 @@ one_shot = true
 script = ExtResource("9_orbja")
 
 [node name="CameraArena" type="Camera2D" parent="."]
-visible = false
 position = Vector2(960, 0)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
@@ -862,13 +865,7 @@ expand_mode = 1
 [node name="GUI" type="CanvasLayer" parent="."]
 script = SubResource("GDScript_pjl2s")
 
-[node name="life_self" type="Label" parent="GUI"]
-offset_right = 158.0
-offset_bottom = 36.0
-text = "life: 10"
-label_settings = SubResource("LabelSettings_kpb4x")
-
-[node name="life_oponnent" type="Label" parent="GUI"]
+[node name="timer" type="Label" parent="GUI"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -877,6 +874,23 @@ offset_top = 81.0
 offset_right = 131.0
 offset_bottom = 117.0
 grow_horizontal = 2
+text = "life: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
+
+[node name="life_self" type="Label" parent="GUI"]
+offset_right = 158.0
+offset_bottom = 36.0
+text = "life: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+
+[node name="life_oponnent" type="Label" parent="GUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -262.0
+offset_bottom = 36.0
+grow_horizontal = 0
 text = "life: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 horizontal_alignment = 1
@@ -893,85 +907,6 @@ grow_vertical = 0
 text = "Energy: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
-[node name="slot_1" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 605.0
-offset_top = 990.0
-offset_right = 685.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-
-[node name="slot_2" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 695.0
-offset_top = 990.0
-offset_right = 775.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 1
-
-[node name="slot_3" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 785.0
-offset_top = 990.0
-offset_right = 865.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 2
-
-[node name="slot_4" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 875.0
-offset_top = 990.0
-offset_right = 955.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 3
-
-[node name="slot_5" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 965.0
-offset_top = 990.0
-offset_right = 1045.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 4
-
-[node name="slot_6" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 1055.0
-offset_top = 990.0
-offset_right = 1135.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 5
-
-[node name="slot_7" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 1145.0
-offset_top = 990.0
-offset_right = 1225.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 6
-
-[node name="slot_8" type="Panel" parent="GUI"]
-custom_minimum_size = Vector2(80, 80)
-offset_left = 1235.0
-offset_top = 990.0
-offset_right = 1315.0
-offset_bottom = 1070.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 7
-
 [node name="next_turn" type="Button" parent="GUI"]
 anchors_preset = 5
 anchor_left = 0.5
@@ -980,6 +915,7 @@ offset_left = -108.0
 offset_right = 108.0
 offset_bottom = 58.0
 grow_horizontal = 2
+focus_mode = 0
 disabled = true
 text = "pular turno"
 
@@ -1006,7 +942,63 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
+[node name="slot_1" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+
+[node name="slot_2" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 1
+
+[node name="slot_3" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 2
+
+[node name="slot_4" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 3
+
+[node name="slot_5" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 4
+
+[node name="slot_6" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 5
+
+[node name="slot_7" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 6
+
+[node name="slot_8" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 7
+
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
+[connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
 [connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
 [connection signal="end_turn" from="turn_machine" to="GUI/deck" method="_turn_machine_end_turn"]
 [connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]

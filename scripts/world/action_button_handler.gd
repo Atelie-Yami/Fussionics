@@ -51,3 +51,7 @@ func _show_action_buttons(actions: Array[Arena.ElementActions]):
 		get_child(action).position = (polar * 80) - Vector2(25, 25)
 		get_child(action).visible = true
 		count += 1
+
+
+func _turn_machine_end_turn(player):
+	Gameplay.action_state = 0

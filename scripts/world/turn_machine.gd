@@ -45,7 +45,7 @@ var current_stage: State:
 						current_player as PlayerController.Players,
 						ElementEffectManager.SkillType.MAIN_PHASE
 				)
-				start(TURN_TIME)
+				start(1 if current_player == 1 else 20)
 				if not timeout.is_connected(_main_phase_timeout):
 					timeout.connect(_main_phase_timeout, CONNECT_ONE_SHOT)
 				main_turn.emit(current_player)
@@ -106,7 +106,7 @@ func cook():
 		if arena.elements.has(Vector2i(slot_fusion + 1, 0)):
 			arena.remove_element(Vector2i(slot_fusion + 1, 0))
 		
-		arena.create_element(atn, current_player as PlayerController.Players, Vector2i(slot_fusion + 1, 0))
+		arena.create_element(min(atn, 118), current_player as PlayerController.Players, Vector2i(slot_fusion + 1, 0))
 		arena.remove_element(Vector2i(slot_fusion  , 0))
 		arena.remove_element(Vector2i(slot_fusion_2, 0))
 		
@@ -124,20 +124,25 @@ func cook():
 		var atn2: int = arena.elements[Vector2i(slot_accelr_2, 5)].element.atomic_number
 		var atn_result: int
 		
-		if atn1 == atn2: # se for 2 elementos iguais, a change de dar um resultado melhor é maior
-			var atn_result1 = randi_range(atn1, atn1 + atn2)
-			var atn_result2 = randi_range(atn1, atn1 + atn2)
-			atn_result = max(atn_result1, atn_result2)
-			
-		else: 
-			atn_result = randi_range(atn1, atn1 + atn2)
+		if not atn1 and not atn2:
+			atn1 = 1
 		
-		atn_result = min(atn_result, 118)
+		if atn1 == atn2: # Há mais changes de ter um bom resultado se for 2 elementos iguais
+			atn_result = max(
+					randi_range(atn1, atn1 + atn2),
+					randi_range(atn1, atn1 + atn2),
+					randi_range(atn1, atn1 + atn2)
+			)
+		else:
+			atn_result = max(
+					randi_range(atn1, atn1 + atn2),
+					randi_range(atn1, atn1 + atn2)
+			)
 		
 		if arena.elements.has(Vector2i(slot_accelr +1, 5)):
 			arena.remove_element(Vector2i(slot_accelr +1, 5))
 		
-		arena.create_element(atn_result, current_player as PlayerController.Players, Vector2i(slot_accelr +1, 5))
+		arena.create_element(min(atn_result, 118), current_player as PlayerController.Players, Vector2i(slot_accelr +1, 5))
 		arena.remove_element(Vector2i(slot_accelr, 5))
 		arena.remove_element(Vector2i(slot_accelr_2, 5))
 		

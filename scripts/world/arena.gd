@@ -331,12 +331,10 @@ func slot_get_actions(slot: Slot):
 
 
 func _can_drop_data(_p, data):
-	if (
-			turn_machine.current_stage != TurnMachine.State.MAIN
-			or turn_machine.current_player != TurnMachine.Players.A
-	):
-		return false
-	return true
+	return (
+			turn_machine.current_stage == TurnMachine.State.MAIN
+			and turn_machine.current_player == TurnMachine.Players.A
+	)
 
 
 func _drop_data(_p, data):
