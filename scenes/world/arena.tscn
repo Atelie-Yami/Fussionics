@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://donm2fkhv3pdo"]
+[gd_scene load_steps=25 format=3 uid="uid://d2njmvul0ff10"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -12,8 +12,9 @@
 [ext_resource type="PackedScene" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="13_usloi"]
-[ext_resource type="Script" path="res://scripts/interface/deck.gd" id="14_dadys"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/deck.gd" id="14_3xv3w"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -892,6 +893,85 @@ grow_vertical = 0
 text = "Energy: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
+[node name="slot_1" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 605.0
+offset_top = 990.0
+offset_right = 685.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+
+[node name="slot_2" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 695.0
+offset_top = 990.0
+offset_right = 775.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 1
+
+[node name="slot_3" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 785.0
+offset_top = 990.0
+offset_right = 865.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 2
+
+[node name="slot_4" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 875.0
+offset_top = 990.0
+offset_right = 955.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 3
+
+[node name="slot_5" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 965.0
+offset_top = 990.0
+offset_right = 1045.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 4
+
+[node name="slot_6" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 1055.0
+offset_top = 990.0
+offset_right = 1135.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 5
+
+[node name="slot_7" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 1145.0
+offset_top = 990.0
+offset_right = 1225.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 6
+
+[node name="slot_8" type="Panel" parent="GUI"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 1235.0
+offset_top = 990.0
+offset_right = 1315.0
+offset_bottom = 1070.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
+script = ExtResource("15_tapr6")
+element = 7
+
 [node name="next_turn" type="Button" parent="GUI"]
 anchors_preset = 5
 anchor_left = 0.5
@@ -913,7 +993,7 @@ offset_top = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-script = ExtResource("14_dadys")
+script = ExtResource("14_3xv3w")
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/deck"]
 layout_mode = 2
@@ -926,48 +1006,10 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="slot_1" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_2" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_3" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_4" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_5" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_6" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_7" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
-[node name="slot_8" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
+[connection signal="end_turn" from="turn_machine" to="GUI/deck" method="_turn_machine_end_turn"]
 [connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]
+[connection signal="main_turn" from="turn_machine" to="GUI/deck" method="_turn_machine_main_turn"]
 [connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]
 [connection signal="pressed" from="GUI/next_turn" to="GUI" method="_next_turn_pressed"]

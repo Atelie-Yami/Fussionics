@@ -36,6 +36,7 @@ var combat_in_process: bool
 
 
 @onready var player_controller: PlayerController = $"../PlayerController"
+@onready var turn_machine: TurnMachine = %turn_machine
 
 
 func _init():
@@ -330,15 +331,24 @@ func slot_get_actions(slot: Slot):
 
 
 func _can_drop_data(_p, data):
-	return data is ElementNode
+	if (
+			turn_machine.current_stage != TurnMachine.State.MAIN
+			or turn_machine.current_player != TurnMachine.Players.A
+	):
+		return false
+	return true
 
 
 func _drop_data(_p, data):
 	var final_position: Vector2i = Vector2i(get_global_mouse_position() - Vector2(GRID_OFFSET)) / SLOT_SIZE
-	
 	if get_global_mouse_position().x - GRID_OFFSET.x < 0:
 		final_position.x = 15 + final_position.x
 	
-	move_element((data as ElementNode).grid_position, final_position)
+	if data is ElementNode:
+		move_element(data.grid_position, final_position)
+	
+	elif data is DeckSlot:
+		create_element(data.element, PlayerController.Players.A, final_position)
+		player_controller.spend_energy(PlayerController.Players.A, data.element +1)
 
 

@@ -162,17 +162,14 @@ func _gui_input(event: InputEvent):
 
 func _get_drag_data(_p):
 	if not active or self.has_link: return null
-	var e = get_preview_control()
-	Gameplay.element_drag_preview.add_child(e)
-	e.position = Vector2(-40, -40)
-	return self
-
-
-func get_preview_control()->Control:
+	
 	var preview: ElementNode = duplicate()
 	preview.modulate.a = 0.66
 	preview.scale *= 0.75
-	return preview
+	
+	Gameplay.element_drag_preview.add_child(preview)
+	preview.position = Vector2(-40, -40)
+	return self
 
 
 func _mouse_entered():

@@ -99,9 +99,10 @@ func cook():
 	var slot_accelr_2 = slot_accelr + 2
 	
 	if arena.elements.has(Vector2i(slot_fusion, 0)) and arena.elements.has(Vector2i(slot_fusion_2, 0)):
-		var atn: int = arena.elements[Vector2i(slot_fusion, 0)].element.atomic_number
-		atn += arena.elements[Vector2i(slot_fusion_2, 0)].element.atomic_number
-		
+		var atn: int = (
+				arena.elements[Vector2i(slot_fusion, 0)].element.atomic_number +
+				arena.elements[Vector2i(slot_fusion_2, 0)].element.atomic_number + 1
+		)
 		if arena.elements.has(Vector2i(slot_fusion + 1, 0)):
 			arena.remove_element(Vector2i(slot_fusion + 1, 0))
 		
