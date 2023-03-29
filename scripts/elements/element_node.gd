@@ -129,9 +129,6 @@ func set_current_node_state(state: NodeState):
 	if current_node_state == NodeState.SELECTED:
 		Gameplay.selected_element = self
 		selected_changed.emit(true)
-	
-	elif current_node_state == NodeState.HOVER:
-		pass
 
 
 func _gui_input(event: InputEvent):

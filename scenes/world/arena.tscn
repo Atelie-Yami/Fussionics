@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d2njmvul0ff10"]
+[gd_scene load_steps=35 format=3 uid="uid://d2njmvul0ff10"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -11,10 +11,77 @@
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
 [ext_resource type="PackedScene" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
+[ext_resource type="Texture2D" uid="uid://c4i4edfa1ocyn" path="res://assets/img/elements/Panel_Containers.svg" id="13_njmgc"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="13_usloi"]
-[ext_resource type="Script" path="res://scripts/interface/gameplay/deck.gd" id="14_3xv3w"]
+[ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
+
+[sub_resource type="Shader" id="Shader_2v644"]
+code = "shader_type canvas_item;
+
+const float SPEED = 3.0;
+const vec2 WAVE = vec2(90, 120); 
+
+uniform float motion_side: hint_range(-1.0, 1.0, 0.1);
+uniform vec4 base_color: source_color;
+
+void fragment() {
+	vec4 color = vec4(1, 1, 1, 1);
+	
+	vec2 uv = UV * WAVE;
+	float wave = cos(uv.x + uv.y - (TIME * motion_side * SPEED)) * 0.5;
+	wave = 0.5 + wave;
+	color.a = wave;
+	
+	float cut_x = pow(UV.x, 32.0);
+	float cut_x_2 = pow(1.0 - UV.x, 32.0);
+	float cut_y = pow(UV.y, 64.0);
+	float cut_y_2 = pow(1.0 - UV.y, 40.0);
+	
+	color.a *= clamp(mix(cut_x, cut_x_2, motion_side) + cut_y + cut_y_2, 0.0, 1.0);
+	
+	COLOR = base_color * color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxc7g"]
+resource_local_to_scene = true
+shader = SubResource("Shader_2v644")
+shader_parameter/motion_side = -1.0
+shader_parameter/base_color = Color(1, 0.301961, 0.301961, 0.482353)
+
+[sub_resource type="Shader" id="Shader_lqgqo"]
+code = "shader_type canvas_item;
+
+const float SPEED = 3.0;
+const vec2 WAVE = vec2(90, 120); 
+
+uniform float motion_side: hint_range(-1.0, 1.0, 0.1);
+uniform vec4 base_color: source_color;
+
+void fragment() {
+	vec4 color = vec4(1, 1, 1, 1);
+	
+	vec2 uv = UV * WAVE;
+	float wave = cos(uv.x + uv.y - (TIME * motion_side * SPEED)) * 0.5;
+	wave = 0.5 + wave;
+	color.a = wave;
+	
+	float cut_x = pow(UV.x, 32.0);
+	float cut_x_2 = pow(1.0 - UV.x, 32.0);
+	float cut_y = pow(UV.y, 64.0);
+	float cut_y_2 = pow(1.0 - UV.y, 40.0);
+	
+	color.a *= clamp(mix(cut_x, cut_x_2, motion_side) + cut_y + cut_y_2, 0.0, 1.0);
+	
+	COLOR = base_color * color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
+resource_local_to_scene = true
+shader = SubResource("Shader_lqgqo")
+shader_parameter/motion_side = 1.0
+shader_parameter/base_color = Color(0, 1, 0.819608, 0.482353)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -53,8 +120,9 @@ script/source = "extends CanvasLayer
 @onready var life_self = $life_self
 @onready var life_oponnent = $life_oponnent
 @onready var energy = $energy
-@onready var next_turn = $next_turn
-@onready var timer = $timer
+@onready var next_turn = $signboard/next_turn
+@onready var timer = $signboard/timer
+@onready var h_box_container = $deck/HBoxContainer
 
 
 func _process(delta):
@@ -73,30 +141,69 @@ func _process(delta):
 		timer.text +=  \": \" + str(int(turn_machine.time_left))
 
 
-
-
 func _turn_machine_main_turn(player):
 	next_turn.disabled = player != TurnMachine.Players.A
+	
+	if player == PlayerController.Players.A:
+		h_box_container.get_children().map(func(c): c.can_drop = true)
 
 
 
 func _turn_machine_end_turn(player):
 	next_turn.disabled = true
+	
+	h_box_container.get_children().map(func(c): c.can_drop = false)
 
 
 func _next_turn_pressed():
 	turn_machine.next_phase()
 "
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc8xs"]
+atlas = ExtResource("13_njmgc")
+region = Rect2(840, 592, 974, 122)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adfhc"]
+texture = ExtResource("14_j8jwv")
+modulate_color = Color(1, 1, 1, 0.321569)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dchwg"]
+atlas = ExtResource("13_njmgc")
+region = Rect2(862, 796, 400, 150)
+
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
 font = ExtResource("14_virs7")
 font_size = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwta5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p1hu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r7rx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds21w"]
+atlas = ExtResource("13_usloi")
+region = Rect2(658, 74, 183, 198)
 
 [node name="world" type="Node2D"]
 
 [node name="background_2" parent="." instance=ExtResource("1_ylyog")]
+
+[node name="vfx" type="ColorRect" parent="background_2"]
+material = SubResource("ShaderMaterial_jxc7g")
+custom_minimum_size = Vector2(792, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -792.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="vfx2" type="ColorRect" parent="background_2"]
+material = SubResource("ShaderMaterial_od0fm")
+custom_minimum_size = Vector2(792, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
 
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -733,6 +840,7 @@ one_shot = true
 script = ExtResource("9_orbja")
 
 [node name="CameraArena" type="Camera2D" parent="."]
+visible = false
 position = Vector2(960, 0)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
@@ -865,22 +973,131 @@ expand_mode = 1
 [node name="GUI" type="CanvasLayer" parent="."]
 script = SubResource("GDScript_pjl2s")
 
-[node name="timer" type="Label" parent="GUI"]
+[node name="deck" type="TextureRect" parent="GUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -586.5
+offset_top = -125.0
+offset_right = 388.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_kc8xs")
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/deck"]
+layout_mode = 2
+offset_left = 231.5
+offset_top = 35.0
+offset_right = 941.5
+offset_bottom = 115.0
+theme_override_constants/separation = 10
+
+[node name="slot_1" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+
+[node name="slot_2" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 1
+
+[node name="slot_3" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 2
+
+[node name="slot_4" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 3
+
+[node name="slot_5" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 4
+
+[node name="slot_6" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 5
+
+[node name="slot_7" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 6
+
+[node name="slot_8" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 7
+
+[node name="signboard" type="TextureRect" parent="GUI"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -131.0
-offset_top = 81.0
-offset_right = 131.0
-offset_bottom = 117.0
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_dchwg")
+metadata/_edit_lock_ = true
+
+[node name="timer" type="Label" parent="GUI/signboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_top = 10.0
+offset_right = 165.0
+offset_bottom = 56.0
 grow_horizontal = 2
 text = "life: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next_turn" type="Button" parent="GUI/signboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.0
+offset_top = 83.0
+offset_right = 158.0
+offset_bottom = 148.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("14_virs7")
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "NEXT_TURN"
+flat = true
 
 [node name="life_self" type="Label" parent="GUI"]
-offset_right = 158.0
-offset_bottom = 36.0
+offset_left = 99.0
+offset_top = 713.0
+offset_right = 257.0
+offset_bottom = 749.0
 text = "life: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
 
@@ -888,8 +1105,10 @@ label_settings = SubResource("LabelSettings_kpb4x")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -262.0
-offset_bottom = 36.0
+offset_left = -307.0
+offset_top = 749.0
+offset_right = -45.0
+offset_bottom = 785.0
 grow_horizontal = 0
 text = "life: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
@@ -899,109 +1118,36 @@ horizontal_alignment = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 418.0
-offset_top = -68.0
-offset_right = 576.0
-offset_bottom = -32.0
+offset_left = 398.0
+offset_top = -87.0
+offset_right = 565.0
+offset_bottom = -44.0
 grow_vertical = 0
 text = "Energy: 10"
 label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="next_turn" type="Button" parent="GUI"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -108.0
-offset_right = 108.0
+[node name="pause_meun" type="Button" parent="GUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = 18.0
+offset_right = -18.0
 offset_bottom = 58.0
-grow_horizontal = 2
+grow_horizontal = 0
 focus_mode = 0
-disabled = true
-text = "pular turno"
-
-[node name="deck" type="PanelContainer" parent="GUI"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = -40.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-script = ExtResource("14_3xv3w")
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/deck"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/deck/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="slot_1" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-
-[node name="slot_2" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 1
-
-[node name="slot_3" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 2
-
-[node name="slot_4" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 3
-
-[node name="slot_5" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 4
-
-[node name="slot_6" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 5
-
-[node name="slot_7" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 6
-
-[node name="slot_8" type="Panel" parent="GUI/deck/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xwta5")
-script = ExtResource("15_tapr6")
-element = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_6p1hu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7r7rx")
+icon = SubResource("AtlasTexture_ds21w")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
 [connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
-[connection signal="end_turn" from="turn_machine" to="GUI/deck" method="_turn_machine_end_turn"]
 [connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]
-[connection signal="main_turn" from="turn_machine" to="GUI/deck" method="_turn_machine_main_turn"]
 [connection signal="timeout" from="VFX_handler" to="VFX_handler" method="_timeout"]
-[connection signal="pressed" from="GUI/next_turn" to="GUI" method="_next_turn_pressed"]
+[connection signal="pressed" from="GUI/signboard/next_turn" to="GUI" method="_next_turn_pressed"]

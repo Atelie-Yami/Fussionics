@@ -28,6 +28,12 @@ class Slot:
 	
 	func _init(_e: Element, _p: PlayerController.Players):
 		element = _e; player = _p
+		element.mouse_entered.connect(_mouse_hover.bind(true))
+		element.mouse_exited.connect(_mouse_hover.bind(false))
+	
+	func _mouse_hover(entered: bool):
+		if molecule:
+			molecule.border_line.visible = entered
 
 
 ## {Vector2i position : Slot slot}
