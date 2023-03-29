@@ -1,8 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://d2njmvul0ff10"]
+[gd_scene load_steps=36 format=3 uid="uid://d2njmvul0ff10"]
 
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_8citt"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
+[ext_resource type="Shader" path="res://scripts/shaders/arena_zone_indicator.gdshader" id="2_c7l4g"]
+[ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="3_2ehmk"]
 [ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
 [ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="4_wfl3f"]
 [ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
@@ -16,72 +18,25 @@
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
-
-[sub_resource type="Shader" id="Shader_2v644"]
-code = "shader_type canvas_item;
-
-const float SPEED = 3.0;
-const vec2 WAVE = vec2(90, 120); 
-
-uniform float motion_side: hint_range(-1.0, 1.0, 0.1);
-uniform vec4 base_color: source_color;
-
-void fragment() {
-	vec4 color = vec4(1, 1, 1, 1);
-	
-	vec2 uv = UV * WAVE;
-	float wave = cos(uv.x + uv.y - (TIME * motion_side * SPEED)) * 0.5;
-	wave = 0.5 + wave;
-	color.a = wave;
-	
-	float cut_x = pow(UV.x, 32.0);
-	float cut_x_2 = pow(1.0 - UV.x, 32.0);
-	float cut_y = pow(UV.y, 64.0);
-	float cut_y_2 = pow(1.0 - UV.y, 40.0);
-	
-	color.a *= clamp(mix(cut_x, cut_x_2, motion_side) + cut_y + cut_y_2, 0.0, 1.0);
-	
-	COLOR = base_color * color;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxc7g"]
-resource_local_to_scene = true
-shader = SubResource("Shader_2v644")
-shader_parameter/motion_side = -1.0
-shader_parameter/base_color = Color(1, 0.301961, 0.301961, 0.482353)
-
-[sub_resource type="Shader" id="Shader_lqgqo"]
-code = "shader_type canvas_item;
-
-const float SPEED = 3.0;
-const vec2 WAVE = vec2(90, 120); 
-
-uniform float motion_side: hint_range(-1.0, 1.0, 0.1);
-uniform vec4 base_color: source_color;
-
-void fragment() {
-	vec4 color = vec4(1, 1, 1, 1);
-	
-	vec2 uv = UV * WAVE;
-	float wave = cos(uv.x + uv.y - (TIME * motion_side * SPEED)) * 0.5;
-	wave = 0.5 + wave;
-	color.a = wave;
-	
-	float cut_x = pow(UV.x, 32.0);
-	float cut_x_2 = pow(1.0 - UV.x, 32.0);
-	float cut_y = pow(UV.y, 64.0);
-	float cut_y_2 = pow(1.0 - UV.y, 40.0);
-	
-	color.a *= clamp(mix(cut_x, cut_x_2, motion_side) + cut_y + cut_y_2, 0.0, 1.0);
-	
-	COLOR = base_color * color;
-}"
+[ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="19_rqw3s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
 resource_local_to_scene = true
-shader = SubResource("Shader_lqgqo")
+shader = ExtResource("2_c7l4g")
 shader_parameter/motion_side = 1.0
-shader_parameter/base_color = Color(0, 1, 0.819608, 0.482353)
+shader_parameter/base_color = Color(0, 0.968627, 0.870588, 0.482353)
+shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxc7g"]
+resource_local_to_scene = true
+shader = ExtResource("2_c7l4g")
+shader_parameter/motion_side = -1.0
+shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
+shader_parameter/fade = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
+font = ExtResource("14_virs7")
+font_size = 32
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -117,17 +72,14 @@ script/source = "extends CanvasLayer
 @onready var turn_machine = %turn_machine
 @onready var player_controller = $\"../PlayerController\"
 
-@onready var life_self = $life_self
-@onready var life_oponnent = $life_oponnent
-@onready var energy = $energy
+@onready var energy = $deck/energy
 @onready var next_turn = $signboard/next_turn
 @onready var timer = $signboard/timer
 @onready var h_box_container = $deck/HBoxContainer
 
 
 func _process(delta):
-	life_self.text =   \"life: \" + str(player_controller.current_players[0].life)
-	energy   .text = \"energy: \" + str(player_controller.current_players[0].energy)
+	energy.text = \"energy: \" + str(player_controller.current_players[0].energy)
 	
 	match turn_machine.current_stage:
 		0: timer.text = \"PRE INIT\"
@@ -171,10 +123,6 @@ modulate_color = Color(1, 1, 1, 0.321569)
 atlas = ExtResource("13_njmgc")
 region = Rect2(862, 796, 400, 150)
 
-[sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
-font = ExtResource("14_virs7")
-font_size = 32
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p1hu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r7rx"]
@@ -187,7 +135,17 @@ region = Rect2(658, 74, 183, 198)
 
 [node name="background_2" parent="." instance=ExtResource("1_ylyog")]
 
-[node name="vfx" type="ColorRect" parent="background_2"]
+[node name="alert_zone_player" type="ColorRect" parent="background_2"]
+material = SubResource("ShaderMaterial_od0fm")
+custom_minimum_size = Vector2(792, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 792.0
+grow_vertical = 2
+script = ExtResource("3_2ehmk")
+metadata/_edit_lock_ = true
+
+[node name="alert_zone_opponent" type="ColorRect" parent="background_2"]
 material = SubResource("ShaderMaterial_jxc7g")
 custom_minimum_size = Vector2(792, 0)
 anchors_preset = 11
@@ -197,13 +155,9 @@ anchor_bottom = 1.0
 offset_left = -792.0
 grow_horizontal = 0
 grow_vertical = 2
-
-[node name="vfx2" type="ColorRect" parent="background_2"]
-material = SubResource("ShaderMaterial_od0fm")
-custom_minimum_size = Vector2(792, 0)
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
+script = ExtResource("3_2ehmk")
+side = 1
+metadata/_edit_lock_ = true
 
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -224,6 +178,7 @@ offset_bottom = 760.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8citt")
+metadata/_edit_lock_ = true
 
 [node name="Slot_1" type="Panel" parent="arena"]
 visible = false
@@ -835,6 +790,27 @@ script = ExtResource("5_0uahk")
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("4_wfl3f")
 
+[node name="life_self" type="Label" parent="PlayerController"]
+offset_left = 99.0
+offset_top = 713.0
+offset_right = 257.0
+offset_bottom = 749.0
+text = "life: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+
+[node name="life_oponnent" type="Label" parent="PlayerController"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -307.0
+offset_top = 749.0
+offset_right = -45.0
+offset_bottom = 785.0
+grow_horizontal = 0
+text = "life: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
+
 [node name="VFX_handler" type="Timer" parent="."]
 one_shot = true
 script = ExtResource("9_orbja")
@@ -1050,6 +1026,21 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
 script = ExtResource("15_tapr6")
 element = 7
 
+[node name="energy" type="Label" parent="GUI/deck"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.5
+offset_top = -87.0
+offset_right = 191.5
+offset_bottom = -44.0
+grow_vertical = 0
+text = "Energy: 10"
+label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="signboard" type="TextureRect" parent="GUI"]
 anchors_preset = 5
 anchor_left = 0.5
@@ -1093,41 +1084,6 @@ disabled = true
 text = "NEXT_TURN"
 flat = true
 
-[node name="life_self" type="Label" parent="GUI"]
-offset_left = 99.0
-offset_top = 713.0
-offset_right = 257.0
-offset_bottom = 749.0
-text = "life: 10"
-label_settings = SubResource("LabelSettings_kpb4x")
-
-[node name="life_oponnent" type="Label" parent="GUI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -307.0
-offset_top = 749.0
-offset_right = -45.0
-offset_bottom = 785.0
-grow_horizontal = 0
-text = "life: 10"
-label_settings = SubResource("LabelSettings_kpb4x")
-horizontal_alignment = 1
-
-[node name="energy" type="Label" parent="GUI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 398.0
-offset_top = -87.0
-offset_right = 565.0
-offset_bottom = -44.0
-grow_vertical = 0
-text = "Energy: 10"
-label_settings = SubResource("LabelSettings_kpb4x")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="pause_meun" type="Button" parent="GUI"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -1144,6 +1100,57 @@ icon = SubResource("AtlasTexture_ds21w")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[node name="info_panel" type="CanvasLayer" parent="."]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="info_panel"]
+offset_left = 38.0
+offset_top = 198.0
+offset_right = 508.0
+offset_bottom = 852.0
+texture = ExtResource("19_rqw3s")
+region_rect = Rect2(506, 0, 277, 412)
+patch_margin_left = 190
+patch_margin_top = 135
+patch_margin_right = 64
+patch_margin_bottom = 238
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="info_panel"]
+offset_left = 668.0
+offset_top = 287.0
+offset_right = 901.0
+offset_bottom = 376.0
+texture = ExtResource("19_rqw3s")
+region_rect = Rect2(861, 0, 579, 492)
+patch_margin_left = 30
+patch_margin_top = 32
+patch_margin_right = 30
+patch_margin_bottom = 43
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="info_panel"]
+visible = false
+offset_left = 53.0
+offset_top = 615.0
+offset_right = 515.0
+offset_bottom = 954.0
+texture = ExtResource("19_rqw3s")
+region_rect = Rect2(0, 0, 446, 677)
+patch_margin_left = 30
+patch_margin_top = 80
+patch_margin_right = 120
+patch_margin_bottom = 110
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="info_panel"]
+offset_left = 1395.0
+offset_top = 135.0
+offset_right = 1874.0
+offset_bottom = 679.0
+texture = ExtResource("19_rqw3s")
+region_rect = Rect2(491, 493, 327, 326)
+patch_margin_left = 94
+patch_margin_top = 133
+patch_margin_right = 120
+patch_margin_bottom = 85
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
