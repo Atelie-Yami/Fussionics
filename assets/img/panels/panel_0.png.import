@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4i4edfa1ocyn"
-path="res://.godot/imported/Panel_Containers.svg-674f482ebdfa98125002fd46cfa15039.ctex"
+uid="uid://csng34f8812xv"
+path="res://.godot/imported/panel_0.png-d123604c4c461dd7d7674db23d895cc9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/elements/Panel_Containers.svg"
-dest_files=["res://.godot/imported/Panel_Containers.svg-674f482ebdfa98125002fd46cfa15039.ctex"]
+source_file="res://assets/img/panels/panel_0.png"
+dest_files=["res://.godot/imported/panel_0.png-d123604c4c461dd7d7674db23d895cc9.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

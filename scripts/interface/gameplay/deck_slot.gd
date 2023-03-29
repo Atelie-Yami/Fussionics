@@ -53,7 +53,6 @@ func _get_drag_data(_p):
 		return null
 	
 	var preview: DeckSlot = duplicate()
-	preview.modulate.a = 0.66
 	preview.scale *= 0.75
 	
 	Gameplay.element_drag_preview.add_child(preview)

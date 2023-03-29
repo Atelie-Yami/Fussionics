@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cnlgx13hc51ok" path="res://assets/img/buttons/login/padlock/lock.png" id="8_wohie"]
 [ext_resource type="Texture2D" uid="uid://uvcjsg3jld5x" path="res://resouces/atlas/main/Person.tres" id="9_j6qmw"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="10_6503g"]
-[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/login/icons.svg" id="10_tqkjg"]
+[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="10_tqkjg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6pjj"]
 content_margin_left = 50.0

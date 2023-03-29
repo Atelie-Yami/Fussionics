@@ -92,23 +92,25 @@ func next_phase():
 ## 13 e 15: acler A
 
 func cook():
-	var slot_fusion: int = 12 if current_player == Players.A else 9
-	var slot_accelr: int = 13 if current_player == Players.A else 8
+	var slot: int = 12 if current_player == Players.A else 9
 	
-	var slot_fusion_2 = slot_fusion + 2
-	var slot_accelr_2 = slot_accelr + 2
+	var slot_fusion_A = Vector2i(slot, 0)
+	var slot_fusion_B = Vector2i(slot + 2, 0)
 	
-	if arena.elements.has(Vector2i(slot_fusion, 0)) and arena.elements.has(Vector2i(slot_fusion_2, 0)):
+	var slot_accelr_A = Vector2i(slot, 4)
+	var slot_accelr_B = Vector2i(slot + 2, 4)
+	
+	if arena.elements.has(slot_fusion_A) and arena.elements.has(slot_fusion_B):
 		var atn: int = (
-				arena.elements[Vector2i(slot_fusion, 0)].element.atomic_number +
-				arena.elements[Vector2i(slot_fusion_2, 0)].element.atomic_number + 1
+				arena.elements[slot_fusion_A].element.atomic_number +
+				arena.elements[slot_fusion_B].element.atomic_number + 1
 		)
-		if arena.elements.has(Vector2i(slot_fusion + 1, 0)):
-			arena.remove_element(Vector2i(slot_fusion + 1, 0))
+		if arena.elements.has(Vector2i(slot + 1, 0)):
+			arena.remove_element(Vector2i(slot + 1, 0))
 		
-		arena.create_element(min(atn, 118), current_player as PlayerController.Players, Vector2i(slot_fusion + 1, 0))
-		arena.remove_element(Vector2i(slot_fusion  , 0))
-		arena.remove_element(Vector2i(slot_fusion_2, 0))
+		arena.create_element(min(atn, 118), current_player as PlayerController.Players, Vector2i(slot + 1, 0), false)
+		arena.remove_element(slot_fusion_A)
+		arena.remove_element(slot_fusion_B)
 		
 		start(COOK_FUSION_TIME)
 		# animação de fundir aqui
@@ -119,9 +121,9 @@ func cook():
 		
 		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_FUSION)
 	
-	if arena.elements.has(Vector2i(slot_accelr, 5)) and arena.elements.has(Vector2i(slot_accelr_2, 5)):
-		var atn1: int = arena.elements[Vector2i(slot_accelr   , 5)].element.atomic_number
-		var atn2: int = arena.elements[Vector2i(slot_accelr_2, 5)].element.atomic_number
+	if arena.elements.has(slot_accelr_A) and arena.elements.has(slot_accelr_B):
+		var atn1: int = arena.elements[slot_accelr_A].element.atomic_number
+		var atn2: int = arena.elements[slot_accelr_B].element.atomic_number
 		var atn_result: int
 		
 		if not atn1 and not atn2:
@@ -139,12 +141,12 @@ func cook():
 					randi_range(atn1, atn1 + atn2)
 			)
 		
-		if arena.elements.has(Vector2i(slot_accelr +1, 5)):
-			arena.remove_element(Vector2i(slot_accelr +1, 5))
+		if arena.elements.has(Vector2i(slot +1, 5)):
+			arena.remove_element(Vector2i(slot +1, 5))
 		
-		arena.create_element(min(atn_result, 118), current_player as PlayerController.Players, Vector2i(slot_accelr +1, 5))
-		arena.remove_element(Vector2i(slot_accelr, 5))
-		arena.remove_element(Vector2i(slot_accelr_2, 5))
+		arena.create_element(min(atn_result, 118), current_player as PlayerController.Players, Vector2i(slot +1, 5), false)
+		arena.remove_element(slot_accelr_A)
+		arena.remove_element(slot_accelr_B)
 		
 		start(COOK_FUSION_TIME)
 		# animação de fundir aqui

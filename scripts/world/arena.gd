@@ -118,7 +118,7 @@ func _remove_element(slot: Slot, slot_position: Vector2i):
 	elements.erase(slot_position)
 
 
-func create_element(atomic_number: int, player: PlayerController.Players, _position: Vector2i):
+func create_element(atomic_number: int, player: PlayerController.Players, _position: Vector2i, focus: bool):
 	if not _check_slot_empty(_position) or _check_slot_only_out(_position):
 		return
 	
@@ -129,7 +129,9 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 	element.atomic_number = atomic_number
 	elements[_position] = slot
 	
-	Gameplay.selected_element = element
+	if focus:
+		Gameplay.selected_element = element
+	
 	player_controller.add_child(element)
 	player_controller.current_players[player].elements.append(element)
 	
@@ -352,7 +354,7 @@ func _drop_data(_p, data):
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:
-		create_element(data.element, PlayerController.Players.A, final_position)
+		create_element(data.element, PlayerController.Players.A, final_position, true)
 		player_controller.spend_energy(PlayerController.Players.A, data.element +1)
 
 

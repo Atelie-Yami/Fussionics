@@ -1,7 +1,7 @@
 class_name AlertZone extends ColorRect
 
 
-const COLORS := [Color("00f7de7b"), Color("ec4da17b")]
+const COLORS := [Color("00f7de9b"), Color("ec4da19b")]
 
 @export var side: TurnMachine.Players
 @onready var turn_machine: TurnMachine = %turn_machine
