@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://scripts/elements/VFX_handler.gd" id="9_orbja"]
 [ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
-[ext_resource type="PackedScene" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
+[ext_resource type="PackedScene" uid="uid://cx22mwdgj1oja" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://bnw0hevmmjh6i" path="res://assets/img/elements/Reator.png" id="10_rnfol"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="19_rqw3s"]
 [ext_resource type="PackedScene" uid="uid://c8olai4bngrps" path="res://scenes/interface/gameplay/molecule_info.tscn" id="23_ftybf"]
 [ext_resource type="PackedScene" uid="uid://c6dfidibu2j5g" path="res://scenes/interface/gameplay/element_info.tscn" id="23_x34jh"]
-[ext_resource type="PackedScene" uid="uid://6afsmqsigq0f" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="25_58ht4"]
+[ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="25_58ht4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
 resource_local_to_scene = true
