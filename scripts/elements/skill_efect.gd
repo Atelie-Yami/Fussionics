@@ -1,6 +1,10 @@
 ## classe que detem todos os efeitos dos elementos
 class_name SkillEffect extends RefCounted
 
+const BOOK := {
+	0: preload("res://scripts/elements/effects/hidrogen.gd")
+}
+
 ## Tempos onde um efeito possa ser chamado ou atuado.
 enum SkillType {
 	PRE_INIT_PHASE, ## na fase de PRE_INI_PHASE
@@ -22,14 +26,18 @@ enum SkillType {
 
 ## aqui se define onde essa skill vai ser chamada.
 var skill_type: SkillType
+var active := true
+
 
 ## registra esse efeito de acordo com o tempo de ação
 func register(player: PlayerController.Players):
-	ElementEffectManager.effects_pool_players[player][skill_type] = self
+	ElementEffectManager.effects_pool_players[player][skill_type].append(self)
+
 
 ## remove o registro
 func unregister(player: PlayerController.Players):
 	ElementEffectManager.effects_pool_players[player][skill_type].erase(self)
+
 
 ## aqui acontece o efeito, acessando a ARENA, na qual pode interagir todos elementos
 ## e com o estado dos jogadores.

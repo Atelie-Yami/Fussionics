@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu3jc5j2vfdoo"]
+[gd_scene load_steps=3 format=3 uid="uid://c1f65ffnc3f4s"]
 
 [ext_resource type="Script" path="res://scripts/main/notific.gd" id="1_6athg"]
-[ext_resource type="Texture2D" uid="uid://bd7ow0mathaks" path="res://resouces/atlas/main/notification_icon_0.tres" id="2_hwxfv"]
+[ext_resource type="Texture2D" path="res://resouces/atlas/main/notification_icon_0.tres" id="2_hwxfv"]
 
 [node name="Notification" type="PanelContainer"]
 custom_minimum_size = Vector2(392, 0)

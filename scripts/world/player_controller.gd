@@ -52,6 +52,10 @@ func take_damage(player: Players, danage: int):
 	current_players[player].life -= danage
 
 
+func heal(player: Players, _heal: int):
+	current_players[player].life = min(current_players[player].life + _heal, PLAYERS_MAX_LIFE)
+
+
 func spend_energy(player: Players, energy: int):
 	current_players[player].energy -= energy
 

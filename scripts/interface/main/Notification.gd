@@ -10,7 +10,7 @@ func create_notific(title : String,mensage : String = "",ok : bool = true,ignore
 	
 	var notific_button = new_notific.instantiate()
 	List.add_child(notific_button)
-	notific_button.start(title,mensage,ok,ignore)
+#	notific_button.start(title,mensage,ok,ignore)
 	
 	New_notific_icon.visible = true
 	

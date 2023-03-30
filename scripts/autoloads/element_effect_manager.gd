@@ -18,9 +18,9 @@ enum SkillType {
 	PASSIVE, # efeito sempre ativo, assim q é instanciado e até o elemento ser removido 
 }
 
-const TIME_CAST_EFFECT := 0.1
+const TIME_CAST_EFFECT := 0.2
 ## Quando um efeito de turno for iniciado, ele vai se registrar aqui e esperar se chamado
-const EFFECTS_POOL := {
+var EFFECTS_POOL := {
 	SkillType.PRE_INIT_PHASE: [], #
 	SkillType.COOKED_FUSION: [], #
 	SkillType.COOKED_ACCELR: [], #
@@ -64,14 +64,12 @@ func call_effects(player: PlayerController.Players, type: SkillType):
 	is_processing_tasks = true
 	for effect in effects_pool_players[player][type]:
 		effect.execute()
-		print("execultando ", effect)
 		start(TIME_CAST_EFFECT)
 		await timeout
 		
 		for _players in 2:
 			for _effect in effects_pool_players[_players][SkillType.POS_ACTION]:
 				_effect.execute()
-				print("execultando ", _effect)
 				start(TIME_CAST_EFFECT)
 				await timeout
 	

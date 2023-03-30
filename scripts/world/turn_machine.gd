@@ -108,6 +108,8 @@ func cook():
 		if arena.elements.has(Vector2i(slot + 1, 0)):
 			arena.remove_element(Vector2i(slot + 1, 0))
 		
+		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_FUSION)
+		
 		arena.create_element(min(atn, 118), current_player as PlayerController.Players, Vector2i(slot + 1, 0), false)
 		arena.remove_element(slot_fusion_A)
 		arena.remove_element(slot_fusion_B)
@@ -119,7 +121,6 @@ func cook():
 		if atn > 25:
 			Gameplay.player_controller.take_damage(current_player as PlayerController.Players, atn - 25)
 		
-		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_FUSION)
 	
 	if arena.elements.has(slot_accelr_A) and arena.elements.has(slot_accelr_B):
 		var atn1: int = arena.elements[slot_accelr_A].element.atomic_number
@@ -144,6 +145,8 @@ func cook():
 		if arena.elements.has(Vector2i(slot +1, 5)):
 			arena.remove_element(Vector2i(slot +1, 5))
 		
+		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_ACCELR)
+		
 		arena.create_element(min(atn_result, 118), current_player as PlayerController.Players, Vector2i(slot +1, 5), false)
 		arena.remove_element(slot_accelr_A)
 		arena.remove_element(slot_accelr_B)
@@ -151,7 +154,6 @@ func cook():
 		start(COOK_FUSION_TIME)
 		# animação de fundir aqui
 		await timeout
-		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_ACCELR)
 
 
 func _main_phase_timeout():

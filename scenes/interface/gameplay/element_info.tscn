@@ -1,0 +1,131 @@
+[gd_scene load_steps=10 format=3 uid="uid://c6dfidibu2j5g"]
+
+[ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="1_3vj5e"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/element_info.gd" id="1_t2wcd"]
+[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="2_4ajhb"]
+[ext_resource type="Texture2D" uid="uid://7pvoi7opcxls" path="res://assets/img/elements/Slot_0.png" id="3_mno6a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_luu1q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0aug"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mgk83"]
+font = ExtResource("2_4ajhb")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_mtplp"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_6cfcq"]
+font_size = 12
+
+[node name="element_info" type="PanelContainer"]
+offset_left = 38.0
+offset_top = 198.0
+offset_right = 341.0
+offset_bottom = 507.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_luu1q")
+script = ExtResource("1_t2wcd")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_3vj5e")
+region_rect = Rect2(506, 0, 277, 412)
+patch_margin_left = 190
+patch_margin_top = 133
+patch_margin_right = 64
+patch_margin_bottom = 140
+
+[node name="close" type="Button" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -9.0
+offset_right = 8.0
+offset_bottom = 15.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_s0aug")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_s0aug")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_s0aug")
+flat = true
+clip_text = true
+icon_alignment = 1
+expand_icon = true
+metadata/_edit_lock_ = true
+
+[node name="x" type="Label" parent="NinePatchRect/close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "X"
+label_settings = SubResource("LabelSettings_mgk83")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 23
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="symbol" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_mno6a")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "NAME"
+label_settings = SubResource("LabelSettings_mtplp")
+vertical_alignment = 2
+
+[node name="serie" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SERIE"
+label_settings = SubResource("LabelSettings_6cfcq")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="valentia" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "valentia:"
+
+[node name="extra_neutrons" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="effect" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "informations informations info rmations informations asdada das das dasdada addsadasdas dasdasdasdasdasdad aasdasda sdasdasd adas ad  adsa dasd asdasdas asdasd a das dasdada dasdasda sdad  asdas dasda sdasdasdasda a adda das a adsa sdasdas"
+autowrap_mode = 2
+
+[connection signal="pressed" from="NinePatchRect/close" to="." method="_close_pressed"]

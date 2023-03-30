@@ -165,6 +165,9 @@ var valentia: int
 		neutrons = value
 		valentia = DATA[atomic_number][VALENTIA]
 		tooltip_text = DATA[atomic_number][NAME]
+		
+		if SkillEffect.BOOK.has(atomic_number):
+			effect = SkillEffect.BOOK[atomic_number].new()
 
 ## Dicionario que define os efeitos em seus tempos de ação:[br]
 ## [codeblock]
@@ -199,8 +202,11 @@ func reset():
 	
 	else:
 		eletrons = atomic_number
-	
 
+
+func _exit_tree():
+	if effect:
+		effect.unregister(0)
 
 
 
