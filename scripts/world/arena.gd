@@ -291,7 +291,12 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
-		pass
+		var power = slot_attacker.element.eletrons + slot_attacker.molecule.configuration.size() - 1
+		slot_attacker.molecule.configuration.map(
+				func(e):
+						if e != slot_attacker.element: e.eletrons -= 1;
+						elements[e.grid_position].can_act = false
+		)
 	
 	else:
 		var result: GameJudge.Result = GameJudge.combat_check_result(
@@ -330,7 +335,9 @@ func slot_get_actions(slot: Slot):
 	else:
 		actions.append(ElementActions.LINK)
 	
-	if not slot.can_act: return actions
+	if not slot.can_act:
+		return actions
+	
 	actions.append(ElementActions.ATTACK)
 	
 	if not slot.skill_used: actions.append(ElementActions.EFFECT)

@@ -31,3 +31,4 @@ static func can_remove_element(element: ElementNode) -> bool:
 		if debuff.type == PassiveEffect.Buff.IMORTAL:
 			return false
 	return true
+
