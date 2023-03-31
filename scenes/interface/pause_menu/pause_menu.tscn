@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://6afsmqsigq0f"]
+[gd_scene load_steps=4 format=3 uid="uid://bqp6pxhhl443d"]
 
-[ext_resource type="Script" path="res://scenes/interface/pause_menu/pause_menu.gd" id="1_ejb5h"]
+[ext_resource type="Theme" uid="uid://br4b8y8alq3fd" path="res://resouces/themes/pause_menu.tres" id="1_1v2tm"]
+[ext_resource type="Script" path="res://scenes/interface/pause_menu/pause_menu.gd" id="3_7kun1"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_4qwqi"]
 
@@ -15,7 +16,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 size_flags_horizontal = 4
-script = ExtResource("1_ejb5h")
+theme = ExtResource("1_1v2tm")
+script = ExtResource("3_7kun1")
 DisplayModeButton = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/DisplayModeButton")
 MaxFpsValueLabel = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsValueLabel")
 MaxFpsSlider = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsSlider")
@@ -56,6 +58,7 @@ offset_right = 265.0
 offset_bottom = 179.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/side_margin = 21
 
 [node name="Video" type="TabBar" parent="OptionsSettings/OptionsSettings2"]
 layout_mode = 2
@@ -237,8 +240,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -50.0
-offset_bottom = 31.0
+offset_left = -65.688
+offset_top = 13.0
+offset_right = -15.688
+offset_bottom = 44.0
 grow_horizontal = 0
 text = "Close"
 
@@ -250,28 +255,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -93.0
+offset_top = -92.5
+offset_right = 93.0
+offset_bottom = 92.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Voltar" type="Button" parent="OptionsMenu"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Voltar"
 
 [node name="Reiniciar" type="Button" parent="OptionsMenu"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
 text = "Reiniciar"
 
 [node name="Settings" type="Button" parent="OptionsMenu"]
 layout_mode = 2
-text = "Configurações"
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+text = "Ajustes"
 
 [node name="Menu Inicial" type="Button" parent="OptionsMenu"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
 text = "Menu Inicial"
+
+[node name="Sair do jogo" type="Button" parent="OptionsMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+text = "Sair do Jogo"
 
 [connection signal="item_selected" from="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/DisplayModeButton" to="." method="_display_mode_button_item_selected"]
 [connection signal="toggled" from="OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/VsyncButton" to="." method="_vsync_button_toggled"]
@@ -284,3 +302,4 @@ text = "Menu Inicial"
 [connection signal="pressed" from="OptionsMenu/Reiniciar" to="." method="_reiniciar_pressed"]
 [connection signal="pressed" from="OptionsMenu/Settings" to="." method="_settings_pressed"]
 [connection signal="pressed" from="OptionsMenu/Menu Inicial" to="." method="_menu_inicial_pressed"]
+[connection signal="pressed" from="OptionsMenu/Sair do jogo" to="." method="_sair_do_jogo_pressed"]

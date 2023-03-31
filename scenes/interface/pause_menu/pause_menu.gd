@@ -44,7 +44,7 @@ class_name PauseMenu
 func _ready():
 	DisplayModeButton.add_item("Windowed")
 	DisplayModeButton.add_item("Fullscreen")
-	ChangeModeScreen("Windowed")
+	DisplayModeButton.select(1)
 
 
 #Video Settings
@@ -145,13 +145,8 @@ func _reiniciar_pressed():
 	pass
 
 
+func _sair_do_jogo_pressed():
+	#Se quiser pode colocar algum save
+	get_tree().quit()
+
 #OptionsMenu End
-
-
-
-
-
-
-
-
-
