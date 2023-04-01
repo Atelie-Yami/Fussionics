@@ -23,9 +23,38 @@ enum SkillType {
 	POS_ACTION, ## após um efeito for ativado
 	PASSIVE, ## efeito sempre ativo, assim q é instanciado e até o elemento ser removido 
 }
+## Tipo de efeito que o elemento altera na molecula
+enum MoleculeEffectType {
+	TRIGGER,    ## cria e controla o uso de efeito da molecula
+	MECHANICAL, ## muda alguma mecanica ou forma q algo funciona
+	UPGRADE,    ## altera as propriedades já existentes na molecula
+	MULTI,      ## possui alguma combinação dos tipos anteriores
+}
+enum TargetMode {
+	SINGLE,       ## foca em um unico alvo
+	MULTI_SINGLE, ## foca em varios alvos diferentes 
+	AREA,         ## foca em uma area determinada
+	ZONE,         ## afeta grande parte da arena ou partes espeficicas
+}
+enum MechanicMode {
+	DESTROYER, ## mira em inimigos para destruilos
+	WEAKENER,  ## enfraquece o inimigo para tormar mais facil de derrotar
+	DECLINER,  ## focado em reduzir o ataque do inimigo
+	
+	DEFENDER, ## possui mecanicas de proteção da molecula
+	IMPROVER, ## melhora as formas de defesa
+	
+	DEBUFFER, ## aplica efeitos maleficos nos inimigos
+	BUFFER,   ## aplica efeitos beneficos na molecula
+	
+	SPECIAL,     ## possiu um efeito que altera algo no jogo de forma unica.
+	CONTROLLER,  ## controla o funcionamento de algo na molecula
+	MANIPULATOR, ## controla o funcionamento de algo dos inimigos
+}
 
 ## aqui se define onde essa skill vai ser chamada.
 var skill_type: SkillType
+var molecule_effect_type: MoleculeEffectType
 var active := true
 
 

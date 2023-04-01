@@ -3,6 +3,7 @@ extends Node
 signal show_action_buttons(actions)
 signal element_selected(valid)
 
+enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 enum ActionState {NORMAL, ATTACK, LINK, UNLINK}
 
 const ACTION_BUTTON := preload("res://scenes/elements/element_action_button.tscn")
@@ -37,7 +38,7 @@ var selected_element: ElementNode:
 		
 		if selected_element:
 			show_action_buttons.emit(
-					arena.slot_get_actions( arena.elements[selected_element.grid_position] )
+					slot_get_actions( arena.elements[selected_element.grid_position] )
 			)
 			element_selected.emit(true)
 			selected_element.selected = true
@@ -131,3 +132,24 @@ func callback_action_target(target: ElementNode):
 	
 	self.action_state = ActionState.NORMAL
 
+
+func slot_get_actions(slot: Arena.Slot):
+	var actions: Array[ElementActions]
+	
+	if slot.element.has_link:
+		if slot.element.number_electrons_in_valencia > 0:
+			actions.append(ElementActions.LINK)
+		
+		if player_controller.current_players[slot.player].energy > 0:
+			actions.append(ElementActions.UNLINK)
+		
+	else:
+		actions.append(ElementActions.LINK)
+	
+	if not slot.can_act:
+		return actions
+	
+	actions.append(ElementActions.ATTACK)
+	if not slot.skill_used: actions.append(ElementActions.EFFECT)
+	
+	return actions

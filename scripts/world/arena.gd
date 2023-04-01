@@ -1,8 +1,6 @@
 class_name Arena extends Control
 
 
-enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
-
 const GRID_OFFSET := Vector2i(605, 320)
 const SLOT_SIZE := Vector2i(90, 90)
 const FORJE_SLOTS_OFFSET := [
@@ -320,29 +318,6 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 					player_controller.take_damage(slot_attacker.player, slot_defender.element.neutrons - slot_attacker.element.eletrons)
 					remove_element(attacker)
 	combat_in_process = false
-
-
-func slot_get_actions(slot: Slot):
-	var actions: Array[ElementActions]
-	
-	if slot.element.has_link:
-		if slot.element.number_electrons_in_valencia > 0:
-			actions.append(ElementActions.LINK)
-		
-		if player_controller.current_players[slot.player].energy > 0:
-			actions.append(ElementActions.UNLINK)
-		
-	else:
-		actions.append(ElementActions.LINK)
-	
-	if not slot.can_act:
-		return actions
-	
-	actions.append(ElementActions.ATTACK)
-	
-	if not slot.skill_used: actions.append(ElementActions.EFFECT)
-	
-	return actions
 
 
 func _can_drop_data(_p, data):
