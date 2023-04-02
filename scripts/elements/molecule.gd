@@ -1,5 +1,8 @@
 class_name Molecule extends RefCounted
 
+enum Kit {
+	ATTACK, EFFECT, DEFENDE
+}
 enum LigamentPosition {
 	UP_DOWN, RIGHT_LEFT
 }
@@ -54,10 +57,40 @@ class Ligament:
 				element_A.links[Vector2i.RIGHT] = null
 				element_B.links[Vector2i.LEFT ] = null
 #------------------------------------------------------------------------------#
-
+class MoleculeEffect:
+	var targets: Array[Element]
+	var cluster: SkillEffect.EffectCluster
+	var header: SkillEffect
+	
+	func _init(_header: SkillEffect):
+		cluster = SkillEffect.EffectCluster.new()
+		header = _header
+	
+	func construct(molecule: Molecule):
+		var pack: Array[SkillEffect]
+		
+		for e in molecule.configuration:
+			if e.effect:
+				pack.append(e.effect)
+		cluster.construct(header, pack)
+	
+	func combat(molecule: Molecule):
+		cluster.active(molecule)
+		header.molecule_effect(molecule)
+#------------------------------------------------------------------------------#
 var ref_count: int = 1
+
 var configuration: Array[Element]
+
 var border_line: LineMap = BORDELINE.instantiate()
+
+var effect_pool := {
+	SkillEffect.MoleculeEffectType.TRIGGER:    [],
+	SkillEffect.MoleculeEffectType.MECHANICAL: [],
+	SkillEffect.MoleculeEffectType.UPGRADE:    [],
+	SkillEffect.MoleculeEffectType.MULTI:      [],
+}
+var effect: MoleculeEffect
 
 
 func _init():
@@ -86,6 +119,19 @@ func redux_ref():
 	
 	else:
 		update_border()
+
+
+func prepare_element_for_attack(header: Element):
+	configuration.map(_handle_element_action.bind(header))
+
+
+func _handle_element_action(element: Element, header: Element):
+	if element != header and element.eletrons > 0:
+		element.eletrons -= 1
+		header.eletrons += 1
+		
+	Gameplay.arena.elements[element.grid_position].can_act = false
+	element.disabled = true
 
 
 func link_elements(element_a: Element, element_b: Element):
@@ -118,8 +164,45 @@ func remove_element(element: Element):
 	border_line.Update([])
 
 
+func add_element(element: Element):
+	configuration.append(element)
+	Gameplay.arena.elements[element.grid_position].molecule = self
+
+
 func get_eletron_power() -> int:
 	var power := 0
 	configuration.map(func(c: Element): power += c.eletrons)
 	
 	return power
+
+
+func effects_cluster_assembly(header: Element, target: Element, kit: Kit):
+	if (
+			(kit == Kit.ATTACK and not header.effect.target_mode)
+	):
+		return
+	
+	match kit:
+		Kit.ATTACK:
+			if header.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
+				assembly_kit_combat_effects(header)
+			
+			else:
+				GameJudge.combat(header, target)
+	
+	match header.effect.molecule_effect_type:
+		SkillEffect.MoleculeEffectType.TRIGGER: pass
+		SkillEffect.MoleculeEffectType.MECHANICAL: pass
+		SkillEffect.MoleculeEffectType.UPGRADE: pass
+		SkillEffect.MoleculeEffectType.MULTI: pass
+
+
+func assembly_kit_combat_effects(header: Element):
+	effect = MoleculeEffect.new(header.effect)
+	effect.construct(self)
+	effect.combat(self)
+
+
+
+
+

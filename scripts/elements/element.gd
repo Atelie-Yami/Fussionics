@@ -182,7 +182,7 @@ var valentia: int
 		tooltip_text = DATA[atomic_number][NAME]
 		
 		if SkillEffect.BOOK.has(atomic_number):
-			effect = SkillEffect.BOOK[atomic_number].new()
+			effect = SkillEffect.BOOK[atomic_number].new(self)
 
 ## Dicionario que define os efeitos em seus tempos de ação:[br]
 ## [codeblock]

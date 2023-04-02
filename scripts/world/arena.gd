@@ -22,11 +22,8 @@ class Slot:
 		set(value):
 			can_act = value
 			
-			if not can_act:
-				if molecule:
-					molecule.configuration.map(func(e):e.disabled = true)
-				else:
-					element.disabled = true
+			if not can_act and not molecule:
+				element.disabled = true
 	
 	func _init(_e: Element, _p: Players):
 		element = _e; player = _p
@@ -142,31 +139,27 @@ func link_elements(element_a: Element, element_b: Element):
 			_link_elements(element_a, element_b)
 			
 		else:
-			slot_a.molecule.configuration.append_array(slot_b.molecule.configuration)
+			for e in slot_b.molecule.configuration:
+				slot_a.molecule.add_element(e)
+				
 			slot_a.molecule.link_elements(element_a, element_b)
-			
-			slot_b.molecule.configuration.map(
-					func(e: Element): elements[e.grid_position].molecule = slot_a.molecule
-			)
 			slot_a.molecule.gain_ref()
 	
 	elif slot_a.molecule:
-		slot_a.molecule.configuration.append(element_b)
+		slot_a.molecule.add_element(element_b)
 		slot_a.molecule.link_elements(element_a, element_b)
-		slot_b.molecule = slot_a.molecule
 		slot_a.molecule.gain_ref()
 	
 	elif slot_b.molecule:
-		slot_b.molecule.configuration.append(element_a)
+		slot_b.molecule.add_element(element_a)
 		slot_b.molecule.link_elements(element_a, element_b)
-		slot_a.molecule = slot_b.molecule
 		slot_b.molecule.gain_ref()
 	
 	else:
 		var molecule := Molecule.new()
-		molecule.configuration.append(element_a); molecule.configuration.append(element_b)
+		molecule.add_element(element_a)
+		molecule.add_element(element_b)
 		molecule.link_elements(element_a, element_b)
-		slot_a.molecule = molecule; slot_b.molecule = molecule
 		molecule.update_border()
 	
 	ElementEffectManager.call_effects(slot_a.player, ElementEffectManager.SkillType.LINKED)
@@ -271,48 +264,23 @@ func element_use_effect(element: Element):
 	print(elements[element.grid_position])
 
 
-## Skill depende da molecula, há moleculas q terão, para isso esse valor vai ser esperado
+
 func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	if not elements[attacker].can_act or combat_in_process: return
 	
 	var slot_attacker: Slot = elements[attacker]
 	var slot_defender: Slot = elements[defender]
 	
-	slot_attacker.can_act = false
 	combat_in_process = true
 	
 	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.PRE_ATTACK)
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
-		slot_attacker.element.eletrons += slot_attacker.molecule.configuration.size() - 1
-		slot_attacker.molecule.configuration.map(
-				func(e):
-						if e != slot_attacker.element: e.eletrons -= 1;
-						elements[e.grid_position].can_act = false
-		)
-	
+		slot_attacker.molecule.prepare_element_for_attack(slot_attacker.element)
+		slot_attacker.molecule.effects_cluster_assembly(slot_attacker.element, slot_defender.element, Molecule.Kit.ATTACK)
 	else:
-		var result: GameJudge.Result = GameJudge.combat_check_result(
-				slot_attacker.element, slot_defender.element, skill
-		)
-		match result:
-			GameJudge.Result.WINNER:
-				await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
-				await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
-				current_players[slot_attacker.player].take_damage(slot_attacker.element.eletrons - slot_defender.element.neutrons)
-				remove_element(defender)
-			
-			GameJudge.Result.COUNTERATTACK:
-				if (
-						GameJudge.combat_check_result(
-								slot_defender.element, slot_attacker.element, skill
-						) == GameJudge.Result.WINNER
-				):
-					await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
-					await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
-					current_players[slot_attacker.player].take_damage(slot_defender.element.neutrons - slot_attacker.element.eletrons)
-					remove_element(attacker)
+		GameJudge.combat(slot_attacker.element, slot_defender.element)
 	combat_in_process = false
 
 
