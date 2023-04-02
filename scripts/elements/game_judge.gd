@@ -6,7 +6,7 @@ enum Result {
 	DRAW, # sem resultado, ninguem perdeu
 }
 
-static func combat_check_result(element_attacker: ElementNode, element_defender: ElementNode, skill: int) -> Result:
+static func combat_check_result(element_attacker: Element, element_defender: Element, skill: int) -> Result:
 	# avaliar os efeitos pra saber se tem codições nesse caso atual
 	
 	if element_attacker.eletrons > element_defender.neutrons:
@@ -19,14 +19,14 @@ static func combat_check_result(element_attacker: ElementNode, element_defender:
 		return Result.COUNTERATTACK
 
 
-static func can_element_attack(element: ElementNode) -> bool:
+static func can_element_attack(element: Element) -> bool:
 	for debuff in element.debuffs:
 		if debuff.type == PassiveEffect.Debuff.ATTACK_BLOQ:
 			return false
 	return true
 
 
-static func can_remove_element(element: ElementNode) -> bool:
+static func can_remove_element(element: Element) -> bool:
 	for debuff in element.debuffs:
 		if debuff.type == PassiveEffect.Buff.IMORTAL:
 			return false

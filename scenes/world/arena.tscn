@@ -1119,6 +1119,7 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
 script = ExtResource("15_tapr6")
+element = null
 player_a_path = NodePath("../../../../Player_A")
 
 [node name="slot_2" type="Panel" parent="GUI/deck/HBoxContainer"]

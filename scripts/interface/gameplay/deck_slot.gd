@@ -19,8 +19,8 @@ func _ready():
 	if not is_dragging:
 		player_a = get_node(player_a_path)
 		
-	simbol = ElementNode.DATA[element][ElementNode.SIMBOL]
-	color = ElementNode.COLOR_SERIES[ElementNode.DATA[element][ElementNode.SERIE]]
+	simbol = Element.DATA[element][Element.SIMBOL]
+	color = Element.COLOR_SERIES[Element.DATA[element][Element.SERIE]]
 
 
 func _process(delta):
@@ -28,16 +28,16 @@ func _process(delta):
 
 
 func _draw():
-	var string_size = ElementNode.FUTURE_SALLOW.get_string_size(
-			simbol, HORIZONTAL_ALIGNMENT_CENTER, -1, ElementNode.FONT_SIZE
+	var string_size = Element.FUTURE_SALLOW.get_string_size(
+			simbol, HORIZONTAL_ALIGNMENT_CENTER, -1, Element.FONT_SIZE
 	)
 	string_size /= 2
 	
 	draw_string(
-			ElementNode.FUTURE_SALLOW,
+			Element.FUTURE_SALLOW,
 			Vector2(41 - string_size.x, ((string_size.y + 7) / 2) + 40),
 			simbol, HORIZONTAL_ALIGNMENT_CENTER, -1,
-			ElementNode.FONT_SIZE,
+			Element.FONT_SIZE,
 			color if can_drop else Color.LIGHT_STEEL_BLUE
 	)
 	

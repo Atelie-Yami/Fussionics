@@ -22,8 +22,11 @@ class Slot:
 		set(value):
 			can_act = value
 			
-			if not can_act and molecule:
-				molecule.configuration.map(func(e): e.active = false)
+			if not can_act:
+				if molecule:
+					molecule.configuration.map(func(e):e.disabled = true)
+				else:
+					element.disabled = true
 	
 	func _init(_e: Element, _p: Players):
 		element = _e; player = _p
@@ -79,7 +82,7 @@ func remove_element(slot_position: Vector2i):
 		return
 	
 	if slot.molecule:
-		var neigbors: Array[ElementNode]
+		var neigbors: Array[Element]
 		
 		for link in slot.element.links:
 			if not slot.element.links[link]:
@@ -108,7 +111,13 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	if not _check_slot_empty(_position) or _check_slot_only_out(_position):
 		return
 	
-	var element = ElementNode.new()
+	var element: Element
+	
+	if player == Players.A:
+		element = ElementNodePlayer.new()
+	else:
+		element = ElementNodeRival.new()
+	
 	var slot = Slot.new(element, player)
 	
 	element.grid_position = _position
@@ -124,7 +133,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	element.global_position = _get_snapped_slot_position(_position)
 
 
-func link_elements(element_a: ElementNode, element_b: ElementNode):
+func link_elements(element_a: Element, element_b: Element):
 	var slot_a: Slot = elements[element_a.grid_position]
 	var slot_b: Slot = elements[element_b.grid_position]
 	
@@ -137,7 +146,7 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 			slot_a.molecule.link_elements(element_a, element_b)
 			
 			slot_b.molecule.configuration.map(
-					func(e: ElementNode): elements[e.grid_position].molecule = slot_a.molecule
+					func(e: Element): elements[e.grid_position].molecule = slot_a.molecule
 			)
 			slot_a.molecule.gain_ref()
 	
@@ -163,7 +172,7 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 	ElementEffectManager.call_effects(slot_a.player, ElementEffectManager.SkillType.LINKED)
 
 
-func _link_elements(element_a: ElementNode, element_b: ElementNode):
+func _link_elements(element_a: Element, element_b: Element):
 	for link in element_a.links:
 		var ligament_a = element_a.links[link]
 		if not ligament_a:
@@ -179,7 +188,7 @@ func _link_elements(element_a: ElementNode, element_b: ElementNode):
 				return
 
 
-func unlink_elements(element_A: ElementNode, element_B: ElementNode):
+func unlink_elements(element_A: Element, element_B: Element):
 	if _unlink_elements(element_A, element_B):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
@@ -194,7 +203,7 @@ func unlink_elements(element_A: ElementNode, element_B: ElementNode):
 		print("has not link")
 
 
-func _unlink_elements(element_A: ElementNode, element_B: ElementNode):
+func _unlink_elements(element_A: Element, element_B: Element):
 	for link in element_A.links:
 		var ligament_A: Molecule.Ligament = element_A.links[link]
 		if not ligament_A:
@@ -216,8 +225,8 @@ func _unlink_elements(element_A: ElementNode, element_B: ElementNode):
 	return false
 
 
-func _handle_molecule(element: ElementNode):
-	var molecule_config: Array[ElementNode]
+func _handle_molecule(element: Element):
+	var molecule_config: Array[Element]
 	var molecula: Molecule
 	
 	if element.has_link:
@@ -238,7 +247,7 @@ func _handle_molecule(element: ElementNode):
 			molecula.gain_ref()
 
 
-func _procedural_search_link_nodes(element_parent: ElementNode, anchored_array: Array[ElementNode]):
+func _procedural_search_link_nodes(element_parent: Element, anchored_array: Array[Element]):
 	for l in element_parent.links:
 		var link: Molecule.Ligament = element_parent.links[l]
 		if not link: continue
@@ -250,7 +259,7 @@ func _procedural_search_link_nodes(element_parent: ElementNode, anchored_array: 
 			_procedural_search_test(link.element_A, anchored_array)
 
 
-func _procedural_search_test(element: ElementNode, anchored_array: Array[ElementNode]):
+func _procedural_search_test(element: Element, anchored_array: Array[Element]):
 	if anchored_array.find(element) != -1:
 		return
 	
@@ -258,7 +267,7 @@ func _procedural_search_test(element: ElementNode, anchored_array: Array[Element
 	_procedural_search_link_nodes(element, anchored_array)
 
 
-func element_use_effect(element: ElementNode):
+func element_use_effect(element: Element):
 	print(elements[element.grid_position])
 
 
@@ -319,7 +328,7 @@ func _drop_data(_p, data):
 	if get_global_mouse_position().x - GRID_OFFSET.x < 0:
 		final_position.x = 15 + final_position.x
 	
-	if data is ElementNode:
+	if data is Element:
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:

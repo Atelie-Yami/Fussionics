@@ -21,14 +21,14 @@ var in_unlink_state: bool
 var arena: Arena
 
 var callback_action: int
-var selected_element_target: ElementNode:
+var selected_element_target: Element:
 	set(value):
 		selected_element_target = value
 		
 		if selected_element_target:
 			callback_action_target(selected_element_target)
 
-var selected_element: ElementNode:
+var selected_element: Element:
 	set(value):
 		if selected_element:
 			selected_element.selected = false
@@ -116,7 +116,7 @@ func _action_pressed(action: ElementActions):
 			arena.element_use_effect(selected_element)
 
 
-func callback_action_target(target: ElementNode):
+func callback_action_target(target: Element):
 	match callback_action:
 		ElementActions.ATTACK:
 			arena.attack_element(

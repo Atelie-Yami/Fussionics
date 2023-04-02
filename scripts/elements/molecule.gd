@@ -56,7 +56,7 @@ class Ligament:
 #------------------------------------------------------------------------------#
 
 var ref_count: int = 1
-var configuration: Array[ElementNode]
+var configuration: Array[Element]
 var border_line: LineMap = BORDELINE.instantiate()
 
 
@@ -88,7 +88,7 @@ func redux_ref():
 		update_border()
 
 
-func link_elements(element_a: ElementNode, element_b: ElementNode):
+func link_elements(element_a: Element, element_b: Element):
 	var elements_array := [element_a, element_b]
 	var orientation: LigamentPosition
 	var link: Ligament
@@ -110,7 +110,7 @@ func link_elements(element_a: ElementNode, element_b: ElementNode):
 	link = Ligament.new(elements_array[0], elements_array[1], orientation)
 
 
-func remove_element(element: ElementNode):
+func remove_element(element: Element):
 	configuration.erase(element)
 	for link in element.links:
 		if element.links[link]:
@@ -120,6 +120,6 @@ func remove_element(element: ElementNode):
 
 func get_eletron_power() -> int:
 	var power := 0
-	configuration.map(func(c: ElementNode): power += c.eletrons)
+	configuration.map(func(c: Element): power += c.eletrons)
 	
 	return power

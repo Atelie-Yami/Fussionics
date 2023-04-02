@@ -1,6 +1,8 @@
 ## Classe que define os elementos.
 class_name Element extends Control
 
+signal selected_changed(value: bool)
+
 ## Tempos de ação dos efeitos, quando eles irão ser execultados.
 enum ActionTime {
 	PRE_INIT, INIT, INSTANTIATED, MOVED, LINKED, UNLINKED, BAKED, DIED, ATTACK, DEFEND, END_TURN
@@ -11,7 +13,20 @@ enum {
 enum {
 	SIMBOL, NAME, VALENTIA, SERIE
 }
+#enum State {
+#	NORMAL, BIND_LINK, REMOVE_LINK, ATTACKING, DEFENDING, MOTION, COOKING
+#}
+enum NodeState {
+	NORMAL, HOVER, SELECTED
+}
 
+const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
+const GIANT_ROBOT := preload("res://assets/fonts/GiantRobotArmy-Medium.ttf")
+const SLOT := preload("res://assets/img/elements/Slot_0.png")
+const LEGANCY := preload("res://scenes/elements/legancy.tscn")
+const GLOW := preload("res://scenes/elements/glow.tscn")
+
+const FONT_SIZE := 48.0
 const COLOR_SERIES = {
 	ALKALINE:		Color("f05459"),
 	ALKALINE_EARTH: Color('FF8A3D'),
@@ -188,9 +203,123 @@ var has_link: bool:
 		
 		return false
 
+var disabled: bool:
+	set(value):
+		disabled = value
+		legancy.set_fade(float(!value))
+
+var active: bool:
+	set(value):
+		active = value
+		disabled = !active
+		if not active:
+			_set_current_node_state(NodeState.NORMAL)
+
 var debuffs: Array[PassiveEffect.DebuffEffect]
 var buffs: Array[PassiveEffect.BuffEffect]
 var effect: SkillEffect
+
+#var current_state: State
+var current_node_state: NodeState
+var position_offset: Vector2
+var selected: bool
+
+var legancy: Panel = LEGANCY.instantiate()
+var glow: Sprite2D = GLOW.instantiate()
+
+
+func _init():
+	custom_minimum_size = Vector2(80, 80)
+	focus_mode = Control.FOCUS_NONE
+	add_child(legancy)
+	add_child(glow)
+	glow.position = Vector2(40, 40)
+
+
+func _ready():
+	legancy.modulate = COLOR_SERIES[DATA[atomic_number][SERIE]]
+	mouse_entered.connect(_mouse_entered)
+	mouse_exited .connect(_mouse_exited )
+
+
+func _process(delta):
+	queue_redraw()
+
+
+func _draw_ligaments():
+	for link in links:
+		var ligament : Molecule.Ligament = links[link]
+		if not ligament:
+			continue
+		
+		for i in ligament.level:
+			var p = (i * 10.0) - (ligament.level / 2.0 * 10.0) + 5.0
+			var base = Vector2(40, 40) - (Vector2(Vector2i.ONE - abs(link)) * p)
+			
+			draw_line(
+					base + Vector2(-link) * (Vector2(30, 30)),
+					base + Vector2(-link) * (Vector2(45, 45)),
+					Color.WHITE, 5, true
+			)
+
+
+func _draw():
+	# desenhar os ligamentos
+	if has_link:
+		_draw_ligaments()
+	
+	# desenhar o retangulo
+	var alpha: float = 0.5
+	if current_node_state == NodeState.HOVER or current_node_state == NodeState.SELECTED:
+		alpha = 0.7
+	
+	alpha += 0.3 if active else 0.0
+	
+	draw_texture_rect(SLOT, Rect2(-8, -8, 96, 96), false, Color.WHITE * alpha)
+	
+	# obter a cor
+	var symbol_color: Color = COLOR_SERIES[DATA[atomic_number][SERIE]]
+	if not active:
+		var gray := (symbol_color.r + symbol_color.g + symbol_color.b) / 3.0
+		symbol_color = Color(gray, gray, gray)
+	
+	# escrever simbolo centralizado
+	var string_size = FUTURE_SALLOW.get_string_size(
+			DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, FONT_SIZE
+	) / 2
+	draw_string(
+			FUTURE_SALLOW, Vector2(41 - string_size.x, ((string_size.y + 7) / 2) + 40) + position_offset,
+			DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, FONT_SIZE, symbol_color
+	)
+	
+	# atomic number
+	draw_string(
+			GIANT_ROBOT, Vector2(11, 16), str(atomic_number +1), HORIZONTAL_ALIGNMENT_RIGHT, -1, 12, symbol_color
+	)
+	
+	# eletrons
+	var eletrons_string_size = GIANT_ROBOT.get_string_size(str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	draw_string(
+			GIANT_ROBOT, Vector2(68 - eletrons_string_size.x, 16), str(eletrons +1),
+			HORIZONTAL_ALIGNMENT_LEFT, 200, 12, symbol_color
+	)
+	
+	# neutros
+	var neutrons_string_size = GIANT_ROBOT.get_string_size(str(neutrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	draw_string(
+			GIANT_ROBOT, Vector2(68 - neutrons_string_size.x, 74), str(neutrons +1), HORIZONTAL_ALIGNMENT_LEFT,
+			-1, 12, symbol_color, TextServer.JUSTIFICATION_TRIM_EDGE_SPACES, TextServer.DIRECTION_LTR
+	)
+	
+	# dar uma corzinha pra tudo
+	modulate = (Color.WHITE * 0.7) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.3)
+	modulate.a = 1.0
+	glow.modulate = COLOR_SERIES[DATA[atomic_number][SERIE]] if active else Color(0.1, 0.1, 0.1, 1.0)
+
+
+func _exit_tree():
+	if effect:
+		effect.unregister(0)
 
 
 func reset():
@@ -202,12 +331,32 @@ func reset():
 		eletrons = neutrons
 
 
-func _exit_tree():
-	if effect:
-		effect.unregister(0)
+func _set_current_node_state(state: NodeState):
+	if current_node_state == state: return
+
+	if current_node_state == NodeState.SELECTED:
+		selected_changed.emit(false)
+
+	current_node_state = state
+
+	if current_node_state == NodeState.SELECTED:
+		Gameplay.selected_element = self
+		selected_changed.emit(true)
 
 
+func _mouse_entered():
+	if active:
+		_set_current_node_state(NodeState.HOVER)
+	
+	mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
 
 
+func _mouse_exited():
+	if active:
+		_set_current_node_state(NodeState.NORMAL)
 
 
+func _is_neighbor_to_link():
+	var x: int = abs(Gameplay.selected_element.grid_position.x - grid_position.x)
+	var y: int = abs(Gameplay.selected_element.grid_position.y - grid_position.y)
+	return (x == 1 and y != 1) or (x != 1 and y == 1)

@@ -19,11 +19,18 @@ var life: int = MAX_LIFE:
 		if life == 0:
 			dead.emit()
 
-@onready var arena = $"../arena"
+@onready var arena: Arena = $"../arena"
 
 
 func set_turn(active: bool):
-	pass
+	for pos in arena.elements:
+		var slot = arena.elements[pos]
+		if slot.player == player:
+			slot.element.active = active
+			
+			if active:
+				slot.skill_used = false
+				slot.can_act = true
 
 
 func take_damage(danage: int):
