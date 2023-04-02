@@ -1,7 +1,7 @@
 extends Button
 
 
-@export var action: Arena.ElementActions
+@export var action: Gameplay.ElementActions
 
 
 func _pressed():

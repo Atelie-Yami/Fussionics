@@ -193,8 +193,8 @@ func _mouse_exited():
 
 
 func _is_neighbor_to_link():
-	var x:int = abs(Gameplay.selected_element.grid_position.x - grid_position.x)
-	var y:int = abs(Gameplay.selected_element.grid_position.y - grid_position.y)
+	var x: int = abs(Gameplay.selected_element.grid_position.x - grid_position.x)
+	var y: int = abs(Gameplay.selected_element.grid_position.y - grid_position.y)
 	return (x == 1 and y != 1) or (x != 1 and y == 1)
 
 

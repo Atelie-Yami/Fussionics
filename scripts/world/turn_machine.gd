@@ -118,8 +118,8 @@ func cook():
 		# animação de fundir aqui
 		await timeout
 		
-		if atn > 25:
-			Gameplay.player_controller.take_damage(current_player as PlayerController.Players, atn - 25)
+		if atn > 24:
+			Gameplay.arena.current_players[current_player].take_damage(atn - 24)
 		
 	
 	if arena.elements.has(slot_accelr_A) and arena.elements.has(slot_accelr_B):

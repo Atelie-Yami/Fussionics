@@ -19,7 +19,6 @@ var element_focus := Sprite2D.new()
 var in_link_state: bool
 var in_unlink_state: bool
 var arena: Arena
-var player_controller: PlayerController
 
 var callback_action: int
 var selected_element_target: ElementNode:
@@ -98,36 +97,36 @@ func _notification(what: int):
 		for c in element_drag_preview.get_children(): c.queue_free()
 
 
-func _action_pressed(action: Arena.ElementActions):
+func _action_pressed(action: ElementActions):
 	callback_action = action
 	match action:
-		Arena.ElementActions.ATTACK:
+		ElementActions.ATTACK:
 			if arena.combat_in_process or not GameJudge.can_element_attack(selected_element):
 				return
 			
 			self.action_state = ActionState.ATTACK
 		
-		Arena.ElementActions.LINK:
+		ElementActions.LINK:
 			self.action_state = ActionState.LINK
 		
-		Arena.ElementActions.UNLINK:
+		ElementActions.UNLINK:
 			self.action_state = ActionState.UNLINK
 		
-		Arena.ElementActions.EFFECT:
+		ElementActions.EFFECT:
 			arena.element_use_effect(selected_element)
 
 
 func callback_action_target(target: ElementNode):
 	match callback_action:
-		Arena.ElementActions.ATTACK:
+		ElementActions.ATTACK:
 			arena.attack_element(
 					selected_element.grid_position, selected_element_target.grid_position, 0
 			)
 		
-		Arena.ElementActions.LINK:
+		ElementActions.LINK:
 			arena.link_elements(selected_element, selected_element_target)
 		
-		Arena.ElementActions.UNLINK:
+		ElementActions.UNLINK:
 			arena.unlink_elements(selected_element, selected_element_target)
 	
 	self.action_state = ActionState.NORMAL
@@ -140,7 +139,7 @@ func slot_get_actions(slot: Arena.Slot):
 		if slot.element.number_electrons_in_valencia > 0:
 			actions.append(ElementActions.LINK)
 		
-		if player_controller.current_players[slot.player].energy > 0:
+		if arena.current_players[slot.player].energy > 0:
 			actions.append(ElementActions.UNLINK)
 		
 	else:

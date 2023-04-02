@@ -1,10 +1,9 @@
 extends TextureRect
 
-@export_enum("Player", "Opponent") var player: int
-
 
 @onready var life_value = $life_value
-@onready var player_controller = $"../../PlayerController"
+@onready var player: Player = get_parent()
+
 
 var animated_life: int
 var animation := true
@@ -21,4 +20,4 @@ func _process(delta):
 		life_value.text = str(animated_life)
 	
 	else:
-		life_value.text = str(player_controller.current_players[player].life)
+		life_value.text = str(player.life)

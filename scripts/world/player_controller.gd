@@ -1,63 +1,24 @@
-class_name PlayerController extends Node
+class_name PlayerController extends Control
 
 enum Players {A, B}
 
-const PLAYERS_MAX_LIFE := 30
-const ENERGY_MAX := 16
-
-#------------------------------------------------------------------------------#
-## Classe que detem as propriedades dos jogadores
-class Player:
-	var energy_max := 1
-	var energy := 1
-	
-	var player: Players
-	var end_game: Signal
-	var elements: Array[ElementNode]
-	
-	var life: int = PLAYERS_MAX_LIFE:
-		set(value):
-			life = max(value, 0)
-			if life == 0:
-				end_game.emit(player)
-	
-	func _init(_player: Players, _end_game: Signal):
-		player = _player; end_game = _end_game
-	
-	func set_my_turn(active: bool):
-		elements.map(func(e): e.active = active)
-	
-#------------------------------------------------------------------------------#
-
-var current_players: Array[Player]
-
-@onready var arena = $"../arena"
+@onready var current_players: Array[Player] = [
+	$"../Player_A" as Player,
+	$"../Player_B" as Player,
+]
 @onready var turn_machine: TurnMachine = %turn_machine
 
 
-func _init():
-	Gameplay.player_controller = self
-
-
 func _ready():
-	for p in Players.size():
-		current_players.append(Player.new(p, turn_machine.end_game))
-	
 	turn_machine.pre_init_turn.connect(_pre_init_turn)
 	turn_machine.main_turn.connect(_set_current_player_controller)
 	turn_machine.end_turn.connect(_remove_players_control)
-
-
-func take_damage(player: Players, danage: int):
-	current_players[player].life -= danage
-
-
-func heal(player: Players, _heal: int):
-	current_players[player].life = min(current_players[player].life + _heal, PLAYERS_MAX_LIFE)
-
-
-func spend_energy(player: Players, energy: int):
-	current_players[player].energy -= energy
+	
+	await  get_tree().create_timer(0.1).timeout
+	
+	for c in get_children():
+		await  get_tree().create_timer(0.03).timeout
+		c.animation()
 
 
 func _pre_init_turn(player: Players):
@@ -65,16 +26,16 @@ func _pre_init_turn(player: Players):
 
 
 func _set_current_player_controller(player: Players):
-	current_players[player].set_my_turn(true)
-	current_players[player].energy_max = min(current_players[player].energy_max + 1, ENERGY_MAX)
+	current_players[player].set_turn(true)
+	current_players[player].energy_max = min(current_players[player].energy_max + 1, Player.ENERGY_MAX)
 	current_players[player].energy = current_players[player].energy_max
 	
-	if player == Players.A:
-		pass
+	if player == Players.B:
+		current_players[player].play()
 
 
 func _remove_players_control(player: Players):
-	current_players[player].set_my_turn(false)
+	current_players[player].set_turn(false)
 	
 	ElementEffectManager.call_effects(player, ElementEffectManager.SkillType.END_PHASE)
 	

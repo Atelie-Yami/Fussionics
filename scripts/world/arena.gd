@@ -1,4 +1,5 @@
-class_name Arena extends Control
+class_name Arena extends PlayerController
+
 
 
 const GRID_OFFSET := Vector2i(605, 320)
@@ -11,7 +12,7 @@ const FORJE_SLOTS_OFFSET := [
 ]
 
 class Slot:
-	var player: PlayerController.Players
+	var player: Players
 	var element: Element
 	var molecule: Molecule
 	
@@ -24,7 +25,7 @@ class Slot:
 			if not can_act and molecule:
 				molecule.configuration.map(func(e): e.active = false)
 	
-	func _init(_e: Element, _p: PlayerController.Players):
+	func _init(_e: Element, _p: Players):
 		element = _e; player = _p
 		element.mouse_entered.connect(_mouse_hover.bind(true))
 		element.mouse_exited.connect(_mouse_hover.bind(false))
@@ -39,20 +40,8 @@ var elements: Dictionary
 var combat_in_process: bool
 
 
-@onready var player_controller: PlayerController = $"../PlayerController"
-@onready var turn_machine: TurnMachine = %turn_machine
-
-
 func _init():
 	Gameplay.arena = self
-
-
-func _ready():
-	await  get_tree().create_timer(0.1).timeout
-	
-	for c in get_children():
-		await  get_tree().create_timer(0.03).timeout
-		c.animation()
 
 
 func _check_slot_empty(slot: Vector2i):
@@ -111,12 +100,11 @@ func remove_element(slot_position: Vector2i):
 
 
 func _remove_element(slot: Slot, slot_position: Vector2i):
-	player_controller.current_players[slot.player].elements.erase(slot.element)
 	slot.element.queue_free()
 	elements.erase(slot_position)
 
 
-func create_element(atomic_number: int, player: PlayerController.Players, _position: Vector2i, focus: bool):
+func create_element(atomic_number: int, player: Players, _position: Vector2i, focus: bool):
 	if not _check_slot_empty(_position) or _check_slot_only_out(_position):
 		return
 	
@@ -130,8 +118,7 @@ func create_element(atomic_number: int, player: PlayerController.Players, _posit
 	if focus:
 		Gameplay.selected_element = element
 	
-	player_controller.add_child(element)
-	player_controller.current_players[player].elements.append(element)
+	current_players[player].add_child(element)
 	
 	element.active = _position.y < 9
 	element.global_position = _get_snapped_slot_position(_position)
@@ -202,7 +189,7 @@ func unlink_elements(element_A: ElementNode, element_B: ElementNode):
 		ElementEffectManager.call_effects(
 				player, ElementEffectManager.SkillType.UNLINKED
 		)
-		player_controller.spend_energy(player, 1)
+		current_players[player].spend_energy(1)
 	else:
 		print("has not link")
 
@@ -289,7 +276,7 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
-		var power = slot_attacker.element.eletrons + slot_attacker.molecule.configuration.size() - 1
+		slot_attacker.element.eletrons += slot_attacker.molecule.configuration.size() - 1
 		slot_attacker.molecule.configuration.map(
 				func(e):
 						if e != slot_attacker.element: e.eletrons -= 1;
@@ -304,7 +291,7 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 			GameJudge.Result.WINNER:
 				await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
-				player_controller.take_damage(slot_defender.player, slot_attacker.element.eletrons - slot_defender.element.neutrons)
+				current_players[slot_attacker.player].take_damage(slot_attacker.element.eletrons - slot_defender.element.neutrons)
 				remove_element(defender)
 			
 			GameJudge.Result.COUNTERATTACK:
@@ -315,7 +302,7 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 				):
 					await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.POS_ATTACK)
 					await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.POS_DEFEND)
-					player_controller.take_damage(slot_attacker.player, slot_defender.element.neutrons - slot_attacker.element.eletrons)
+					current_players[slot_attacker.player].take_damage(slot_defender.element.neutrons - slot_attacker.element.eletrons)
 					remove_element(attacker)
 	combat_in_process = false
 
@@ -336,7 +323,7 @@ func _drop_data(_p, data):
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:
-		create_element(data.element, PlayerController.Players.A, final_position, true)
-		player_controller.spend_energy(PlayerController.Players.A, data.element +1)
+		create_element(data.element, Players.A, final_position, true)
+		current_players[Players.A].spend_energy(data.element +1)
 
 

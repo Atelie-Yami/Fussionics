@@ -194,14 +194,12 @@ var effect: SkillEffect
 
 
 func reset():
-	if neutrons > atomic_number:
-		neutrons -= 1
-	
-	if neutrons < atomic_number:
-		eletrons = neutrons
+	if neutrons == atomic_number:
+		eletrons = atomic_number
 	
 	else:
-		eletrons = atomic_number
+		neutrons = neutrons + signi(atomic_number - neutrons)
+		eletrons = neutrons
 
 
 func _exit_tree():

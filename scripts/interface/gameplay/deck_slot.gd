@@ -2,18 +2,23 @@ class_name DeckSlot extends Panel
 
 
 @export var element: int
+@export var player_a_path: NodePath
+
+var player_a: Player
+var is_dragging: bool
 
 var can_drop: bool:
 	get:
-		return ( can_drop and
-			Gameplay.player_controller.current_players[PlayerController.Players.A].energy > element
-		)
+		return can_drop and player_a.energy > element
 
 var simbol: String
 var color: Color
 
 
 func _ready():
+	if not is_dragging:
+		player_a = get_node(player_a_path)
+		
 	simbol = ElementNode.DATA[element][ElementNode.SIMBOL]
 	color = ElementNode.COLOR_SERIES[ElementNode.DATA[element][ElementNode.SERIE]]
 
@@ -54,6 +59,7 @@ func _get_drag_data(_p):
 	
 	var preview: DeckSlot = duplicate()
 	preview.scale *= 0.75
+	preview.is_dragging = true
 	
 	Gameplay.element_drag_preview.add_child(preview)
 	preview.position = Vector2(-40, -40)

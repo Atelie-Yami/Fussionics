@@ -21,5 +21,4 @@ func execute():
 	if not active:
 		return
 	
-	if Gameplay.player_controller.current_players[0].life < Gameplay.player_controller.PLAYERS_MAX_LIFE:
-		Gameplay.player_controller.heal(0, 1)
+	Gameplay.arena.current_players[0].heal(1)
