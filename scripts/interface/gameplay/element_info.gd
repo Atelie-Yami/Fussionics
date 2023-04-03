@@ -6,19 +6,20 @@ const SERIES := [
 ]
 
 
-@onready var symbol = $MarginContainer/VBoxContainer/HBoxContainer/symbol
-@onready var element_name = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/name
-@onready var serie = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/serie
-@onready var valentia = $MarginContainer/VBoxContainer/HBoxContainer2/valentia
-@onready var extra_neutrons = $MarginContainer/VBoxContainer/HBoxContainer2/extra_neutrons
+@onready var symbol : TextureRect= $MarginContainer/VBoxContainer/element_profile/symbol
+@onready var element_name : Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/name
+@onready var serie : Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/serie
+@onready var valentia : Label = $MarginContainer/VBoxContainer/valentia/valentia_text
+@onready var extra_neutrons : Label = $MarginContainer/VBoxContainer/valentia/extra_neutrons
 @onready var effect: RichTextLabel = $MarginContainer/VBoxContainer/effect
+@onready var molecule_effect : RichTextLabel = $MarginContainer/VBoxContainer/molecule_effect
 
 
 func _init():
 	Gameplay.element_selected.connect(_element_selected)
 
-
 func _element_selected(valid: bool):
+	
 	if valid:
 		var data = Element.DATA[Gameplay.selected_element.atomic_number]
 		
@@ -33,8 +34,23 @@ func _element_selected(valid: bool):
 			extra_neutrons.text += ("+" if diff > 0 else "-") + str(diff)
 		
 		effect.text = tr("EFFECT_" + data[Element.NAME])
+		
+		info_color(data)
 	
 	visible = valid
+
+func info_color(data) -> void:
+	
+	if data[Element.VALENTIA] == 0:
+		valentia.modulate = Color.PALE_VIOLET_RED
+	else:
+		valentia.modulate = Color.WHITE
+	
+	var diff = Gameplay.selected_element.atomic_number - Gameplay.selected_element.neutrons
+	if diff > 0:
+		extra_neutrons.modulate = Color.PALE_VIOLET_RED
+	else:
+		extra_neutrons.modulate = Color.PALE_GREEN
 
 
 func _close_pressed():
