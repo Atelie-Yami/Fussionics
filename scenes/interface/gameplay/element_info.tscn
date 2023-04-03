@@ -122,10 +122,13 @@ text = "valentia:"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="effect" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="effect" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 text = "informations informations info rmations informations asdada das das dasdada addsadasdas dasdasdasdasdasdad aasdasda sdasdasd adas ad  adsa dasd asdasdas asdasd a das dasdada dasdasda sdad  asdas dasda sdasdasdasda a adda das a adsa sdasdas"
+fit_content = true
+scroll_active = false
 autowrap_mode = 2
 
 [connection signal="pressed" from="NinePatchRect/close" to="." method="_close_pressed"]

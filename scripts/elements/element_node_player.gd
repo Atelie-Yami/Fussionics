@@ -24,7 +24,7 @@ func _gui_input(event: InputEvent):
 				Gameplay.selected_element_target = self
 			else:
 				Gameplay.action_state = Gameplay.ActionState.NORMAL
-	
+		
 		Gameplay.ActionState.ATTACK:
 			Gameplay.action_state = Gameplay.ActionState.NORMAL
 

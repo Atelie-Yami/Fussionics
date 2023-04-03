@@ -65,7 +65,7 @@ mouse_click={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/svg/gameplay.en.translation", "res://assets/svg/gameplay.pt.translation")
+locale/translations=PackedStringArray("res://assets/svg/gameplay.en.translation", "res://assets/svg/gameplay.pt.translation", "res://assets/svg/elements.en.translation", "res://assets/svg/elements.pt.translation", "res://assets/svg/element_effects.en.translation", "res://assets/svg/element_effects.pt.translation")
 
 [rendering]
 

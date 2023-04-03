@@ -178,7 +178,7 @@ func get_eletron_power() -> int:
 
 func effects_cluster_assembly(header: Element, target: Element, kit: Kit):
 	if (
-			(kit == Kit.ATTACK and not header.effect.target_mode)
+			(kit == Kit.ATTACK and not (header.effect and header.effect.target_mode))
 	):
 		return
 	

@@ -143,14 +143,20 @@ func slot_get_actions(slot: Arena.Slot):
 			actions.append(ElementActions.UNLINK)
 		
 	else:
-		actions.append(ElementActions.LINK)
+		if slot.element.number_electrons_in_valencia > 0:
+			actions.append(ElementActions.LINK)
 	
 	if not slot.can_act:
 		return actions
 	
 	actions.append(ElementActions.ATTACK)
 	
-	if slot.element.effect and not slot.skill_used:
+	if (
+			slot.element.effect and not slot.skill_used and (
+					slot.element.effect.molecule_effect_type == SkillEffect.MoleculeEffectType.TRIGGER or
+					slot.element.effect.molecule_effect_type == SkillEffect.MoleculeEffectType.MULTI
+			)
+	):
 		actions.append(ElementActions.EFFECT)
 	
 	return actions

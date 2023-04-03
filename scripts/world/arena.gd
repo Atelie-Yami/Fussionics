@@ -31,7 +31,7 @@ class Slot:
 		element.mouse_exited.connect(_mouse_hover.bind(false))
 	
 	func _mouse_hover(entered: bool):
-		if molecule:
+		if molecule and is_instance_valid(molecule.border_line):
 			molecule.border_line.visible = entered
 
 
@@ -73,6 +73,9 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 
 
 func remove_element(slot_position: Vector2i):
+	if not elements.has(slot_position):
+		return
+	
 	var slot: Slot = elements[slot_position]
 	
 	if not GameJudge.can_remove_element(slot.element):
@@ -133,6 +136,10 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 func link_elements(element_a: Element, element_b: Element):
 	var slot_a: Slot = elements[element_a.grid_position]
 	var slot_b: Slot = elements[element_b.grid_position]
+	
+	if not element_a.can_link(element_b) or element_b.number_electrons_in_valencia == 0:
+		print("ata")
+		return
 	
 	if slot_a.molecule and slot_b.molecule:
 		if slot_a.molecule == slot_b.molecule:
@@ -299,7 +306,7 @@ func _drop_data(_p, data):
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:
-		create_element(data.element, Players.A, final_position, true)
+		create_element(data.element, Players.A, final_position, false)
 		current_players[Players.A].spend_energy(data.element +1)
 
 
