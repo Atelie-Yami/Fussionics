@@ -27,8 +27,8 @@ static func can_element_attack(element: Element) -> bool:
 
 
 static func can_remove_element(element: Element) -> bool:
-	for debuff in element.debuffs:
-		if debuff.type == PassiveEffect.Buff.IMORTAL:
+	for buff in element.buffs:
+		if buff.type == PassiveEffect.Buff.IMORTAL:
 			return false
 	return true
 
@@ -57,3 +57,13 @@ static func combat(attaker: Element, defender: Element):
 		Result.DRAW:
 			await ElementEffectManager.call_effects(atk_player, ElementEffectManager.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(dfd_player, ElementEffectManager.SkillType.POS_DEFEND)
+
+
+static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
+	var player = Gameplay.arena.elements[position].player
+	
+	for x in [-1, 0, 1]:
+		for y in [-1, 0, 1]:
+			var _pos = position + Vector2i(x, y)
+			if Gameplay.arena.elements.has(_pos) and Gameplay.arena.elements[_pos].player != player:
+				enemies.append(Gameplay.arena.elements[_pos].element)

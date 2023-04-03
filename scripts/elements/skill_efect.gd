@@ -2,7 +2,8 @@
 class_name SkillEffect extends RefCounted
 
 const BOOK := {
-	0: preload("res://scripts/elements/effects/hidrogen.gd")
+	0: preload("res://scripts/elements/effects/hidrogen.gd"),
+	2: preload("res://scripts/elements/effects/lithium.gd"),
 }
 
 ## Tempos onde um efeito possa ser chamado ou atuado.
@@ -61,12 +62,7 @@ enum Token {
 	TIME_TURN_AMOUNT, ## referente a tempo e turnos 
 }
 enum Tag {
-	RADIOATIVE,
-	IONIC,
-	ANION,
-	RADIOATIVE_SHIELD,
-	ALPHA,
-	BETA,
+	RADIOATIVE, BURNING, IONIC, ANION, RADIOATIVE_SHIELD, ALPHA, BETA,
 }
 const _IS_ASSALT_TEST := [
 	MechanicMode.DESTROYER, MechanicMode.WEAKENER, MechanicMode.DECLINER,
@@ -136,6 +132,7 @@ var target_mode: TargetMode
 var active := true
 
 var element: Element
+var _registred: bool
 
 # {token : [ BindToken, valor ]}
 var tokens: Dictionary
@@ -144,21 +141,23 @@ var tokens: Dictionary
 ## registra esse efeito de acordo com o tempo de ação
 func register(player: PlayerController.Players):
 	ElementEffectManager.effects_pool_players[player][skill_type].append(self)
+	_registred = true
 
 
 ## remove o registro
 func unregister(player: PlayerController.Players):
-	ElementEffectManager.effects_pool_players[player][skill_type].erase(self)
+	if _registred:
+		ElementEffectManager.effects_pool_players[player][skill_type].erase(self)
 
 
 ## aqui acontece o efeito, acessando a ARENA, na qual pode interagir todos elementos
 ## e com o estado dos jogadores.
 func execute():
-	Gameplay.arena
+	print(Gameplay.arena)
 
 
 func molecule_effect(molecule: Molecule):
-	pass
+	molecule.prepare_element_for_attack(element)
 
 
 

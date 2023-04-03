@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=44 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
 [ext_resource type="Script" path="res://scripts/world/arena.gd" id="10_cin7l"]
-[ext_resource type="PackedScene" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
+[ext_resource type="PackedScene" uid="uid://cur67wmsq7vm8" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://bnw0hevmmjh6i" path="res://assets/img/elements/Reator.png" id="10_rnfol"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="13_wjs4m"]
@@ -41,7 +41,7 @@ shader_parameter/fade = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
 font = ExtResource("14_virs7")
-font_size = 18
+font_size = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_c3xq3"]
 font = ExtResource("14_virs7")
@@ -88,18 +88,16 @@ script/source = "extends CanvasLayer
 
 
 func _process(delta):
-	energy.text = \"energy: \" + str(player_a.energy)
+	energy.text = str(player_a.energy)
 	
 	match turn_machine.current_stage:
-		0: timer.text = \"PRE INIT\"
-		1: timer.text = \"INIT STORVE\"
-		2: timer.text = \"MAIN\"
-		3: timer.text = \"END\"
-	
-	timer.text += \" rival\" if turn_machine.current_player else \" jogador\"
+		0: timer.text = tr(\"PRE_INIT\")
+		1: timer.text = tr(\"INIT_STORVE\")
+		3: timer.text = tr(\"END\")
 	
 	if turn_machine.current_stage == 2:
-		timer.text +=  \": \" + str(int(turn_machine.time_left))
+		timer.text = tr(\"OPP_TURN\") if turn_machine.current_player else tr(\"YOU_TURN\")
+		timer.text +=  str(int(turn_machine.time_left))
 
 
 func _turn_machine_main_turn(player):
@@ -128,13 +126,17 @@ region = Rect2(866, 579, 975, 123)
 texture = ExtResource("14_j8jwv")
 modulate_color = Color(1, 1, 1, 0.321569)
 
+[sub_resource type="LabelSettings" id="LabelSettings_m4l38"]
+font = ExtResource("14_virs7")
+font_size = 48
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dchwg"]
 atlas = ExtResource("19_rqw3s")
 region = Rect2(888, 783, 401, 150)
 
 [sub_resource type="LabelSettings" id="LabelSettings_p4cfa"]
 font = ExtResource("14_virs7")
-font_size = 40
+font_size = 30
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p1hu"]
 
@@ -1178,20 +1180,37 @@ script = ExtResource("15_tapr6")
 element = 7
 player_a_path = NodePath("../../../../Player_A")
 
+[node name="energy_title" type="Label" parent="GUI/deck"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -104.0
+offset_right = 136.0
+offset_bottom = -54.0
+grow_vertical = 0
+text = "ENERGY"
+label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="energy" type="Label" parent="GUI/deck"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 24.5
-offset_top = -87.0
-offset_right = 191.5
-offset_bottom = -44.0
+offset_left = 102.0
+offset_top = -106.0
+offset_right = 199.0
+offset_bottom = -16.0
 grow_vertical = 0
-text = "Energy: 10"
-label_settings = SubResource("LabelSettings_kpb4x")
+text = "2"
+label_settings = SubResource("LabelSettings_m4l38")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="signboard" type="TextureRect" parent="GUI"]
 anchors_preset = 5
@@ -1209,12 +1228,11 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -165.0
-offset_top = 10.0
-offset_right = 165.0
-offset_bottom = 56.0
+offset_left = -164.5
+offset_right = 165.5
+offset_bottom = 53.0
 grow_horizontal = 2
-text = "life: 10"
+text = "FASE DOS REAT"
 label_settings = SubResource("LabelSettings_p4cfa")
 horizontal_alignment = 1
 vertical_alignment = 2

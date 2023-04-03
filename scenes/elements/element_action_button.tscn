@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx22mwdgj1oja"]
+[gd_scene load_steps=3 format=3 uid="uid://cur67wmsq7vm8"]
 
 [ext_resource type="Script" path="res://scripts/elements/element_action_button.gd" id="1_hqr63"]
 
@@ -13,4 +13,4 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_31lkw")
 script = ExtResource("1_hqr63")
 
-[connection signal="pressed" from="." to="." method="_pressed"]
+[connection signal="pressed" from="." to="." method="__pressed"]

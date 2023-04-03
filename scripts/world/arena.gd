@@ -261,8 +261,8 @@ func _procedural_search_test(element: Element, anchored_array: Array[Element]):
 
 
 func element_use_effect(element: Element):
-	print(elements[element.grid_position])
-
+	if element.effect:
+		element.effect.execute()
 
 
 func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
@@ -277,7 +277,6 @@ func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
-		slot_attacker.molecule.prepare_element_for_attack(slot_attacker.element)
 		slot_attacker.molecule.effects_cluster_assembly(slot_attacker.element, slot_defender.element, Molecule.Kit.ATTACK)
 	else:
 		GameJudge.combat(slot_attacker.element, slot_defender.element)

@@ -149,6 +149,8 @@ func slot_get_actions(slot: Arena.Slot):
 		return actions
 	
 	actions.append(ElementActions.ATTACK)
-	if not slot.skill_used: actions.append(ElementActions.EFFECT)
+	
+	if slot.element.effect and not slot.skill_used:
+		actions.append(ElementActions.EFFECT)
 	
 	return actions

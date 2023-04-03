@@ -162,12 +162,19 @@ const DATA = [
 	{SIMBOL : "Uue", NAME : "UNUNÉNNIO", VALENTIA :1, SERIE : ALKALINE},
 ]
 
+var max_eletrons: int
 ## valor de ataque, é variável, ou seja, esse valor pode mudar de acordo com oque acontece durante o jogo.
 var eletrons: int
 
+var max_neutrons: int
 ## isotopo, geralmente o mesmo valor q o numero atomico, determina a vida.
-var neutrons: int
+var neutrons: int:
+	set(value):
+		neutrons = value
+		if neutrons < 0:
+			Gameplay.arena.remove_element(grid_position)
 
+var max_valentia: int
 ## Indica quantos links esse elemento pode ter em simultâneo.
 var valentia: int
 @onready var number_electrons_in_valencia: int = valentia
@@ -176,12 +183,12 @@ var valentia: int
 @export var atomic_number: int:
 	set(value):
 		atomic_number = value
-		eletrons = value
-		neutrons = value
-		valentia = DATA[atomic_number][VALENTIA]
+		eletrons = value if not max_eletrons else max_eletrons
+		neutrons = value if not max_neutrons else max_neutrons
+		valentia = DATA[atomic_number][VALENTIA] if not max_valentia else max_valentia
 		tooltip_text = DATA[atomic_number][NAME]
 		
-		if SkillEffect.BOOK.has(atomic_number):
+		if not effect and SkillEffect.BOOK.has(atomic_number):
 			effect = SkillEffect.BOOK[atomic_number].new(self)
 
 ## Dicionario que define os efeitos em seus tempos de ação:[br]
@@ -215,8 +222,9 @@ var active: bool:
 		if not active:
 			_set_current_node_state(NodeState.NORMAL)
 
-var debuffs: Array[PassiveEffect.DebuffEffect]
-var buffs: Array[PassiveEffect.BuffEffect]
+# {PassiveEffect.Debuff.Type: PassiveEffect.DebuffEffect}
+var debuffs: Dictionary
+var buffs: Dictionary
 var effect: SkillEffect
 
 #var current_state: State
@@ -294,7 +302,7 @@ func _draw():
 	
 	# atomic number
 	draw_string(
-			GIANT_ROBOT, Vector2(11, 16), str(atomic_number +1), HORIZONTAL_ALIGNMENT_RIGHT, -1, 12, symbol_color
+			GIANT_ROBOT, Vector2(11, 16), str(neutrons +1), HORIZONTAL_ALIGNMENT_RIGHT, -1, 12, symbol_color
 	)
 	
 	# eletrons
@@ -304,13 +312,6 @@ func _draw():
 			HORIZONTAL_ALIGNMENT_LEFT, 200, 12, symbol_color
 	)
 	
-	# neutros
-	var neutrons_string_size = GIANT_ROBOT.get_string_size(str(neutrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
-	draw_string(
-			GIANT_ROBOT, Vector2(68 - neutrons_string_size.x, 74), str(neutrons +1), HORIZONTAL_ALIGNMENT_LEFT,
-			-1, 12, symbol_color, TextServer.JUSTIFICATION_TRIM_EDGE_SPACES, TextServer.DIRECTION_LTR
-	)
-	
 	# dar uma corzinha pra tudo
 	modulate = (Color.WHITE * 0.7) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.3)
 	modulate.a = 1.0
@@ -318,6 +319,9 @@ func _draw():
 
 
 func _exit_tree():
+	if Gameplay.selected_element == self:
+		Gameplay.selected_element = null
+	
 	if effect:
 		effect.unregister(0)
 

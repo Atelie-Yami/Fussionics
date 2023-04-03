@@ -1,5 +1,4 @@
 extends SkillEffect
-
 ## HIDROGEN[br][br]
 ## [b]Efeito solo:[/b][br]
 ## [i]Recupera saude do [b][code]Omega[/code][/b] se for usado em um acelerador.[/i][br][br]
@@ -36,18 +35,8 @@ func molecule_effect(molecule: Molecule):
 			H_list.append(e)
 	
 	for h in H_list:
-		get_neighbor_enemies(h.grid_position, enemies)
+		GameJudge.get_neighbor_enemies(h.grid_position, enemies)
+		
 	
 	molecule.effect.targets = enemies
-
-
-func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
-	var player = Gameplay.arena.elements[position].player
-	
-	for x in [-1, 0, 1]:
-		for y in [-1, 0, 1]:
-			var _pos = position + Vector2i(x, y)
-			if Gameplay.arena.elements.has(_pos) and Gameplay.arena.elements[_pos].player != player:
-				enemies.append(Gameplay.arena.elements[_pos].element)
-
 

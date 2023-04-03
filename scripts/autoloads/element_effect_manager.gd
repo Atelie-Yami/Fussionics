@@ -36,10 +36,13 @@ var EFFECTS_POOL := {
 	SkillType.POS_ACTION: [], #
 	SkillType.PASSIVE: [], #
 }
-
 var effects_pool_players := {
 	PlayerController.Players.A: EFFECTS_POOL.duplicate(),
 	PlayerController.Players.B: EFFECTS_POOL.duplicate(),
+}
+var passive_pool_effects := {
+	PlayerController.Players.A: [],
+	PlayerController.Players.B: [],
 }
 
 var is_processing_tasks := false
@@ -58,6 +61,10 @@ func _process(delta):
 	for _players in 2:
 		for effect in effects_pool_players[_players][SkillType.PASSIVE]:
 			effect.execute()
+
+
+func call_passive_effects(player: PlayerController.Players):
+	passive_pool_effects[player].map(func(e): e.effect())
 
 
 func call_effects(player: PlayerController.Players, type: SkillType):
