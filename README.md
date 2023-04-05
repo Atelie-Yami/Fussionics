@@ -1,7 +1,7 @@
 # Fussionics
 
 <p align="center">
-  <img src="/assets/img/marketing/fussionics.png">
+  <img src="/assets/img/marketing/capa.png">
 </p>
 
 [![Generic badge](https://img.shields.io/badge/godot-4.0.2.stable-blue.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/versão_do_jogo-prototipo_0-orange.svg)](https://shields.io/)
