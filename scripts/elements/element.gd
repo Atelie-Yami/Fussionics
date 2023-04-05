@@ -27,6 +27,7 @@ const LEGANCY := preload("res://scenes/elements/legancy.tscn")
 const GLOW := preload("res://scenes/elements/glow.tscn")
 
 const FONT_SIZE := 48.0
+const FONT_ATRIBUTES_SIZE := 13.0
 const COLOR_SERIES = {
 	ALKALINE:		Color("f05459"),
 	ALKALINE_EARTH: Color('FF8A3D'),
@@ -320,14 +321,17 @@ func _draw():
 	
 	# atomic number
 	draw_string(
-			GIANT_ROBOT, Vector2(11, 16), str(neutrons +1), HORIZONTAL_ALIGNMENT_RIGHT, -1, 12, symbol_color
+			GIANT_ROBOT, Vector2(11, 16), str(neutrons +1), HORIZONTAL_ALIGNMENT_RIGHT,
+			-1, FONT_ATRIBUTES_SIZE, symbol_color
 	)
 	
 	# eletrons
-	var eletrons_string_size = GIANT_ROBOT.get_string_size(str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	var eletrons_string_size = GIANT_ROBOT.get_string_size(
+			str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_ATRIBUTES_SIZE
+	)
 	draw_string(
 			GIANT_ROBOT, Vector2(68 - eletrons_string_size.x, 16), str(eletrons +1),
-			HORIZONTAL_ALIGNMENT_LEFT, 200, 12, symbol_color
+			HORIZONTAL_ALIGNMENT_LEFT, 200, FONT_ATRIBUTES_SIZE, symbol_color
 	)
 	
 	# dar uma corzinha pra tudo

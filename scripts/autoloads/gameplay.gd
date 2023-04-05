@@ -19,6 +19,7 @@ var element_focus := Sprite2D.new()
 var in_link_state: bool
 var in_unlink_state: bool
 var arena: Arena
+var element_info: Control
 
 var callback_action: int
 var selected_element_target: Element:
@@ -119,9 +120,7 @@ func _action_pressed(action: ElementActions):
 func callback_action_target(target: Element):
 	match callback_action:
 		ElementActions.ATTACK:
-			arena.attack_element(
-					selected_element.grid_position, selected_element_target.grid_position, 0
-			)
+			arena.attack_element(selected_element.grid_position, selected_element_target.grid_position)
 		
 		ElementActions.LINK:
 			arena.link_elements(selected_element, selected_element_target)

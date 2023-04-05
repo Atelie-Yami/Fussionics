@@ -26,17 +26,16 @@ func execute():
 	Gameplay.arena.current_players[0].heal(1)
 
 
-func molecule_effect(molecule: Molecule):
+func molecule_effect(cluster: EffectCluster):
 	var H_list :Array[Element]
 	var enemies: Array[Element]
 	
-	for e in molecule.configuration:
+	for e in cluster.molecule.configuration:
 		if e.atomic_number == 0:
 			H_list.append(e)
 	
 	for h in H_list:
 		GameJudge.get_neighbor_enemies(h.grid_position, enemies)
-		
 	
-	molecule.effect.targets = enemies
+	cluster.targets = enemies
 

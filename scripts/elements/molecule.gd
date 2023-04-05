@@ -57,27 +57,7 @@ class Ligament:
 				element_A.links[Vector2i.RIGHT] = null
 				element_B.links[Vector2i.LEFT ] = null
 #------------------------------------------------------------------------------#
-class MoleculeEffect:
-	var targets: Array[Element]
-	var cluster: SkillEffect.EffectCluster
-	var header: SkillEffect
-	
-	func _init(_header: SkillEffect):
-		cluster = SkillEffect.EffectCluster.new()
-		header = _header
-	
-	func construct(molecule: Molecule):
-		var pack: Array[SkillEffect]
-		
-		for e in molecule.configuration:
-			if e.effect:
-				pack.append(e.effect)
-		cluster.construct(header, pack)
-	
-	func combat(molecule: Molecule):
-		cluster.active(molecule)
-		header.molecule_effect(molecule)
-#------------------------------------------------------------------------------#
+
 var ref_count: int = 1
 
 var configuration: Array[Element]
@@ -90,8 +70,6 @@ var effect_pool := {
 	SkillEffect.MoleculeEffectType.UPGRADE:    [],
 	SkillEffect.MoleculeEffectType.MULTI:      [],
 }
-var effect: MoleculeEffect
-
 
 func _init():
 	Gameplay.arena.add_child(border_line)
@@ -178,15 +156,15 @@ func get_eletron_power() -> int:
 
 func effects_cluster_assembly(header: Element, target: Element, kit: Kit):
 	if (
-			(kit == Kit.ATTACK and not (header.effect and header.effect.target_mode))
+			not not header.effect or
+			header.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
 	):
-		return
+		GameJudge.combat(header, target)
 	
 	match kit:
 		Kit.ATTACK:
 			if header.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
-				assembly_kit_combat_effects(header)
-			
+				assembly_kit_combat_effects(header.skill_effect, target)
 			else:
 				GameJudge.combat(header, target)
 	
@@ -197,12 +175,15 @@ func effects_cluster_assembly(header: Element, target: Element, kit: Kit):
 		SkillEffect.MoleculeEffectType.MULTI: pass
 
 
-func assembly_kit_combat_effects(header: Element):
-	effect = MoleculeEffect.new(header.effect)
-	effect.construct(self)
-	effect.combat(self)
-
-
-
-
+func assembly_kit_combat_effects(header: SkillEffect, target: Element):
+	var pack: Array[SkillEffect]
+	for e in configuration:
+		if e.effect:
+			pack.append(e.effect)
+	
+	var cluster := EffectCluster.new(header, pack, self)
+	header.get_targets(cluster, target)
+	cluster.construct(header)
+	
+	header.molecule_effect(cluster)
 

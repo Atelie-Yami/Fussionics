@@ -272,7 +272,7 @@ func element_use_effect(element: Element):
 		element.effect.execute()
 
 
-func attack_element(attacker: Vector2i, defender: Vector2i, skill: int):
+func attack_element(attacker: Vector2i, defender: Vector2i):
 	if not elements[attacker].can_act or combat_in_process: return
 	
 	var slot_attacker: Slot = elements[attacker]

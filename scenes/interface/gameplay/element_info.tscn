@@ -1,35 +1,25 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6dfidibu2j5g"]
+[gd_scene load_steps=10 format=3 uid="uid://c6dfidibu2j5g"]
 
 [ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="1_3vj5e"]
+[ext_resource type="Theme" uid="uid://d20giirqakg3w" path="res://resouces/themes/panel_gameplay.theme" id="1_dra1b"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/element_info.gd" id="1_t2wcd"]
-[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="2_4ajhb"]
 [ext_resource type="Texture2D" uid="uid://7pvoi7opcxls" path="res://assets/img/elements/Slot_0.png" id="3_mno6a"]
 [ext_resource type="Texture2D" uid="uid://dorte8gvr7clr" path="res://resouces/atlas/main/close.tres" id="3_vtdi5"]
-
-[sub_resource type="Theme" id="Theme_leky5"]
-default_font = ExtResource("2_4ajhb")
+[ext_resource type="StyleBox" uid="uid://bhul54i7fb6xo" path="res://resouces/stylebox/label_bg_panel.stylebox" id="6_30wmq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_luu1q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mtplp"]
-font_size = 14
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_6cfcq"]
-font_size = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nodj"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0, 0, 0, 0.47451)
-border_color = Color(0.278431, 0.545098, 1, 1)
+font_size = 14
 
 [node name="element_info" type="PanelContainer"]
-offset_right = 288.0
-offset_bottom = 387.0
+offset_right = 300.0
+offset_bottom = 273.0
 mouse_filter = 2
-theme = SubResource("Theme_leky5")
+theme = ExtResource("1_dra1b")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_luu1q")
 script = ExtResource("1_t2wcd")
 
@@ -90,11 +80,13 @@ mouse_filter = 2
 
 [node name="name" type="Label" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "NAME"
 label_settings = SubResource("LabelSettings_mtplp")
 vertical_alignment = 2
 
 [node name="serie" type="Label" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer"]
+custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
 text = "SERIE"
 label_settings = SubResource("LabelSettings_6cfcq")
@@ -116,21 +108,21 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_4nodj")
+theme_override_styles/normal = ExtResource("6_30wmq")
 bbcode_enabled = true
-text = "informations informations info rmations informations asdada das das dasdada addsadasdas dasdasdasdasdasdad aasdasda sdasdasd adas ad  adsa dasd asdasdas asdasd a das dasdada "
 fit_content = true
 scroll_active = false
-autowrap_mode = 1
+autowrap_mode = 2
 
 [node name="molecule_effect" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_4nodj")
+theme_override_styles/normal = ExtResource("6_30wmq")
 bbcode_enabled = true
-text = "efeito da molecula"
+text = "asdasdsa"
 fit_content = true
 scroll_active = false
-autowrap_mode = 1
+autowrap_mode = 2
 
 [connection signal="pressed" from="NinePatchRect/close" to="." method="_close_pressed"]

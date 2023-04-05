@@ -1,13 +1,12 @@
 extends SkillEffect
 ## LITHIUM[br][br]
 ## [b]Efeito solo:[/b][br]
-## Ative a autodestruição, causando [code]incêndio[/code] acumulado 3x nos inimigos ao redor.[br]
+## Ative a autodestruição, causando [code]incêndio[/code] nos inimigos ao redor.[br]
 ## [code]Incêndio[/code] reduz 1 neutron a cada turno por valor acumulado, destroi o elemento caso seus neutrons chegue a 0.[br]
 ## Esse efeito pode acumular até 8 vezes.
 ## [br][br]
 ## [b]Efeito na molecula:[/b][br] 
-## Antes de atacar, consome até 8 elétrons dos outros elementos da sua molecula para aplicar [code]incêndio[/code] acumulado em até 8x no alvo e reduzindo seus neutrons.[br]
-## Não sofre contra-ataque.
+## Antes de atacar, consome todos os [code]incêndios[/code] no alvo, causando dano igual a quantidade de [code]incêndios[/code] removidos.
 ## [codeblock]
 ## MoleculeEffectType:   TRIGGER
 ## TargetMode:           SINGLE
@@ -30,20 +29,29 @@ func execute():
 		if e.debuffs.has(PassiveEffect.Debuff.BURNING):
 			e.debuffs[PassiveEffect.Debuff.BURNING].stack += 1
 			e.debuffs[PassiveEffect.Debuff.BURNING].life_time = 3
-		
 		else:
 			var burn = PassiveEffect.DEBUFF_BOOK[PassiveEffect.Debuff.BURNING].new(
 					e.effect, Gameplay.arena.elements[e.grid_position].player
 			)
+			burn.stack = 1
 			burn.origin = e
-			burn.stack = 3
 			burn.element = e
 			e.debuffs[PassiveEffect.Debuff.BURNING] = burn
 	
 	Gameplay.arena.remove_element(element.grid_position)
 
 
-func molecule_effect(molecule: Molecule):
-	pass
+func get_targets(cluster: EffectCluster, target: Element):
+	cluster.targets = [target]
+
+
+func molecule_effect(cluster: EffectCluster):
+	for target in cluster.targets:
+		if target.debuffs.has(PassiveEffect.Debuff.BURNING):
+			var burn: PassiveEffect = target.debuffs[PassiveEffect.Debuff.BURNING]
+			(target.debuffs as Dictionary).erase(PassiveEffect.Debuff.BURNING)
+			target.neutrons -= burn.stack
+
+
 
 

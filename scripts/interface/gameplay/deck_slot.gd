@@ -3,9 +3,10 @@ class_name DeckSlot extends Panel
 
 @export var element: int
 @export var player_a_path: NodePath
+@export var element_info_path: NodePath
 
+var element_info: Control
 var player_a: Player
-var is_dragging: bool
 
 var can_drop: bool:
 	get:
@@ -14,10 +15,13 @@ var can_drop: bool:
 var simbol: String
 var color: Color
 
+var is_dragging: bool
+
 
 func _ready():
 	if not is_dragging:
 		player_a = get_node(player_a_path)
+		element_info = get_node(element_info_path)
 		
 	simbol = Element.DATA[element][Element.SIMBOL]
 	color = Element.COLOR_SERIES[Element.DATA[element][Element.SERIE]]
@@ -45,6 +49,10 @@ func _draw():
 
 
 func _gui_input(event):
+	if event.is_action("mouse_click") and event.is_pressed():
+		element_info.load_data(Element.DATA[element], element)
+		element_info.visible = true
+	
 	if not can_drop:
 		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
 	
