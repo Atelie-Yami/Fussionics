@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnn0f5wbpcj58"]
+
+[ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="1_ni52s"]
+[ext_resource type="Script" path="res://scripts/world/slot.gd" id="2_8b68a"]
+
+[node name="PanelSlot" type="Panel"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(40, 40)
+theme_override_styles/panel = ExtResource("1_ni52s")
+script = ExtResource("2_8b68a")
+
+[connection signal="visibility_changed" from="." to="." method="_visibility_changed"]

@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://bi2dsgexfvmh1"]
+
+[ext_resource type="Script" path="res://scripts/vfx/background_2_space_1.gd" id="1_b7oef"]
+[ext_resource type="Texture2D" uid="uid://dgheymmunpidh" path="res://assets/img/background/space_1/background.png" id="1_psfpg"]
+[ext_resource type="Texture2D" uid="uid://dqf07u35sfqe2" path="res://assets/img/background/space_1/layer_1.png" id="2_uwwvt"]
+[ext_resource type="Texture2D" uid="uid://6av1nvxpj22s" path="res://assets/img/background/space_1/star.png" id="3_k22gq"]
+[ext_resource type="Texture2D" uid="uid://dupx1tbtbjfss" path="res://assets/img/background/space_1/layer_2.png" id="4_prd2d"]
+
+[sub_resource type="Gradient" id="Gradient_xd2ix"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0492958, 0.176056, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.424, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s1p0j"]
+gradient = SubResource("Gradient_xd2ix")
+
+[sub_resource type="Curve" id="Curve_y8nfn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.527108, 0.88024), 0.397605, 0.397605, 0, 0, Vector2(1, 0.760479), -0.837063, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t058m"]
+curve = SubResource("Curve_y8nfn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f77cl"]
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 0)
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 2.0
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -0.5
+radial_accel_max = 0.5
+angle_max = 720.0
+scale_min = 0.1
+scale_max = 0.66
+scale_curve = SubResource("CurveTexture_t058m")
+color = Color(1, 1, 1, 0.529412)
+color_ramp = SubResource("GradientTexture1D_s1p0j")
+turbulence_noise_strength = 5.0
+turbulence_noise_scale = 5.0
+turbulence_noise_speed = Vector3(1, 1, 0)
+turbulence_noise_speed_random = 0.01
+turbulence_influence_max = 1.0
+
+[node name="background_2" type="CanvasLayer"]
+layer = -1
+script = ExtResource("1_b7oef")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_psfpg")
+
+[node name="layer_1" type="Sprite2D" parent="."]
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("2_uwwvt")
+centered = false
+offset = Vector2(-90, -50)
+
+[node name="particles" type="GPUParticles2D" parent="."]
+position = Vector2(960, 540)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_f77cl")
+texture = ExtResource("3_k22gq")
+lifetime = 10.0
+randomness = 0.9
+visibility_rect = Rect2(-960, -540, 1920, 1080)
+local_coords = true
+
+[node name="layer_2" type="Sprite2D" parent="."]
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("4_prd2d")
+centered = false
+offset = Vector2(-90, -50)

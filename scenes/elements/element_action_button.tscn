@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cur67wmsq7vm8"]
+
+[ext_resource type="Script" path="res://scripts/elements/element_action_button.gd" id="1_hqr63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31lkw"]
+
+[node name="element_action" type="Button"]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+offset_right = 8.0
+offset_bottom = 8.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_31lkw")
+script = ExtResource("1_hqr63")
+
+[connection signal="pressed" from="." to="." method="__pressed"]

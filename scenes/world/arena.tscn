@@ -1,0 +1,1346 @@
+[gd_scene load_steps=50 format=3 uid="uid://dosa0c0s4tkny"]
+
+[ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
+[ext_resource type="Shader" path="res://scripts/shaders/arena_zone_indicator.gdshader" id="2_c7l4g"]
+[ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="3_2ehmk"]
+[ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
+[ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
+[ext_resource type="Texture2D" uid="uid://ca8qsp6aoftep" path="res://assets/img/elements/Accelr.png" id="7_mo1n6"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/omega_gui.gd" id="8_jy5ie"]
+[ext_resource type="Texture2D" uid="uid://h2mssyj3xtdi" path="res://assets/img/elements/Slot_2.png" id="8_krhtp"]
+[ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
+[ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
+[ext_resource type="Script" path="res://scripts/world/arena.gd" id="10_cin7l"]
+[ext_resource type="PackedScene" uid="uid://cur67wmsq7vm8" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
+[ext_resource type="Texture2D" uid="uid://bnw0hevmmjh6i" path="res://assets/img/elements/Reator.png" id="10_rnfol"]
+[ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="13_wjs4m"]
+[ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
+[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
+[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="15_7qkxm"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
+[ext_resource type="Script" path="res://scripts/world/passive_status.gd" id="15_ulnrq"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/icon_passive.gd" id="18_7iigf"]
+[ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="19_rqw3s"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/gui.gd" id="21_l3veq"]
+[ext_resource type="PackedScene" uid="uid://c8olai4bngrps" path="res://scenes/interface/gameplay/molecule_info.tscn" id="23_ftybf"]
+[ext_resource type="PackedScene" uid="uid://c6dfidibu2j5g" path="res://scenes/interface/gameplay/element_info.tscn" id="23_x34jh"]
+[ext_resource type="PackedScene" uid="uid://dxrd42my48q37" path="res://scenes/interface/gameplay/passive_descrition.tscn" id="24_5uukm"]
+[ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="25_58ht4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
+resource_local_to_scene = true
+shader = ExtResource("2_c7l4g")
+shader_parameter/motion_side = 1.0
+shader_parameter/base_color = Color(0, 0.968627, 0.870588, 0.482353)
+shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxc7g"]
+resource_local_to_scene = true
+shader = ExtResource("2_c7l4g")
+shader_parameter/motion_side = -1.0
+shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
+shader_parameter/fade = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
+font = ExtResource("14_virs7")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_c3xq3"]
+font = ExtResource("14_virs7")
+font_size = 52
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w6355"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kuyro"]
+atlas = ExtResource("19_rqw3s")
+region = Rect2(0, 1001, 68, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5sgk"]
+atlas = ExtResource("19_rqw3s")
+region = Rect2(0, 926, 68, 68)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruh63"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnb5y"]
+atlas = ExtResource("15_7qkxm")
+region = Rect2(520, 360, 230, 230)
+margin = Rect2(20, 20, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwb2n"]
+atlas = ExtResource("15_7qkxm")
+region = Rect2(1030, 610, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u78wn"]
+atlas = ExtResource("15_7qkxm")
+region = Rect2(1300, 600, 270, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy12e"]
+atlas = ExtResource("15_7qkxm")
+region = Rect2(770, 330, 260, 260)
+margin = Rect2(10, 10, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc8xs"]
+atlas = ExtResource("19_rqw3s")
+region = Rect2(866, 579, 975, 123)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adfhc"]
+texture = ExtResource("14_j8jwv")
+modulate_color = Color(1, 1, 1, 0.321569)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m4l38"]
+font = ExtResource("14_virs7")
+font_size = 48
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dchwg"]
+atlas = ExtResource("19_rqw3s")
+region = Rect2(888, 783, 401, 150)
+
+[sub_resource type="LabelSettings" id="LabelSettings_p4cfa"]
+font = ExtResource("14_virs7")
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p1hu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r7rx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds21w"]
+atlas = ExtResource("15_7qkxm")
+region = Rect2(658, 74, 183, 198)
+
+[node name="world" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [851.0]
+metadata/_edit_vertical_guides_ = [464.0]
+
+[node name="background_2" parent="." instance=ExtResource("1_ylyog")]
+
+[node name="alert_zone_player" type="ColorRect" parent="background_2"]
+material = SubResource("ShaderMaterial_od0fm")
+custom_minimum_size = Vector2(792, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 792.0
+grow_vertical = 2
+script = ExtResource("3_2ehmk")
+metadata/_edit_lock_ = true
+
+[node name="alert_zone_opponent" type="ColorRect" parent="background_2"]
+material = SubResource("ShaderMaterial_jxc7g")
+custom_minimum_size = Vector2(792, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -792.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("3_2ehmk")
+side = 1
+metadata/_edit_lock_ = true
+
+[node name="turn_machine" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+script = ExtResource("1_hlcug")
+
+[node name="fusion_A" type="TextureRect" parent="turn_machine"]
+modulate = Color(0.7, 0.7, 0.7, 0.7)
+offset_left = 221.0
+offset_top = 268.0
+offset_right = 528.0
+offset_bottom = 452.0
+texture = ExtResource("10_rnfol")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="fusion_B" type="TextureRect" parent="turn_machine"]
+modulate = Color(0.7, 0.7, 0.7, 0.7)
+offset_left = 1392.0
+offset_top = 268.0
+offset_right = 1699.0
+offset_bottom = 452.0
+texture = ExtResource("10_rnfol")
+expand_mode = 1
+flip_v = true
+metadata/_edit_lock_ = true
+
+[node name="accelr_A" type="TextureRect" parent="turn_machine"]
+modulate = Color(0.7, 0.7, 0.7, 0.7)
+offset_left = 223.0
+offset_top = 650.0
+offset_right = 527.0
+offset_bottom = 874.0
+texture = ExtResource("7_mo1n6")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="accelr_B" type="TextureRect" parent="turn_machine"]
+modulate = Color(0.7, 0.7, 0.7, 0.7)
+offset_left = 1392.0
+offset_top = 650.0
+offset_right = 1696.0
+offset_bottom = 874.0
+texture = ExtResource("7_mo1n6")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="arena" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(605, 320)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 605.0
+offset_top = 320.0
+offset_right = 1315.0
+offset_bottom = 760.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_cin7l")
+metadata/_edit_lock_ = true
+
+[node name="Slot_1" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_2" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_right = 170.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_3" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_right = 260.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_4" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_right = 350.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_5" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_right = 440.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_6" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_right = 530.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_7" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_right = 620.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_8" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_right = 710.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_9" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_10" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 90.0
+offset_right = 170.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_11" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 90.0
+offset_right = 260.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_12" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 90.0
+offset_right = 350.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_13" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 90.0
+offset_right = 440.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_14" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 90.0
+offset_right = 530.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_15" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 90.0
+offset_right = 620.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_16" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 90.0
+offset_right = 710.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_17" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 180.0
+offset_right = 80.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_18" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 180.0
+offset_right = 170.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_19" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 180.0
+offset_right = 260.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_20" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 180.0
+offset_right = 350.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_21" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 180.0
+offset_right = 440.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_22" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 180.0
+offset_right = 530.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_23" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 180.0
+offset_right = 620.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_24" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 180.0
+offset_right = 710.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_25" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 270.0
+offset_right = 80.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_26" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 270.0
+offset_right = 170.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_27" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 270.0
+offset_right = 260.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_28" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 270.0
+offset_right = 350.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_29" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 270.0
+offset_right = 440.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_30" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 270.0
+offset_right = 530.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_31" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 270.0
+offset_right = 620.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_32" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 270.0
+offset_right = 710.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_33" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 360.0
+offset_right = 80.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_34" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 360.0
+offset_right = 170.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_35" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 360.0
+offset_right = 260.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_36" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 360.0
+offset_right = 350.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_37" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 360.0
+offset_right = 440.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_38" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 360.0
+offset_right = 530.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_39" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 360.0
+offset_right = 620.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_40" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 360.0
+offset_right = 710.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_41" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -360.0
+offset_right = -280.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_42" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -180.0
+offset_right = -100.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_44" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -360.0
+offset_top = 369.0
+offset_right = -280.0
+offset_bottom = 449.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_45" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -180.0
+offset_top = 369.0
+offset_right = -100.0
+offset_bottom = 449.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_47" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 810.0
+offset_right = 890.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_48" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 990.0
+offset_right = 1070.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_50" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 810.0
+offset_top = 360.0
+offset_right = 890.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Slot_51" type="Panel" parent="arena"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 990.0
+offset_top = 360.0
+offset_right = 1070.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_cjbuv")
+script = ExtResource("5_0uahk")
+
+[node name="Player_A" type="Node" parent="."]
+script = ExtResource("13_wjs4m")
+
+[node name="omega" type="TextureRect" parent="Player_A"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 45.0
+offset_top = -64.0
+offset_right = 173.0
+offset_bottom = 64.0
+grow_vertical = 2
+texture = ExtResource("8_krhtp")
+expand_mode = 1
+script = ExtResource("8_jy5ie")
+metadata/_edit_lock_ = true
+
+[node name="life_title" type="Label" parent="Player_A/omega"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -6.0
+offset_right = 90.0
+offset_bottom = 30.0
+grow_vertical = 0
+text = "LIFE_A"
+label_settings = SubResource("LabelSettings_kpb4x")
+metadata/_edit_lock_ = true
+
+[node name="life_value" type="Label" parent="Player_A/omega"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = 7.0
+offset_right = 10.0
+offset_bottom = 63.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "30"
+label_settings = SubResource("LabelSettings_c3xq3")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="Player_B" type="Node" parent="."]
+script = ExtResource("13_wjs4m")
+player = 1
+
+[node name="omega" type="TextureRect" parent="Player_B"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = -64.0
+offset_right = -45.0
+offset_bottom = 64.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("8_krhtp")
+expand_mode = 1
+script = ExtResource("8_jy5ie")
+metadata/_edit_lock_ = true
+
+[node name="life_title" type="Label" parent="Player_B/omega"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -6.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "LIFE_B"
+label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="life_value" type="Label" parent="Player_B/omega"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = 7.0
+offset_right = 73.0
+offset_bottom = 63.0
+grow_vertical = 0
+text = "30"
+label_settings = SubResource("LabelSettings_c3xq3")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="CameraArena" type="Camera2D" parent="."]
+visible = false
+position = Vector2(960, 0)
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+script = ExtResource("10_6paj4")
+turbulence_force = 0.5
+background_path = NodePath("../background_2")
+
+[node name="passive_status" type="Node2D" parent="."]
+visible = false
+position = Vector2(798, 577)
+scale = Vector2(0.66, 0.66)
+script = ExtResource("15_ulnrq")
+
+[node name="PanelContainer" type="PanelContainer" parent="passive_status"]
+offset_right = 60.0
+offset_bottom = 75.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w6355")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="passive_status/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("19_rqw3s")
+region_rect = Rect2(861, 0, 579, 492)
+patch_margin_left = 30
+patch_margin_top = 32
+patch_margin_right = 30
+patch_margin_bottom = 43
+
+[node name="MarginContainer" type="MarginContainer" parent="passive_status/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 17
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 17
+
+[node name="VBoxContainer" type="VBoxContainer" parent="passive_status/PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="debuffs" type="HBoxContainer" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="debuff" type="TextureRect" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer/debuffs"]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 0
+texture = SubResource("AtlasTexture_kuyro")
+expand_mode = 1
+script = ExtResource("18_7iigf")
+type = 1
+
+[node name="buffs" type="HBoxContainer" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="buff" type="TextureRect" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer/buffs"]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 0
+texture = SubResource("AtlasTexture_g5sgk")
+expand_mode = 1
+script = ExtResource("18_7iigf")
+
+[node name="actions" type="Node2D" parent="."]
+z_index = 1
+script = ExtResource("10_6e11s")
+
+[node name="element_action" parent="actions" instance=ExtResource("10_jw2y0")]
+offset_left = -124.0
+offset_top = -83.0
+offset_right = -74.0
+offset_bottom = -33.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="actions/element_action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_vnb5y")
+expand_mode = 1
+
+[node name="element_action2" parent="actions" instance=ExtResource("10_jw2y0")]
+offset_left = -38.0
+offset_top = -131.0
+offset_right = 12.0
+offset_bottom = -81.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+action = 1
+
+[node name="TextureRect2" type="TextureRect" parent="actions/element_action2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_wwb2n")
+expand_mode = 1
+
+[node name="element_action3" parent="actions" instance=ExtResource("10_jw2y0")]
+offset_left = 54.0
+offset_top = -126.0
+offset_right = 104.0
+offset_bottom = -76.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+action = 2
+
+[node name="TextureRect3" type="TextureRect" parent="actions/element_action3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_u78wn")
+expand_mode = 1
+
+[node name="element_action4" parent="actions" instance=ExtResource("10_jw2y0")]
+offset_left = 133.0
+offset_top = -84.0
+offset_right = 183.0
+offset_bottom = -34.0
+pivot_offset = Vector2(25, 25)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
+text = "
+"
+icon = ExtResource("12_7bste")
+flat = true
+icon_alignment = 1
+expand_icon = true
+action = 3
+
+[node name="TextureRect4" type="TextureRect" parent="actions/element_action4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_oy12e")
+expand_mode = 1
+
+[node name="info_panel" type="CanvasLayer" parent="."]
+
+[node name="element_info" parent="info_panel" instance=ExtResource("23_x34jh")]
+visible = false
+offset_left = 29.0
+offset_top = 165.0
+offset_right = 409.0
+offset_bottom = 438.0
+
+[node name="molecule_info" parent="info_panel" instance=ExtResource("23_ftybf")]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="passive_descrition" parent="info_panel" instance=ExtResource("24_5uukm")]
+visible = false
+offset_left = 422.0
+offset_top = 199.0
+offset_right = 672.0
+offset_bottom = 432.0
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("21_l3veq")
+
+[node name="deck" type="TextureRect" parent="GUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -586.5
+offset_top = -125.0
+offset_right = 388.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_kc8xs")
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/deck"]
+layout_mode = 2
+offset_left = 231.5
+offset_top = 35.0
+offset_right = 941.5
+offset_bottom = 115.0
+theme_override_constants/separation = 10
+
+[node name="slot_1" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_2" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 1
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_3" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 2
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_4" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 3
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_5" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 4
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_6" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 5
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_7" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 6
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="slot_8" type="Panel" parent="GUI/deck/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
+script = ExtResource("15_tapr6")
+element = 7
+player_a_path = NodePath("../../../../Player_A")
+element_info_path = NodePath("../../../../info_panel/element_info")
+
+[node name="energy_title" type="Label" parent="GUI/deck"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -104.0
+offset_right = 136.0
+offset_bottom = -54.0
+grow_vertical = 0
+text = "ENERGY"
+label_settings = SubResource("LabelSettings_kpb4x")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="energy" type="Label" parent="GUI/deck"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 102.0
+offset_top = -106.0
+offset_right = 199.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "2"
+label_settings = SubResource("LabelSettings_m4l38")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="signboard" type="TextureRect" parent="GUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_dchwg")
+metadata/_edit_lock_ = true
+
+[node name="timer" type="Label" parent="GUI/signboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -164.5
+offset_right = 165.5
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "FASE DOS REAT"
+label_settings = SubResource("LabelSettings_p4cfa")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="next_turn" type="Button" parent="GUI/signboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.0
+offset_top = 83.0
+offset_right = 158.0
+offset_bottom = 148.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("14_virs7")
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "NEXT_TURN"
+flat = true
+
+[node name="pause_meun" type="Button" parent="GUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = 58.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_6p1hu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7r7rx")
+icon = SubResource("AtlasTexture_ds21w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
+
+[node name="pra usar depois" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="pra usar depois"]
+offset_left = 53.0
+offset_top = 615.0
+offset_right = 515.0
+offset_bottom = 954.0
+texture = ExtResource("19_rqw3s")
+region_rect = Rect2(0, 0, 446, 677)
+patch_margin_left = 30
+patch_margin_top = 80
+patch_margin_right = 120
+patch_margin_bottom = 110
+
+[connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
+[connection signal="end_turn" from="turn_machine" to="passive_status" method="_turn_machine_end_turn"]
+[connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
+[connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
+[connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]
+[connection signal="pressed" from="GUI/signboard/next_turn" to="GUI" method="_next_turn_pressed"]
+[connection signal="pressed" from="GUI/pause_meun" to="GUI/PauseMenu" method="OpenMenuSettings"]

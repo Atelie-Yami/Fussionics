@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dqov2xmpuom3a"
+
+[deps]
+
+files=["res://assets/svg/passive_effects.pt.translation", "res://assets/svg/passive_effects.en.translation"]
+
+source_file="res://assets/svg/passive_effects.csv"
+dest_files=["res://assets/svg/passive_effects.pt.translation", "res://assets/svg/passive_effects.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0
