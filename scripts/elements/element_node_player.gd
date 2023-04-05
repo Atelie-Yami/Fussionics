@@ -12,6 +12,7 @@ func _gui_input(event: InputEvent):
 	match Gameplay.action_state:
 		Gameplay.ActionState.NORMAL:
 			_set_current_node_state(NodeState.SELECTED)
+			Gameplay.passive_status.set_element(self)
 	
 		Gameplay.ActionState.LINK:
 			if number_electrons_in_valencia > 0 and _is_neighbor_to_link():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=50 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -26,9 +26,8 @@
 [ext_resource type="Script" path="res://scripts/interface/gameplay/gui.gd" id="21_l3veq"]
 [ext_resource type="PackedScene" uid="uid://c8olai4bngrps" path="res://scenes/interface/gameplay/molecule_info.tscn" id="23_ftybf"]
 [ext_resource type="PackedScene" uid="uid://c6dfidibu2j5g" path="res://scenes/interface/gameplay/element_info.tscn" id="23_x34jh"]
+[ext_resource type="PackedScene" uid="uid://dxrd42my48q37" path="res://scenes/interface/gameplay/passive_descrition.tscn" id="24_5uukm"]
 [ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="25_58ht4"]
-[ext_resource type="Theme" uid="uid://d20giirqakg3w" path="res://resouces/themes/panel_gameplay.theme" id="28_pxnn6"]
-[ext_resource type="StyleBox" uid="uid://bhul54i7fb6xo" path="res://resouces/stylebox/label_bg_panel.stylebox" id="28_vn5jj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
 resource_local_to_scene = true
@@ -115,13 +114,6 @@ font_size = 30
 [sub_resource type="AtlasTexture" id="AtlasTexture_ds21w"]
 atlas = ExtResource("15_7qkxm")
 region = Rect2(658, 74, 183, 198)
-
-[sub_resource type="LabelSettings" id="LabelSettings_3ue5n"]
-font = ExtResource("14_virs7")
-font_size = 24
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6my5x"]
-content_margin_top = 8.0
 
 [node name="world" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [851.0]
@@ -935,6 +927,7 @@ turbulence_force = 0.5
 background_path = NodePath("../background_2")
 
 [node name="passive_status" type="Node2D" parent="."]
+visible = false
 position = Vector2(798, 577)
 scale = Vector2(0.66, 0.66)
 script = ExtResource("15_ulnrq")
@@ -942,6 +935,7 @@ script = ExtResource("15_ulnrq")
 [node name="PanelContainer" type="PanelContainer" parent="passive_status"]
 offset_right = 60.0
 offset_bottom = 75.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_w6355")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="passive_status/PanelContainer"]
@@ -955,6 +949,7 @@ patch_margin_bottom = 43
 
 [node name="MarginContainer" type="MarginContainer" parent="passive_status/PanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 17
 theme_override_constants/margin_right = 15
@@ -962,26 +957,34 @@ theme_override_constants/margin_bottom = 17
 
 [node name="VBoxContainer" type="VBoxContainer" parent="passive_status/PanelContainer/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 16
 
 [node name="debuffs" type="HBoxContainer" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="debuff" type="TextureRect" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer/debuffs"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+mouse_filter = 0
 texture = SubResource("AtlasTexture_kuyro")
 expand_mode = 1
 script = ExtResource("18_7iigf")
+type = 1
 
 [node name="buffs" type="HBoxContainer" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="buff" type="TextureRect" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer/buffs"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+mouse_filter = 0
 texture = SubResource("AtlasTexture_g5sgk")
 expand_mode = 1
 script = ExtResource("18_7iigf")
@@ -1112,6 +1115,7 @@ expand_mode = 1
 [node name="info_panel" type="CanvasLayer" parent="."]
 
 [node name="element_info" parent="info_panel" instance=ExtResource("23_x34jh")]
+visible = false
 offset_left = 29.0
 offset_top = 165.0
 offset_right = 409.0
@@ -1120,6 +1124,13 @@ offset_bottom = 438.0
 [node name="molecule_info" parent="info_panel" instance=ExtResource("23_ftybf")]
 visible = false
 metadata/_edit_lock_ = true
+
+[node name="passive_descrition" parent="info_panel" instance=ExtResource("24_5uukm")]
+visible = false
+offset_left = 422.0
+offset_top = 199.0
+offset_right = 672.0
+offset_bottom = 432.0
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("21_l3veq")
@@ -1312,6 +1323,7 @@ expand_icon = true
 [node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
 
 [node name="pra usar depois" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="NinePatchRect3" type="NinePatchRect" parent="pra usar depois"]
 offset_left = 53.0
@@ -1324,72 +1336,6 @@ patch_margin_left = 30
 patch_margin_top = 80
 patch_margin_right = 120
 patch_margin_bottom = 110
-
-[node name="passive_descrition" type="PanelContainer" parent="pra usar depois"]
-offset_left = 754.0
-offset_top = 431.0
-offset_right = 900.0
-offset_bottom = 538.0
-theme = ExtResource("28_pxnn6")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_w6355")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="pra usar depois/passive_descrition"]
-layout_mode = 2
-texture = ExtResource("19_rqw3s")
-region_rect = Rect2(276, 701, 161, 108)
-patch_margin_left = 40
-patch_margin_top = 57
-patch_margin_right = 106
-patch_margin_bottom = 50
-
-[node name="MarginContainer" type="MarginContainer" parent="pra usar depois/passive_descrition"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 17
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 17
-
-[node name="VBoxContainer" type="VBoxContainer" parent="pra usar depois/passive_descrition/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="pra usar depois/passive_descrition/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="debuff" type="TextureRect" parent="pra usar depois/passive_descrition/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = SubResource("AtlasTexture_kuyro")
-expand_mode = 1
-
-[node name="buff" type="TextureRect" parent="pra usar depois/passive_descrition/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = SubResource("AtlasTexture_g5sgk")
-expand_mode = 1
-
-[node name="name" type="Label" parent="pra usar depois/passive_descrition/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "name name"
-label_settings = SubResource("LabelSettings_3ue5n")
-vertical_alignment = 1
-
-[node name="info" type="RichTextLabel" parent="pra usar depois/passive_descrition/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_6my5x")
-text = "asdasda sdasdas asdas"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="descrition" type="RichTextLabel" parent="pra usar depois/passive_descrition/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("28_vn5jj")
-text = "asdasda sdasdas asdasasdasd adas adsd asdasa asdas dadadas dasdasdasda dasdasdasdasdas dadasdasdadsa "
-fit_content = true
-scroll_active = false
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="passive_status" method="_turn_machine_end_turn"]

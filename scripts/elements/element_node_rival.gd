@@ -8,6 +8,7 @@ func _gui_input(event: InputEvent):
 		
 		else:
 			Gameplay.element_info.load_data(Element.DATA[atomic_number], atomic_number)
+			Gameplay.passive_status.set_element(self)
 			Gameplay.element_info.visible = true
 
 

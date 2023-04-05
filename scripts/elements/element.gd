@@ -168,6 +168,7 @@ var max_eletrons: int
 var eletrons: int
 
 var max_neutrons: int
+var target_neutrons: int
 ## isotopo, geralmente o mesmo valor q o numero atomico, determina a vida.
 var neutrons: int:
 	set(value):
@@ -184,9 +185,9 @@ var valentia: int
 @export var atomic_number: int:
 	set(value):
 		atomic_number = value
-		eletrons = value if not max_eletrons else max_eletrons
-		neutrons = value if not max_neutrons else max_neutrons
-		valentia = DATA[atomic_number][VALENTIA] if not max_valentia else max_valentia
+		eletrons = value
+		neutrons = value
+		valentia = DATA[atomic_number][VALENTIA]
 		tooltip_text = DATA[atomic_number][NAME]
 		
 		if not effect and SkillEffect.BOOK.has(atomic_number):
@@ -208,6 +209,9 @@ var disabled: bool:
 	set(value):
 		disabled = value
 		legancy.set_fade(float(!value))
+		
+		if not value:
+			reset()
 
 var active: bool:
 	set(value):
@@ -349,12 +353,15 @@ func _exit_tree():
 
 
 func reset():
-	if neutrons == atomic_number:
-		eletrons = atomic_number
-	
+	if target_neutrons:
+		neutrons = target_neutrons
 	else:
-		neutrons = neutrons + signi(atomic_number - neutrons)
-		eletrons = neutrons
+		neutrons = atomic_number
+	
+#	if neutrons == atomic_number:
+#		eletrons = atomic_number
+#	else:
+#		eletrons = neutrons
 
 
 func _set_current_node_state(state: NodeState):

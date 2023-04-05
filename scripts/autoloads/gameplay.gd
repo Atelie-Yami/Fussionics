@@ -18,8 +18,10 @@ var element_focus := Sprite2D.new()
 
 var in_link_state: bool
 var in_unlink_state: bool
+
 var arena: Arena
 var element_info: Control
+var passive_status: Node2D
 
 var callback_action: int
 var selected_element_target: Element:
@@ -87,6 +89,7 @@ func _process(delta):
 func _unhandled_input(event):
 	if (event.is_action("mouse_click") or event.is_action("ui_cancel")) and event.is_pressed():
 		self.action_state = ActionState.NORMAL
+		passive_status.set_element(null)
 
 
 func _notification(what: int):
