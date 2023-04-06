@@ -13,8 +13,6 @@ func _init(o: SkillEffect, _player: PlayerController.Players):
 	origin = o
 	player = _player
 	register(player)
-	
-	print("burn. ", life_time)
 
 
 func effect():

@@ -1,3 +1,8 @@
 keys,pt,en
+STACK,"Pilha: ","Stack: "
+LEVEL,"Nivel: ","Level: "
+ETERNAL,"Uso: Eterno","Consumption: Eternal"
+TEMPORAL,"Turno restantes: ","Turns remaining: "
+EFEMERAL,"Usos restantes: ","Remaining Uses: "
 BURNING,"Queimar","Burning"
 DESCRITION_BURNING,"Reduz neutros do alvo a cada turno com o valor acumulado.","Reduces the target's Neutrals each turn by the accumulated amount."

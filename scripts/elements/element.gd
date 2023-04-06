@@ -20,12 +20,14 @@ enum NodeState {
 	NORMAL, HOVER, SELECTED
 }
 
+const ICON_PASSIVE := preload("res://assets/img/elements/buff_debuff.svg")
 const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
 const GIANT_ROBOT := preload("res://assets/fonts/GiantRobotArmy-Medium.ttf")
 const SLOT := preload("res://assets/img/elements/Slot_0.png")
 const LEGANCY := preload("res://scenes/elements/legancy.tscn")
 const GLOW := preload("res://scenes/elements/glow.tscn")
 
+const MAX_PASSIVE_ICON := 3
 const FONT_SIZE := 48.0
 const FONT_ATRIBUTES_SIZE := 13.0
 const COLOR_SERIES = {
@@ -275,6 +277,11 @@ func _ready():
 
 func _process(delta):
 	queue_redraw()
+	
+	# dar uma corzinha pra tudo
+	modulate = (Color.WHITE * 0.7) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.3)
+	modulate.a = 1.0
+	glow.modulate = COLOR_SERIES[DATA[atomic_number][SERIE]] if active else Color(0.1, 0.1, 0.1, 1.0)
 
 
 func _draw_ligaments():
@@ -322,13 +329,11 @@ func _draw():
 			FUTURE_SALLOW, Vector2(41 - string_size.x, ((string_size.y + 7) / 2) + 40) + position_offset,
 			DATA[atomic_number][SIMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, FONT_SIZE, symbol_color
 	)
-	
 	# atomic number
 	draw_string(
 			GIANT_ROBOT, Vector2(11, 16), str(neutrons +1), HORIZONTAL_ALIGNMENT_RIGHT,
 			-1, FONT_ATRIBUTES_SIZE, symbol_color
 	)
-	
 	# eletrons
 	var eletrons_string_size = GIANT_ROBOT.get_string_size(
 			str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_ATRIBUTES_SIZE
@@ -337,11 +342,18 @@ func _draw():
 			GIANT_ROBOT, Vector2(68 - eletrons_string_size.x, 16), str(eletrons +1),
 			HORIZONTAL_ALIGNMENT_LEFT, 200, FONT_ATRIBUTES_SIZE, symbol_color
 	)
+	# icone de passivo
+	if not debuffs.is_empty():
+		for i in min(debuffs.size(), MAX_PASSIVE_ICON):
+			draw_texture_rect_region(
+					ICON_PASSIVE, Rect2(70, 69 - (i * 9), 14, 10), Rect2(17, 0, 15, 11)
+			)
 	
-	# dar uma corzinha pra tudo
-	modulate = (Color.WHITE * 0.7) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.3)
-	modulate.a = 1.0
-	glow.modulate = COLOR_SERIES[DATA[atomic_number][SERIE]] if active else Color(0.1, 0.1, 0.1, 1.0)
+	if not buffs.is_empty():
+		for i in min(buffs.size(), MAX_PASSIVE_ICON):
+			draw_texture_rect_region(
+					ICON_PASSIVE, Rect2(-5, 69 - (i * 9), 14, 10), Rect2(0, 0, 15, 11)
+			)
 
 
 func _exit_tree():
@@ -357,11 +369,6 @@ func reset():
 		neutrons = target_neutrons
 	else:
 		neutrons = atomic_number
-	
-#	if neutrons == atomic_number:
-#		eletrons = atomic_number
-#	else:
-#		eletrons = neutrons
 
 
 func _set_current_node_state(state: NodeState):

@@ -13,6 +13,7 @@ func _ready():
 	turn_machine.pre_init_turn.connect(_pre_init_turn)
 	turn_machine.main_turn.connect(_set_current_player_controller)
 	turn_machine.end_turn.connect(_remove_players_control)
+	turn_machine.start_game.connect(_start_game)
 	
 	await  get_tree().create_timer(0.1).timeout
 	
@@ -21,13 +22,17 @@ func _ready():
 		c.animation()
 
 
+func _start_game():
+	current_players[turn_machine.current_player].energy_max -= 1
+
+
 func _pre_init_turn(player: Players):
 	pass
 
 
 func _set_current_player_controller(player: Players):
 	current_players[player].set_turn(true)
-	current_players[player].energy_max = min(current_players[player].energy_max + 1, Player.ENERGY_MAX)
+	current_players[player].energy_max += 1
 	current_players[player].energy = current_players[player].energy_max
 	
 	ElementEffectManager.call_passive_effects(player)

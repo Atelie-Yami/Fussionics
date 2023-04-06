@@ -24,23 +24,26 @@ func set_element(_element: Element):
 		
 		_size_compare(debuffs.get_child_count(), element.debuffs.size(), debuffs)
 		_size_compare(buffs.get_child_count(), element.buffs.size(), buffs)
-		var has_passive: bool
 		
+		var has_debuff: bool
 		var count_debuff: int
 		for _debuff in element.debuffs:
 			debuffs.get_child(count_debuff).load_passive(element.debuffs[_debuff])
 			debuffs.get_child(count_debuff).visible = true
 			count_debuff += 1
-			has_passive = true
+			has_debuff = true
 		
+		var has_buff: bool
 		var count_buff: int
 		for _buff in element.buffs:
 			buffs.get_child(count_buff).load_passive(element.buffs[_buff])
 			buffs.get_child(count_buff).visible = true
 			count_buff += 1
-			has_passive = true
+			has_buff = true
 		
-		visible = has_passive
+		visible = has_buff or has_debuff
+		buffs.visible = has_buff
+		debuffs.visible = has_debuff
 	else:
 		visible = false
 	
