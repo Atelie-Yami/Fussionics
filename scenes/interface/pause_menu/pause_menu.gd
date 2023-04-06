@@ -41,6 +41,8 @@ class_name PauseMenu
 
 #OptionMenu Var End
 
+@export var InGame=true
+
 func _ready():
 	DisplayModeButton.add_item("Windowed")
 	DisplayModeButton.add_item("Fullscreen")
@@ -129,7 +131,8 @@ func _settings_pressed():
 
 func _close_options_settings_pressed():
 	OptionsSettings.visible=false
-	OpenMenuSettings()
+	if InGame:
+		OpenMenuSettings()
 
 
 func _voltar_pressed():
