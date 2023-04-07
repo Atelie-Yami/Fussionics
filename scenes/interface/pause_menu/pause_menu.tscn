@@ -248,6 +248,7 @@ grow_horizontal = 0
 text = "Close"
 
 [node name="OptionsMenu" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

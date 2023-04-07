@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkmksv7qxvclx"
-path="res://.godot/imported/main_menuP.png-2ff6ac222382b5bdf1c0fcafd09923fe.ctex"
+uid="uid://dl544sk34r1dd"
+path="res://.godot/imported/itch-io.png-7bca219498b84013232205f0eb3b1839.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resouces/TestMainMEnuResourse/main_menuP.png"
-dest_files=["res://.godot/imported/main_menuP.png-2ff6ac222382b5bdf1c0fcafd09923fe.ctex"]
+source_file="res://assets/img/TestMainMenu/itch-io.png"
+dest_files=["res://.godot/imported/itch-io.png-7bca219498b84013232205f0eb3b1839.ctex"]
 
 [params]
 

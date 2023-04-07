@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl544sk34r1dd"
-path="res://.godot/imported/itch-io.png-0de530089d01b1e2ca488fa90943fc59.ctex"
+uid="uid://b2xn5w3own2r4"
+path="res://.godot/imported/slot_idle_background.png-2149f4ce59d76ebb4f33334b813e85d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resouces/TestMainMEnuResourse/itch-io.png"
-dest_files=["res://.godot/imported/itch-io.png-0de530089d01b1e2ca488fa90943fc59.ctex"]
+source_file="res://assets/img/TestMainMenu/slot_idle_background.png"
+dest_files=["res://.godot/imported/slot_idle_background.png-2149f4ce59d76ebb4f33334b813e85d0.ctex"]
 
 [params]
 
