@@ -1,4 +1,4 @@
-extends TextureRect
+extends PassiveIcon
 
 
 @export_enum("Buff", "Debuff") var type: int
@@ -6,7 +6,7 @@ extends TextureRect
 var mouse_hover: bool
 var passive: PassiveEffect
 
-@onready var passive_descrition = $"../../../../../../info_panel/passive_descrition"
+@onready var passive_descrition = $"../../../../../../passive_descrition"
 
 
 func _init():
@@ -24,6 +24,7 @@ func _mouse_entered():
 	passive_descrition.position = global_position - offset
 	passive_descrition.visible = true
 
+
 func _mouse_exited():
 	mouse_hover = false
 	passive_descrition.visible = false
@@ -31,12 +32,10 @@ func _mouse_exited():
 
 func load_passive(_passive: PassiveEffect):
 	passive = _passive
-	if type:
-		passive = passive as PassiveEffect.DebuffEffect
-		passive.type
+	if passive is PassiveEffect.DebuffEffect:
+		icon_position = DEBUFFS[passive.type]
 	
-	else:
-		passive = passive as PassiveEffect.DebuffEffect
-
-
-
+	elif passive is PassiveEffect.DebuffEffect:
+		icon_position = BUFFS[passive.type]
+	
+	queue_redraw()

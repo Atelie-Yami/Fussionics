@@ -59,6 +59,11 @@ func _process(delta):
 		position = element.position + Vector2(40, 80)
 
 
+func _unhandled_input(event):
+	if (event.is_action("mouse_click") or event.is_action("ui_cancel")) and event.is_pressed():
+		visible = false
+
+
 func _notification(what: int):
 	if what == NOTIFICATION_DRAG_BEGIN:
 		visible = false

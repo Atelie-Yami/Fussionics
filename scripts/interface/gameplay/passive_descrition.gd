@@ -17,6 +17,7 @@ func _process(delta):
 
 func laod_data(passive: PassiveEffect):
 	if passive is PassiveEffect.DebuffEffect:
+		debuff.icon_position = debuff.DEBUFFS[passive.type]
 		debuff.visible = true
 		buff.visible = false
 		
@@ -24,6 +25,7 @@ func laod_data(passive: PassiveEffect):
 		descrition.text = tr("DESCRITION_" + PassiveEffect.Debuff.keys()[passive.type])
 	
 	elif passive is PassiveEffect.BuffEffect:
+		buff.icon_position = buff.BUFFS[passive.type]
 		debuff.visible = false
 		buff.visible = true
 		
@@ -48,10 +50,3 @@ func laod_data(passive: PassiveEffect):
 			info_3.text += str(passive.life_time)
 
 
-func _close_pressed():
-	visible# = false
-
-
-func _unhandled_input(event):
-	if (event.is_action("mouse_click") or event.is_action("ui_cancel")) and event.is_pressed():
-		visible# = false
