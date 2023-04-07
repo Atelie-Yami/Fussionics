@@ -7,8 +7,11 @@ enum Players {A, B}
 const MAX_LIFE := 30
 const ENERGY_MAX := 16
 
-var energy_max := 1
-var energy := 1
+var energy_max := 2:
+	set(value):
+		energy_max = min(value, ENERGY_MAX)
+
+var energy := energy_max
 
 @export var player: Players
 

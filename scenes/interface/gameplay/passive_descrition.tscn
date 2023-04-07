@@ -27,8 +27,8 @@ content_margin_top = 8.0
 [node name="passive_descrition" type="PanelContainer"]
 offset_left = 754.0
 offset_top = 431.0
-offset_right = 1004.0
-offset_bottom = 664.0
+offset_right = 900.0
+offset_bottom = 573.0
 mouse_filter = 2
 theme = ExtResource("1_llay1")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_w6355")
@@ -90,16 +90,41 @@ expand_mode = 1
 [node name="name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "name name"
 label_settings = SubResource("LabelSettings_3ue5n")
 vertical_alignment = 1
 
-[node name="info" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="info1" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_6my5x")
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6my5x")
+theme_override_styles/normal = ExtResource("4_ufuw3")
 bbcode_enabled = true
-text = "asdasda sdasdas asdas"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="info2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6my5x")
+theme_override_styles/normal = ExtResource("4_ufuw3")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="info3" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6my5x")
+theme_override_styles/normal = ExtResource("4_ufuw3")
+bbcode_enabled = true
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -109,7 +134,6 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("4_ufuw3")
 bbcode_enabled = true
-text = "asdasda sdasdas asdasasdasd adas adsd asdasa asdas dadadas dasdasdasda dasdasdasdasdas dadasdasdadsa "
 fit_content = true
 scroll_active = false
 
