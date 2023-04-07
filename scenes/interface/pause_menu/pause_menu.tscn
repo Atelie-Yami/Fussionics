@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bqp6pxhhl443d"]
 
 [ext_resource type="Theme" uid="uid://br4b8y8alq3fd" path="res://resouces/themes/pause_menu.tres" id="1_1v2tm"]
-[ext_resource type="Script" path="res://scenes/interface/pause_menu/pause_menu.gd" id="3_7kun1"]
+[ext_resource type="Script" path="res://scripts/interface/main/pause_menu.gd" id="2_pq420"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_4qwqi"]
 
@@ -17,7 +17,7 @@ grow_vertical = 2
 scale = Vector2(2, 2)
 size_flags_horizontal = 4
 theme = ExtResource("1_1v2tm")
-script = ExtResource("3_7kun1")
+script = ExtResource("2_pq420")
 DisplayModeButton = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/DisplayModeButton")
 MaxFpsValueLabel = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsValueLabel")
 MaxFpsSlider = NodePath("OptionsSettings/OptionsSettings2/Video/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsSlider")
