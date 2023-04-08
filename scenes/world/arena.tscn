@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=47 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -41,6 +41,8 @@ shader = ExtResource("2_c7l4g")
 shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riga4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
 font = ExtResource("14_virs7")
@@ -704,7 +706,6 @@ theme_override_styles/panel = ExtResource("4_cjbuv")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_41" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = -360.0
@@ -712,11 +713,10 @@ offset_right = -280.0
 offset_bottom = 80.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_42" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = -180.0
@@ -724,11 +724,10 @@ offset_right = -100.0
 offset_bottom = 80.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_44" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = -360.0
@@ -737,11 +736,10 @@ offset_right = -280.0
 offset_bottom = 449.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_45" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = -180.0
@@ -750,11 +748,10 @@ offset_right = -100.0
 offset_bottom = 449.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_47" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = 810.0
@@ -762,11 +759,10 @@ offset_right = 890.0
 offset_bottom = 80.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_48" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = 990.0
@@ -774,11 +770,10 @@ offset_right = 1070.0
 offset_bottom = 80.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_50" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = 810.0
@@ -787,11 +782,10 @@ offset_right = 890.0
 offset_bottom = 440.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Slot_51" type="Panel" parent="arena"]
-visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 offset_left = 990.0
@@ -800,7 +794,7 @@ offset_right = 1070.0
 offset_bottom = 440.0
 pivot_offset = Vector2(40, 40)
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
 script = ExtResource("5_0uahk")
 
 [node name="Player_A" type="Node" parent="."]
