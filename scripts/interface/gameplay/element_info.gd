@@ -20,6 +20,11 @@ func _init():
 	Gameplay.element_info = self
 
 
+func _notification(what: int):
+	if what == NOTIFICATION_DRAG_BEGIN:
+		visible = false
+
+
 func load_data(data: Dictionary, atomic_number: int):
 	var symbol_color: Color = Element.COLOR_SERIES[Element.DATA[atomic_number][Element.SERIE]]
 	

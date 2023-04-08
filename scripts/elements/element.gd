@@ -369,6 +369,7 @@ func reset():
 		neutrons = target_neutrons
 	else:
 		neutrons = atomic_number
+	neutrons = atomic_number
 
 
 func _set_current_node_state(state: NodeState):

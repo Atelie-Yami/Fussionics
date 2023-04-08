@@ -154,25 +154,21 @@ func get_eletron_power() -> int:
 	return power
 
 
-func effects_cluster_assembly(header: Element, target: Element, kit: Kit):
+func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 	if (
-			not not header.effect or
-			header.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
+			not header.element.effect or
+			header.element.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
 	):
 		GameJudge.combat(header, target)
 	
 	match kit:
 		Kit.ATTACK:
-			if header.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
-				assembly_kit_combat_effects(header.skill_effect, target)
+			if header.element.effect and header.element.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
+				assembly_kit_combat_effects(header.element.skill_effect, target.element)
 			else:
+				GameJudge.charge_eletrons_to_attack(header.element, self)
 				GameJudge.combat(header, target)
-	
-	match header.effect.molecule_effect_type:
-		SkillEffect.MoleculeEffectType.TRIGGER: pass
-		SkillEffect.MoleculeEffectType.MECHANICAL: pass
-		SkillEffect.MoleculeEffectType.UPGRADE: pass
-		SkillEffect.MoleculeEffectType.MULTI: pass
+				header.element.disabled = true
 
 
 func assembly_kit_combat_effects(header: SkillEffect, target: Element):

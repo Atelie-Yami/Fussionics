@@ -6,7 +6,7 @@ enum Result {
 	DRAW, # sem resultado, ninguem perdeu
 }
 
-static func combat_check_result(element_attacker: Element, element_defender: Element, skill: int) -> Result:
+static func combat_check_result(element_attacker: Element, element_defender: Element) -> Result:
 	# avaliar os efeitos pra saber se tem codições nesse caso atual
 	
 	if element_attacker.eletrons > element_defender.neutrons:
@@ -33,30 +33,26 @@ static func can_remove_element(element: Element) -> bool:
 	return true
 
 
-static func combat(attaker: Element, defender: Element):
-	var result: Result = combat_check_result(
-			attaker, defender, 0
-	)
-	var atk_player = Gameplay.arena.elements[attaker.grid_position].player
-	var dfd_player = Gameplay.arena.elements[defender.grid_position].player
+static func combat(attaker: Arena.Slot, defender: Arena.Slot):
+	var result: Result = combat_check_result(attaker.element, defender.element)
 	
 	match result:
 		Result.WINNER:
-			await ElementEffectManager.call_effects(atk_player, ElementEffectManager.SkillType.POS_ATTACK)
-			await ElementEffectManager.call_effects(dfd_player, ElementEffectManager.SkillType.POS_DEFEND)
-			Gameplay.arena.current_players[dfd_player].take_damage(attaker.eletrons - defender.neutrons)
-			Gameplay.arena.remove_element(defender.grid_position)
+			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
+			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
+			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons)
+			Gameplay.arena.remove_element(defender.element.grid_position)
 		
 		Result.COUNTERATTACK:
-			if combat_check_result(attaker, defender, 0) == Result.WINNER:
-				await ElementEffectManager.call_effects(atk_player, ElementEffectManager.SkillType.POS_ATTACK)
-				await ElementEffectManager.call_effects(dfd_player, ElementEffectManager.SkillType.POS_DEFEND)
-				Gameplay.arena.current_players[atk_player].take_damage(defender.neutrons - attaker.eletrons)
-				Gameplay.arena.remove_element(attaker.grid_position)
+			if combat_check_result(attaker.element, defender.element) == Result.WINNER:
+				await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
+				await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
+				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.neutrons - attaker.element.eletrons)
+				Gameplay.arena.remove_element(attaker.element.grid_position)
 		
 		Result.DRAW:
-			await ElementEffectManager.call_effects(atk_player, ElementEffectManager.SkillType.POS_ATTACK)
-			await ElementEffectManager.call_effects(dfd_player, ElementEffectManager.SkillType.POS_DEFEND)
+			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
+			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
 
 
 static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
@@ -67,3 +63,37 @@ static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 			var _pos = position + Vector2i(x, y)
 			if Gameplay.arena.elements.has(_pos) and Gameplay.arena.elements[_pos].player != player:
 				enemies.append(Gameplay.arena.elements[_pos].element)
+
+
+static func charge_eletrons_to_attack(header: Element, molecule: Molecule):
+	var power := 0
+	var charged_elements: Array[Element]
+	
+	for link in header.links:
+		if header.links[link]:
+			var level: int = header.links[link].level
+			var element: Element
+			
+			if header.links[link].element_A == header:
+				element = header.links[link].element_B
+			else:
+				element = header.links[link].element_A
+			
+			if element.eletrons >= level:
+				element.eletrons -= level
+				power += level
+			
+			else:
+				power += element.eletrons
+				element.eletrons = 0
+			
+			element.disabled = true
+			charged_elements.append(element)
+	
+	for element in molecule.configuration:
+		if element != header and not charged_elements.has(element) and element.eletrons > 0:
+			element.disabled = true
+			element.eletrons -= 1
+			power += 1
+	
+	header.eletrons += power

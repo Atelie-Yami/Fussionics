@@ -284,9 +284,9 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
-		slot_attacker.molecule.effects_cluster_assembly(slot_attacker.element, slot_defender.element, Molecule.Kit.ATTACK)
+		slot_attacker.molecule.effects_cluster_assembly(slot_attacker, slot_defender, Molecule.Kit.ATTACK)
 	else:
-		GameJudge.combat(slot_attacker.element, slot_defender.element)
+		GameJudge.combat(slot_attacker, slot_defender)
 	combat_in_process = false
 
 
