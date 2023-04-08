@@ -94,3 +94,5 @@ func pop_up(mens):
 
 func _send_pressed():
 	verific_provenance(Id_Line.text)
+
+

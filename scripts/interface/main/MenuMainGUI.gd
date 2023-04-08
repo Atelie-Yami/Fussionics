@@ -27,3 +27,11 @@ func _sairdo_jogo_pressed():
 
 func _itch_pressed():
 	OS.shell_open("https://itch.io/profile/atelie-yami")
+
+
+func _insta_pressed():
+	OS.shell_open("")
+
+
+func _twiter_pressed():
+	OS.shell_open("https://twitter.com/AtelieYami")
