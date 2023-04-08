@@ -1,20 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://uhu5y8xqryku"]
+[gd_scene load_steps=14 format=3 uid="uid://uhu5y8xqryku"]
 
-[ext_resource type="Script" path="res://scripts/interface/main/main.gd" id="1_6niv8"]
 [ext_resource type="Script" path="res://scripts/interface/main/MenuMainGUI.gd" id="1_bvv6w"]
-[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_w7vcx"]
-[ext_resource type="Script" path="res://scripts/interface/main/Notification.gd" id="2_5rkd4"]
 [ext_resource type="Texture2D" uid="uid://bl02fwy17ijfp" path="res://assets/img/TestMainMenu/main_menu.png" id="3_coau4"]
-[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="3_dpn8s"]
-[ext_resource type="Script" path="res://scripts/interface/login/Show.gd" id="3_fkelm"]
 [ext_resource type="Texture2D" uid="uid://dkmksv7qxvclx" path="res://assets/img/TestMainMenu/main_menuP.png" id="3_khyvx"]
 [ext_resource type="Texture2D" uid="uid://b2xn5w3own2r4" path="res://assets/img/TestMainMenu/slot_idle_background.png" id="5_dtat5"]
-[ext_resource type="Script" path="res://scripts/interface/main/Pop_Common.gd" id="5_nlnuo"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="5_v16lr"]
 [ext_resource type="Texture2D" uid="uid://cpe8f4h28lr11" path="res://assets/img/TestMainMenu/slot_hover_background.png" id="6_4v1an"]
-[ext_resource type="Texture2D" path="res://resouces/atlas/main/Person.tres" id="7_5xyol"]
 [ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="8_l2hvn"]
 [ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/TestMainMenu/itch-io.png" id="9_hv8yb"]
+[ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/TestMainMenu/Twiter.png" id="9_rpga4"]
+[ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/TestMainMenu/insta.png" id="10_cncdq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kqpf0"]
 texture = ExtResource("5_dtat5")
@@ -48,23 +43,6 @@ Button/styles/hover = SubResource("StyleBoxTexture_kqpf0")
 Button/styles/normal = SubResource("StyleBoxTexture_kqpf0")
 Button/styles/pressed = SubResource("StyleBoxTexture_twkcs")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bctxt"]
-atlas = ExtResource("3_dpn8s")
-region = Rect2(60, 640, 210, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o2408"]
-atlas = ExtResource("3_dpn8s")
-region = Rect2(350, 670, 130, 130)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tm82i"]
-atlas = ExtResource("3_dpn8s")
-region = Rect2(633, 60, 230, 230)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_06u5g"]
-atlas = ExtResource("3_dpn8s")
-region = Rect2(1020, 340, 220, 240)
-margin = Rect2(8, 0, 0, 0)
-
 [node name="main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -83,7 +61,6 @@ offset_top = 2.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_6niv8")
 
 [node name="GUI" type="Control" parent="main_player" node_paths=PackedStringArray("Settings")]
 anchors_preset = 0
@@ -152,271 +129,43 @@ text = "Sair do Jogo"
 layout_mode = 1
 InGame = false
 
-[node name="itch" type="TextureButton" parent="main_player/GUI"]
+[node name="RedeSocial" type="VBoxContainer" parent="main_player/GUI"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -158.0
-offset_top = -79.0
-offset_right = 354.0
-offset_bottom = 433.0
+offset_left = -156.0
+offset_top = -239.0
+offset_right = 388.0
+offset_bottom = 1292.0
 grow_horizontal = 0
 grow_vertical = 2
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.25, 0.25)
+metadata/_edit_group_ = true
+
+[node name="itch" type="TextureButton" parent="main_player/GUI/RedeSocial"]
+layout_mode = 2
 texture_normal = ExtResource("9_hv8yb")
 stretch_mode = 3
 
-[node name="Notification" type="Control" parent="main_player"]
-anchors_preset = 0
-offset_left = 1054.0
-offset_top = 106.0
-offset_right = 1526.0
-offset_bottom = 234.0
-script = ExtResource("2_5rkd4")
-metadata/_edit_group_ = true
+[node name="twiter" type="TextureButton" parent="main_player/GUI/RedeSocial"]
+layout_mode = 2
+texture_normal = ExtResource("9_rpga4")
+stretch_mode = 3
 
-[node name="List_Panel" type="PanelContainer" parent="main_player/Notification"]
+[node name="insta" type="TextureButton" parent="main_player/GUI/RedeSocial"]
 visible = false
-custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-offset_right = 400.0
-offset_bottom = 118.0
-
-[node name="Separator" type="VBoxContainer" parent="main_player/Notification/List_Panel"]
-layout_mode = 2
-theme_override_constants/separation = 11
-
-[node name="Hs" type="HSeparator" parent="main_player/Notification/List_Panel/Separator"]
-layout_mode = 2
-theme_override_constants/separation = 23
-
-[node name="List" type="VBoxContainer" parent="main_player/Notification/List_Panel/Separator"]
-layout_mode = 2
-
-[node name="Hs2" type="HSeparator" parent="main_player/Notification/List_Panel/Separator"]
-layout_mode = 2
-theme_override_constants/separation = 23
-
-[node name="Show_Notific" type="Button" parent="main_player/Notification"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-offset_left = 408.0
-offset_top = 32.0
-offset_right = 472.0
-offset_bottom = 96.0
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_bctxt")
-expand_icon = true
-script = ExtResource("3_fkelm")
-Node_Show = NodePath("../List_Panel")
-
-[node name="new_notific" type="TextureRect" parent="main_player/Notification/Show_Notific"]
-modulate = Color(1, 0.321569, 0.372549, 1)
-layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
-texture = SubResource("AtlasTexture_o2408")
-expand_mode = 1
-
-[node name="Tab" type="PanelContainer" parent="main_player"]
-self_modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-anchor_left = 0.802604
-anchor_top = 0.0953704
-anchor_right = 0.975521
-anchor_bottom = 0.213889
-grow_horizontal = 0
-metadata/_edit_use_anchors_ = true
-metadata/_edit_group_ = true
-
-[node name="Menu" type="VBoxContainer" parent="main_player/Tab"]
-layout_mode = 2
-alignment = 1
-
-[node name="h" type="HBoxContainer" parent="main_player/Tab/Menu"]
-layout_mode = 2
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="main_player/Tab/Menu/h"]
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("1_w7vcx")
-stretch_mode = 2
-
-[node name="Vs" type="VSeparator" parent="main_player/Tab/Menu/h"]
-layout_mode = 2
-theme_override_constants/separation = 13
-
-[node name="Tab" type="VBoxContainer" parent="main_player/Tab/Menu/h"]
-layout_mode = 2
-alignment = 1
-
-[node name="Name" type="Label" parent="main_player/Tab/Menu/h/Tab"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "Username #ID"
-horizontal_alignment = 1
-
-[node name="hs" type="HSeparator" parent="main_player/Tab/Menu/h/Tab"]
-layout_mode = 2
-
-[node name="Options" type="HBoxContainer" parent="main_player/Tab/Menu/h/Tab"]
-layout_mode = 2
-alignment = 1
-
-[node name="Friend_Show" type="Button" parent="main_player/Tab/Menu/h/Tab/Options"]
-custom_minimum_size = Vector2(42, 42)
-layout_mode = 2
-mouse_default_cursor_shape = 2
-icon = ExtResource("7_5xyol")
-expand_icon = true
-script = ExtResource("3_fkelm")
-Node_Show = NodePath("../../../../Friends_Main")
-
-[node name="Configuration" type="Button" parent="main_player/Tab/Menu/h/Tab/Options"]
-custom_minimum_size = Vector2(42, 42)
-layout_mode = 2
-mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_tm82i")
-expand_icon = true
-
-[node name="Bug_Report" type="Button" parent="main_player/Tab/Menu/h/Tab/Options"]
-custom_minimum_size = Vector2(42, 42)
-layout_mode = 2
-tooltip_text = "Este node é para testes do menu. Tenha um bom dia."
-mouse_default_cursor_shape = 2
-icon = SubResource("AtlasTexture_06u5g")
-expand_icon = true
-
-[node name="Friends_Main" type="PanelContainer" parent="main_player/Tab/Menu"]
-visible = false
-custom_minimum_size = Vector2(336, 0)
-layout_mode = 2
-
-[node name="Options" type="VBoxContainer" parent="main_player/Tab/Menu/Friends_Main"]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="main_player/Tab/Menu/Friends_Main/Options"]
-layout_mode = 2
-theme_override_constants/separation = 11
-
-[node name="List" type="VBoxContainer" parent="main_player/Tab/Menu/Friends_Main/Options"]
-layout_mode = 2
-theme_override_constants/separation = 14
-
-[node name="Hs" type="HSeparator" parent="main_player/Tab/Menu/Friends_Main/Options"]
-layout_mode = 2
-
-[node name="Search" type="Button" parent="main_player/Tab/Menu/Friends_Main/Options"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-text = "ADD"
-script = ExtResource("3_fkelm")
-Node_Show = NodePath("../../../../../Pop-up/Solicit")
-
-[node name="Pop-up" type="Control" parent="main_player"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="Solicit" type="Control" parent="main_player/Pop-up"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Background" type="ColorRect" parent="main_player/Pop-up/Solicit"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.545098)
-
-[node name="Control" type="PanelContainer" parent="main_player/Pop-up/Solicit"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -216.0
-offset_top = -197.5
-offset_right = 216.0
-offset_bottom = 197.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Vbox" type="VBoxContainer" parent="main_player/Pop-up/Solicit/Control"]
-layout_mode = 2
-theme_override_constants/separation = 22
-alignment = 1
-
-[node name="Id" type="LineEdit" parent="main_player/Pop-up/Solicit/Control/Vbox"]
-custom_minimum_size = Vector2(0, 65.474)
-layout_mode = 2
-placeholder_text = "0000"
-alignment = 1
-max_length = 4
-virtual_keyboard_type = 2
-
-[node name="hs" type="HSeparator" parent="main_player/Pop-up/Solicit/Control/Vbox"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 54
-
-[node name="Send" type="Button" parent="main_player/Pop-up/Solicit/Control/Vbox"]
-custom_minimum_size = Vector2(200, 70.444)
-layout_mode = 2
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-text = "SEND"
-
-[node name="Back" type="Button" parent="main_player/Pop-up/Solicit/Control/Vbox"]
-custom_minimum_size = Vector2(200, 70.444)
-layout_mode = 2
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-text = "BACK"
-script = ExtResource("3_fkelm")
-Node_Show = NodePath("../../..")
-
-[node name="Pop_Common" type="AcceptDialog" parent="main_player/Pop-up"]
-title = ""
-position = Vector2i(843, 485)
-size = Vector2i(330, 190)
-script = ExtResource("5_nlnuo")
-
-[node name="Erro_text" type="Label" parent="main_player/Pop-up/Pop_Common"]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 322.0
-offset_bottom = 141.0
-text = "ERRO"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture_normal = ExtResource("10_cncdq")
+stretch_mode = 3
 
 [connection signal="pressed" from="main_player/GUI/Buttons/ModoCampanha" to="main_player/GUI" method="_modo_campanha_pressed"]
 [connection signal="pressed" from="main_player/GUI/Buttons/PartidaRapida" to="main_player/GUI" method="_partida_rapida_pressed"]
 [connection signal="pressed" from="main_player/GUI/Buttons/galeriafussion" to="main_player/GUI" method="_galeriafussion_pressed"]
 [connection signal="pressed" from="main_player/GUI/Buttons/Configurações" to="main_player/GUI" method="_configuraes_pressed"]
 [connection signal="pressed" from="main_player/GUI/Buttons/SairdoJogo" to="main_player/GUI" method="_sairdo_jogo_pressed"]
-[connection signal="pressed" from="main_player/GUI/itch" to="main_player/GUI" method="_itch_pressed"]
-[connection signal="pressed" from="main_player/Notification/Show_Notific" to="main_player/Notification" method="_show_notific_pressed"]
-[connection signal="pressed" from="main_player/Tab/Menu/h/Tab/Options/Bug_Report" to="main_player/Notification" method="_bug_report_pressed"]
-[connection signal="pressed" from="main_player/Pop-up/Solicit/Control/Vbox/Send" to="main_player" method="_send_pressed"]
+[connection signal="pressed" from="main_player/GUI/RedeSocial/itch" to="main_player/GUI" method="_itch_pressed"]
+[connection signal="pressed" from="main_player/GUI/RedeSocial/twiter" to="main_player/GUI" method="_twiter_pressed"]
+[connection signal="pressed" from="main_player/GUI/RedeSocial/insta" to="main_player/GUI" method="_insta_pressed"]
