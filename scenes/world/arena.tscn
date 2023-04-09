@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=48 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
 [ext_resource type="PackedScene" uid="uid://cur67wmsq7vm8" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
 [ext_resource type="Texture2D" uid="uid://bnw0hevmmjh6i" path="res://assets/img/elements/Reator.png" id="10_rnfol"]
+[ext_resource type="Shader" path="res://scripts/shaders/omega.gdshader" id="11_53l0m"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="13_wjs4m"]
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
@@ -39,6 +40,28 @@ shader = ExtResource("2_c7l4g")
 shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
+
+[sub_resource type="Gradient" id="Gradient_xvn7o"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0977444, 0.210526, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.478818, 1, 1, 1, 0.338848, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pq8af"]
+gradient = SubResource("Gradient_xvn7o")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6pn1"]
+shader = ExtResource("11_53l0m")
+shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 1, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
+shader_parameter/diffs = PackedVector2Array(-0.45, 0.55, 0.8, -0.2, -0.2, 0.8, 0.35, -0.65, 0.7, 0.3, -0.6, 0.4, 1, 0)
+shader_parameter/speeds = PackedFloat32Array(3, 4, 3, 5, 10, 10, 30)
+shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.5, -0.6, 0.5, 0.09, 0.06, 0.03)
+shader_parameter/particle_texture = SubResource("GradientTexture2D_pq8af")
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
 font = ExtResource("14_virs7")
@@ -196,6 +219,17 @@ texture = ExtResource("8_krhtp")
 expand_mode = 1
 script = ExtResource("8_jy5ie")
 metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Player_A/omega"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_y6pn1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.286275, 0.360784, 1)
 
 [node name="life_title" type="Label" parent="Player_A/omega"]
 layout_mode = 1
