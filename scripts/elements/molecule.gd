@@ -101,15 +101,14 @@ func redux_ref():
 
 func prepare_element_for_attack(header: Element):
 	configuration.map(_handle_element_action.bind(header))
+	Gameplay.arena.elements[header.grid_position].can_act = false
+	header.disabled = true
 
 
 func _handle_element_action(element: Element, header: Element):
 	if element != header and element.eletrons > 0:
 		element.eletrons -= 1
 		header.eletrons += 1
-		
-	Gameplay.arena.elements[element.grid_position].can_act = false
-	element.disabled = true
 
 
 func link_elements(element_a: Element, element_b: Element):

@@ -6,7 +6,10 @@ enum State {
 
 
 func _gui_input(event: InputEvent):
-	if not (event.is_action("mouse_click") and event.is_pressed()) or disabled:
+	if event.is_action_pressed("mouse_right"):
+		Gameplay.element_info.show_info(self)
+	
+	if not event.is_action_pressed("mouse_click") or disabled:
 		return
 	
 	match Gameplay.action_state:

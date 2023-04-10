@@ -42,6 +42,8 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
 			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons)
 			Gameplay.arena.remove_element(defender.element.grid_position)
+			attaker.can_act = false
+			attaker.element.disabled = true
 		
 		Result.COUNTERATTACK:
 			if combat_check_result(attaker.element, defender.element) == Result.WINNER:
@@ -53,6 +55,8 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 		Result.DRAW:
 			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
+			attaker.can_act = false
+			attaker.element.disabled = true
 
 
 static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):

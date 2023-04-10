@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=52 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -57,10 +57,10 @@ fill_to = Vector2(1, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y6pn1"]
 shader = ExtResource("11_53l0m")
-shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 1, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
-shader_parameter/diffs = PackedVector2Array(-0.45, 0.55, 0.8, -0.2, -0.2, 0.8, 0.35, -0.65, 0.7, 0.3, -0.6, 0.4, 1, 0)
+shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 0.607843, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
+shader_parameter/diffs = PackedVector2Array(0, 0.1, -1, 0.3, 0, -0.8, 0.35, -0.65, 0, 0, -0.6, 0.4, 1, 0)
 shader_parameter/speeds = PackedFloat32Array(3, 4, 3, 5, 10, 10, 30)
-shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.5, -0.6, 0.5, 0.09, 0.06, 0.03)
+shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.45, -0.4, 0.5, 0.08, 0.05, 0.02)
 shader_parameter/particle_texture = SubResource("GradientTexture2D_pq8af")
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
@@ -70,6 +70,72 @@ font_size = 20
 [sub_resource type="LabelSettings" id="LabelSettings_c3xq3"]
 font = ExtResource("14_virs7")
 font_size = 52
+
+[sub_resource type="Shader" id="Shader_xeja2"]
+code = "shader_type canvas_item;
+
+uniform sampler2D particle_texture;
+uniform vec4 colors[7]: source_color;
+uniform vec2 diffs[7];
+uniform float speeds[7];
+uniform float lenghts[7];
+
+const float PARTICLES_SIZE = 2.0;
+
+struct Particle {
+	vec4 color;
+	float size;
+	vec2 position;
+};
+
+vec2 uv(vec2 uv, Particle particle) {
+	return clamp((uv * particle.size) - (particle.position * particle.size), vec2(0.0), vec2(1.0));
+}
+
+vec2 particle_motion_position(float _lemgth, float speed, vec2 diff) {
+	float margin = 0.5 * _lemgth;
+	vec2 margin_center = vec2(0.5) * (1.0 - _lemgth);
+	vec2 pos;
+	pos.x = margin + (cos((TIME + diff.x) * speed) * margin);
+	pos.y = margin + (cos((TIME + diff.y) * speed) * margin);
+	return pos + margin_center;
+}
+
+void fragment() {
+	vec4 color;
+	
+	for (int i = 0; i < 7; i++) {
+		Particle p;
+		p.size = PARTICLES_SIZE;
+		p.color = colors[i];
+		p.position = particle_motion_position(lenghts[i], speeds[i], diffs[i]) - vec2(0.25);
+		color += p.color * texture(particle_texture, uv(UV, p)).a;
+	}
+	COLOR = color;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_fcvq1"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0977444, 0.210526, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.478818, 1, 1, 1, 0.338848, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t2mpx"]
+gradient = SubResource("Gradient_fcvq1")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xla5f"]
+shader = SubResource("Shader_xeja2")
+shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 0.607843, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
+shader_parameter/diffs = PackedVector2Array(0.2, 0, -0.5, 0.3, 0, 0.1, 0.35, -0.65, 0, 0, -0.6, 0.4, 1, 0)
+shader_parameter/speeds = PackedFloat32Array(4, 3, 4.5, 3.5, 10, 10, 30)
+shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.45, -0.4, 0.5, 0.08, 0.05, 0.02)
+shader_parameter/particle_texture = SubResource("GradientTexture2D_t2mpx")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -220,7 +286,7 @@ expand_mode = 1
 script = ExtResource("8_jy5ie")
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="Player_A/omega"]
+[node name="atomo" type="ColorRect" parent="Player_A/omega"]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_y6pn1")
 layout_mode = 1
@@ -283,6 +349,17 @@ texture = ExtResource("8_krhtp")
 expand_mode = 1
 script = ExtResource("8_jy5ie")
 metadata/_edit_lock_ = true
+
+[node name="atomo" type="ColorRect" parent="Player_B/omega"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_xla5f")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.286275, 0.360784, 1)
 
 [node name="life_title" type="Label" parent="Player_B/omega"]
 layout_mode = 1

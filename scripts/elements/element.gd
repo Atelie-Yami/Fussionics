@@ -277,7 +277,6 @@ func _ready():
 
 func _process(delta):
 	queue_redraw()
-	
 	# dar uma corzinha pra tudo
 	modulate = (Color.WHITE * 0.7) +  (COLOR_SERIES[DATA[atomic_number][SERIE]] * 0.3)
 	modulate.a = 1.0

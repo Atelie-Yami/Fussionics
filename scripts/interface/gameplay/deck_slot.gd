@@ -34,8 +34,7 @@ func _process(delta):
 func _draw():
 	var string_size = Element.FUTURE_SALLOW.get_string_size(
 			simbol, HORIZONTAL_ALIGNMENT_CENTER, -1, Element.FONT_SIZE
-	)
-	string_size /= 2
+	) / 2.0
 	
 	draw_string(
 			Element.FUTURE_SALLOW,
@@ -44,12 +43,11 @@ func _draw():
 			Element.FONT_SIZE,
 			color if can_drop else Color.LIGHT_STEEL_BLUE
 	)
-	
 	modulate = color if can_drop else Color(0.6, 0.6, 0.6, 0.3)
 
 
 func _gui_input(event):
-	if event.is_action("mouse_click") and event.is_pressed():
+	if event.is_action_pressed("mouse_right"):
 		element_info.load_data(Element.DATA[element], element)
 		element_info.visible = true
 	

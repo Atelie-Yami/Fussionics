@@ -68,6 +68,9 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	elements.erase(pre_slot)
 	elements[final_slot] = slot
 	
+	get_child(final_slot.x + (final_slot.y * 8)).visible = false
+	get_child(slot.element.grid_position.x + (slot.element.grid_position.y * 8)).visible = true
+	
 	slot.element.grid_position = final_slot
 	slot.element.global_position = _get_snapped_slot_position(final_slot)
 
@@ -100,6 +103,7 @@ func remove_element(slot_position: Vector2i):
 			_handle_molecule(element)
 	
 	_remove_element(slot, slot_position)
+	get_child(slot_position.x + (slot_position.y * 8)).visible = true
 
 
 func _remove_element(slot: Slot, slot_position: Vector2i):
@@ -131,6 +135,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	element.active = _position.y < 9
 	element.global_position = _get_snapped_slot_position(_position)
+	get_child(_position.x + (_position.y * 8)).visible = false
 
 
 func link_elements(element_a: Element, element_b: Element):
