@@ -34,6 +34,14 @@ class Slot:
 		if molecule and is_instance_valid(molecule.border_line):
 			molecule.border_line.visible = entered
 
+## os slots
+# ------------------------- #
+##   slot   |    x    |  y  |
+##  fusao A | 12 e 14 |  0  |
+##  fusao B |  9 e 11 |  0  |
+## accelr A | 12 e 14 |  4  |
+## accelr B |  9 e 11 |  4  |
+# ------------------------- #
 
 ## {Vector2i position : Slot slot}
 var elements: Dictionary
@@ -72,8 +80,11 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	elements.erase(pre_slot)
 	elements[final_slot] = slot
 	
-	get_child(final_slot.x + (final_slot.y * 8)).visible = false
-	get_child(slot.element.grid_position.x + (slot.element.grid_position.y * 8)).visible = true
+	if final_slot.x < 8:
+		get_child(final_slot.x + (final_slot.y * 8)).visible = false
+	
+	if slot.element.grid_position.x < 8:
+		get_child(slot.element.grid_position.x + (slot.element.grid_position.y * 8)).visible = true
 	
 	slot.element.grid_position = final_slot
 	slot.element.global_position = _get_snapped_slot_position(final_slot)
@@ -108,8 +119,10 @@ func remove_element(slot_position: Vector2i):
 			_handle_molecule(element)
 	
 	_remove_element(slot, slot_position)
-	get_child(slot_position.x + (slot_position.y * 8)).visible = true
 	elements_update.emit()
+	
+	if slot_position.x < 8:
+		get_child(slot_position.x + (slot_position.y * 8)).visible = true
 
 
 func _remove_element(slot: Slot, slot_position: Vector2i):
@@ -139,10 +152,14 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	current_players[player].add_child(element)
 	
-	element.active = _position.y < 9
+	element.active = _position.y < 8
 	element.global_position = _get_snapped_slot_position(_position)
-	get_child(_position.x + (_position.y * 8)).visible = false
 	elements_update.emit()
+	
+	if _position.x < 8:
+		get_child(_position.x + (_position.y * 8)).visible = false
+	
+	return element
 
 
 func link_elements(element_a: Element, element_b: Element):
@@ -316,9 +333,15 @@ func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: 
 	if elements.has(Vector2i(slot_id + 1, 0)):
 		remove_element(Vector2i(slot_id + 1, 0))
 	
-	# animação
+	var element_C = create_element(min(atn, 118), current_player, Vector2i(slot_id + 1, 0), false)
+	if not element_C:
+		return
+		
+	element_C.visible = false
 	
-	create_element(min(atn, 118), current_player, Vector2i(slot_id + 1, 0), false)
+	# animação
+	await reactors.fusion_elements(elements[slot_fusion_A].element, elements[slot_fusion_B].element, element_C, current_player)
+	
 	remove_element(slot_fusion_A)
 	remove_element(slot_fusion_B)
 	
@@ -354,10 +377,15 @@ func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: 
 		if elements.has(Vector2i(slot_id +1, 5)):
 			remove_element(Vector2i(slot_id +1, 5))
 		
-		# anim
-		await reactors.accelr_elements(elements[slot_accelr_A].element, elements[slot_accelr_B].element)
+		var element_C = create_element(min(atn_result, 118), current_player, Vector2i(slot_id +1, 5), false)
+		if not element_C:
+			return
 		
-		create_element(min(atn_result, 118), current_player, Vector2i(slot_id +1, 5), false)
+		element_C.visible = false
+		
+		# anim
+		await reactors.accelr_elements(elements[slot_accelr_A].element, elements[slot_accelr_B].element, element_C, current_player)
+		
 		remove_element(slot_accelr_A)
 		remove_element(slot_accelr_B)
 

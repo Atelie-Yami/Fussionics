@@ -84,12 +84,14 @@ func next_phase():
 	
 	self.current_stage = (current_stage + 1) % State.size() as State
 
-
 ## os slots
-## 8 e 10:  acler B
-## 9 e 11:  fusao B
-## 12 e 14: fusao A
-## 13 e 15: acler A
+# ------------------------- #
+##   slot   |    x    |  y  |
+##  fusao A | 12 e 14 |  0  |
+##  fusao B |  9 e 11 |  0  |
+## accelr A | 12 e 14 |  4  |
+## accelr B |  9 e 11 |  4  |
+# ------------------------- #
 
 func cook():
 	var slot: int = 12 if current_player == Players.A else 9

@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform sampler2D noise_texture;
+uniform sampler2D noise_texture: repeat_enable;
 uniform float powered: hint_range(0.0, 1.0, 0.01);
 
 void fragment() {

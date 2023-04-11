@@ -86,8 +86,8 @@ func _process(delta):
 		element_drag_preview.position = element_drag_preview.get_global_mouse_position()
 
 
-func _unhandled_input(event):
-	if (event.is_action("mouse_click") or event.is_action("ui_cancel")) and event.is_pressed():
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("mouse_click") or event.is_action_pressed("ui_cancel"):
 		self.action_state = ActionState.NORMAL
 		passive_status.set_element(null)
 

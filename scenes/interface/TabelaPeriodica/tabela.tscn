@@ -861,10 +861,10 @@ limit_right = 1920
 limit_bottom = 1080
 position_smoothing_enabled = true
 script = ExtResource("5_qldn2")
-turbulence_force = 0.5
+turbulence_force = 0.0
 background_path = NodePath("../background_2")
 element_info_path = NodePath("../info_panel(Dps tu configura)/element_info")
-NameCamera = 1
+camera_mode = 1
 
 [node name="Buttons" type="CanvasLayer" parent="."]
 

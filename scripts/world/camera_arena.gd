@@ -1,10 +1,13 @@
 class_name CameraArena extends Camera2D
 
+enum CameraMode {ARENA, TABLE}
+
 const POSITION_CENTER := Vector2(960, 540)
 const MIN_ZOOM := 0.8
 const MAX_ZOOM := 1.6
 const DISTANCE_FOCUS := 0.15
 
+@export var camera_mode: CameraMode = CameraMode.ARENA
 @export var turbulence_force := 1.0
 
 @export_node_path("CanvasLayer") var background_path: NodePath
@@ -20,8 +23,7 @@ var distance_fucus: float
 var turbulence_target_0: Vector2
 var turbulence_target_1: Vector2
 
-enum CameraName{Camera_Arena,Camera_Table}
-@export var NameCamera:CameraName=CameraName.Camera_Arena
+var tween_shake: Tween
 
 
 func _physics_process(delta):
@@ -34,7 +36,10 @@ func _physics_process(delta):
 		turbulence_target_1 = turbulence_target_1.lerp(turbulence_target_0, 0.06)
 		turbulence = turbulence.lerp(turbulence_target_1, 0.02)
 	
-	if Gameplay.selected_element and CameraName.Camera_Arena:
+	if camera_mode == CameraMode.TABLE:
+		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom), 0.1)
+	
+	elif Gameplay.selected_element:
 		if is_instance_valid(Gameplay.selected_element):
 			distance_fucus = DISTANCE_FOCUS
 			
@@ -45,9 +50,8 @@ func _physics_process(delta):
 			
 		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom) * Vector2(1.25, 1.25), 0.2)
 		
-	elif !Gameplay.selected_element and CameraName.Camera_Arena:
-		global_position = POSITION_CENTER + turbulence
 	else:
+		global_position = POSITION_CENTER + turbulence
 		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom), 0.1)
 	
 	background.position_offset = (global_position - POSITION_CENTER) / 4.0
@@ -61,3 +65,16 @@ func _unhandled_input(event):
 				
 			MOUSE_BUTTON_WHEEL_DOWN:
 				extra_zoom = max(extra_zoom - 0.04, MIN_ZOOM)
+
+
+func shake(power: float):
+	if tween_shake and tween_shake.is_valid():
+		tween_shake.kill()
+	
+	var shake_direction := Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized() * power * 10.0
+	offset = shake_direction
+	
+	tween_shake = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween_shake.tween_property(self, "offset", Vector2.ZERO, power * 0.25)
+
+

@@ -6,15 +6,15 @@
 [ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="3_2ehmk"]
 [ext_resource type="Shader" path="res://scripts/shaders/fussion_slot.gdshader" id="5_lvlx3"]
 [ext_resource type="Script" path="res://scripts/world/reactors.gd" id="5_o5tgb"]
+[ext_resource type="PackedScene" uid="uid://dwikojy78658y" path="res://scenes/vfx/fusion_vfx.tscn" id="6_75uax"]
 [ext_resource type="Texture2D" uid="uid://dusb46g4bysw2" path="res://resouces/noise/random_noise_color.tres" id="6_odbmm"]
 [ext_resource type="PackedScene" uid="uid://bokt3h5duv0br" path="res://scenes/world/arena_slots.tscn" id="7_1651p"]
-[ext_resource type="Texture2D" uid="uid://ca8qsp6aoftep" path="res://assets/img/elements/Accelr.png" id="7_mo1n6"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/omega_gui.gd" id="8_jy5ie"]
 [ext_resource type="Texture2D" uid="uid://h2mssyj3xtdi" path="res://assets/img/elements/Slot_2.png" id="8_krhtp"]
+[ext_resource type="PackedScene" uid="uid://cl7rrneqpylmq" path="res://scenes/vfx/accelr_vfx.tscn" id="9_nckdy"]
 [ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
 [ext_resource type="PackedScene" uid="uid://cur67wmsq7vm8" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
-[ext_resource type="Texture2D" uid="uid://bnw0hevmmjh6i" path="res://assets/img/elements/Reator.png" id="10_rnfol"]
 [ext_resource type="Shader" path="res://scripts/shaders/omega.gdshader" id="11_53l0m"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="13_wjs4m"]
@@ -44,22 +44,26 @@ shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_31txk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_770kg"]
+resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt66h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xl8f"]
+resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyvnu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpmxv"]
+resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl1ij"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1pd13"]
+resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
@@ -253,52 +257,38 @@ script = ExtResource("1_hlcug")
 script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
-[node name="fusion_A" type="TextureRect" parent="reactors"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-material = SubResource("ShaderMaterial_31txk")
-offset_left = 221.0
-offset_top = 268.0
-offset_right = 528.0
-offset_bottom = 452.0
-texture = ExtResource("10_rnfol")
-expand_mode = 1
-metadata/_edit_lock_ = true
+[node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
+material = SubResource("ShaderMaterial_770kg")
 
-[node name="fusion_B" type="TextureRect" parent="reactors"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-material = SubResource("ShaderMaterial_pt66h")
+[node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
+material = SubResource("ShaderMaterial_5xl8f")
 offset_left = 1392.0
-offset_top = 268.0
 offset_right = 1699.0
-offset_bottom = 452.0
-texture = ExtResource("10_rnfol")
-expand_mode = 1
-flip_v = true
-metadata/_edit_lock_ = true
+flip_h = true
 
-[node name="accelr_A" type="TextureRect" parent="reactors"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-material = SubResource("ShaderMaterial_dyvnu")
-offset_left = 222.0
-offset_top = 650.0
-offset_right = 528.0
-offset_bottom = 875.0
-texture = ExtResource("7_mo1n6")
-expand_mode = 1
-metadata/_edit_lock_ = true
+[node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
+material = SubResource("ShaderMaterial_vpmxv")
 
-[node name="accelr_B" type="TextureRect" parent="reactors"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-material = SubResource("ShaderMaterial_pl1ij")
+[node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
+material = SubResource("ShaderMaterial_1pd13")
 offset_left = 1391.0
-offset_top = 650.0
 offset_right = 1697.0
-offset_bottom = 875.0
-texture = ExtResource("7_mo1n6")
-expand_mode = 1
+flip_h = true
+
+[node name="_clicable_area" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 metadata/_edit_lock_ = true
 
 [node name="arena" parent="." instance=ExtResource("7_1651p")]
+custom_minimum_size = Vector2(710, 440)
 reactor_path = NodePath("../reactors")
 
 [node name="Player_A" type="Node" parent="."]
@@ -427,7 +417,6 @@ vertical_alignment = 2
 metadata/_edit_lock_ = true
 
 [node name="CameraArena" type="Camera2D" parent="."]
-visible = false
 position = Vector2(960, 0)
 position_smoothing_enabled = true
 script = ExtResource("10_6paj4")
@@ -764,6 +753,13 @@ expand_icon = true
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
 
+[node name="passive_descrition" parent="." instance=ExtResource("24_5uukm")]
+visible = false
+offset_left = 422.0
+offset_top = 199.0
+offset_right = 568.0
+offset_bottom = 341.0
+
 [node name="pra usar depois" type="CanvasLayer" parent="."]
 visible = false
 
@@ -778,13 +774,6 @@ patch_margin_left = 30
 patch_margin_top = 80
 patch_margin_right = 120
 patch_margin_bottom = 110
-
-[node name="passive_descrition" parent="." instance=ExtResource("24_5uukm")]
-visible = false
-offset_left = 422.0
-offset_top = 199.0
-offset_right = 568.0
-offset_bottom = 341.0
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
