@@ -13,7 +13,7 @@ func _partida_rapida_pressed():
 
 
 func _galeriafussion_pressed():
-	get_tree().change_scene_to_file("res://scenes/interface/main_menu/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/interface/TabelaPeriodica/tabela.tscn")
 
 
 func _configuraes_pressed():

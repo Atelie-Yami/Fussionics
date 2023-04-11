@@ -57,30 +57,36 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GUI" type="Control" parent="main_player" node_paths=PackedStringArray("Settings")]
-anchors_preset = 0
-offset_top = -2.0
-offset_right = 1922.0
-offset_bottom = 1078.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_bvv6w")
 Settings = NodePath("PauseMenu")
 
 [node name="Background" type="TextureRect" parent="main_player/GUI"]
-layout_mode = 0
-offset_right = 1918.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_coau4")
 metadata/_edit_lock_ = true
 
 [node name="Background2" type="TextureRect" parent="main_player/GUI"]
-layout_mode = 0
-offset_right = 1918.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_khyvx")
 metadata/_edit_lock_ = true
 
