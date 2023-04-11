@@ -1,4 +1,3 @@
-
 ## Classe que define os elementos.
 class_name Element extends Control
 
