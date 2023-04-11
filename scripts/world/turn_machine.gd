@@ -101,59 +101,10 @@ func cook():
 	var slot_accelr_B = Vector2i(slot + 2, 4)
 	
 	if arena.elements.has(slot_fusion_A) and arena.elements.has(slot_fusion_B):
-		var atn: int = (
-				arena.elements[slot_fusion_A].element.atomic_number +
-				arena.elements[slot_fusion_B].element.atomic_number + 1
-		)
-		if arena.elements.has(Vector2i(slot + 1, 0)):
-			arena.remove_element(Vector2i(slot + 1, 0))
-		
-		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_FUSION)
-		
-		arena.create_element(min(atn, 118), current_player as PlayerController.Players, Vector2i(slot + 1, 0), false)
-		arena.remove_element(slot_fusion_A)
-		arena.remove_element(slot_fusion_B)
-		
-		start(COOK_FUSION_TIME)
-		# animação de fundir aqui
-		await timeout
-		
-		if atn > 24:
-			Gameplay.arena.current_players[current_player].take_damage(atn - 24)
-		
+		await arena.fusion_elements(slot_fusion_A, slot_fusion_B, slot, current_player as PlayerController.Players)
 	
 	if arena.elements.has(slot_accelr_A) and arena.elements.has(slot_accelr_B):
-		var atn1: int = arena.elements[slot_accelr_A].element.atomic_number
-		var atn2: int = arena.elements[slot_accelr_B].element.atomic_number
-		var atn_result: int
-		
-		if not atn1 and not atn2:
-			atn1 = 1
-		
-		if atn1 == atn2: # Há mais changes de ter um bom resultado se for 2 elementos iguais
-			atn_result = max(
-					randi_range(atn1, atn1 + atn2),
-					randi_range(atn1, atn1 + atn2),
-					randi_range(atn1, atn1 + atn2)
-			)
-		else:
-			atn_result = max(
-					randi_range(atn1, atn1 + atn2),
-					randi_range(atn1, atn1 + atn2)
-			)
-		
-		if arena.elements.has(Vector2i(slot +1, 5)):
-			arena.remove_element(Vector2i(slot +1, 5))
-		
-		await ElementEffectManager.call_effects(current_player as PlayerController.Players, ElementEffectManager.SkillType.COOKED_ACCELR)
-		
-		arena.create_element(min(atn_result, 118), current_player as PlayerController.Players, Vector2i(slot +1, 5), false)
-		arena.remove_element(slot_accelr_A)
-		arena.remove_element(slot_accelr_B)
-		
-		start(COOK_FUSION_TIME)
-		# animação de fundir aqui
-		await timeout
+		await arena.accelr_elements(slot_accelr_A, slot_accelr_B, slot, current_player as PlayerController.Players)
 
 
 func _main_phase_timeout():

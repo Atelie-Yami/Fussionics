@@ -1,9 +1,12 @@
-[gd_scene load_steps=52 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=59 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
 [ext_resource type="Shader" path="res://scripts/shaders/arena_zone_indicator.gdshader" id="2_c7l4g"]
 [ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="3_2ehmk"]
+[ext_resource type="Shader" path="res://scripts/shaders/fussion_slot.gdshader" id="5_lvlx3"]
+[ext_resource type="Script" path="res://scripts/world/reactors.gd" id="5_o5tgb"]
+[ext_resource type="Texture2D" uid="uid://dusb46g4bysw2" path="res://resouces/noise/random_noise_color.tres" id="6_odbmm"]
 [ext_resource type="PackedScene" uid="uid://bokt3h5duv0br" path="res://scenes/world/arena_slots.tscn" id="7_1651p"]
 [ext_resource type="Texture2D" uid="uid://ca8qsp6aoftep" path="res://assets/img/elements/Accelr.png" id="7_mo1n6"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/omega_gui.gd" id="8_jy5ie"]
@@ -40,6 +43,26 @@ shader = ExtResource("2_c7l4g")
 shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31txk"]
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt66h"]
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyvnu"]
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl1ij"]
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
 
 [sub_resource type="Gradient" id="Gradient_xvn7o"]
 interpolation_mode = 2
@@ -226,8 +249,13 @@ unique_name_in_owner = true
 one_shot = true
 script = ExtResource("1_hlcug")
 
-[node name="fusion_A" type="TextureRect" parent="turn_machine"]
+[node name="reactors" type="Node" parent="."]
+script = ExtResource("5_o5tgb")
+arena_path = NodePath("../arena")
+
+[node name="fusion_A" type="TextureRect" parent="reactors"]
 modulate = Color(0.7, 0.7, 0.7, 0.7)
+material = SubResource("ShaderMaterial_31txk")
 offset_left = 221.0
 offset_top = 268.0
 offset_right = 528.0
@@ -236,8 +264,9 @@ texture = ExtResource("10_rnfol")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="fusion_B" type="TextureRect" parent="turn_machine"]
+[node name="fusion_B" type="TextureRect" parent="reactors"]
 modulate = Color(0.7, 0.7, 0.7, 0.7)
+material = SubResource("ShaderMaterial_pt66h")
 offset_left = 1392.0
 offset_top = 268.0
 offset_right = 1699.0
@@ -247,27 +276,30 @@ expand_mode = 1
 flip_v = true
 metadata/_edit_lock_ = true
 
-[node name="accelr_A" type="TextureRect" parent="turn_machine"]
+[node name="accelr_A" type="TextureRect" parent="reactors"]
 modulate = Color(0.7, 0.7, 0.7, 0.7)
-offset_left = 223.0
+material = SubResource("ShaderMaterial_dyvnu")
+offset_left = 222.0
 offset_top = 650.0
-offset_right = 527.0
-offset_bottom = 874.0
+offset_right = 528.0
+offset_bottom = 875.0
 texture = ExtResource("7_mo1n6")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="accelr_B" type="TextureRect" parent="turn_machine"]
+[node name="accelr_B" type="TextureRect" parent="reactors"]
 modulate = Color(0.7, 0.7, 0.7, 0.7)
-offset_left = 1392.0
+material = SubResource("ShaderMaterial_pl1ij")
+offset_left = 1391.0
 offset_top = 650.0
-offset_right = 1696.0
-offset_bottom = 874.0
+offset_right = 1697.0
+offset_bottom = 875.0
 texture = ExtResource("7_mo1n6")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="arena" parent="." instance=ExtResource("7_1651p")]
+reactor_path = NodePath("../reactors")
 
 [node name="Player_A" type="Node" parent="."]
 script = ExtResource("13_wjs4m")

@@ -1,6 +1,6 @@
 class_name Arena extends PlayerController
 
-
+signal elements_update
 
 const GRID_OFFSET := Vector2i(605, 320)
 const SLOT_SIZE := Vector2i(90, 90)
@@ -38,6 +38,10 @@ class Slot:
 ## {Vector2i position : Slot slot}
 var elements: Dictionary
 var combat_in_process: bool
+var reactor_canceled_by_effect: bool
+
+@export var reactor_path: NodePath
+@onready var reactors = get_node(reactor_path)
 
 
 func _init():
@@ -73,6 +77,7 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	
 	slot.element.grid_position = final_slot
 	slot.element.global_position = _get_snapped_slot_position(final_slot)
+	elements_update.emit()
 
 
 func remove_element(slot_position: Vector2i):
@@ -104,6 +109,7 @@ func remove_element(slot_position: Vector2i):
 	
 	_remove_element(slot, slot_position)
 	get_child(slot_position.x + (slot_position.y * 8)).visible = true
+	elements_update.emit()
 
 
 func _remove_element(slot: Slot, slot_position: Vector2i):
@@ -136,6 +142,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	element.active = _position.y < 9
 	element.global_position = _get_snapped_slot_position(_position)
 	get_child(_position.x + (_position.y * 8)).visible = false
+	elements_update.emit()
 
 
 func link_elements(element_a: Element, element_b: Element):
@@ -293,6 +300,66 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	else:
 		GameJudge.combat(slot_attacker, slot_defender)
 	combat_in_process = false
+
+
+func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: int, current_player: PlayerController.Players):
+	var atn: int = (
+			elements[slot_fusion_A].element.atomic_number +
+			elements[slot_fusion_B].element.atomic_number + 1
+	)
+	
+	reactor_canceled_by_effect = false
+	await ElementEffectManager.call_effects(current_player, ElementEffectManager.SkillType.COOKED_FUSION)
+	if reactor_canceled_by_effect:
+		return
+	
+	if elements.has(Vector2i(slot_id + 1, 0)):
+		remove_element(Vector2i(slot_id + 1, 0))
+	
+	# animação
+	
+	create_element(min(atn, 118), current_player, Vector2i(slot_id + 1, 0), false)
+	remove_element(slot_fusion_A)
+	remove_element(slot_fusion_B)
+	
+	if atn > 24:
+			Gameplay.arena.current_players[current_player].take_damage(atn - 24)
+
+
+func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: int, current_player: PlayerController.Players):
+		var atn1: int = elements[slot_accelr_A].element.atomic_number
+		var atn2: int = elements[slot_accelr_B].element.atomic_number
+		var atn_result: int
+		
+		if not atn1 and not atn2:
+			atn1 = 1
+		
+		if atn1 == atn2: # Há mais changes de ter um bom resultado se for 2 elementos iguais
+			atn_result = max(
+					randi_range(atn1, atn1 + atn2),
+					randi_range(atn1, atn1 + atn2),
+					randi_range(atn1, atn1 + atn2)
+			)
+		else:
+			atn_result = max(
+					randi_range(atn1, atn1 + atn2),
+					randi_range(atn1, atn1 + atn2)
+			)
+		
+		reactor_canceled_by_effect = false
+		await ElementEffectManager.call_effects(current_player, ElementEffectManager.SkillType.COOKED_ACCELR)
+		if reactor_canceled_by_effect:
+			return
+		
+		if elements.has(Vector2i(slot_id +1, 5)):
+			remove_element(Vector2i(slot_id +1, 5))
+		
+		# anim
+		await reactors.accelr_elements(elements[slot_accelr_A].element, elements[slot_accelr_B].element)
+		
+		create_element(min(atn_result, 118), current_player, Vector2i(slot_id +1, 5), false)
+		remove_element(slot_accelr_A)
+		remove_element(slot_accelr_B)
 
 
 func _can_drop_data(_p, data):
