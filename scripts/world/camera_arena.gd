@@ -20,6 +20,9 @@ var distance_fucus: float
 var turbulence_target_0: Vector2
 var turbulence_target_1: Vector2
 
+enum CameraName{Camera_Arena,Camera_Table}
+@export var NameCamera:CameraName=CameraName.Camera_Arena
+
 
 func _physics_process(delta):
 	if turbulence_force > 0.0:
@@ -31,7 +34,7 @@ func _physics_process(delta):
 		turbulence_target_1 = turbulence_target_1.lerp(turbulence_target_0, 0.06)
 		turbulence = turbulence.lerp(turbulence_target_1, 0.02)
 	
-	if Gameplay.selected_element:
+	if Gameplay.selected_element and CameraName.Camera_Arena:
 		if is_instance_valid(Gameplay.selected_element):
 			distance_fucus = DISTANCE_FOCUS
 			
@@ -42,8 +45,9 @@ func _physics_process(delta):
 			
 		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom) * Vector2(1.25, 1.25), 0.2)
 		
-	else:
+	elif !Gameplay.selected_element and CameraName.Camera_Arena:
 		global_position = POSITION_CENTER + turbulence
+	else:
 		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom), 0.1)
 	
 	background.position_offset = (global_position - POSITION_CENTER) / 4.0
