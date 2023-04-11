@@ -14,6 +14,9 @@ extends SkillEffect
 ## [/codeblock]
 
 
+var _target: Element
+
+
 func _init(_element: Element):
 	element = _element
 	skill_type = SkillType.ACTION
@@ -44,6 +47,7 @@ func execute():
 
 func get_targets(cluster: EffectCluster, target: Element):
 	cluster.targets = [target]
+	_target = target
 
 
 func molecule_effect(cluster: EffectCluster):
@@ -52,6 +56,12 @@ func molecule_effect(cluster: EffectCluster):
 			var burn: PassiveEffect = target.debuffs[PassiveEffect.Debuff.BURNING]
 			(target.debuffs as Dictionary).erase(PassiveEffect.Debuff.BURNING)
 			target.neutrons -= burn.stack
+			print(target)
+	
+	GameJudge.combat(
+		Gameplay.arena.elements[element.grid_position],
+		Gameplay.arena.elements[_target.grid_position]
+	)
 
 
 

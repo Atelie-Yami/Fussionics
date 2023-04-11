@@ -35,7 +35,6 @@ static func can_remove_element(element: Element) -> bool:
 
 static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 	var result: Result = combat_check_result(attaker.element, defender.element)
-	
 	match result:
 		Result.WINNER:
 			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
@@ -46,7 +45,7 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 			attaker.element.disabled = true
 		
 		Result.COUNTERATTACK:
-			if combat_check_result(attaker.element, defender.element) == Result.WINNER:
+			if combat_check_result(defender.element, attaker.element) == Result.WINNER:
 				await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
 				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.neutrons - attaker.element.eletrons)

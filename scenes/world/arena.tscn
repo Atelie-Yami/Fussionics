@@ -44,25 +44,25 @@ shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_770kg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugpec"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xl8f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7exhw"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpmxv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxgfy"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1pd13"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jis03"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -258,19 +258,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_770kg")
+material = SubResource("ShaderMaterial_ugpec")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_5xl8f")
+material = SubResource("ShaderMaterial_7exhw")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_vpmxv")
+material = SubResource("ShaderMaterial_vxgfy")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_1pd13")
+material = SubResource("ShaderMaterial_jis03")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true

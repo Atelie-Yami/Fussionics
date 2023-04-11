@@ -60,8 +60,8 @@ func _init(header: SkillEffect, pack: Array[SkillEffect], _molecule: Molecule):
 func construct(header: SkillEffect):
 	for list in cluster:
 		for effect in cluster[list]:
-			bind_tokens(header, cluster[list][effect])
-			cluster[list][effect].molecule_effect(self)
+			bind_tokens(header, effect.tokens)
+			effect.molecule_effect(self)
 
 
 ## compara os tokens

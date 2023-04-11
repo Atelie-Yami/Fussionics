@@ -37,5 +37,6 @@ func molecule_effect(cluster: EffectCluster):
 	for h in H_list:
 		GameJudge.get_neighbor_enemies(h.grid_position, enemies)
 	
+	print(enemies)
 	cluster.targets = enemies
 
