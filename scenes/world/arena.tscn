@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=67 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -44,25 +44,34 @@ shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3fj8v"]
+[sub_resource type="Gradient" id="Gradient_76ubx"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.382166, 0.78344)
+colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490196, 0.215686, 0.490196, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mp4mh"]
+gradient = SubResource("Gradient_76ubx")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72a1g"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uj5xr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ligbw"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fx6w1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vno3t"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0okc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_stw3y"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -97,6 +106,45 @@ font_size = 20
 [sub_resource type="LabelSettings" id="LabelSettings_c3xq3"]
 font = ExtResource("14_virs7")
 font_size = 52
+
+[sub_resource type="Gradient" id="Gradient_87m0d"]
+offsets = PackedFloat32Array(0.697183, 0.915493)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7gh72"]
+gradient = SubResource("Gradient_87m0d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m15ey"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+direction = Vector3(1, -1, 0)
+spread = 100.0
+gravity = Vector3(0, 200, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 150.0
+scale_min = 0.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_7gh72")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+
+[sub_resource type="Gradient" id="Gradient_k8nw2"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.242038, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.362054, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tt8ex"]
+gradient = SubResource("Gradient_k8nw2")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="Shader" id="Shader_xeja2"]
 code = "shader_type canvas_item;
@@ -163,6 +211,24 @@ shader_parameter/diffs = PackedVector2Array(0.2, 0, -0.5, 0.3, 0, 0.1, 0.35, -0.
 shader_parameter/speeds = PackedFloat32Array(4, 3, 4.5, 3.5, 10, 10, 30)
 shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.45, -0.4, 0.5, 0.08, 0.05, 0.02)
 shader_parameter/particle_texture = SubResource("GradientTexture2D_t2mpx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oesur"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+direction = Vector3(-1, -1, 0)
+spread = 100.0
+gravity = Vector3(0, 200, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 150.0
+scale_min = 0.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_7gh72")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -248,6 +314,29 @@ script = ExtResource("3_2ehmk")
 side = 1
 metadata/_edit_lock_ = true
 
+[node name="omega_A_damage" type="TextureRect" parent="background_2"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 770.0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_mp4mh")
+metadata/_edit_lock_ = true
+
+[node name="omega_B_damage" type="TextureRect" parent="background_2"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(770, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_mp4mh")
+flip_h = true
+metadata/_edit_lock_ = true
+
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
@@ -258,34 +347,22 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_3fj8v")
+material = SubResource("ShaderMaterial_72a1g")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_uj5xr")
+material = SubResource("ShaderMaterial_ligbw")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_fx6w1")
+material = SubResource("ShaderMaterial_vno3t")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_i0okc")
+material = SubResource("ShaderMaterial_stw3y")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
-
-[node name="_clicable_area" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-metadata/_edit_lock_ = true
 
 [node name="arena" parent="." instance=ExtResource("7_1651p")]
 custom_minimum_size = Vector2(710, 440)
@@ -293,6 +370,7 @@ reactor_path = NodePath("../reactors")
 
 [node name="Player_A" type="Node" parent="."]
 script = ExtResource("13_wjs4m")
+area_damage_path = NodePath("../background_2/omega_A_damage")
 
 [node name="omega" type="TextureRect" parent="Player_A"]
 anchors_preset = 4
@@ -351,9 +429,21 @@ horizontal_alignment = 1
 vertical_alignment = 2
 metadata/_edit_lock_ = true
 
+[node name="particles" type="GPUParticles2D" parent="Player_A/omega"]
+position = Vector2(64, 64)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_m15ey")
+texture = SubResource("GradientTexture2D_tt8ex")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
 [node name="Player_B" type="Node" parent="."]
 script = ExtResource("13_wjs4m")
 player = 1
+area_damage_path = NodePath("../background_2/omega_B_damage")
 
 [node name="omega" type="TextureRect" parent="Player_B"]
 anchors_preset = 6
@@ -415,6 +505,17 @@ label_settings = SubResource("LabelSettings_c3xq3")
 horizontal_alignment = 1
 vertical_alignment = 2
 metadata/_edit_lock_ = true
+
+[node name="particles" type="GPUParticles2D" parent="Player_B/omega"]
+position = Vector2(64, 64)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_oesur")
+texture = SubResource("GradientTexture2D_tt8ex")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
 
 [node name="CameraArena" type="Camera2D" parent="."]
 position = Vector2(960, 0)
@@ -760,21 +861,6 @@ offset_left = 422.0
 offset_top = 199.0
 offset_right = 568.0
 offset_bottom = 341.0
-
-[node name="pra usar depois" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="NinePatchRect3" type="NinePatchRect" parent="pra usar depois"]
-offset_left = 53.0
-offset_top = 615.0
-offset_right = 515.0
-offset_bottom = 954.0
-texture = ExtResource("19_rqw3s")
-region_rect = Rect2(0, 0, 446, 677)
-patch_margin_left = 30
-patch_margin_top = 80
-patch_margin_right = 120
-patch_margin_bottom = 110
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]

@@ -13,9 +13,6 @@ enum {
 enum {
 	SIMBOL, NAME, VALENTIA, SERIE
 }
-#enum State {
-#	NORMAL, BIND_LINK, REMOVE_LINK, ATTACKING, DEFENDING, MOTION, COOKING
-#}
 enum NodeState {
 	NORMAL, HOVER, SELECTED
 }
@@ -187,7 +184,7 @@ var valentia: int
 @export var atomic_number: int:
 	set(value):
 		atomic_number = value
-		eletrons = value
+		eletrons = value +1
 		neutrons = value
 		valentia = DATA[atomic_number][VALENTIA]
 		tooltip_text = DATA[atomic_number][NAME]
@@ -211,9 +208,7 @@ var disabled: bool:
 	set(value):
 		disabled = value
 		legancy.set_fade(float(!value))
-		
-		if not value:
-			reset()
+
 
 var active: bool:
 	set(value):
@@ -335,10 +330,10 @@ func _draw():
 	)
 	# eletrons
 	var eletrons_string_size = GIANT_ROBOT.get_string_size(
-			str(eletrons +1), HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_ATRIBUTES_SIZE
+			str(eletrons), HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_ATRIBUTES_SIZE
 	)
 	draw_string(
-			GIANT_ROBOT, Vector2(68 - eletrons_string_size.x, 16), str(eletrons +1),
+			GIANT_ROBOT, Vector2(68 - eletrons_string_size.x, 16), str(eletrons),
 			HORIZONTAL_ALIGNMENT_LEFT, 200, FONT_ATRIBUTES_SIZE, symbol_color
 	)
 	# icone de passivo
@@ -364,11 +359,12 @@ func _exit_tree():
 
 
 func reset():
+	disabled = false
 	if target_neutrons:
 		neutrons = target_neutrons
 	else:
 		neutrons = atomic_number
-	neutrons = atomic_number
+	eletrons = atomic_number +1
 
 
 func _set_current_node_state(state: NodeState):

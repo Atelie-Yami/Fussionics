@@ -20,6 +20,9 @@ static func combat_check_result(element_attacker: Element, element_defender: Ele
 
 
 static func can_element_attack(element: Element) -> bool:
+	if element.disabled:
+		return false
+	
 	for debuff in element.debuffs:
 		if debuff.type == PassiveEffect.Debuff.ATTACK_BLOQ:
 			return false
@@ -48,7 +51,7 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 			if combat_check_result(defender.element, attaker.element) == Result.WINNER:
 				await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
-				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.neutrons - attaker.element.eletrons)
+				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.eletrons - attaker.element.neutrons)
 				Gameplay.arena.remove_element(attaker.element.grid_position)
 		
 		Result.DRAW:

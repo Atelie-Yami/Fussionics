@@ -6,6 +6,7 @@ signal element_selected(valid)
 enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 enum ActionState {NORMAL, ATTACK, LINK, UNLINK}
 
+const ATTACKABLE_SLOTS_VFX := preload("res://scripts/vfx/attackable_slots_vfx.gd")
 const ACTION_BUTTON := preload("res://scenes/elements/element_action_button.tscn")
 
 var time: float = 0.0
@@ -22,6 +23,7 @@ var in_unlink_state: bool
 var arena: Arena
 var element_info: Control
 var passive_status: Node2D
+var attackable_slots: Control = ATTACKABLE_SLOTS_VFX.new()
 
 var callback_action: int
 var selected_element_target: Element:
@@ -56,13 +58,16 @@ var action_state := ActionState.NORMAL:
 		
 		match action_state:
 			ActionState.NORMAL:
-				self.selected_element = null
-				self.selected_element_target = null
+				selected_element = null
+				selected_element_target = null
 				callback_action = -1
+				attackable_slots.set_slots({})
 
 
 func _ready():
 	add_child(element_focus)
+	add_child(attackable_slots)
+	
 	element_focus.visible = false
 	element_focus.texture = preload("res://assets/img/elements/element_moldure4.png")
 	
@@ -88,7 +93,7 @@ func _process(delta):
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("mouse_click") or event.is_action_pressed("ui_cancel"):
-		self.action_state = ActionState.NORMAL
+		action_state = ActionState.NORMAL
 		passive_status.set_element(null)
 
 
@@ -113,13 +118,14 @@ func _action_pressed(action: ElementActions):
 				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)
 				slot.eletrons_charged = true
 			
-			self.action_state = ActionState.ATTACK
+			attackable_slots.set_slots(arena.elements)
+			action_state = ActionState.ATTACK
 		
 		ElementActions.LINK:
-			self.action_state = ActionState.LINK
+			action_state = ActionState.LINK
 		
 		ElementActions.UNLINK:
-			self.action_state = ActionState.UNLINK
+			action_state = ActionState.UNLINK
 		
 		ElementActions.EFFECT:
 			arena.element_use_effect(selected_element)
@@ -136,7 +142,7 @@ func callback_action_target(target: Element):
 		ElementActions.UNLINK:
 			arena.unlink_elements(selected_element, selected_element_target)
 	
-	self.action_state = ActionState.NORMAL
+	action_state = ActionState.NORMAL
 
 
 func slot_get_actions(slot: Arena.Slot):

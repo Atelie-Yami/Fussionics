@@ -22,7 +22,14 @@ var life: int = MAX_LIFE:
 		if life == 0:
 			dead.emit()
 
+@export var area_damage_path: NodePath
+@onready var area_damage_vfx: TextureRect = get_node(area_damage_path)
+
 @onready var arena: Arena = $"../arena"
+@onready var camera_arena = $"../CameraArena"
+@onready var particles = $omega/particles
+@onready var omega = $omega
+
 
 
 func set_turn(active: bool):
@@ -40,6 +47,20 @@ func set_turn(active: bool):
 
 func take_damage(danage: int):
 	life -= danage
+	particles.emitting = true
+	
+	var final_position: Vector2 = omega.position
+	omega.position += Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized() * 50.0
+	
+	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(omega, "position", final_position, 0.4)
+	
+	area_damage_vfx.modulate.a = 1.0
+	var tween2 := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween2.tween_property(area_damage_vfx, "modulate:a", 0.0, 1.0)
+	
+	camera_arena.shake(4.0)
+	
 
 
 func heal(_heal: int):
