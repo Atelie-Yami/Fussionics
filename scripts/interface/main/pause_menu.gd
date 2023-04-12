@@ -2,46 +2,28 @@ extends Control
 class_name PauseMenu
 
 #Video
-
 @export var DisplayModeButton:OptionButton
-
 @export var MaxFpsValueLabel:Label
-
 @export var MaxFpsSlider:HSlider
 
 
 #VideoEnd
-
-
 #Audio
-
-
 @export var MasterVolumeValueLabel:Label
-
 @export var MasterVolumeSlider:HSlider
-
 @export var MusicVolumeValueLabel:Label
-
 @export var MusicVolumeSlider:HSlider
-
 @export var SFXVolumeValueLabel:Label
-
 @export var SFXVolumeSlider:HSlider
 
-
 #AudioEnd
-
-
-
 #OptionMenu Var
-
 @export var OptionsSettings:Control
-
 @export var OptionsMenu:VBoxContainer
 
 #OptionMenu Var End
-
 @export var InGame=true
+
 
 func _ready():
 	DisplayModeButton.add_item("Windowed")
@@ -50,7 +32,6 @@ func _ready():
 
 
 #Video Settings
-
 func ChangeModeScreen(value)->void:
 	if value=="Windowed":
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
@@ -63,6 +44,7 @@ func ChangeVsync(value:bool)->void:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
 
 func ChangeMaxFps(value)->void:
 	Engine.max_fps=value
@@ -82,15 +64,11 @@ func _max_fps_slider_value_changed(value):
 	ChangeMaxFps(value)
 	MaxFpsValueLabel.text= str(value) if value < MaxFpsSlider.max_value else "Max"
 
+
 #Video Settings END
-
-
-
 #Audio Settings
-
 func ChangeBusVolume(id,value)->void:
 	AudioServer.set_bus_volume_db(id,value)
-
 
 
 func _master_volume_slider_value_changed(value):
@@ -107,26 +85,24 @@ func _sfx_volume_slider_value_changed(value):
 	ChangeBusVolume(2,value)
 	SFXVolumeValueLabel.text= str(value) if value < SFXVolumeSlider.max_value else "Max"
 
+
 #Audio Settings End
-
-
 #OptionsMenu
-
-
 func OpenOpitionSettings()->void:
 	OptionsSettings.visible=true
 	var tween=create_tween()
 	tween.tween_property(OptionsSettings,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
+
 
 func OpenMenuSettings()->void:
 	OptionsMenu.visible=true
 	var tween=create_tween()
 	tween.tween_property(OptionsMenu,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
 
+
 func _settings_pressed():
 	OptionsMenu.visible=false
 	OpenOpitionSettings()
-	
 
 
 func _close_options_settings_pressed():

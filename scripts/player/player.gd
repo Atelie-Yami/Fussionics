@@ -1,6 +1,6 @@
 class_name Player extends Node
 
-signal dead
+signal end_game(win)
 
 enum Players {A, B}
 
@@ -20,7 +20,8 @@ var life: int = MAX_LIFE:
 		life = max(value, 0)
 		
 		if life == 0:
-			dead.emit()
+			end_game.emit(player == 1)
+			disable_elements()
 
 @export var area_damage_path: NodePath
 @onready var area_damage_vfx: TextureRect = get_node(area_damage_path)
@@ -29,7 +30,6 @@ var life: int = MAX_LIFE:
 @onready var camera_arena = $"../CameraArena"
 @onready var particles = $omega/particles
 @onready var omega = $omega
-
 
 
 func set_turn(active: bool):
@@ -45,6 +45,14 @@ func set_turn(active: bool):
 				slot.element.reset()
 
 
+func disable_elements():
+	for pos in arena.elements:
+		var slot = arena.elements[pos]
+		slot.element.active = false
+		slot.skill_used = true
+		slot.can_act = false
+
+
 func take_damage(danage: int):
 	life -= danage
 	particles.emitting = true
@@ -58,9 +66,7 @@ func take_damage(danage: int):
 	area_damage_vfx.modulate.a = 1.0
 	var tween2 := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween2.tween_property(area_damage_vfx, "modulate:a", 0.0, 1.0)
-	
 	camera_arena.shake(4.0)
-	
 
 
 func heal(_heal: int):

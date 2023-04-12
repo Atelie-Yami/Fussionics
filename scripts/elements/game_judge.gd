@@ -9,10 +9,10 @@ enum Result {
 static func combat_check_result(element_attacker: Element, element_defender: Element) -> Result:
 	# avaliar os efeitos pra saber se tem codições nesse caso atual
 	
-	if element_attacker.eletrons > element_defender.neutrons:
+	if element_attacker.eletrons > element_defender.neutrons + 1:
 		return Result.WINNER
 	
-	elif element_attacker.eletrons == element_defender.neutrons:
+	elif element_attacker.eletrons == element_defender.neutrons + 1:
 		return Result.DRAW
 	
 	else:
@@ -42,7 +42,7 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 		Result.WINNER:
 			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
-			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons)
+			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons - 1)
 			Gameplay.arena.remove_element(defender.element.grid_position)
 			attaker.can_act = false
 			attaker.element.disabled = true
@@ -51,7 +51,7 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 			if combat_check_result(defender.element, attaker.element) == Result.WINNER:
 				await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
-				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.eletrons - attaker.element.neutrons)
+				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.eletrons - attaker.element.neutrons - 1)
 				Gameplay.arena.remove_element(attaker.element.grid_position)
 		
 		Result.DRAW:
@@ -86,16 +86,18 @@ static func charge_eletrons_to_attack(header: Element, molecule: Molecule):
 			element = header.links[link].element_B
 		else:
 			element = header.links[link].element_A
+		var lec: EletronChangeLable
 		
 		if element.eletrons >= level:
+			lec = EletronChangeLable.new(-level)
 			element.eletrons -= level
 			power += level
 		
 		else:
+			lec = EletronChangeLable.new(-element.eletrons)
 			power += element.eletrons
 			element.eletrons = 0
 		
-		var lec = EletronChangeLable.new(-1)
 		lec.global_position = element.global_position + Vector2(53, -10)
 		Gameplay.add_child(lec)
 		
