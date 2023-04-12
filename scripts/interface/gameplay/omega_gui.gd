@@ -21,3 +21,4 @@ func _process(delta):
 	
 	else:
 		life_value.text = str(player.life)
+

@@ -158,14 +158,14 @@ func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 			not header.element.effect or
 			header.element.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
 	):
-		GameJudge.combat(header, target)
+		await GameJudge.combat(header, target)
 	
 	match kit:
 		Kit.ATTACK:
 			if header.element.effect and header.element.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
-				assembly_kit_combat_effects(header.element.effect, target.element)
+				await assembly_kit_combat_effects(header.element.effect, target.element)
 			else:
-				GameJudge.combat(header, target)
+				await GameJudge.combat(header, target)
 				header.element.disabled = true
 		Kit.EFFECT:
 			pass
@@ -181,5 +181,5 @@ func assembly_kit_combat_effects(header: SkillEffect, target: Element):
 	header.get_targets(cluster, target)
 	cluster.construct(header)
 	
-	header.molecule_effect(cluster)
+	await header.molecule_effect(cluster)
 

@@ -6,7 +6,7 @@ signal element_selected(valid)
 enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 enum ActionState {NORMAL, ATTACK, LINK, UNLINK}
 
-const ATTACKABLE_SLOTS_VFX := preload("res://scripts/vfx/attackable_slots_vfx.gd")
+const SLOT_INTERACT_INDICATOR := preload("res://scripts/vfx/slot_interact_indicator.gd")
 const ACTION_BUTTON := preload("res://scenes/elements/element_action_button.tscn")
 
 var time: float = 0.0
@@ -23,7 +23,8 @@ var in_unlink_state: bool
 var arena: Arena
 var element_info: Control
 var passive_status: Node2D
-var attackable_slots: Control = ATTACKABLE_SLOTS_VFX.new()
+var slot_interact_indicator: Control = SLOT_INTERACT_INDICATOR.new()
+var attack_omega_handler: Control
 
 var callback_action: int
 var selected_element_target: Element:
@@ -61,12 +62,13 @@ var action_state := ActionState.NORMAL:
 				selected_element = null
 				selected_element_target = null
 				callback_action = -1
-				attackable_slots.set_slots({})
+				slot_interact_indicator.set_slots({}, 0)
+				attack_omega_handler.visible = false
 
 
 func _ready():
 	add_child(element_focus)
-	add_child(attackable_slots)
+	add_child(slot_interact_indicator)
 	
 	element_focus.visible = false
 	element_focus.texture = preload("res://assets/img/elements/element_moldure4.png")
@@ -118,14 +120,16 @@ func _action_pressed(action: ElementActions):
 				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)
 				slot.eletrons_charged = true
 			
-			attackable_slots.set_slots(arena.elements)
+			slot_interact_indicator.set_slots(arena.elements, 0)
 			action_state = ActionState.ATTACK
 		
 		ElementActions.LINK:
 			action_state = ActionState.LINK
+			slot_interact_indicator.set_slots(arena.elements, 1, selected_element.grid_position)
 		
 		ElementActions.UNLINK:
 			action_state = ActionState.UNLINK
+			slot_interact_indicator.set_slots(selected_element.links, 2, selected_element.grid_position)
 		
 		ElementActions.EFFECT:
 			arena.element_use_effect(selected_element)

@@ -51,6 +51,12 @@ func _init():
 	Gameplay.arena = self
 
 
+func _gui_input(event):
+	if event.is_action_pressed("mouse_click"):
+		Gameplay.action_state = Gameplay.ActionState.NORMAL
+		Gameplay.passive_status.set_element(null)
+
+
 func _check_slot_empty(slot: Vector2i):
 	return not elements.has(slot)
 
@@ -311,9 +317,27 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
-		slot_attacker.molecule.effects_cluster_assembly(slot_attacker, slot_defender, Molecule.Kit.ATTACK)
+		await slot_attacker.molecule.effects_cluster_assembly(slot_attacker, slot_defender, Molecule.Kit.ATTACK)
 	else:
-		GameJudge.combat(slot_attacker, slot_defender)
+		await GameJudge.combat(slot_attacker, slot_defender)
+	combat_in_process = false
+
+
+func direct_attack(attacker: Vector2i):
+	if not elements[attacker].can_act or combat_in_process: return
+	
+	var slot_attacker: Slot = elements[attacker]
+	combat_in_process = true
+	
+	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.PRE_ATTACK)
+	
+	if slot_attacker.molecule:
+		pass
+	else:
+		current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
+		slot_attacker.element.disabled = true
+		slot_attacker.can_act = false
+	
 	combat_in_process = false
 
 
