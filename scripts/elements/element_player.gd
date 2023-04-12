@@ -11,24 +11,24 @@ func _gui_input(event: InputEvent):
 	
 	if not event.is_action_pressed("mouse_click") or disabled:
 		return
-	
+
 	match Gameplay.action_state:
 		Gameplay.ActionState.NORMAL:
 			_set_current_node_state(NodeState.SELECTED)
 			Gameplay.passive_status.set_element(self)
-	
+
 		Gameplay.ActionState.LINK:
-			if number_electrons_in_valencia > 0 and _is_neighbor_to_link():
+			if number_electrons_in_valencia > 0 and GameJudge.is_neighbor_to_link(grid_position):
 				Gameplay.selected_element_target = self
 			else:
 				Gameplay.action_state = Gameplay.ActionState.NORMAL
-	
+
 		Gameplay.ActionState.UNLINK:
-			if _is_neighbor_to_link():
+			if GameJudge.is_neighbor_to_link(grid_position):
 				Gameplay.selected_element_target = self
 			else:
 				Gameplay.action_state = Gameplay.ActionState.NORMAL
-		
+
 		Gameplay.ActionState.ATTACK:
 			Gameplay.action_state = Gameplay.ActionState.NORMAL
 

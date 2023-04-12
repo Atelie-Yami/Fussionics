@@ -56,7 +56,6 @@ func molecule_effect(cluster: EffectCluster):
 			var burn: PassiveEffect = target.debuffs[PassiveEffect.Debuff.BURNING]
 			(target.debuffs as Dictionary).erase(PassiveEffect.Debuff.BURNING)
 			target.neutrons -= burn.stack
-			print(target)
 	
 	GameJudge.combat(
 		Gameplay.arena.elements[element.grid_position],

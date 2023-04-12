@@ -165,9 +165,10 @@ func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 			if header.element.effect and header.element.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
 				assembly_kit_combat_effects(header.element.effect, target.element)
 			else:
-				GameJudge.charge_eletrons_to_attack(header.element, self)
 				GameJudge.combat(header, target)
 				header.element.disabled = true
+		Kit.EFFECT:
+			pass
 
 
 func assembly_kit_combat_effects(header: SkillEffect, target: Element):

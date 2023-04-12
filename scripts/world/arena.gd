@@ -17,13 +17,8 @@ class Slot:
 	var molecule: Molecule
 	
 	var skill_used: bool = false
-	
-	var can_act: bool = true:
-		set(value):
-			can_act = value
-			
-			if not can_act and not molecule:
-				element.disabled = true
+	var eletrons_charged: bool
+	var can_act: bool = true
 	
 	func _init(_e: Element, _p: Players):
 		element = _e; player = _p
@@ -175,9 +170,10 @@ func link_elements(element_a: Element, element_b: Element):
 			_link_elements(element_a, element_b)
 			
 		else:
+			slot_b.molecule.border_line.queue_free()
 			for e in slot_b.molecule.configuration:
 				slot_a.molecule.add_element(e)
-				
+			
 			slot_a.molecule.link_elements(element_a, element_b)
 			slot_a.molecule.gain_ref()
 	
@@ -269,7 +265,9 @@ func _handle_molecule(element: Element):
 	else:
 		molecula = Molecule.new()
 		molecula.configuration = molecule_config
-		elements[element.grid_position].molecule.border_line.queue_free()
+		
+		if is_instance_valid(elements[element.grid_position].molecule.border_line):
+			elements[element.grid_position].molecule.border_line.queue_free()
 		
 		for e in molecule_config:
 			elements[e.grid_position].molecule = molecula

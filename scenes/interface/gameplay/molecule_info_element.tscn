@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfgnh5kujsd20"]
+
+[ext_resource type="StyleBox" uid="uid://bhul54i7fb6xo" path="res://resouces/stylebox/label_bg_panel.stylebox" id="1_ueojp"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/molecule_info_element.gd" id="2_hw711"]
+
+[node name="element_info" type="RichTextLabel"]
+theme_override_styles/normal = ExtResource("1_ueojp")
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("2_hw711")

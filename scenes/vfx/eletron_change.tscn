@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://daanqi5jrikc6"]
+
+[ext_resource type="Theme" uid="uid://d20giirqakg3w" path="res://resouces/themes/panel_gameplay.theme" id="1_x51cp"]
+[ext_resource type="Script" path="res://scripts/vfx/eletron_change.gd" id="2_xciyh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sdfvd"]
+font_size = 14
+
+[node name="eletron_change" type="Label"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 13.0
+offset_bottom = 16.0
+theme = ExtResource("1_x51cp")
+text = "+1"
+label_settings = SubResource("LabelSettings_sdfvd")
+script = ExtResource("2_xciyh")

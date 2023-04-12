@@ -108,6 +108,11 @@ func _action_pressed(action: ElementActions):
 			if arena.combat_in_process or not GameJudge.can_element_attack(selected_element):
 				return
 			
+			var slot = Gameplay.arena.elements[selected_element.grid_position]
+			if slot.molecule and not slot.eletrons_charged:
+				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)
+				slot.eletrons_charged = true
+			
 			self.action_state = ActionState.ATTACK
 		
 		ElementActions.LINK:

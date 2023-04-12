@@ -5,6 +5,8 @@ const SERIES := [
 	'OTHERS', 'SEMIMETAL', 'METALLOID', 'HALOGEN', 'NOBLE', 'UNKNOWN'
 ]
 
+@export var molecule_info_path: NodePath
+@onready var molecule_info = get_node(molecule_info_path)
 
 @onready var symbol : TextureRect= $MarginContainer/VBoxContainer/element_profile/symbol
 @onready var element_name : Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/name
@@ -46,6 +48,8 @@ func load_data(data: Dictionary, atomic_number: int):
 func show_info(element: Element):
 	var data = Element.DATA[element.atomic_number]
 	load_data(data, element.atomic_number)
+	
+	molecule_info.load_info(element)
 	
 	if element.neutrons != element.atomic_number:
 		extra_neutrons.text = tr("ISOTOPO")

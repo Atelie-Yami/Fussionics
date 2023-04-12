@@ -32,8 +32,10 @@ func set_turn(active: bool):
 			slot.element.active = active
 			
 			if active:
+				slot.eletrons_charged = false
 				slot.skill_used = false
 				slot.can_act = true
+				slot.element.reset()
 
 
 func take_damage(danage: int):

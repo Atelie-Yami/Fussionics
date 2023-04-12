@@ -73,30 +73,50 @@ static func charge_eletrons_to_attack(header: Element, molecule: Molecule):
 	var charged_elements: Array[Element]
 	
 	for link in header.links:
-		if header.links[link]:
-			var level: int = header.links[link].level
-			var element: Element
-			
-			if header.links[link].element_A == header:
-				element = header.links[link].element_B
-			else:
-				element = header.links[link].element_A
-			
-			if element.eletrons >= level:
-				element.eletrons -= level
-				power += level
-			
-			else:
-				power += element.eletrons
-				element.eletrons = 0
-			
-			element.disabled = true
-			charged_elements.append(element)
+		if not header.links[link]:
+			continue
+		
+		var level: int = header.links[link].level
+		var element: Element
+		
+		if header.links[link].element_A == header:
+			element = header.links[link].element_B
+		else:
+			element = header.links[link].element_A
+		
+		if element.eletrons >= level:
+			element.eletrons -= level
+			power += level
+		
+		else:
+			power += element.eletrons
+			element.eletrons = 0
+		
+		var lec = EletronChangeLable.new(-1)
+		lec.global_position = element.global_position + Vector2(53, -10)
+		Gameplay.add_child(lec)
+		
+		charged_elements.append(element)
 	
 	for element in molecule.configuration:
-		if element != header and not charged_elements.has(element) and element.eletrons > 0:
-			element.disabled = true
-			element.eletrons -= 1
-			power += 1
+		if element == header or charged_elements.has(element) or element.eletrons <= 0:
+			continue
+		
+		element.eletrons -= 1
+		power += 1
+		
+		var lec = EletronChangeLable.new(-1)
+		lec.global_position = element.global_position + Vector2(53, -10)
+		Gameplay.add_child(lec)
 	
 	header.eletrons += power
+	
+	var lec = EletronChangeLable.new(power)
+	lec.global_position = header.global_position + Vector2(53, -10)
+	Gameplay.add_child(lec)
+
+
+static func is_neighbor_to_link(position: Vector2i):
+	var x: int = abs(Gameplay.selected_element.grid_position.x - position.x)
+	var y: int = abs(Gameplay.selected_element.grid_position.y - position.y)
+	return (x == 1 and y != 1) or (x != 1 and y == 1)

@@ -44,25 +44,25 @@ shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugpec"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3fj8v"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7exhw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uj5xr"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxgfy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fx6w1"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jis03"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0okc"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -258,19 +258,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_ugpec")
+material = SubResource("ShaderMaterial_3fj8v")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_7exhw")
+material = SubResource("ShaderMaterial_uj5xr")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_vxgfy")
+material = SubResource("ShaderMaterial_fx6w1")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_jis03")
+material = SubResource("ShaderMaterial_i0okc")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -558,6 +558,7 @@ offset_left = 29.0
 offset_top = 165.0
 offset_right = 409.0
 offset_bottom = 438.0
+molecule_info_path = NodePath("../molecule_info")
 
 [node name="molecule_info" parent="info_panel" instance=ExtResource("23_ftybf")]
 visible = false
