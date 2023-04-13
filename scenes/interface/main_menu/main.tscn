@@ -1,47 +1,40 @@
-[gd_scene load_steps=14 format=3 uid="uid://uhu5y8xqryku"]
+[gd_scene load_steps=15 format=3 uid="uid://uhu5y8xqryku"]
 
 [ext_resource type="Script" path="res://scripts/interface/main/MenuMainGUI.gd" id="1_bvv6w"]
+[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Texture2D" uid="uid://bl02fwy17ijfp" path="res://assets/img/TestMainMenu/main_menu.png" id="3_coau4"]
 [ext_resource type="Texture2D" uid="uid://dkmksv7qxvclx" path="res://assets/img/TestMainMenu/main_menuP.png" id="3_khyvx"]
-[ext_resource type="Texture2D" uid="uid://b2xn5w3own2r4" path="res://assets/img/TestMainMenu/slot_idle_background.png" id="5_dtat5"]
-[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="5_v16lr"]
-[ext_resource type="Texture2D" uid="uid://cpe8f4h28lr11" path="res://assets/img/TestMainMenu/slot_hover_background.png" id="6_4v1an"]
+[ext_resource type="Texture2D" uid="uid://jaf55i6w3x3h" path="res://assets/img/interface/main_image/button/button_normal_left.svg" id="5_fhi5r"]
+[ext_resource type="Texture2D" uid="uid://djpg8dtf6g0gp" path="res://assets/img/interface/main_image/button/button_select_left.svg" id="6_1g0l3"]
+[ext_resource type="Texture2D" uid="uid://chqeumhuln75r" path="res://assets/img/interface/main_image/button/button_pressed_left.svg" id="7_y3glx"]
 [ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="8_l2hvn"]
 [ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/TestMainMenu/itch-io.png" id="9_hv8yb"]
 [ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/TestMainMenu/Twiter.png" id="9_rpga4"]
 [ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/TestMainMenu/insta.png" id="10_cncdq"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kqpf0"]
-texture = ExtResource("5_dtat5")
-texture_margin_bottom = 44.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ytrk"]
+texture = ExtResource("5_fhi5r")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 507, 290)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_twkcs"]
-texture = ExtResource("6_4v1an")
-texture_margin_bottom = 44.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_87xcq"]
+texture = ExtResource("6_1g0l3")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 507, 290)
 
-[sub_resource type="Theme" id="Theme_pk0a2"]
-Button/colors/font_color = Color(0.839216, 0.894118, 0.764706, 1)
-Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
-Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
-Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-Button/colors/font_outline_color = Color(1, 1, 1, 1)
-Button/colors/font_pressed_color = Color(1, 1, 1, 1)
-Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
-Button/colors/icon_focus_color = Color(1, 1, 1, 1)
-Button/colors/icon_hover_color = Color(1, 1, 1, 1)
-Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
-Button/colors/icon_normal_color = Color(1, 1, 1, 1)
-Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
-Button/constants/h_separation = 2
-Button/constants/outline_size = 1
-Button/font_sizes/font_size = 24
-Button/fonts/font = ExtResource("5_v16lr")
-Button/styles/disabled = SubResource("StyleBoxTexture_kqpf0")
-Button/styles/focus = SubResource("StyleBoxTexture_kqpf0")
-Button/styles/hover = SubResource("StyleBoxTexture_kqpf0")
-Button/styles/normal = SubResource("StyleBoxTexture_kqpf0")
-Button/styles/pressed = SubResource("StyleBoxTexture_twkcs")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wh05v"]
+texture = ExtResource("7_y3glx")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 507, 290)
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -50,6 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_w7i78")
 metadata/_edit_lock_ = true
 
 [node name="main_player" type="Control" parent="."]
@@ -71,6 +65,7 @@ script = ExtResource("1_bvv6w")
 Settings = NodePath("PauseMenu")
 
 [node name="Background" type="TextureRect" parent="main_player/GUI"]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,82 +85,116 @@ grow_vertical = 2
 texture = ExtResource("3_khyvx")
 metadata/_edit_lock_ = true
 
-[node name="Buttons" type="HBoxContainer" parent="main_player/GUI"]
+[node name="Buttons" type="VBoxContainer" parent="main_player/GUI"]
 z_index = 1
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -558.0
-offset_top = -119.0
-offset_right = 558.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = SubResource("Theme_pk0a2")
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -191.0
+offset_right = 400.0
+offset_bottom = 188.0
+grow_vertical = 2
+theme_override_constants/separation = 14
 metadata/_edit_group_ = true
 
 [node name="ModoCampanha" type="Button" parent="main_player/GUI/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Modo Campanha"
+size_flags_horizontal = 7
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
+text = "MODO CAMPANHA"
+alignment = 0
 
 [node name="PartidaRapida" type="Button" parent="main_player/GUI/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Partida Rapida"
+size_flags_horizontal = 7
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
+text = "PARTIDA RAPIDA"
+alignment = 0
 
 [node name="galeriafussion" type="Button" parent="main_player/GUI/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Galeria fussion "
+size_flags_horizontal = 7
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
+text = "GALERIA FUSSION "
+alignment = 0
 
 [node name="Configurações" type="Button" parent="main_player/GUI/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Configurações"
+size_flags_horizontal = 7
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
+text = "CONFIGURACOES"
+alignment = 0
 
 [node name="SairdoJogo" type="Button" parent="main_player/GUI/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Sair do Jogo"
+size_flags_horizontal = 7
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
+text = "SAIR DO JOGO"
+alignment = 0
 
 [node name="PauseMenu" parent="main_player/GUI" instance=ExtResource("8_l2hvn")]
 layout_mode = 1
 InGame = false
 
-[node name="RedeSocial" type="VBoxContainer" parent="main_player/GUI"]
+[node name="RedeSocial" type="HBoxContainer" parent="main_player/GUI"]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 3
 anchor_left = 1.0
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -156.0
-offset_top = -239.0
-offset_right = 388.0
-offset_bottom = 1292.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -90.0
 grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(0.25, 0.25)
+grow_vertical = 0
 metadata/_edit_group_ = true
 
 [node name="itch" type="TextureButton" parent="main_player/GUI/RedeSocial"]
+custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("9_hv8yb")
-stretch_mode = 3
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="twiter" type="TextureButton" parent="main_player/GUI/RedeSocial"]
+custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("9_rpga4")
-stretch_mode = 3
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="insta" type="TextureButton" parent="main_player/GUI/RedeSocial"]
 visible = false
+custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_cncdq")
-stretch_mode = 3
+ignore_texture_size = true
+stretch_mode = 0
 
 [connection signal="pressed" from="main_player/GUI/Buttons/ModoCampanha" to="main_player/GUI" method="_modo_campanha_pressed"]
 [connection signal="pressed" from="main_player/GUI/Buttons/PartidaRapida" to="main_player/GUI" method="_partida_rapida_pressed"]

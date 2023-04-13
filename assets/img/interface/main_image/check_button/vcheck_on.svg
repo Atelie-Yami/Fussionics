@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="12.631378mm"
+   height="5.2844791mm"
+   viewBox="0 0 12.631378 5.2844791"
+   version="1.1"
+   id="svg4283"
+   xml:space="preserve"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="menu.svg"
+   inkscape:export-filename="menu.svg"
+   inkscape:export-xdpi="159.51199"
+   inkscape:export-ydpi="159.51199"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview4285"
+     pagecolor="#777777"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#2f2f2f"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.7385171"
+     inkscape:cx="421.79118"
+     inkscape:cy="315.49709"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs4280" /><g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-453.53932,-26.028975)"><path
+       id="path30944"
+       style="fill:#9cbefb;fill-opacity:1;fill-rule:evenodd;stroke-width:0.471319;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 456.13097,26.028975 h 7.3943 l 2.64542,2.64226 -2.64542,2.64222 h -7.3943 l -2.59162,-2.64222 z"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="main_image\check_button\vcheck_on.svg"
+       inkscape:export-xdpi="191.41078"
+       inkscape:export-ydpi="191.41078" /><path
+       id="path30946"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.427123;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 463.22431,26.265195 -2.39236,2.39236 2.39236,2.39237 2.39236,-2.39237 z m 0,0.57873 1.81363,1.81363 -1.81363,1.81409 -1.81409,-1.81409 z" /><path
+       id="path30948"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.261651;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 463.2242,27.192065 1.46556,1.46556 -1.46556,1.46557 -1.46555,-1.46557 z"
+       sodipodi:nodetypes="ccccc" /></g></svg>
