@@ -1,9 +1,11 @@
 extends Control
 
-@onready var Camera:CameraArena = get_node("CameraArena")
-@onready var hScroll:HScrollBar = get_node("Buttons/Scroll/HScrollBar")
-@onready var vScroll:VScrollBar = get_node("Buttons/Scroll/VScrollBar")
 
+@onready var camera = $Camera
+@onready var v_scroll_bar = $Buttons/Scroll/VScrollBar
+@onready var h_scroll_bar = $Buttons/Scroll/HScrollBar
+
+var in_zoom: bool
 
 
 func _voltar_pressed():
@@ -11,18 +13,17 @@ func _voltar_pressed():
 
 
 func _h_scroll_bar_scrolling():
-	Camera.position.x=hScroll.value
+	camera.position.x = h_scroll_bar.value
 
 func _physics_process(delta):
-	if Camera.zoom.x>1.15:
-		hScroll.visible=true
-		vScroll.visible=true
-		hScroll.max_value=Camera.limit_right*(Camera.zoom.x-Camera.zoom.x/2)
-		vScroll.max_value=Camera.limit_bottom*(Camera.zoom.y-Camera.zoom.y/2)
-	else:
-		hScroll.visible=false
-		vScroll.visible=false
+	in_zoom = camera.zoom.x > 1.15
+	h_scroll_bar.visible = in_zoom
+	v_scroll_bar.visible = in_zoom
+	
+	if camera.zoom.x > 1.15:
+		h_scroll_bar.max_value = camera.limit_right * (camera.zoom.x - camera.zoom.x / 2)
+		v_scroll_bar.max_value = camera.limit_bottom * (camera.zoom.y - camera.zoom.y / 2)
 
 
 func _v_scroll_bar_scrolling():
-	Camera.position.y=vScroll.value
+	camera.position.y = v_scroll_bar.value

@@ -55,25 +55,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tsodf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_am5o6"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hq4d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bxpuv"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixlre"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xojp7"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wqno"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k101w"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -349,19 +349,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_tsodf")
+material = SubResource("ShaderMaterial_am5o6")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_6hq4d")
+material = SubResource("ShaderMaterial_bxpuv")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_ixlre")
+material = SubResource("ShaderMaterial_xojp7")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_7wqno")
+material = SubResource("ShaderMaterial_k101w")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -549,8 +549,8 @@ position = Vector2(960, 0)
 position_smoothing_enabled = true
 script = ExtResource("10_6paj4")
 turbulence_force = 0.5
-background_path = NodePath("../background_2")
 element_info_path = NodePath("../info_panel/element_info")
+background_path = NodePath("../background_2")
 
 [node name="passive_status" parent="." instance=ExtResource("15_1splr")]
 visible = false

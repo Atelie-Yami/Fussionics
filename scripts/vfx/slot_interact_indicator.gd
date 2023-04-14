@@ -3,6 +3,7 @@ extends Control
 enum Mode {
 	ATTACK, LINK, UNLINK
 }
+const EXCLAMATION := preload("res://resouces/atlas/arena/exclamation_icon.atlastex")
 const SWORD := preload("res://assets/img/interface/sword.png")
 const LINK := preload("res://assets/img/interface/link.png")
 const UNLINK := preload("res://assets/img/interface/unlink.png")
@@ -15,6 +16,7 @@ var mode: Mode
 var time := 0.0
 var animation := 0.0
 var _slots: Array[Vector2i]
+var element_in_action := Vector2(20, 0)
 
 
 func _init():
@@ -24,9 +26,6 @@ func _init():
 
 func set_slots(elements: Dictionary, _mode: int, args = null):
 	_slots.clear()
-	queue_redraw()
-	time = 1.0
-	set_process(not elements.is_empty())
 	mode = _mode
 	
 	if mode == Mode.ATTACK:
@@ -36,9 +35,8 @@ func set_slots(elements: Dictionary, _mode: int, args = null):
 				_slots.append(elements[slot].element.grid_position)
 				has_enemies = true
 		
-		if not has_enemies:
-			Gameplay.attack_omega_handler.visible = true
-	
+		Gameplay.attack_omega_handler.visible = not has_enemies
+		
 	elif args != null:
 		var _position = args as Vector2i
 		
@@ -65,32 +63,31 @@ func set_slots(elements: Dictionary, _mode: int, args = null):
 
 func _process(delta):
 	time += delta
-	animation = cos(time * ANIMATION_SPEED)
+	animation = abs(cos(time * ANIMATION_SPEED))
 	queue_redraw()
 
 
 func _draw():
-	var _motion := Vector2(abs(animation), abs(animation)) * 20.0
+	var _motion := Vector2(animation, animation) * 20.0
 	
 	for slot in _slots:
 		var _pos := Vector2((slot * SLOT_SIZE) - TEXTURE_OFFSET[mode]) - _motion
 		var _rect := Rect2(_pos, RECT_SIZE + (_motion * 2))
+		var _color_a := animation * 0.7
 		
 		match mode:
 			Mode.ATTACK:
-				var color := Color.RED
-				color.a = abs(animation * 0.5)
-				
-				draw_texture_rect(SWORD, _rect, false, color)
+				draw_texture_rect(SWORD, _rect, false, Color.RED * animation * 0.5)
 				
 			Mode.LINK:
-				var color := Color.DARK_SEA_GREEN
-				color.a = abs(animation * 0.7)
-				draw_texture_rect(LINK, _rect, false, color)
+				draw_texture_rect(LINK, _rect, false, Color.DARK_SEA_GREEN * _color_a)
 				
 			Mode.UNLINK:
-				var color := Color.INDIAN_RED
-				color.a = abs(animation * 0.7)
-				draw_texture_rect(UNLINK, _rect, false, color)
-
+				draw_texture_rect(UNLINK, _rect, false, Color.INDIAN_RED * _color_a)
+	
+	if element_in_action.x < 20:
+		var _pos := element_in_action * SLOT_SIZE
+		var _rect := Rect2(_pos + Vector2(34, -20), Vector2(12, 40))
+		
+		draw_texture_rect(EXCLAMATION, _rect, false, Color.YELLOW * animation)
 

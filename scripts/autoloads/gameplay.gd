@@ -57,13 +57,8 @@ var action_state := ActionState.NORMAL:
 	set(value):
 		action_state = value
 		
-		match action_state:
-			ActionState.NORMAL:
-				selected_element = null
-				selected_element_target = null
-				callback_action = -1
-				slot_interact_indicator.set_slots({}, 0)
-				attack_omega_handler.visible = false
+		if action_state == ActionState.NORMAL:
+			_disable_to_normal_state()
 
 
 func _ready():
@@ -110,6 +105,7 @@ func _notification(what: int):
 
 func _action_pressed(action: ElementActions):
 	callback_action = action
+	slot_interact_indicator.element_in_action = selected_element.grid_position
 	match action:
 		ElementActions.ATTACK:
 			if arena.combat_in_process or not GameJudge.can_element_attack(selected_element):
@@ -133,6 +129,7 @@ func _action_pressed(action: ElementActions):
 		
 		ElementActions.EFFECT:
 			arena.element_use_effect(selected_element)
+			action_state = ActionState.NORMAL
 
 
 func callback_action_target(target: Element):
@@ -177,3 +174,12 @@ func slot_get_actions(slot: Arena.Slot):
 		actions.append(ElementActions.EFFECT)
 	
 	return actions
+
+
+func _disable_to_normal_state():
+	callback_action = -1
+	selected_element = null
+	selected_element_target = null
+	attack_omega_handler.visible = false
+	slot_interact_indicator.set_slots({}, 2)
+	slot_interact_indicator.element_in_action.x = 20
