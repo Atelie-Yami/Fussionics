@@ -101,15 +101,14 @@ func redux_ref():
 
 func prepare_element_for_attack(header: Element):
 	configuration.map(_handle_element_action.bind(header))
+	Gameplay.arena.elements[header.grid_position].can_act = false
+	header.disabled = true
 
 
 func _handle_element_action(element: Element, header: Element):
 	if element != header and element.eletrons > 0:
 		element.eletrons -= 1
 		header.eletrons += 1
-		
-	Gameplay.arena.elements[element.grid_position].can_act = false
-	element.disabled = true
 
 
 func link_elements(element_a: Element, element_b: Element):
@@ -154,25 +153,22 @@ func get_eletron_power() -> int:
 	return power
 
 
-func effects_cluster_assembly(header: Element, target: Element, kit: Kit):
+func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 	if (
-			not not header.effect or
-			header.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
+			not header.element.effect or
+			header.element.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
 	):
-		GameJudge.combat(header, target)
+		await GameJudge.combat(header, target)
 	
 	match kit:
 		Kit.ATTACK:
-			if header.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
-				assembly_kit_combat_effects(header.skill_effect, target)
+			if header.element.effect and header.element.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
+				await assembly_kit_combat_effects(header.element.effect, target.element)
 			else:
-				GameJudge.combat(header, target)
-	
-	match header.effect.molecule_effect_type:
-		SkillEffect.MoleculeEffectType.TRIGGER: pass
-		SkillEffect.MoleculeEffectType.MECHANICAL: pass
-		SkillEffect.MoleculeEffectType.UPGRADE: pass
-		SkillEffect.MoleculeEffectType.MULTI: pass
+				await GameJudge.combat(header, target)
+				header.element.disabled = true
+		Kit.EFFECT:
+			pass
 
 
 func assembly_kit_combat_effects(header: SkillEffect, target: Element):
@@ -185,5 +181,5 @@ func assembly_kit_combat_effects(header: SkillEffect, target: Element):
 	header.get_targets(cluster, target)
 	cluster.construct(header)
 	
-	header.molecule_effect(cluster)
+	await header.molecule_effect(cluster)
 

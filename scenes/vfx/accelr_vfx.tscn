@@ -1,0 +1,121 @@
+[gd_scene load_steps=13 format=3 uid="uid://cl7rrneqpylmq"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/fussion_slot.gdshader" id="1_l3fbt"]
+[ext_resource type="Texture2D" uid="uid://dusb46g4bysw2" path="res://resouces/noise/random_noise_color.tres" id="2_iwgj4"]
+[ext_resource type="Texture2D" uid="uid://ca8qsp6aoftep" path="res://assets/img/elements/Accelr.png" id="3_gr48v"]
+[ext_resource type="Script" path="res://scripts/vfx/accelr_vfx.gd" id="4_m223a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyvnu"]
+resource_local_to_scene = true
+shader = ExtResource("1_l3fbt")
+shader_parameter/powered = 1.0
+shader_parameter/noise_texture = ExtResource("2_iwgj4")
+
+[sub_resource type="Gradient" id="Gradient_a2xrt"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.363057, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.400982, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3m12i"]
+gradient = SubResource("Gradient_a2xrt")
+width = 256
+height = 256
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_g863w"]
+offsets = PackedFloat32Array(0.570423, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ldb3p"]
+gradient = SubResource("Gradient_g863w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yyay1"]
+lifetime_randomness = 0.8
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 150.0
+gravity = Vector3(0, 200, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 300.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_ldb3p")
+hue_variation_min = -0.05
+hue_variation_max = 0.05
+
+[sub_resource type="Gradient" id="Gradient_h04hs"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.0254777, 0.0764331, 0.210191, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.615279, 1, 1, 1, 0.350505, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_en28y"]
+gradient = SubResource("Gradient_h04hs")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="accelr_A" type="TextureRect"]
+modulate = Color(0.7, 0.7, 0.7, 0.7)
+material = SubResource("ShaderMaterial_dyvnu")
+offset_left = 222.0
+offset_top = 650.0
+offset_right = 528.0
+offset_bottom = 875.0
+texture = ExtResource("3_gr48v")
+expand_mode = 1
+script = ExtResource("4_m223a")
+metadata/_edit_lock_ = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="light" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -506.0
+offset_top = -533.5
+offset_right = 506.0
+offset_bottom = 478.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_3m12i")
+
+[node name="light" type="TextureRect" parent="light"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.0
+offset_top = -243.0
+offset_right = 243.0
+offset_bottom = 243.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_3m12i")
+
+[node name="particles" type="GPUParticles2D" parent="."]
+position = Vector2(153, 73)
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_yyay1")
+texture = SubResource("GradientTexture2D_en28y")
+lifetime = 1.2
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0

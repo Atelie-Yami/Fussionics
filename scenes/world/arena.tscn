@@ -1,27 +1,30 @@
-[gd_scene load_steps=50 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=69 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
 [ext_resource type="Shader" path="res://scripts/shaders/arena_zone_indicator.gdshader" id="2_c7l4g"]
 [ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="3_2ehmk"]
-[ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="4_cjbuv"]
-[ext_resource type="Script" path="res://scripts/world/slot.gd" id="5_0uahk"]
-[ext_resource type="Texture2D" uid="uid://ca8qsp6aoftep" path="res://assets/img/elements/Accelr.png" id="7_mo1n6"]
+[ext_resource type="Shader" path="res://scripts/shaders/fussion_slot.gdshader" id="5_lvlx3"]
+[ext_resource type="Script" path="res://scripts/world/reactors.gd" id="5_o5tgb"]
+[ext_resource type="PackedScene" uid="uid://dwikojy78658y" path="res://scenes/vfx/fusion_vfx.tscn" id="6_75uax"]
+[ext_resource type="Texture2D" uid="uid://dusb46g4bysw2" path="res://resouces/noise/random_noise_color.tres" id="6_odbmm"]
+[ext_resource type="PackedScene" uid="uid://bokt3h5duv0br" path="res://scenes/world/arena_slots.tscn" id="7_1651p"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/omega_gui.gd" id="8_jy5ie"]
 [ext_resource type="Texture2D" uid="uid://h2mssyj3xtdi" path="res://assets/img/elements/Slot_2.png" id="8_krhtp"]
+[ext_resource type="PackedScene" uid="uid://cl7rrneqpylmq" path="res://scenes/vfx/accelr_vfx.tscn" id="9_nckdy"]
 [ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
 [ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
-[ext_resource type="Script" path="res://scripts/world/arena.gd" id="10_cin7l"]
 [ext_resource type="PackedScene" uid="uid://cur67wmsq7vm8" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
-[ext_resource type="Texture2D" uid="uid://bnw0hevmmjh6i" path="res://assets/img/elements/Reator.png" id="10_rnfol"]
+[ext_resource type="Shader" path="res://scripts/shaders/omega.gdshader" id="11_53l0m"]
 [ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="13_wjs4m"]
 [ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
+[ext_resource type="PackedScene" uid="uid://dsbid6s4o58bs" path="res://scenes/interface/gameplay/passive_status.tscn" id="15_1splr"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="15_7qkxm"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
-[ext_resource type="Script" path="res://scripts/world/passive_status.gd" id="15_ulnrq"]
-[ext_resource type="Script" path="res://scripts/interface/gameplay/icon_passive.gd" id="18_7iigf"]
+[ext_resource type="Texture2D" uid="uid://cosq08vrujqag" path="res://assets/img/interface/sword.png" id="16_gf66l"]
+[ext_resource type="Script" path="res://scripts/world/attack_omega.gd" id="17_e32wq"]
 [ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="19_rqw3s"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/gui.gd" id="21_l3veq"]
 [ext_resource type="PackedScene" uid="uid://c8olai4bngrps" path="res://scenes/interface/gameplay/molecule_info.tscn" id="23_ftybf"]
@@ -43,6 +46,61 @@ shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
 
+[sub_resource type="Gradient" id="Gradient_76ubx"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.382166, 0.78344)
+colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490196, 0.215686, 0.490196, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mp4mh"]
+gradient = SubResource("Gradient_76ubx")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynqrw"]
+resource_local_to_scene = true
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pkt2"]
+resource_local_to_scene = true
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kimr"]
+resource_local_to_scene = true
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2e242"]
+resource_local_to_scene = true
+shader = ExtResource("5_lvlx3")
+shader_parameter/powered = 0.0
+shader_parameter/noise_texture = ExtResource("6_odbmm")
+
+[sub_resource type="Gradient" id="Gradient_xvn7o"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0977444, 0.210526, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.478818, 1, 1, 1, 0.338848, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pq8af"]
+gradient = SubResource("Gradient_xvn7o")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6pn1"]
+shader = ExtResource("11_53l0m")
+shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 0.607843, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
+shader_parameter/diffs = PackedVector2Array(0, 0.1, -1, 0.3, 0, -0.8, 0.35, -0.65, 0, 0, -0.6, 0.4, 1, 0)
+shader_parameter/speeds = PackedFloat32Array(3, 4, 3, 5, 10, 10, 30)
+shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.45, -0.4, 0.5, 0.08, 0.05, 0.02)
+shader_parameter/particle_texture = SubResource("GradientTexture2D_pq8af")
+
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
 font = ExtResource("14_virs7")
 font_size = 20
@@ -51,15 +109,128 @@ font_size = 20
 font = ExtResource("14_virs7")
 font_size = 52
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w6355"]
+[sub_resource type="Gradient" id="Gradient_87m0d"]
+offsets = PackedFloat32Array(0.697183, 0.915493)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kuyro"]
-atlas = ExtResource("19_rqw3s")
-region = Rect2(0, 1001, 68, 69)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7gh72"]
+gradient = SubResource("Gradient_87m0d")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g5sgk"]
-atlas = ExtResource("19_rqw3s")
-region = Rect2(0, 926, 68, 68)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m15ey"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+direction = Vector3(1, -1, 0)
+spread = 100.0
+gravity = Vector3(0, 200, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 150.0
+scale_min = 0.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_7gh72")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+
+[sub_resource type="Gradient" id="Gradient_k8nw2"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.242038, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.362054, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tt8ex"]
+gradient = SubResource("Gradient_k8nw2")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Shader" id="Shader_xeja2"]
+code = "shader_type canvas_item;
+
+uniform sampler2D particle_texture;
+uniform vec4 colors[7]: source_color;
+uniform vec2 diffs[7];
+uniform float speeds[7];
+uniform float lenghts[7];
+
+const float PARTICLES_SIZE = 2.0;
+
+struct Particle {
+	vec4 color;
+	float size;
+	vec2 position;
+};
+
+vec2 uv(vec2 uv, Particle particle) {
+	return clamp((uv * particle.size) - (particle.position * particle.size), vec2(0.0), vec2(1.0));
+}
+
+vec2 particle_motion_position(float _lemgth, float speed, vec2 diff) {
+	float margin = 0.5 * _lemgth;
+	vec2 margin_center = vec2(0.5) * (1.0 - _lemgth);
+	vec2 pos;
+	pos.x = margin + (cos((TIME + diff.x) * speed) * margin);
+	pos.y = margin + (cos((TIME + diff.y) * speed) * margin);
+	return pos + margin_center;
+}
+
+void fragment() {
+	vec4 color;
+	
+	for (int i = 0; i < 7; i++) {
+		Particle p;
+		p.size = PARTICLES_SIZE;
+		p.color = colors[i];
+		p.position = particle_motion_position(lenghts[i], speeds[i], diffs[i]) - vec2(0.25);
+		color += p.color * texture(particle_texture, uv(UV, p)).a;
+	}
+	COLOR = color;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_fcvq1"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0977444, 0.210526, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.478818, 1, 1, 1, 0.338848, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t2mpx"]
+gradient = SubResource("Gradient_fcvq1")
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xla5f"]
+shader = SubResource("Shader_xeja2")
+shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 0.607843, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
+shader_parameter/diffs = PackedVector2Array(0.2, 0, -0.5, 0.3, 0, 0.1, 0.35, -0.65, 0, 0, -0.6, 0.4, 1, 0)
+shader_parameter/speeds = PackedFloat32Array(4, 3, 4.5, 3.5, 10, 10, 30)
+shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.45, -0.4, 0.5, 0.08, 0.05, 0.02)
+shader_parameter/particle_texture = SubResource("GradientTexture2D_t2mpx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oesur"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+direction = Vector3(-1, -1, 0)
+spread = 100.0
+gravity = Vector3(0, 200, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 150.0
+scale_min = 0.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_7gh72")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c5sfv"]
 content_margin_left = 4.0
@@ -145,677 +316,63 @@ script = ExtResource("3_2ehmk")
 side = 1
 metadata/_edit_lock_ = true
 
+[node name="omega_A_damage" type="TextureRect" parent="background_2"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 770.0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_mp4mh")
+metadata/_edit_lock_ = true
+
+[node name="omega_B_damage" type="TextureRect" parent="background_2"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(770, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_mp4mh")
+flip_h = true
+metadata/_edit_lock_ = true
+
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
 script = ExtResource("1_hlcug")
 
-[node name="fusion_A" type="TextureRect" parent="turn_machine"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-offset_left = 221.0
-offset_top = 268.0
-offset_right = 528.0
-offset_bottom = 452.0
-texture = ExtResource("10_rnfol")
-expand_mode = 1
-metadata/_edit_lock_ = true
+[node name="reactors" type="Node" parent="."]
+script = ExtResource("5_o5tgb")
+arena_path = NodePath("../arena")
 
-[node name="fusion_B" type="TextureRect" parent="turn_machine"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
+[node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
+material = SubResource("ShaderMaterial_ynqrw")
+
+[node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
+material = SubResource("ShaderMaterial_7pkt2")
 offset_left = 1392.0
-offset_top = 268.0
 offset_right = 1699.0
-offset_bottom = 452.0
-texture = ExtResource("10_rnfol")
-expand_mode = 1
-flip_v = true
-metadata/_edit_lock_ = true
+flip_h = true
 
-[node name="accelr_A" type="TextureRect" parent="turn_machine"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-offset_left = 223.0
-offset_top = 650.0
-offset_right = 527.0
-offset_bottom = 874.0
-texture = ExtResource("7_mo1n6")
-expand_mode = 1
-metadata/_edit_lock_ = true
+[node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
+material = SubResource("ShaderMaterial_6kimr")
 
-[node name="accelr_B" type="TextureRect" parent="turn_machine"]
-modulate = Color(0.7, 0.7, 0.7, 0.7)
-offset_left = 1392.0
-offset_top = 650.0
-offset_right = 1696.0
-offset_bottom = 874.0
-texture = ExtResource("7_mo1n6")
-expand_mode = 1
-metadata/_edit_lock_ = true
+[node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
+material = SubResource("ShaderMaterial_2e242")
+offset_left = 1391.0
+offset_right = 1697.0
+flip_h = true
 
-[node name="arena" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(605, 320)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 605.0
-offset_top = 320.0
-offset_right = 1315.0
-offset_bottom = 760.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("10_cin7l")
-metadata/_edit_lock_ = true
-
-[node name="Slot_1" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_right = 80.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_2" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 90.0
-offset_right = 170.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_3" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 180.0
-offset_right = 260.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_4" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 270.0
-offset_right = 350.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_5" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 360.0
-offset_right = 440.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_6" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 450.0
-offset_right = 530.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_7" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 540.0
-offset_right = 620.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_8" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 630.0
-offset_right = 710.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_9" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_top = 90.0
-offset_right = 80.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_10" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 90.0
-offset_top = 90.0
-offset_right = 170.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_11" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 180.0
-offset_top = 90.0
-offset_right = 260.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_12" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 270.0
-offset_top = 90.0
-offset_right = 350.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_13" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 360.0
-offset_top = 90.0
-offset_right = 440.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_14" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 450.0
-offset_top = 90.0
-offset_right = 530.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_15" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 540.0
-offset_top = 90.0
-offset_right = 620.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_16" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 630.0
-offset_top = 90.0
-offset_right = 710.0
-offset_bottom = 170.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_17" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_top = 180.0
-offset_right = 80.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_18" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 90.0
-offset_top = 180.0
-offset_right = 170.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_19" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 180.0
-offset_top = 180.0
-offset_right = 260.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_20" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 270.0
-offset_top = 180.0
-offset_right = 350.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_21" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 360.0
-offset_top = 180.0
-offset_right = 440.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_22" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 450.0
-offset_top = 180.0
-offset_right = 530.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_23" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 540.0
-offset_top = 180.0
-offset_right = 620.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_24" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 630.0
-offset_top = 180.0
-offset_right = 710.0
-offset_bottom = 260.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_25" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_top = 270.0
-offset_right = 80.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_26" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 90.0
-offset_top = 270.0
-offset_right = 170.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_27" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 180.0
-offset_top = 270.0
-offset_right = 260.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_28" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 270.0
-offset_top = 270.0
-offset_right = 350.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_29" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 360.0
-offset_top = 270.0
-offset_right = 440.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_30" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 450.0
-offset_top = 270.0
-offset_right = 530.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_31" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 540.0
-offset_top = 270.0
-offset_right = 620.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_32" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 630.0
-offset_top = 270.0
-offset_right = 710.0
-offset_bottom = 350.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_33" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_top = 360.0
-offset_right = 80.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_34" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 90.0
-offset_top = 360.0
-offset_right = 170.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_35" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 180.0
-offset_top = 360.0
-offset_right = 260.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_36" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 270.0
-offset_top = 360.0
-offset_right = 350.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_37" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 360.0
-offset_top = 360.0
-offset_right = 440.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_38" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 450.0
-offset_top = 360.0
-offset_right = 530.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_39" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 540.0
-offset_top = 360.0
-offset_right = 620.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_40" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 630.0
-offset_top = 360.0
-offset_right = 710.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_41" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = -360.0
-offset_right = -280.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_42" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = -180.0
-offset_right = -100.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_44" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = -360.0
-offset_top = 369.0
-offset_right = -280.0
-offset_bottom = 449.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_45" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = -180.0
-offset_top = 369.0
-offset_right = -100.0
-offset_bottom = 449.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_47" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 810.0
-offset_right = 890.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_48" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 990.0
-offset_right = 1070.0
-offset_bottom = 80.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_50" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 810.0
-offset_top = 360.0
-offset_right = 890.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
-
-[node name="Slot_51" type="Panel" parent="arena"]
-visible = false
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-offset_left = 990.0
-offset_top = 360.0
-offset_right = 1070.0
-offset_bottom = 440.0
-pivot_offset = Vector2(40, 40)
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("4_cjbuv")
-script = ExtResource("5_0uahk")
+[node name="arena" parent="." instance=ExtResource("7_1651p")]
+custom_minimum_size = Vector2(710, 440)
+reactor_path = NodePath("../reactors")
 
 [node name="Player_A" type="Node" parent="."]
 script = ExtResource("13_wjs4m")
+area_damage_path = NodePath("../background_2/omega_A_damage")
 
 [node name="omega" type="TextureRect" parent="Player_A"]
 anchors_preset = 4
@@ -826,10 +383,22 @@ offset_top = -64.0
 offset_right = 173.0
 offset_bottom = 64.0
 grow_vertical = 2
+mouse_filter = 0
 texture = ExtResource("8_krhtp")
 expand_mode = 1
 script = ExtResource("8_jy5ie")
 metadata/_edit_lock_ = true
+
+[node name="atomo" type="ColorRect" parent="Player_A/omega"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_y6pn1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.286275, 0.360784, 1)
 
 [node name="life_title" type="Label" parent="Player_A/omega"]
 layout_mode = 1
@@ -863,9 +432,44 @@ horizontal_alignment = 1
 vertical_alignment = 2
 metadata/_edit_lock_ = true
 
+[node name="particles" type="GPUParticles2D" parent="Player_A/omega"]
+position = Vector2(64, 64)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_m15ey")
+texture = SubResource("GradientTexture2D_tt8ex")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
 [node name="Player_B" type="Node" parent="."]
 script = ExtResource("13_wjs4m")
 player = 1
+area_damage_path = NodePath("../background_2/omega_B_damage")
+
+[node name="attack_omega" type="TextureRect" parent="Player_B"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(256, 256)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -128.0
+offset_right = -2.0
+offset_bottom = 128.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+texture = ExtResource("16_gf66l")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("17_e32wq")
+metadata/_edit_lock_ = true
 
 [node name="omega" type="TextureRect" parent="Player_B"]
 anchors_preset = 6
@@ -879,10 +483,22 @@ offset_right = -45.0
 offset_bottom = 64.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 0
 texture = ExtResource("8_krhtp")
 expand_mode = 1
 script = ExtResource("8_jy5ie")
 metadata/_edit_lock_ = true
+
+[node name="atomo" type="ColorRect" parent="Player_B/omega"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_xla5f")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.286275, 0.360784, 1)
 
 [node name="life_title" type="Label" parent="Player_B/omega"]
 layout_mode = 1
@@ -917,77 +533,27 @@ horizontal_alignment = 1
 vertical_alignment = 2
 metadata/_edit_lock_ = true
 
+[node name="particles" type="GPUParticles2D" parent="Player_B/omega"]
+position = Vector2(64, 64)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_oesur")
+texture = SubResource("GradientTexture2D_tt8ex")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
 [node name="CameraArena" type="Camera2D" parent="."]
-visible = false
 position = Vector2(960, 0)
 position_smoothing_enabled = true
-position_smoothing_speed = 4.0
 script = ExtResource("10_6paj4")
 turbulence_force = 0.5
+element_info_path = NodePath("../info_panel/element_info")
 background_path = NodePath("../background_2")
 
-[node name="passive_status" type="Node2D" parent="."]
+[node name="passive_status" parent="." instance=ExtResource("15_1splr")]
 visible = false
-position = Vector2(798, 577)
-scale = Vector2(0.66, 0.66)
-script = ExtResource("15_ulnrq")
-
-[node name="PanelContainer" type="PanelContainer" parent="passive_status"]
-offset_right = 60.0
-offset_bottom = 75.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_w6355")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="passive_status/PanelContainer"]
-layout_mode = 2
-texture = ExtResource("19_rqw3s")
-region_rect = Rect2(861, 0, 579, 492)
-patch_margin_left = 30
-patch_margin_top = 32
-patch_margin_right = 30
-patch_margin_bottom = 43
-
-[node name="MarginContainer" type="MarginContainer" parent="passive_status/PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 17
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 17
-
-[node name="VBoxContainer" type="VBoxContainer" parent="passive_status/PanelContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 16
-
-[node name="debuffs" type="HBoxContainer" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-alignment = 1
-
-[node name="debuff" type="TextureRect" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer/debuffs"]
-visible = false
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-mouse_filter = 0
-texture = SubResource("AtlasTexture_kuyro")
-expand_mode = 1
-script = ExtResource("18_7iigf")
-type = 1
-
-[node name="buffs" type="HBoxContainer" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-alignment = 1
-
-[node name="buff" type="TextureRect" parent="passive_status/PanelContainer/MarginContainer/VBoxContainer/buffs"]
-visible = false
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-mouse_filter = 0
-texture = SubResource("AtlasTexture_g5sgk")
-expand_mode = 1
-script = ExtResource("18_7iigf")
 
 [node name="actions" type="Node2D" parent="."]
 z_index = 1
@@ -1120,17 +686,11 @@ offset_left = 29.0
 offset_top = 165.0
 offset_right = 409.0
 offset_bottom = 438.0
+molecule_info_path = NodePath("../molecule_info")
 
 [node name="molecule_info" parent="info_panel" instance=ExtResource("23_ftybf")]
 visible = false
 metadata/_edit_lock_ = true
-
-[node name="passive_descrition" parent="info_panel" instance=ExtResource("24_5uukm")]
-visible = false
-offset_left = 422.0
-offset_top = 199.0
-offset_right = 672.0
-offset_bottom = 432.0
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("21_l3veq")
@@ -1322,25 +882,18 @@ expand_icon = true
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
 
-[node name="pra usar depois" type="CanvasLayer" parent="."]
+[node name="passive_descrition" parent="." instance=ExtResource("24_5uukm")]
 visible = false
-
-[node name="NinePatchRect3" type="NinePatchRect" parent="pra usar depois"]
-offset_left = 53.0
-offset_top = 615.0
-offset_right = 515.0
-offset_bottom = 954.0
-texture = ExtResource("19_rqw3s")
-region_rect = Rect2(0, 0, 446, 677)
-patch_margin_left = 30
-patch_margin_top = 80
-patch_margin_right = 120
-patch_margin_bottom = 110
+offset_left = 422.0
+offset_top = 199.0
+offset_right = 568.0
+offset_bottom = 341.0
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
-[connection signal="end_turn" from="turn_machine" to="passive_status" method="_turn_machine_end_turn"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
 [connection signal="end_turn" from="turn_machine" to="GUI" method="_turn_machine_end_turn"]
 [connection signal="main_turn" from="turn_machine" to="GUI" method="_turn_machine_main_turn"]
+[connection signal="end_game" from="Player_A" to="turn_machine" method="_end_game"]
+[connection signal="end_game" from="Player_B" to="turn_machine" method="_end_game"]
 [connection signal="pressed" from="GUI/signboard/next_turn" to="GUI" method="_next_turn_pressed"]
 [connection signal="pressed" from="GUI/pause_meun" to="GUI/PauseMenu" method="OpenMenuSettings"]

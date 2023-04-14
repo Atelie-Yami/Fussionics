@@ -5,6 +5,8 @@ const SERIES := [
 	'OTHERS', 'SEMIMETAL', 'METALLOID', 'HALOGEN', 'NOBLE', 'UNKNOWN'
 ]
 
+@export var molecule_info_path: NodePath
+@onready var molecule_info = get_node(molecule_info_path)
 
 @onready var symbol : TextureRect= $MarginContainer/VBoxContainer/element_profile/symbol
 @onready var element_name : Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/name
@@ -16,8 +18,12 @@ const SERIES := [
 
 
 func _init():
-	Gameplay.element_selected.connect(_element_selected)
 	Gameplay.element_info = self
+
+
+func _notification(what: int):
+	if what == NOTIFICATION_DRAG_BEGIN:
+		visible = false
 
 
 func load_data(data: Dictionary, atomic_number: int):
@@ -39,22 +45,23 @@ func load_data(data: Dictionary, atomic_number: int):
 		valentia.modulate = Color.WHITE
 
 
-func _element_selected(valid: bool):
-	if valid:
-		var data = Element.DATA[Gameplay.selected_element.atomic_number]
-		load_data(data, Gameplay.selected_element.atomic_number)
-		
-		if Gameplay.selected_element.neutrons != Gameplay.selected_element.atomic_number:
-			extra_neutrons.text = tr("ISOTOPO")
-			
-			var diff = Gameplay.selected_element.atomic_number - Gameplay.selected_element.neutrons
-			extra_neutrons.text += ("+" if diff > 0 else "-") + str(diff)
-			extra_neutrons.modulate = Color.PALE_VIOLET_RED if diff > 0 else Color.PALE_GREEN
-		else:
-			extra_neutrons.text = ""
-			extra_neutrons.modulate = Color.WHITE
+func show_info(element: Element):
+	var data = Element.DATA[element.atomic_number]
+	load_data(data, element.atomic_number)
 	
-	visible = valid
+	molecule_info.load_info(element)
+	
+	if element.neutrons != element.atomic_number:
+		extra_neutrons.text = tr("ISOTOPO")
+		
+		var diff = element.atomic_number - element.neutrons
+		extra_neutrons.text += ("+" if diff > 0 else "-") + str(diff)
+		extra_neutrons.modulate = Color.PALE_VIOLET_RED if diff > 0 else Color.PALE_GREEN
+	else:
+		extra_neutrons.text = ""
+		extra_neutrons.modulate = Color.WHITE
+	
+	visible = true
 
 
 func _close_pressed():

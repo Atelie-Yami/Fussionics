@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://bdvhohkc5uyxq"]
 
-[ext_resource type="Script" path="res://scripts/interface/login/p_layer.gd" id="1_oo6lg"]
+[ext_resource type="Script" path="res://scripts/vfx/p_layer.gd" id="1_lfhf1"]
 [ext_resource type="Texture2D" uid="uid://duf474wuoa06p" path="res://assets/img/background/space_0/Background.png" id="2_uqvvm"]
 [ext_resource type="Texture2D" uid="uid://dt71lqif5kja0" path="res://assets/img/background/space_0/cloud/Cloud_0.png" id="3_j7cpj"]
 [ext_resource type="Texture2D" uid="uid://beg80ecls0goj" path="res://assets/img/background/space_0/cloud/Cloud_1.png" id="4_26dva"]
@@ -17,7 +17,7 @@
 
 [node name="p_layer_background" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 18.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer_background"]
@@ -26,7 +26,7 @@ centered = false
 
 [node name="p_layer" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 10.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer"]
@@ -35,7 +35,7 @@ centered = false
 
 [node name="p_layer2" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 12.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer2"]
@@ -44,7 +44,7 @@ centered = false
 
 [node name="p_layer3" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 14.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer3"]
@@ -53,7 +53,7 @@ centered = false
 
 [node name="p_layer4" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 14.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer4"]
@@ -62,7 +62,7 @@ centered = false
 
 [node name="p_layer5" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 16.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer5"]
@@ -71,7 +71,7 @@ centered = false
 
 [node name="p_layer6" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 18.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer6"]
@@ -80,7 +80,7 @@ centered = false
 
 [node name="p_layer_star" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 20.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer_star"]
@@ -89,7 +89,7 @@ centered = false
 
 [node name="p_layer_star2" type="ParallaxLayer" parent="parallax"]
 motion_mirroring = Vector2(0, 1080)
-script = ExtResource("1_oo6lg")
+script = ExtResource("1_lfhf1")
 speed = 15.0
 
 [node name="image" type="Sprite2D" parent="parallax/p_layer_star2"]

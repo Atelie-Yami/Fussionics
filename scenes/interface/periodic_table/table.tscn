@@ -1,0 +1,914 @@
+[gd_scene load_steps=16 format=3 uid="uid://cq1u1im676edn"]
+
+[ext_resource type="Script" path="res://scripts/interface/TabelaPeriodica/tabela.gd" id="1_hotf5"]
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_q71oh"]
+[ext_resource type="PackedScene" uid="uid://df0o6qfbqf50g" path="res://scenes/interface/periodic_table/element_of_table.tscn" id="2_7idje"]
+[ext_resource type="Texture2D" uid="uid://bck8xdfqjac37" path="res://assets/img/buttons/login/enter.png" id="4_7fi6l"]
+[ext_resource type="Script" path="res://scripts/world/camera_base.gd" id="4_78h84"]
+[ext_resource type="Texture2D" uid="uid://c5y5y40ie7dm1" path="res://assets/img/panels/panel_1.png" id="7_p5n3p"]
+[ext_resource type="Texture2D" uid="uid://csng34f8812xv" path="res://assets/img/panels/panel_0.png" id="7_xtkap"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_ptl64"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c7yta"]
+texture = ExtResource("7_p5n3p")
+texture_margin_left = 120.0
+texture_margin_right = 120.0
+expand_margin_left = 84.0
+expand_margin_right = 50.0
+modulate_color = Color(0.192157, 0.00392157, 0.0235294, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eul1m"]
+texture = ExtResource("7_p5n3p")
+texture_margin_left = 120.0
+texture_margin_right = 120.0
+expand_margin_left = 84.0
+expand_margin_right = 50.0
+modulate_color = Color(0.423529, 0, 0.12549, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5lm82"]
+texture = ExtResource("7_xtkap")
+texture_margin_left = 120.0
+texture_margin_right = 120.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6p8ah"]
+texture = ExtResource("7_p5n3p")
+texture_margin_top = 120.0
+texture_margin_bottom = 120.0
+expand_margin_top = 84.0
+expand_margin_bottom = 50.0
+modulate_color = Color(0.192157, 0.00392157, 0.0235294, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i8mi5"]
+texture = ExtResource("7_p5n3p")
+texture_margin_top = 120.0
+texture_margin_bottom = 120.0
+expand_margin_top = 84.0
+expand_margin_bottom = 50.0
+modulate_color = Color(0.423529, 0, 0.12549, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a7ewh"]
+texture = ExtResource("7_xtkap")
+texture_margin_top = 120.0
+texture_margin_bottom = 120.0
+
+[sub_resource type="Theme" id="Theme_mbfs1"]
+HScrollBar/icons/decrement = SubResource("ImageTexture_ptl64")
+HScrollBar/icons/decrement_highlight = SubResource("ImageTexture_ptl64")
+HScrollBar/icons/decrement_pressed = SubResource("ImageTexture_ptl64")
+HScrollBar/icons/increment = SubResource("ImageTexture_ptl64")
+HScrollBar/icons/increment_highlight = SubResource("ImageTexture_ptl64")
+HScrollBar/icons/increment_pressed = SubResource("ImageTexture_ptl64")
+HScrollBar/styles/grabber = SubResource("StyleBoxTexture_c7yta")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_c7yta")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_eul1m")
+HScrollBar/styles/scroll = SubResource("StyleBoxTexture_5lm82")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxTexture_5lm82")
+VScrollBar/icons/decrement = SubResource("ImageTexture_ptl64")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_ptl64")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_ptl64")
+VScrollBar/icons/increment = SubResource("ImageTexture_ptl64")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_ptl64")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_ptl64")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_6p8ah")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_6p8ah")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_i8mi5")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_a7ewh")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxTexture_a7ewh")
+
+[node name="Tabela" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_hotf5")
+
+[node name="background_2" parent="." instance=ExtResource("1_q71oh")]
+
+[node name="Table" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 111.0
+offset_top = 106.0
+offset_right = 111.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+metadata/_edit_group_ = true
+
+[node name="Grupo1" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 645.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable2" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 2
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable3" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 10
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable4" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 18
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 36
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 54
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 86
+metadata/_edit_group_ = true
+
+[node name="Grupo2" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 80.0
+offset_top = 104.0
+offset_right = 160.0
+offset_bottom = 639.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable2" parent="Table/Grupo2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 3
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable3" parent="Table/Grupo2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 11
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable4" parent="Table/Grupo2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 19
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 37
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 55
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 87
+metadata/_edit_group_ = true
+
+[node name="Grupo3" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 160.0
+offset_top = 270.0
+offset_right = 240.0
+offset_bottom = 445.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable2" parent="Table/Grupo3" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 20
+
+[node name="ElementOfTable3" parent="Table/Grupo3" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 38
+
+[node name="Grupo4" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 240.0
+offset_top = 270.0
+offset_right = 320.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo4" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 21
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo4" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 39
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo4" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 71
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo4" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 103
+metadata/_edit_group_ = true
+
+[node name="Grupo5" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 320.0
+offset_top = 270.0
+offset_right = 400.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo5" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 22
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo5" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 40
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo5" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 72
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo5" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 104
+metadata/_edit_group_ = true
+
+[node name="Grupo6" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 400.0
+offset_top = 270.0
+offset_right = 480.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo6" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 23
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo6" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 41
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo6" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 73
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo6" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 105
+metadata/_edit_group_ = true
+
+[node name="Grupo7" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 480.0
+offset_top = 270.0
+offset_right = 560.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo7" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 24
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo7" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 42
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo7" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 74
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo7" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 106
+metadata/_edit_group_ = true
+
+[node name="Grupo8" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 560.0
+offset_top = 270.0
+offset_right = 640.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo8" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 25
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo8" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 43
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo8" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 75
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo8" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 107
+metadata/_edit_group_ = true
+
+[node name="Grupo9" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 640.0
+offset_top = 270.0
+offset_right = 720.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo9" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 26
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo9" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 44
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo9" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 76
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo9" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 108
+metadata/_edit_group_ = true
+
+[node name="Grupo10" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 720.0
+offset_top = 270.0
+offset_right = 800.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo10" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 27
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo10" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 45
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo10" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 77
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo10" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 109
+metadata/_edit_group_ = true
+
+[node name="Grupo11" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 800.0
+offset_top = 270.0
+offset_right = 880.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo11" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 28
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo11" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 46
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo11" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 78
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo11" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 110
+metadata/_edit_group_ = true
+
+[node name="Grupo12" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 880.0
+offset_top = 270.0
+offset_right = 960.0
+offset_bottom = 630.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo12" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 29
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo12" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 47
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo12" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 79
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo12" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 111
+metadata/_edit_group_ = true
+
+[node name="Grupo13" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 960.0
+offset_top = 102.0
+offset_right = 1040.0
+offset_bottom = 637.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo13" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 4
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/Grupo13" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 12
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/Grupo13" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 30
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo13" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 48
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo13" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 80
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo13" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 112
+metadata/_edit_group_ = true
+
+[node name="Grupo14" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 1040.0
+offset_top = 102.0
+offset_right = 1120.0
+offset_bottom = 637.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo14" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 5
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/Grupo14" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 13
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/Grupo14" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 31
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo14" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 49
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo14" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 81
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo14" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 113
+metadata/_edit_group_ = true
+
+[node name="Grupo15" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 1120.0
+offset_top = 102.0
+offset_right = 1200.0
+offset_bottom = 637.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo15" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 6
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/Grupo15" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 14
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/Grupo15" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 32
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo15" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 50
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo15" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 82
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo15" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 114
+metadata/_edit_group_ = true
+
+[node name="Grupo16" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 1200.0
+offset_top = 102.0
+offset_right = 1280.0
+offset_bottom = 637.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo16" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 7
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/Grupo16" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 15
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/Grupo16" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 33
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo16" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 51
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo16" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 83
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo16" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 115
+metadata/_edit_group_ = true
+
+[node name="Grupo17" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 1280.0
+offset_top = 102.0
+offset_right = 1360.0
+offset_bottom = 637.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo17" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 8
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/Grupo17" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 16
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/Grupo17" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 34
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo17" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 52
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo17" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 84
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo17" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 116
+metadata/_edit_group_ = true
+
+[node name="Grupo18" type="VBoxContainer" parent="Table"]
+layout_mode = 2
+offset_left = 1360.0
+offset_top = 20.0
+offset_right = 1440.0
+offset_bottom = 645.0
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 1
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable11" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 9
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 17
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 35
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 53
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 85
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/Grupo18" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 117
+metadata/_edit_group_ = true
+
+[node name="1" type="HBoxContainer" parent="Table"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 680.0
+offset_right = 1217.0
+offset_bottom = 720.0
+theme_override_constants/separation = -1
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 56
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable11" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 57
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 58
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable19" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 59
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 60
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 61
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 62
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 63
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable12" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 64
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable13" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 65
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable14" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 66
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable15" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 67
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable16" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 68
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable17" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 69
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable18" parent="Table/1" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 70
+metadata/_edit_group_ = true
+
+[node name="2" type="HBoxContainer" parent="Table"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 760.0
+offset_right = 728.0
+offset_bottom = 820.0
+theme_override_constants/separation = -1
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable8" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 88
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable11" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 89
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable9" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 90
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable19" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 91
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable10" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 92
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable5" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 93
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable6" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 94
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable7" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 95
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable12" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 96
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable13" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 97
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable14" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 98
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable15" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 99
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable16" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 100
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable17" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 101
+metadata/_edit_group_ = true
+
+[node name="ElementOfTable18" parent="Table/2" instance=ExtResource("2_7idje")]
+layout_mode = 2
+atomic_number = 102
+metadata/_edit_group_ = true
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(913, 491)
+zoom = Vector2(1.6, 1.6)
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+position_smoothing_enabled = true
+script = ExtResource("4_78h84")
+background_path = NodePath("../background_2")
+
+[node name="Buttons" type="CanvasLayer" parent="."]
+
+[node name="Scroll" type="Control" parent="Buttons"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+theme = SubResource("Theme_mbfs1")
+
+[node name="VScrollBar" type="VScrollBar" parent="Buttons/Scroll"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -480.0
+offset_bottom = 480.0
+grow_horizontal = 0
+grow_vertical = 2
+max_value = 1080.0
+value = 491.0
+
+[node name="HScrollBar" type="HScrollBar" parent="Buttons/Scroll"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -802.0
+offset_top = -25.0
+offset_right = 798.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 10
+max_value = 1920.0
+value = 960.0
+
+[node name="Voltar" type="TextureButton" parent="Buttons"]
+offset_right = 90.0
+offset_bottom = 90.0
+texture_normal = ExtResource("4_7fi6l")
+flip_h = true
+
+[connection signal="scrolling" from="Buttons/Scroll/VScrollBar" to="." method="_v_scroll_bar_scrolling"]
+[connection signal="scrolling" from="Buttons/Scroll/HScrollBar" to="." method="_h_scroll_bar_scrolling"]
+[connection signal="pressed" from="Buttons/Voltar" to="." method="_voltar_pressed"]

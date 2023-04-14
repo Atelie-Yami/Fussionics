@@ -1,0 +1,631 @@
+[gd_scene load_steps=5 format=3 uid="uid://bokt3h5duv0br"]
+
+[ext_resource type="Script" path="res://scripts/world/arena.gd" id="1_m6snq"]
+[ext_resource type="StyleBox" uid="uid://ico5t3ky058p" path="res://resouces/stylebox/slot_texture.stylebox" id="2_lcqwe"]
+[ext_resource type="Script" path="res://scripts/world/slot.gd" id="3_8gvpk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riga4"]
+
+[node name="arena" type="Control"]
+custom_minimum_size = Vector2(605, 320)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 605.0
+offset_top = 320.0
+offset_right = 1315.0
+offset_bottom = 760.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m6snq")
+metadata/_edit_lock_ = true
+
+[node name="Slot_1" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_2" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_right = 170.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_3" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_right = 260.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_4" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_right = 350.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_5" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_right = 440.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_6" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_right = 530.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_7" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_right = 620.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_8" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_right = 710.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_9" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_10" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 90.0
+offset_right = 170.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_11" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 90.0
+offset_right = 260.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_12" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 90.0
+offset_right = 350.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_13" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 90.0
+offset_right = 440.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_14" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 90.0
+offset_right = 530.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_15" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 90.0
+offset_right = 620.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_16" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 90.0
+offset_right = 710.0
+offset_bottom = 170.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_17" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 180.0
+offset_right = 80.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_18" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 180.0
+offset_right = 170.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_19" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 180.0
+offset_right = 260.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_20" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 180.0
+offset_right = 350.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_21" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 180.0
+offset_right = 440.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_22" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 180.0
+offset_right = 530.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_23" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 180.0
+offset_right = 620.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_24" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 180.0
+offset_right = 710.0
+offset_bottom = 260.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_25" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 270.0
+offset_right = 80.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_26" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 270.0
+offset_right = 170.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_27" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 270.0
+offset_right = 260.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_28" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 270.0
+offset_right = 350.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_29" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 270.0
+offset_right = 440.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_30" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 270.0
+offset_right = 530.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_31" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 270.0
+offset_right = 620.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_32" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 270.0
+offset_right = 710.0
+offset_bottom = 350.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_33" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_top = 360.0
+offset_right = 80.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_34" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 90.0
+offset_top = 360.0
+offset_right = 170.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_35" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 360.0
+offset_right = 260.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_36" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 270.0
+offset_top = 360.0
+offset_right = 350.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_37" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 360.0
+offset_top = 360.0
+offset_right = 440.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_38" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 450.0
+offset_top = 360.0
+offset_right = 530.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_39" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 540.0
+offset_top = 360.0
+offset_right = 620.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_40" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 630.0
+offset_top = 360.0
+offset_right = 710.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_lcqwe")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_41" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -360.0
+offset_right = -280.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_42" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -180.0
+offset_right = -100.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_44" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -360.0
+offset_top = 369.0
+offset_right = -280.0
+offset_bottom = 449.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_45" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = -180.0
+offset_top = 369.0
+offset_right = -100.0
+offset_bottom = 449.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_47" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 810.0
+offset_right = 890.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_48" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 990.0
+offset_right = 1070.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_50" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 810.0
+offset_top = 360.0
+offset_right = 890.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")
+
+[node name="Slot_51" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 990.0
+offset_top = 360.0
+offset_right = 1070.0
+offset_bottom = 440.0
+pivot_offset = Vector2(40, 40)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_riga4")
+script = ExtResource("3_8gvpk")

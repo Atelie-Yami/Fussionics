@@ -6,6 +6,7 @@ signal element_selected(valid)
 enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
 enum ActionState {NORMAL, ATTACK, LINK, UNLINK}
 
+const SLOT_INTERACT_INDICATOR := preload("res://scripts/vfx/slot_interact_indicator.gd")
 const ACTION_BUTTON := preload("res://scenes/elements/element_action_button.tscn")
 
 var time: float = 0.0
@@ -22,6 +23,8 @@ var in_unlink_state: bool
 var arena: Arena
 var element_info: Control
 var passive_status: Node2D
+var slot_interact_indicator: Control = SLOT_INTERACT_INDICATOR.new()
+var attack_omega_handler: Control
 
 var callback_action: int
 var selected_element_target: Element:
@@ -54,15 +57,14 @@ var action_state := ActionState.NORMAL:
 	set(value):
 		action_state = value
 		
-		match action_state:
-			ActionState.NORMAL:
-				self.selected_element = null
-				self.selected_element_target = null
-				callback_action = -1
+		if action_state == ActionState.NORMAL:
+			_disable_to_normal_state()
 
 
 func _ready():
 	add_child(element_focus)
+	add_child(slot_interact_indicator)
+	
 	element_focus.visible = false
 	element_focus.texture = preload("res://assets/img/elements/element_moldure4.png")
 	
@@ -86,9 +88,9 @@ func _process(delta):
 		element_drag_preview.position = element_drag_preview.get_global_mouse_position()
 
 
-func _unhandled_input(event):
-	if (event.is_action("mouse_click") or event.is_action("ui_cancel")) and event.is_pressed():
-		self.action_state = ActionState.NORMAL
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("mouse_click") or event.is_action_pressed("ui_cancel"):
+		action_state = ActionState.NORMAL
 		passive_status.set_element(null)
 
 
@@ -103,21 +105,31 @@ func _notification(what: int):
 
 func _action_pressed(action: ElementActions):
 	callback_action = action
+	slot_interact_indicator.element_in_action = selected_element.grid_position
 	match action:
 		ElementActions.ATTACK:
 			if arena.combat_in_process or not GameJudge.can_element_attack(selected_element):
 				return
 			
-			self.action_state = ActionState.ATTACK
+			var slot = Gameplay.arena.elements[selected_element.grid_position]
+			if slot.molecule and not slot.eletrons_charged:
+				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)
+				slot.eletrons_charged = true
+			
+			slot_interact_indicator.set_slots(arena.elements, 0)
+			action_state = ActionState.ATTACK
 		
 		ElementActions.LINK:
-			self.action_state = ActionState.LINK
+			action_state = ActionState.LINK
+			slot_interact_indicator.set_slots(arena.elements, 1, selected_element.grid_position)
 		
 		ElementActions.UNLINK:
-			self.action_state = ActionState.UNLINK
+			action_state = ActionState.UNLINK
+			slot_interact_indicator.set_slots(selected_element.links, 2, selected_element.grid_position)
 		
 		ElementActions.EFFECT:
 			arena.element_use_effect(selected_element)
+			action_state = ActionState.NORMAL
 
 
 func callback_action_target(target: Element):
@@ -131,7 +143,7 @@ func callback_action_target(target: Element):
 		ElementActions.UNLINK:
 			arena.unlink_elements(selected_element, selected_element_target)
 	
-	self.action_state = ActionState.NORMAL
+	action_state = ActionState.NORMAL
 
 
 func slot_get_actions(slot: Arena.Slot):
@@ -162,3 +174,12 @@ func slot_get_actions(slot: Arena.Slot):
 		actions.append(ElementActions.EFFECT)
 	
 	return actions
+
+
+func _disable_to_normal_state():
+	callback_action = -1
+	selected_element = null
+	selected_element_target = null
+	attack_omega_handler.visible = false
+	slot_interact_indicator.set_slots({}, 2)
+	slot_interact_indicator.element_in_action.x = 20
