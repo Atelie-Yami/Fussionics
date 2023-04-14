@@ -189,8 +189,8 @@ var valentia: int
 		valentia = DATA[atomic_number][VALENTIA]
 		tooltip_text = DATA[atomic_number][NAME]
 		
-		if not effect and SkillEffect.BOOK.has(atomic_number):
-			effect = SkillEffect.BOOK[atomic_number].new(self)
+		if not skill_effect and SkillEffect.BOOK.has(atomic_number):
+			skill_effect = SkillEffect.BOOK[atomic_number].new(self)
 
 ## Dicionario que define os efeitos em seus tempos de ação:[br]
 ## [codeblock]
@@ -220,7 +220,8 @@ var active: bool:
 # {PassiveEffect.Debuff.Type: PassiveEffect.DebuffEffect}
 var debuffs: Dictionary
 var buffs: Dictionary
-var effect: SkillEffect
+var skill_effect: SkillEffect
+var molecule_effect: MoleculeEffect
 
 #var current_state: State
 var current_node_state: NodeState
@@ -354,8 +355,8 @@ func _exit_tree():
 	if Gameplay.selected_element == self:
 		Gameplay.selected_element = null
 	
-	if effect:
-		effect.unregister(0)
+	if skill_effect:
+		skill_effect.unregister(0)
 
 
 func reset():

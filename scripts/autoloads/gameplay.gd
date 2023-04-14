@@ -166,9 +166,10 @@ func slot_get_actions(slot: Arena.Slot):
 	actions.append(ElementActions.ATTACK)
 	
 	if (
-			slot.element.effect and not slot.skill_used and (
-					slot.element.effect.molecule_effect_type == SkillEffect.MoleculeEffectType.TRIGGER or
-					slot.element.effect.molecule_effect_type == SkillEffect.MoleculeEffectType.MULTI
+			( slot.element.molecule_effect and not slot.skill_used and (
+					slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER or
+					slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.MULTI
+			) or   (slot.element.effect and not slot.skill_used)
 			)
 	):
 		actions.append(ElementActions.EFFECT)

@@ -40,8 +40,8 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 	var result: Result = combat_check_result(attaker.element, defender.element)
 	match result:
 		Result.WINNER:
-			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
-			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
+			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
+			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons - 1)
 			Gameplay.arena.remove_element(defender.element.grid_position)
 			attaker.can_act = false
@@ -49,14 +49,14 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 		
 		Result.COUNTERATTACK:
 			if combat_check_result(defender.element, attaker.element) == Result.WINNER:
-				await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
-				await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
+				await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
+				await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.eletrons - attaker.element.neutrons - 1)
 				Gameplay.arena.remove_element(attaker.element.grid_position)
 		
 		Result.DRAW:
-			await ElementEffectManager.call_effects(attaker.player, ElementEffectManager.SkillType.POS_ATTACK)
-			await ElementEffectManager.call_effects(defender.player, ElementEffectManager.SkillType.POS_DEFEND)
+			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
+			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 			attaker.can_act = false
 			attaker.element.disabled = true
 

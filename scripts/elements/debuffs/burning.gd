@@ -5,12 +5,12 @@ var player: PlayerController.Players
 var element: Element
 
 
-func _init(o: SkillEffect, _player: PlayerController.Players):
+func _init(_origin: BaseEffect, _player: PlayerController.Players):
 	type = PassiveEffect.Debuff.BURNING
 	cust_type = PassiveEffect.PassiveEffectLifetimeType.TEMPORAL
 	max_life_time = 3
 	max_stacks = 8
-	origin = o
+	origin = _origin
 	player = _player
 	register(player)
 

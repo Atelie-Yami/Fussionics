@@ -40,7 +40,7 @@ class Slot:
 
 ## {Vector2i position : Slot slot}
 var elements: Dictionary
-var combat_in_process: bool
+var action_in_process: bool
 var reactor_canceled_by_effect: bool
 
 @export var reactor_path: NodePath
@@ -93,13 +93,15 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 
 
 func remove_element(slot_position: Vector2i):
-	if not elements.has(slot_position):
+	if action_in_process or not elements.has(slot_position):
 		return
 	
 	var slot: Slot = elements[slot_position]
 	
 	if not GameJudge.can_remove_element(slot.element):
 		return
+	
+	action_in_process = true
 	
 	if slot.molecule:
 		var neigbors: Array[Element]
@@ -124,6 +126,8 @@ func remove_element(slot_position: Vector2i):
 	
 	if slot_position.x < 8:
 		get_child(slot_position.x + (slot_position.y * 8)).visible = true
+	
+	action_in_process = false
 
 
 func _remove_element(slot: Slot, slot_position: Vector2i):
@@ -132,8 +136,10 @@ func _remove_element(slot: Slot, slot_position: Vector2i):
 
 
 func create_element(atomic_number: int, player: Players, _position: Vector2i, focus: bool):
-	if not _check_slot_empty(_position) or _check_slot_only_out(_position):
+	if action_in_process or not _check_slot_empty(_position) or _check_slot_only_out(_position):
 		return
+	
+	action_in_process = true
 	
 	var element: Element
 	
@@ -160,10 +166,16 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	if _position.x < 8:
 		get_child(_position.x + (_position.y * 8)).visible = false
 	
+	action_in_process = false
 	return element
 
 
 func link_elements(element_a: Element, element_b: Element):
+	if action_in_process:
+		return
+	
+	action_in_process = true
+	
 	var slot_a: Slot = elements[element_a.grid_position]
 	var slot_b: Slot = elements[element_b.grid_position]
 	
@@ -200,7 +212,8 @@ func link_elements(element_a: Element, element_b: Element):
 		molecule.link_elements(element_a, element_b)
 		molecule.update_border()
 	
-	ElementEffectManager.call_effects(slot_a.player, ElementEffectManager.SkillType.LINKED)
+	await ElementEffectManager.call_effects(slot_a.player, BaseEffect.SkillType.LINKED)
+	action_in_process = false
 
 
 func _link_elements(element_a: Element, element_b: Element):
@@ -220,18 +233,23 @@ func _link_elements(element_a: Element, element_b: Element):
 
 
 func unlink_elements(element_A: Element, element_B: Element):
+	if action_in_process:
+		return
+	
+	action_in_process = true
+	
 	if _unlink_elements(element_A, element_B):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
 		
 		var player = elements[element_A.grid_position].player
 		
-		ElementEffectManager.call_effects(
-				player, ElementEffectManager.SkillType.UNLINKED
-		)
+		await ElementEffectManager.call_effects(player, BaseEffect.SkillType.UNLINKED)
 		current_players[player].spend_energy(1)
 	else:
 		print("has not link")
+	
+	action_in_process = false
 
 
 func _unlink_elements(element_A: Element, element_B: Element):
@@ -306,30 +324,30 @@ func element_use_effect(element: Element):
 
 
 func attack_element(attacker: Vector2i, defender: Vector2i):
-	if not elements[attacker].can_act or combat_in_process: return
+	if not elements[attacker].can_act or action_in_process: return
 	
 	var slot_attacker: Slot = elements[attacker]
 	var slot_defender: Slot = elements[defender]
 	
-	combat_in_process = true
+	action_in_process = true
 	
-	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.PRE_ATTACK)
-	await ElementEffectManager.call_effects(elements[defender].player, ElementEffectManager.SkillType.PRE_DEFEND)
+	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
+	await ElementEffectManager.call_effects(elements[defender].player, BaseEffect.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
 		await slot_attacker.molecule.effects_cluster_assembly(slot_attacker, slot_defender, Molecule.Kit.ATTACK)
 	else:
 		await GameJudge.combat(slot_attacker, slot_defender)
-	combat_in_process = false
+	action_in_process = false
 
 
 func direct_attack(attacker: Vector2i):
-	if not elements[attacker].can_act or combat_in_process: return
+	if not elements[attacker].can_act or action_in_process: return
 	
 	var slot_attacker: Slot = elements[attacker]
-	combat_in_process = true
+	action_in_process = true
 	
-	await ElementEffectManager.call_effects(elements[attacker].player, ElementEffectManager.SkillType.PRE_ATTACK)
+	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
 	
 	if slot_attacker.molecule:
 		pass
@@ -338,7 +356,7 @@ func direct_attack(attacker: Vector2i):
 		slot_attacker.element.disabled = true
 		slot_attacker.can_act = false
 	
-	combat_in_process = false
+	action_in_process = false
 
 
 func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: int, current_player: PlayerController.Players):
@@ -348,7 +366,7 @@ func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: 
 	)
 	
 	reactor_canceled_by_effect = false
-	await ElementEffectManager.call_effects(current_player, ElementEffectManager.SkillType.COOKED_FUSION)
+	await ElementEffectManager.call_effects(current_player, BaseEffect.SkillType.COOKED_FUSION)
 	if reactor_canceled_by_effect:
 		return
 	
@@ -392,7 +410,7 @@ func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: 
 			)
 		
 		reactor_canceled_by_effect = false
-		await ElementEffectManager.call_effects(current_player, ElementEffectManager.SkillType.COOKED_ACCELR)
+		await ElementEffectManager.call_effects(current_player, BaseEffect.SkillType.COOKED_ACCELR)
 		if reactor_canceled_by_effect:
 			return
 		

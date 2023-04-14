@@ -1,40 +1,24 @@
 extends Timer
 
-enum SkillType {
-	PRE_INIT_PHASE, # na fase de PRE_INI_PHASE
-	COOKED_FUSION, # quando estiver no forno de fusão
-	COOKED_ACCELR, # quando estiver no forno de aceleração
-	INIT_PHASE,  # na fase de INI_PHASE, fase dos fornos
-	MAIN_PHASE,  # na fase de MAIN_PHASE
-	END_PHASE, # na fase de END_PHASE
-	ACTION, # pode ser ativado pelo usuario durante a MAIN PHASE
-	LINKED, # quando for linkado
-	UNLINKED, # quando for deslinkado
-	PRE_ATTACK, # ativado antes de atacar
-	POS_ATTACK, # ativado após atacar
-	PRE_DEFEND, # antes de sofrer ataque
-	POS_DEFEND, # depois de sofrer ataque
-	POS_ACTION, # após um efeito for ativado
-	PASSIVE, # efeito sempre ativo, assim q é instanciado e até o elemento ser removido 
-}
 
 const TIME_CAST_EFFECT := 0.2
+
 ## Quando um efeito de turno for iniciado, ele vai se registrar aqui e esperar se chamado
 var EFFECTS_POOL := {
-	SkillType.PRE_INIT_PHASE: [], #
-	SkillType.COOKED_FUSION: [], #
-	SkillType.COOKED_ACCELR: [], #
-	SkillType.INIT_PHASE: [], #
-	SkillType.MAIN_PHASE: [], #
-	SkillType.END_PHASE: [], #
-	SkillType.LINKED: [], #
-	SkillType.UNLINKED: [], #
-	SkillType.PRE_ATTACK: [], #
-	SkillType.POS_ATTACK: [], #
-	SkillType.PRE_DEFEND: [], #
-	SkillType.POS_DEFEND: [], #
-	SkillType.POS_ACTION: [], #
-	SkillType.PASSIVE: [], #
+	BaseEffect.SkillType.PRE_INIT_PHASE: [], #
+	BaseEffect.SkillType.COOKED_FUSION: [], #
+	BaseEffect.SkillType.COOKED_ACCELR: [], #
+	BaseEffect.SkillType.INIT_PHASE: [], #
+	BaseEffect.SkillType.MAIN_PHASE: [], #
+	BaseEffect.SkillType.END_PHASE: [], #
+	BaseEffect.SkillType.LINKED: [], #
+	BaseEffect.SkillType.UNLINKED: [], #
+	BaseEffect.SkillType.PRE_ATTACK: [], #
+	BaseEffect.SkillType.POS_ATTACK: [], #
+	BaseEffect.SkillType.PRE_DEFEND: [], #
+	BaseEffect.SkillType.POS_DEFEND: [], #
+	BaseEffect.SkillType.POS_ACTION: [], #
+	BaseEffect.SkillType.PASSIVE: [], #
 }
 var effects_pool_players := {
 	PlayerController.Players.A: EFFECTS_POOL.duplicate(),
@@ -59,7 +43,7 @@ func _reset_pool(player: PlayerController.Players):
 
 func _process(delta):
 	for _players in 2:
-		for effect in effects_pool_players[_players][SkillType.PASSIVE]:
+		for effect in effects_pool_players[_players][BaseEffect.SkillType.PASSIVE]:
 			effect.execute()
 
 
@@ -67,7 +51,7 @@ func call_passive_effects(player: PlayerController.Players):
 	passive_pool_effects[player].map(func(e): e.effect())
 
 
-func call_effects(player: PlayerController.Players, type: SkillType):
+func call_effects(player: PlayerController.Players, type: BaseEffect.SkillType):
 	is_processing_tasks = true
 	for effect in effects_pool_players[player][type]:
 		effect.execute()
@@ -75,7 +59,7 @@ func call_effects(player: PlayerController.Players, type: SkillType):
 		await timeout
 		
 		for _players in 2:
-			for _effect in effects_pool_players[_players][SkillType.POS_ACTION]:
+			for _effect in effects_pool_players[_players][BaseEffect.SkillType.POS_ACTION]:
 				_effect.execute()
 				start(TIME_CAST_EFFECT)
 				await timeout

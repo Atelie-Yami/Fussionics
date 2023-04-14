@@ -44,7 +44,7 @@ func _set_current_player_controller(player: Players):
 func _remove_players_control(player: Players):
 	current_players[player].set_turn(false)
 	
-	ElementEffectManager.call_effects(player, ElementEffectManager.SkillType.END_PHASE)
+	await ElementEffectManager.call_effects(player, BaseEffect.SkillType.END_PHASE)
 	
 	if player == Players.A:
 		pass

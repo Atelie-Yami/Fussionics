@@ -25,7 +25,7 @@ class DebuffEffect extends PassiveEffect:
 class BuffEffect extends PassiveEffect:
 	var type: Buff
 
-var origin: SkillEffect
+var origin: BaseEffect
 
 ## forma q esse efeito desgasta com o tempo
 var cust_type: PassiveEffectLifetimeType

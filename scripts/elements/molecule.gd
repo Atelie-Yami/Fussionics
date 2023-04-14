@@ -65,10 +65,10 @@ var configuration: Array[Element]
 var border_line: LineMap = BORDELINE.instantiate()
 
 var effect_pool := {
-	SkillEffect.MoleculeEffectType.TRIGGER:    [],
-	SkillEffect.MoleculeEffectType.MECHANICAL: [],
-	SkillEffect.MoleculeEffectType.UPGRADE:    [],
-	SkillEffect.MoleculeEffectType.MULTI:      [],
+	MoleculeEffect.MoleculeEffectType.TRIGGER:    [],
+	MoleculeEffect.MoleculeEffectType.MECHANICAL: [],
+	MoleculeEffect.MoleculeEffectType.UPGRADE:    [],
+	MoleculeEffect.MoleculeEffectType.MULTI:      [],
 }
 
 func _init():
@@ -155,15 +155,15 @@ func get_eletron_power() -> int:
 
 func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 	if (
-			not header.element.effect or
-			header.element.effect.molecule_effect_type != SkillEffect.MoleculeEffectType.TRIGGER
+			not header.element.molecule_effect or
+			header.element.molecule_effect.molecule_effect_type != MoleculeEffect.MoleculeEffectType.TRIGGER
 	):
 		await GameJudge.combat(header, target)
 	
 	match kit:
 		Kit.ATTACK:
-			if header.element.effect and header.element.effect.mechanic_mode == SkillEffect.MechanicMode.DESTROYER:
-				await assembly_kit_combat_effects(header.element.effect, target.element)
+			if header.element.molecule_effect and header.element.molecule_effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER:
+				await assembly_kit_combat_effects(header.element.molecule_effect, target.element)
 			else:
 				await GameJudge.combat(header, target)
 				header.element.disabled = true
@@ -171,15 +171,15 @@ func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 			pass
 
 
-func assembly_kit_combat_effects(header: SkillEffect, target: Element):
-	var pack: Array[SkillEffect]
+func assembly_kit_combat_effects(header: MoleculeEffect, target: Element):
+	var pack: Array[MoleculeEffect]
 	for e in configuration:
-		if e.effect:
-			pack.append(e.effect)
+		if e.molecule_effect:
+			pack.append(e.molecule_effect)
 	
 	var cluster := EffectCluster.new(header, pack, self)
-	header.get_targets(cluster, target)
+	header.get_targets(target)
 	cluster.construct(header)
-	
-	await header.molecule_effect(cluster)
+	header.cluster = cluster
+	await header.execute()
 

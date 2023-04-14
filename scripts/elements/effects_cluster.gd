@@ -14,58 +14,58 @@ enum Tag {
 	RADIOATIVE, BURNING, IONIC, ANION, RADIOATIVE_SHIELD, ALPHA, BETA,
 }
 const _IS_ASSALT_TEST := [
-	SkillEffect.MechanicMode.DESTROYER, SkillEffect.MechanicMode.WEAKENER, SkillEffect.MechanicMode.DECLINER,
-	SkillEffect.MechanicMode.DEBUFFER, SkillEffect.MechanicMode.BUFFER, SkillEffect.MechanicMode.CONTROLLER,
-	SkillEffect.MechanicMode.MANIPULATOR, SkillEffect.MechanicMode.SPECIAL
+	BaseEffect.MechanicMode.DESTROYER, BaseEffect.MechanicMode.WEAKENER, BaseEffect.MechanicMode.DECLINER,
+	BaseEffect.MechanicMode.DEBUFFER, BaseEffect.MechanicMode.BUFFER, BaseEffect.MechanicMode.CONTROLLER,
+	BaseEffect.MechanicMode.MANIPULATOR, BaseEffect.MechanicMode.SPECIAL
 ]
 const _IS_DEFENDE_TEST := [
-	SkillEffect.MechanicMode.DEFENDER, SkillEffect.MechanicMode.IMPROVER, SkillEffect.MechanicMode.DEBUFFER,
-	SkillEffect.MechanicMode.BUFFER, SkillEffect.MechanicMode.CONTROLLER, SkillEffect.MechanicMode.MANIPULATOR,
-	SkillEffect.MechanicMode.SPECIAL
+	BaseEffect.MechanicMode.DEFENDER, BaseEffect.MechanicMode.IMPROVER, BaseEffect.MechanicMode.DEBUFFER,
+	BaseEffect.MechanicMode.BUFFER, BaseEffect.MechanicMode.CONTROLLER, BaseEffect.MechanicMode.MANIPULATOR,
+	BaseEffect.MechanicMode.SPECIAL
 ]
 
 var targets: Array[Element]
 
 var cluster := {
-	SkillEffect.MoleculeEffectType.MECHANICAL: [],
-	SkillEffect.MoleculeEffectType.UPGRADE: [],
-	SkillEffect.MoleculeEffectType.MULTI: [],
+	MoleculeEffect.MoleculeEffectType.MECHANICAL: [],
+	MoleculeEffect.MoleculeEffectType.UPGRADE: [],
+	MoleculeEffect.MoleculeEffectType.MULTI: [],
 }
 var molecule: Molecule
 
 
-func _init(header: SkillEffect, pack: Array[SkillEffect], _molecule: Molecule):
+func _init(header: MoleculeEffect, pack: Array[MoleculeEffect], _molecule: Molecule):
 	molecule = _molecule
 	
 	var _TEST: Array
 	match header.mechanic_mode:
-		SkillEffect.MechanicMode.DESTROYER, SkillEffect.MechanicMode.WEAKENER, SkillEffect.MechanicMode.DECLINER:
+		BaseEffect.MechanicMode.DESTROYER, BaseEffect.MechanicMode.WEAKENER, BaseEffect.MechanicMode.DECLINER:
 			_TEST = _IS_ASSALT_TEST
 			
-		SkillEffect.MechanicMode.DEFENDER, SkillEffect.MechanicMode.IMPROVER:
+		BaseEffect.MechanicMode.DEFENDER, BaseEffect.MechanicMode.IMPROVER:
 			_TEST = _IS_DEFENDE_TEST
 		
-		SkillEffect.MechanicMode.SPECIAL, SkillEffect.MechanicMode.MANIPULATOR:
-			_TEST = SkillEffect.MechanicMode.keys()
+		BaseEffect.MechanicMode.SPECIAL, BaseEffect.MechanicMode.MANIPULATOR:
+			_TEST = BaseEffect.MechanicMode.keys()
 	
 	for e in pack:
 		if (
-				not e.molecule_effect_type == SkillEffect.MoleculeEffectType.TRIGGER and
+				not e.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER and
 				e.mechanic_mode in _TEST
 		):
 			cluster[e.molecule_effect_type].append(e)
 
 
 ## chama os outros efeitos da colecula para criar o efeito final
-func construct(header: SkillEffect):
+func construct(header: MoleculeEffect):
 	for list in cluster:
 		for effect in cluster[list]:
 			bind_tokens(header, effect.tokens)
-			effect.molecule_effect(self)
+			effect.execute()
 
 
 ## compara os tokens
-func bind_tokens(header: SkillEffect, tokens: Dictionary):
+func bind_tokens(header: MoleculeEffect, tokens: Dictionary):
 	for t in tokens:
 		if not header.tokens.has(t):
 			continue

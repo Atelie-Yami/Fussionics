@@ -45,16 +45,16 @@ func load_info(element: Element):
 			Element.DATA[element.atomic_number], 
 			Element.COLOR_SERIES[Element.DATA[element.atomic_number][Element.SERIE]]
 	)
-	if not element.effect:
+	if not element.molecule_effect:
 		visible = true
 		return
 	
-	var pack: Array[SkillEffect]
+	var pack: Array[MoleculeEffect]
 	for e in molecule.configuration:
 		if e.effect:
 			pack.append(e.effect)
 	
-	var cluster := EffectCluster.new(element.effect, pack, molecule)
+	var cluster := EffectCluster.new(element.molecule_effect, pack, molecule)
 	
 	for list in cluster.cluster:
 		for effect in cluster.cluster[list]:

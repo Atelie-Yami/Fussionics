@@ -56,7 +56,7 @@ func _machine():
 		State.PRE_INIT:
 			await ElementEffectManager.call_effects(
 					current_player as PlayerController.Players,
-					ElementEffectManager.SkillType.PRE_INIT_PHASE
+					BaseEffect.SkillType.PRE_INIT_PHASE
 			)
 			start(PHASE_IDLE_TIME)
 			await timeout
@@ -66,7 +66,7 @@ func _machine():
 		State.INIT:
 			await ElementEffectManager.call_effects(
 					current_player as PlayerController.Players,
-					ElementEffectManager.SkillType.INIT_PHASE
+					BaseEffect.SkillType.INIT_PHASE
 			)
 			await _cook()
 			start(PHASE_IDLE_TIME)
@@ -77,7 +77,7 @@ func _machine():
 		State.MAIN:
 			await ElementEffectManager.call_effects(
 					current_player as PlayerController.Players,
-					ElementEffectManager.SkillType.MAIN_PHASE
+					BaseEffect.SkillType.MAIN_PHASE
 			)
 			start(1 if current_player == 1 else 20)
 			if not timeout.is_connected(_main_phase_timeout):
@@ -87,7 +87,7 @@ func _machine():
 		State.END:
 			await ElementEffectManager.call_effects(
 					current_player as PlayerController.Players,
-					ElementEffectManager.SkillType.END_PHASE
+					BaseEffect.SkillType.END_PHASE
 			)
 			start(PHASE_IDLE_TIME)
 			await timeout
