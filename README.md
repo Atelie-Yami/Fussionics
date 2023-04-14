@@ -21,5 +21,4 @@ Você pode conectar elementos vizinhos, para criar moleculas e assim maximilizar
 <a href="https://atelie-yami.itch.io/" target="_blank"><img src="https://img.shields.io/badge/Itch.io-FA5C5C?style=for-the-badge&logo=itchdotio&logoColor=white"></a>
 <a href="https://twitter.com/AtelieYami" target="_blank"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white"></a>
 <a href="https://www.instagram.com/atelie.yami" target="_blank"><img src="https://img.shields.io/badge/Instagram-d62976?style=for-the-badge&logo=instagram&logoColor=white"></a>
-
-[Forum](https://github.com/matheus-s-arruda/Fussionics/discussions)
+<a href="https://github.com/matheus-s-arruda/Fussionics/discussions" target="_blank"><img src="https://img.shields.io/badge/forum-FFFFFF?style=for-the-badge&logo=github&logoColor=black"></a>
