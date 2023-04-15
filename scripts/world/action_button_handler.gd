@@ -21,7 +21,7 @@ func _notification(what: int):
 
 
 func _show_action_buttons(actions: Array[Gameplay.ElementActions]):
-	if ElementEffectManager.is_processing_tasks or Gameplay.arena.combat_in_process:
+	if ElementEffectManager.is_processing_tasks or Gameplay.arena.action_in_process:
 		return
 	
 	get_children().map(func(c): c.visible = false)

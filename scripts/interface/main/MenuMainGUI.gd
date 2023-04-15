@@ -13,7 +13,7 @@ func _partida_rapida_pressed():
 
 
 func _galeriafussion_pressed():
-	get_tree().change_scene_to_file("res://scenes/interface/TabelaPeriodica/tabela.tscn")
+	get_tree().change_scene_to_file("res://scenes/interface/periodic_table/table.tscn")
 
 
 func _configuraes_pressed():
@@ -30,7 +30,7 @@ func _itch_pressed():
 
 
 func _insta_pressed():
-	OS.shell_open("")
+	OS.shell_open("https://www.instagram.com/atelie.yami/")
 
 
 func _twiter_pressed():

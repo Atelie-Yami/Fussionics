@@ -41,6 +41,7 @@ layout_mode = 2
 
 [node name="header" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_jk4v6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/header"]
@@ -50,11 +51,10 @@ theme_override_constants/separation = 0
 [node name="name" type="Label" parent="MarginContainer/VBoxContainer/header/VBoxContainer"]
 modulate = Color(1, 0.729412, 0.733333, 1)
 layout_mode = 2
-text = "LITHIUN"
 label_settings = SubResource("LabelSettings_e480e")
 
 [node name="effect" type="RichTextLabel" parent="MarginContainer/VBoxContainer/header/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 bbcode_enabled = true
-text = "tuts tuts tuts tuts t [p] uts tuts tuts tuts tuts tuts tuts tuts tuts tuts tuts tuts"
 fit_content = true

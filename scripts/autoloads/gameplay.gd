@@ -106,9 +106,13 @@ func _notification(what: int):
 func _action_pressed(action: ElementActions):
 	callback_action = action
 	slot_interact_indicator.element_in_action = selected_element.grid_position
+	
+	if arena.action_in_process:
+		return
+	
 	match action:
 		ElementActions.ATTACK:
-			if arena.combat_in_process or not GameJudge.can_element_attack(selected_element):
+			if not GameJudge.can_element_attack(selected_element):
 				return
 			
 			var slot = Gameplay.arena.elements[selected_element.grid_position]
@@ -128,7 +132,7 @@ func _action_pressed(action: ElementActions):
 			slot_interact_indicator.set_slots(selected_element.links, 2, selected_element.grid_position)
 		
 		ElementActions.EFFECT:
-			arena.element_use_effect(selected_element)
+			selected_element.skill_effect.execute()
 			action_state = ActionState.NORMAL
 
 
@@ -165,13 +169,17 @@ func slot_get_actions(slot: Arena.Slot):
 	
 	actions.append(ElementActions.ATTACK)
 	
-	if (
-			( slot.element.molecule_effect and not slot.skill_used and (
-					slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER or
-					slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.MULTI
-			) or   (slot.element.effect and not slot.skill_used)
-			)
-	):
+	if slot.skill_used:
+		return
+	
+	if slot.element.molecule_effect:
+		if (
+				slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER or
+				slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.MULTI
+		):
+			actions.append(ElementActions.EFFECT)
+	
+	if slot.element.skill_effect and slot.element.skill_effect.skill_type == BaseEffect.SkillType.ACTION:
 		actions.append(ElementActions.EFFECT)
 	
 	return actions

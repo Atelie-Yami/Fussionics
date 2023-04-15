@@ -1,6 +1,8 @@
 extends Control
 class_name PauseMenu
 
+signal close_menu
+
 #Video
 @export var DisplayModeButton:OptionButton
 @export var MaxFpsValueLabel:Label
@@ -90,18 +92,26 @@ func _sfx_volume_slider_value_changed(value):
 #OptionsMenu
 func OpenOpitionSettings()->void:
 	OptionsSettings.visible=true
-	var tween=create_tween()
-	tween.tween_property(OptionsSettings,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
+#	var tween=create_tween()
+#	tween.tween_property(OptionsSettings,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
 
 
 func OpenMenuSettings()->void:
 	OptionsMenu.visible=true
-	var tween=create_tween()
-	tween.tween_property(OptionsMenu,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
+	get_tree().paused = true
+#	var tween=create_tween()
+#	tween.tween_property(OptionsMenu,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
+
+
+func close_menu_settings()->void:
+	OptionsSettings.visible = false
+	OptionsMenu.visible = false
+	get_tree().paused = false
+	close_menu.emit()
 
 
 func _settings_pressed():
-	OptionsMenu.visible=false
+	OptionsMenu.visible = false
 	OpenOpitionSettings()
 
 
@@ -112,7 +122,7 @@ func _close_options_settings_pressed():
 
 
 func _voltar_pressed():
-	OptionsMenu.visible=false
+	close_menu_settings()
 
 
 func _menu_inicial_pressed():

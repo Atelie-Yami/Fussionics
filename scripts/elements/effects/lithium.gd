@@ -3,10 +3,8 @@ extends SkillEffect
 ## [b]Efeito solo:[/b][br]
 ## Ative a autodestruição, causando [code]incêndio[/code] nos inimigos ao redor.[br]
 ## [code]Incêndio[/code] reduz 1 neutron a cada turno por valor acumulado, destroi o elemento caso seus neutrons chegue a 0.[br]
+## [br]
 ## Esse efeito pode acumular até 8 vezes.
-
-
-var _target: Element
 
 
 func _init(_element: Element):
@@ -25,7 +23,7 @@ func execute():
 			e.debuffs[PassiveEffect.Debuff.BURNING].life_time = 3
 		else:
 			var burn = PassiveEffect.DEBUFF_BOOK[PassiveEffect.Debuff.BURNING].new(
-					e.effect, Gameplay.arena.elements[e.grid_position].player
+					e.skill_effect, Gameplay.arena.elements[e.grid_position].player
 			)
 			burn.stack = 1
 			burn.origin = e

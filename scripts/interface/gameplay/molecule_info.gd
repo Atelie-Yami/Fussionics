@@ -54,7 +54,8 @@ func load_info(element: Element):
 		if e.effect:
 			pack.append(e.effect)
 	
-	var cluster := EffectCluster.new(element.molecule_effect, pack, molecule)
+	var cluster: Dictionary
+	EffectCluster.filter_relative_elements(element.molecule_effect.mechanic_mode, pack, cluster)
 	
 	for list in cluster.cluster:
 		for effect in cluster.cluster[list]:

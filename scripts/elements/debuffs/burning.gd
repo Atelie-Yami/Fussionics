@@ -21,7 +21,6 @@ func effect():
 		return
 	
 	element.neutrons -= stack
-	element.target_neutrons = element.neutrons
 	
 	life_time -= 1
 	if life_time <= 0:
@@ -29,7 +28,6 @@ func effect():
 
 
 func remove():
-	element.target_neutrons = 0
 	element.debuffs.erase(type)
 	if _registred:
 		unregister(player)

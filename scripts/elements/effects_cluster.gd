@@ -36,9 +36,12 @@ var molecule: Molecule
 
 func _init(header: MoleculeEffect, pack: Array[MoleculeEffect], _molecule: Molecule):
 	molecule = _molecule
-	
+	EffectCluster.filter_relative_elements(header.mechanic_mode, pack, cluster)
+
+
+static func filter_relative_elements(mechanic_mode: BaseEffect.MechanicMode, pack: Array[MoleculeEffect], filtered_elements: Dictionary):
 	var _TEST: Array
-	match header.mechanic_mode:
+	match mechanic_mode:
 		BaseEffect.MechanicMode.DESTROYER, BaseEffect.MechanicMode.WEAKENER, BaseEffect.MechanicMode.DECLINER:
 			_TEST = _IS_ASSALT_TEST
 			
@@ -53,19 +56,19 @@ func _init(header: MoleculeEffect, pack: Array[MoleculeEffect], _molecule: Molec
 				not e.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER and
 				e.mechanic_mode in _TEST
 		):
-			cluster[e.molecule_effect_type].append(e)
+			filtered_elements[e.molecule_effect_type].append(e)
 
 
 ## chama os outros efeitos da colecula para criar o efeito final
 func construct(header: MoleculeEffect):
 	for list in cluster:
 		for effect in cluster[list]:
-			bind_tokens(header, effect.tokens)
+			EffectCluster.bind_tokens(header, effect.tokens)
 			effect.execute()
 
 
 ## compara os tokens
-func bind_tokens(header: MoleculeEffect, tokens: Dictionary):
+static func bind_tokens(header: MoleculeEffect, tokens: Dictionary):
 	for t in tokens:
 		if not header.tokens.has(t):
 			continue

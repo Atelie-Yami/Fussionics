@@ -22,4 +22,4 @@ func emite_attack(origin: Vector2i, target: Vector2i, efx_id: SkillName):
 
 
 func _timeout():
-	arena.combat_in_process = false
+	arena.action_in_process = false

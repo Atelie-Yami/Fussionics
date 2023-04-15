@@ -8,13 +8,15 @@ const SERIES := [
 @export var molecule_info_path: NodePath
 @onready var molecule_info = get_node(molecule_info_path)
 
-@onready var symbol : TextureRect= $MarginContainer/VBoxContainer/element_profile/symbol
-@onready var element_name : Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/name
-@onready var serie : Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/serie
-@onready var valentia : Label = $MarginContainer/VBoxContainer/valentia/valentia_text
-@onready var extra_neutrons : Label = $MarginContainer/VBoxContainer/valentia/extra_neutrons
-@onready var effect: RichTextLabel = $MarginContainer/VBoxContainer/effect
-@onready var molecule_effect : RichTextLabel = $MarginContainer/VBoxContainer/molecule_effect
+@onready var symbol: TextureRect= $MarginContainer/VBoxContainer/element_profile/symbol
+@onready var element_name: Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/name
+@onready var serie: Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/serie
+@onready var valentia: Label = $MarginContainer/VBoxContainer/valentia/valentia_text
+@onready var extra_neutrons: Label = $MarginContainer/VBoxContainer/valentia/extra_neutrons
+@onready var skill_effect: RichTextLabel = $MarginContainer/VBoxContainer/effect
+@onready var molecule_effect: RichTextLabel = $MarginContainer/VBoxContainer/molecule_effect
+@onready var skill_effect_title: Label = $MarginContainer/VBoxContainer/skill_effect_title
+@onready var molecule_effect_title: Label = $MarginContainer/VBoxContainer/molecule_effect_title
 
 
 func _init():
@@ -36,13 +38,13 @@ func load_data(data: Dictionary, atomic_number: int):
 	serie.modulate = (symbol_color * 0.6) + (Color.WHITE * 0.4)
 	
 	valentia.text = tr("VALENTIA") + str(data[Element.VALENTIA])
-	effect.text = tr("EFFECT_" + data[Element.NAME])
-	molecule_effect.text = tr("MOLECULA_" + data[Element.NAME])
+	skill_effect.text = tr("EFFECT_" + data[Element.NAME])
 	
-	if data[Element.VALENTIA] == 0:
-		valentia.modulate = Color.PALE_VIOLET_RED
-	else:
-		valentia.modulate = Color.WHITE
+	var has_text: bool = skill_effect.text != "EFFECT_" + data[Element.NAME]
+	skill_effect.visible = has_text
+	skill_effect_title.visible = has_text
+	
+	valentia.modulate = Color.PALE_VIOLET_RED if data[Element.VALENTIA] == 0 else Color.WHITE
 
 
 func show_info(element: Element):

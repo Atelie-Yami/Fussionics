@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=73 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -55,25 +55,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g43ha"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_db8mu"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2kv1l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lgei"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_540lk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4jla"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jk5hp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j06h3"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -278,6 +278,35 @@ region = Rect2(888, 783, 401, 150)
 font = ExtResource("14_virs7")
 font_size = 30
 
+[sub_resource type="Shader" id="Shader_apioj"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
+uniform float lod: hint_range(0.0, 5) = 0.0;
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7e6jv"]
+shader = SubResource("Shader_apioj")
+shader_parameter/lod = 0.0
+
+[sub_resource type="GDScript" id="GDScript_a5rge"]
+script/source = "extends ColorRect
+
+
+
+var lod: float
+var _lod: float = 10.0
+
+
+func _process(delta):
+	_lod = lerp(_lod, lod, 0.15)
+	material.set_shader_parameter(\"lod\", _lod)
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p1hu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r7rx"]
@@ -285,6 +314,34 @@ font_size = 30
 [sub_resource type="AtlasTexture" id="AtlasTexture_ds21w"]
 atlas = ExtResource("15_7qkxm")
 region = Rect2(658, 74, 183, 198)
+
+[sub_resource type="GDScript" id="GDScript_i0b5j"]
+script/source = "extends Button
+
+@export var blur_path: NodePath
+@onready var blur: ColorRect = get_node(blur_path)
+
+@export var pause_menu_path: NodePath
+@onready var pause_menu: Control = get_node(pause_menu_path)
+
+var paused: bool
+
+
+func _ready():
+	pause_menu.close_menu.connect(_close_menu)
+
+
+func _close_menu():
+	paused = false
+	blur.lod = 0.0
+
+
+func _is_pressed():
+	paused = !paused
+	pause_menu.OpenMenuSettings() if paused else pause_menu.close_menu_settings()
+	blur.lod = 2.7 if paused else 0.0
+
+"
 
 [node name="world" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [851.0]
@@ -349,19 +406,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_g43ha")
+material = SubResource("ShaderMaterial_db8mu")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_2kv1l")
+material = SubResource("ShaderMaterial_2lgei")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_540lk")
+material = SubResource("ShaderMaterial_d4jla")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_jk5hp")
+material = SubResource("ShaderMaterial_j06h3")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -685,12 +742,18 @@ visible = false
 offset_left = 29.0
 offset_top = 165.0
 offset_right = 409.0
-offset_bottom = 438.0
+offset_bottom = 311.0
 molecule_info_path = NodePath("../molecule_info")
 
 [node name="molecule_info" parent="info_panel" instance=ExtResource("23_ftybf")]
 visible = false
-metadata/_edit_lock_ = true
+
+[node name="passive_descrition" parent="." instance=ExtResource("24_5uukm")]
+visible = false
+offset_left = 422.0
+offset_top = 199.0
+offset_right = 568.0
+offset_bottom = 341.0
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("21_l3veq")
@@ -863,7 +926,21 @@ disabled = true
 text = "NEXT_TURN"
 flat = true
 
+[node name="blur" type="ColorRect" parent="GUI"]
+process_mode = 3
+material = SubResource("ShaderMaterial_7e6jv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = SubResource("GDScript_a5rge")
+metadata/_edit_lock_ = true
+
 [node name="pause_meun" type="Button" parent="GUI"]
+process_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -879,15 +956,11 @@ icon = SubResource("AtlasTexture_ds21w")
 flat = true
 icon_alignment = 1
 expand_icon = true
+script = SubResource("GDScript_i0b5j")
+blur_path = NodePath("../blur")
+pause_menu_path = NodePath("../PauseMenu")
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
-
-[node name="passive_descrition" parent="." instance=ExtResource("24_5uukm")]
-visible = false
-offset_left = 422.0
-offset_top = 199.0
-offset_right = 568.0
-offset_bottom = 341.0
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]
@@ -896,4 +969,4 @@ offset_bottom = 341.0
 [connection signal="end_game" from="Player_A" to="turn_machine" method="_end_game"]
 [connection signal="end_game" from="Player_B" to="turn_machine" method="_end_game"]
 [connection signal="pressed" from="GUI/signboard/next_turn" to="GUI" method="_next_turn_pressed"]
-[connection signal="pressed" from="GUI/pause_meun" to="GUI/PauseMenu" method="OpenMenuSettings"]
+[connection signal="pressed" from="GUI/pause_meun" to="GUI/pause_meun" method="_is_pressed"]

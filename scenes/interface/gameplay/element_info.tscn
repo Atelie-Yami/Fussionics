@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6dfidibu2j5g"]
+[gd_scene load_steps=13 format=3 uid="uid://c6dfidibu2j5g"]
 
 [ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="1_3vj5e"]
 [ext_resource type="Theme" uid="uid://d20giirqakg3w" path="res://resouces/themes/panel_gameplay.theme" id="1_dra1b"]
@@ -15,9 +15,20 @@ font_size = 24
 [sub_resource type="LabelSettings" id="LabelSettings_6cfcq"]
 font_size = 14
 
+[sub_resource type="LabelSettings" id="LabelSettings_sb47k"]
+font_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26iir"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.239216)
+
+[sub_resource type="LabelSettings" id="LabelSettings_11s1g"]
+
 [node name="element_info" type="PanelContainer"]
 offset_right = 300.0
-offset_bottom = 273.0
+offset_bottom = 146.0
 mouse_filter = 2
 theme = ExtResource("1_dra1b")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_luu1q")
@@ -28,9 +39,9 @@ layout_mode = 2
 texture = ExtResource("1_3vj5e")
 region_rect = Rect2(506, 0, 277, 412)
 patch_margin_left = 190
-patch_margin_top = 133
+patch_margin_top = 73
 patch_margin_right = 64
-patch_margin_bottom = 140
+patch_margin_bottom = 73
 
 [node name="close" type="TextureButton" parent="NinePatchRect"]
 modulate = Color(0.764706, 0.827451, 0.870588, 1)
@@ -99,12 +110,24 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "valentia:"
+label_settings = SubResource("LabelSettings_sb47k")
 
 [node name="extra_neutrons" type="Label" parent="MarginContainer/VBoxContainer/valentia"]
 layout_mode = 2
 size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_sb47k")
+
+[node name="skill_effect_title" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+modulate = Color(0.772549, 1, 0.945098, 1)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_26iir")
+text = "ELEMENT_EFFECT"
+label_settings = SubResource("LabelSettings_11s1g")
+vertical_alignment = 2
 
 [node name="effect" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -114,13 +137,22 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 2
 
+[node name="molecule_effect_title" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 0.92549, 0.968627, 1)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_26iir")
+text = "MOLECULE_EFFECT"
+label_settings = SubResource("LabelSettings_11s1g")
+vertical_alignment = 2
+
 [node name="molecule_effect" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_styles/normal = ExtResource("6_30wmq")
 bbcode_enabled = true
-text = "asdasdsa"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2

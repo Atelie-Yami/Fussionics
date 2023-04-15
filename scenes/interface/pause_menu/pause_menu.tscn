@@ -7,6 +7,7 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_4qwqi"]
 
 [node name="PauseMenu" type="Control" node_paths=PackedStringArray("DisplayModeButton", "MaxFpsValueLabel", "MaxFpsSlider", "MasterVolumeValueLabel", "MasterVolumeSlider", "MusicVolumeValueLabel", "MusicVolumeSlider", "SFXVolumeValueLabel", "SFXVolumeSlider", "OptionsSettings", "OptionsMenu")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

@@ -2,8 +2,7 @@ class_name Arena extends PlayerController
 
 signal elements_update
 
-const GRID_OFFSET := Vector2i(605, 320)
-const SLOT_SIZE := Vector2i(90, 90)
+
 const FORJE_SLOTS_OFFSET := [
 	Vector2i(-360, 100), Vector2i(-180, 0), Vector2i(-270, 0),    # slots 10, 11, 12
 	Vector2i(-270, 450), Vector2i(-90, 450), Vector2i(-180, 540), # slots 13, 14, 15
@@ -51,23 +50,8 @@ func _init():
 	Gameplay.arena = self
 
 
-func _gui_input(event):
-	if event.is_action_pressed("mouse_click"):
-		Gameplay.action_state = Gameplay.ActionState.NORMAL
-		Gameplay.passive_status.set_element(null)
-
-
 func _check_slot_empty(slot: Vector2i):
 	return not elements.has(slot)
-
-
-func _check_slot_only_out(slot: Vector2i):
-	return slot.y == 12 or slot.y == 15 or slot.y == 18 or slot.y == 21
-
-
-func _get_snapped_slot_position(slot: Vector2i):
-	var _slot = (slot - Vector2i(16, 0)) if slot.x > 11 else slot
-	return (SLOT_SIZE * _slot) + GRID_OFFSET
 
 
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
@@ -93,15 +77,13 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 
 
 func remove_element(slot_position: Vector2i):
-	if action_in_process or not elements.has(slot_position):
+	if not elements.has(slot_position):
 		return
 	
 	var slot: Slot = elements[slot_position]
 	
 	if not GameJudge.can_remove_element(slot.element):
 		return
-	
-	action_in_process = true
 	
 	if slot.molecule:
 		var neigbors: Array[Element]
@@ -126,8 +108,6 @@ func remove_element(slot_position: Vector2i):
 	
 	if slot_position.x < 8:
 		get_child(slot_position.x + (slot_position.y * 8)).visible = true
-	
-	action_in_process = false
 
 
 func _remove_element(slot: Slot, slot_position: Vector2i):
@@ -141,17 +121,11 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	action_in_process = true
 	
-	var element: Element
-	
-	if player == Players.A:
-		element = ElementNodePlayer.new()
-	else:
-		element = ElementNodeRival.new()
-	
+	var element: Element = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
 	var slot = Slot.new(element, player)
 	
+	element.build(atomic_number)
 	element.grid_position = _position
-	element.atomic_number = atomic_number
 	elements[_position] = slot
 	
 	if focus:
@@ -216,28 +190,7 @@ func link_elements(element_a: Element, element_b: Element):
 	action_in_process = false
 
 
-func _link_elements(element_a: Element, element_b: Element):
-	for link in element_a.links:
-		var ligament_a = element_a.links[link]
-		if not ligament_a:
-			continue
-		
-		for _link in element_b.links:
-			var ligament_b = element_b.links[_link]
-			if not ligament_b:
-				continue
-			
-			if ligament_a == ligament_b and ligament_a.level < 3:
-				ligament_a.evolve_ligament()
-				return
-
-
 func unlink_elements(element_A: Element, element_B: Element):
-	if action_in_process:
-		return
-	
-	action_in_process = true
-	
 	if _unlink_elements(element_A, element_B):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
@@ -248,30 +201,6 @@ func unlink_elements(element_A: Element, element_B: Element):
 		current_players[player].spend_energy(1)
 	else:
 		print("has not link")
-	
-	action_in_process = false
-
-
-func _unlink_elements(element_A: Element, element_B: Element):
-	for link in element_A.links:
-		var ligament_A: Molecule.Ligament = element_A.links[link]
-		if not ligament_A:
-			continue
-		
-		for _link in element_B.links:
-			var ligament_B: Molecule.Ligament = element_B.links[_link]
-			if not ligament_B:
-				continue
-			
-			if ligament_A == ligament_B:
-				if ligament_A.level > 1:
-					ligament_A.demote_ligament()
-				
-				else:
-					ligament_A.remove()
-				
-				return true
-	return false
 
 
 func _handle_molecule(element: Element):
@@ -296,31 +225,6 @@ func _handle_molecule(element: Element):
 		for e in molecule_config:
 			elements[e.grid_position].molecule = molecula
 			molecula.gain_ref()
-
-
-func _procedural_search_link_nodes(element_parent: Element, anchored_array: Array[Element]):
-	for l in element_parent.links:
-		var link: Molecule.Ligament = element_parent.links[l]
-		if not link: continue
-		
-		if link.element_A == element_parent:
-			_procedural_search_test(link.element_B, anchored_array)
-		
-		elif link.element_B == element_parent:
-			_procedural_search_test(link.element_A, anchored_array)
-
-
-func _procedural_search_test(element: Element, anchored_array: Array[Element]):
-	if anchored_array.find(element) != -1:
-		return
-	
-	anchored_array.append(element)
-	_procedural_search_link_nodes(element, anchored_array)
-
-
-func element_use_effect(element: Element):
-	if element.effect:
-		element.effect.execute()
 
 
 func attack_element(attacker: Vector2i, defender: Vector2i):
@@ -428,13 +332,6 @@ func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: 
 		
 		remove_element(slot_accelr_A)
 		remove_element(slot_accelr_B)
-
-
-func _can_drop_data(_p, data):
-	return (
-			turn_machine.current_stage == TurnMachine.State.MAIN
-			and turn_machine.current_player == TurnMachine.Players.A
-	)
 
 
 func _drop_data(_p, data):

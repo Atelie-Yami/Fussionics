@@ -1,4 +1,6 @@
 keys,pt,en
+ELEMENT_EFFECT,"Efeito do elemento","Element effect"
+MOLECULE_EFFECT,"Efeito em molecula","Effect on molecule"
 EFFECT_HYDROGEN,"Recupera saude do [b][color=#922222]Omega[/color][/b] se for usado em um acelerador.", "Recovers health from [b][color=#922222]Omega[/color][/b] if used on an accelerator."
 EFFECT_HELIUM,"",""
 EFFECT_LITHIUM,"Ative a autodestruição, causando [b]incêndio[/b] nos inimigos ao redor.[p][b]Incêndio[/b] reduz 1 neutron a cada turno por valor acumulado, destroi o elemento caso seus neutrons chegue a 0.[p]Esse efeito pode acumular até 8 vezes.","Activate self-destruction, causing [b]Burning[/b] to surrounding enemies.[p][b]Burning[/b] reduces 1 neutron each turn per stack, destroys the element if your neutrons reach 0.[p]This effect can stack up to 8 times."

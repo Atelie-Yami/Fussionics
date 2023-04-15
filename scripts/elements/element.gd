@@ -167,7 +167,6 @@ var max_eletrons: int
 var eletrons: int
 
 var max_neutrons: int
-var target_neutrons: int
 ## isotopo, geralmente o mesmo valor q o numero atomico, determina a vida.
 var neutrons: int:
 	set(value):
@@ -181,16 +180,7 @@ var valentia: int
 @onready var number_electrons_in_valencia: int = valentia
 
 ## isso é basicamente oque define que tipo de elemento é, seu valor é o custo para instanciar.
-@export var atomic_number: int:
-	set(value):
-		atomic_number = value
-		eletrons = value +1
-		neutrons = value
-		valentia = DATA[atomic_number][VALENTIA]
-		tooltip_text = DATA[atomic_number][NAME]
-		
-		if not skill_effect and SkillEffect.BOOK.has(atomic_number):
-			skill_effect = SkillEffect.BOOK[atomic_number].new(self)
+@export var atomic_number: int
 
 ## Dicionario que define os efeitos em seus tempos de ação:[br]
 ## [codeblock]
@@ -198,7 +188,6 @@ var valentia: int
 ## {ActionTime.INIT: nome_da_func)}
 ## [/codeblock]
 var action_time: Dictionary
-var grid_position: Vector2i
 
 var links = {
 	Vector2i.UP: null, Vector2i.DOWN: null, Vector2i.LEFT: null, Vector2i.RIGHT: null
@@ -208,7 +197,6 @@ var disabled: bool:
 	set(value):
 		disabled = value
 		legancy.set_fade(float(!value))
-
 
 var active: bool:
 	set(value):
@@ -227,6 +215,8 @@ var molecule_effect: MoleculeEffect
 var current_node_state: NodeState
 var position_offset: Vector2
 var selected: bool
+
+var grid_position: Vector2i
 
 var legancy: Panel = LEGANCY.instantiate()
 var glow: Sprite2D = GLOW.instantiate()
@@ -359,12 +349,25 @@ func _exit_tree():
 		skill_effect.unregister(0)
 
 
+func build(_atomic_number: int):
+	atomic_number = min(_atomic_number, DATA.size())
+	eletrons = atomic_number + 1
+	neutrons = atomic_number
+	valentia = DATA[atomic_number][VALENTIA]
+	tooltip_text = DATA[atomic_number][NAME]
+	
+	if SkillEffect.BOOK.has(atomic_number):
+		skill_effect = SkillEffect.BOOK[atomic_number][0].new(self)
+	
+	if MoleculeEffect.BOOK.has(atomic_number):
+		molecule_effect = MoleculeEffect.BOOK[atomic_number][0].new(self)
+
+
 func reset():
 	disabled = false
-	if target_neutrons:
-		neutrons = target_neutrons
-	else:
+	if debuffs.is_empty() and neutrons > 0:
 		neutrons = atomic_number
+		
 	eletrons = atomic_number +1
 
 
