@@ -10,7 +10,14 @@ const SERIES := [
 
 @onready var symbol: TextureRect= $MarginContainer/VBoxContainer/element_profile/symbol
 @onready var element_name: Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/name
-@onready var serie: Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/serie
+@onready var serie: Label = $MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer/serie
+
+@onready var stars: Array[Control] = [
+	$MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer/star1 as Control,
+	$MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer/star2 as Control,
+	$MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer/star3 as Control,
+]
+
 @onready var valentia: Label = $MarginContainer/VBoxContainer/valentia/valentia_text
 @onready var extra_neutrons: Label = $MarginContainer/VBoxContainer/valentia/extra_neutrons
 @onready var skill_effect: RichTextLabel = $MarginContainer/VBoxContainer/effect
@@ -36,6 +43,12 @@ func load_data(data: Dictionary, atomic_number: int):
 	
 	serie.text = tr(SERIES[data[Element.SERIE]])
 	serie.modulate = (symbol_color * 0.6) + (Color.WHITE * 0.4)
+	
+	stars.map(func(c): c.visible = false)
+	
+	for i in data[Element.RANKING]:
+		stars[i].visible = true
+	
 	
 	valentia.text = tr("VALENTIA") + str(data[Element.VALENTIA])
 	skill_effect.text = tr("EFFECT_" + data[Element.NAME])

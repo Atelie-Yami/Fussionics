@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6dfidibu2j5g"]
+[gd_scene load_steps=15 format=3 uid="uid://c6dfidibu2j5g"]
 
 [ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="1_3vj5e"]
 [ext_resource type="Theme" uid="uid://d20giirqakg3w" path="res://resouces/themes/panel_gameplay.theme" id="1_dra1b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://7pvoi7opcxls" path="res://assets/img/elements/Slot_0.png" id="3_mno6a"]
 [ext_resource type="Texture2D" uid="uid://dorte8gvr7clr" path="res://resouces/atlas/main/close.tres" id="3_vtdi5"]
 [ext_resource type="StyleBox" uid="uid://bhul54i7fb6xo" path="res://resouces/stylebox/label_bg_panel.stylebox" id="6_30wmq"]
+[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="6_snuyk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_luu1q"]
 
@@ -14,6 +15,11 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_6cfcq"]
 font_size = 14
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isi1y"]
+atlas = ExtResource("6_snuyk")
+region = Rect2(958, 73, 211, 201)
+margin = Rect2(20, 30, 40, 80)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sb47k"]
 font_size = 15
@@ -96,11 +102,40 @@ text = "NAME"
 label_settings = SubResource("LabelSettings_mtplp")
 vertical_alignment = 2
 
-[node name="serie" type="Label" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer"]
+layout_mode = 2
+
+[node name="serie" type="Label" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "SERIE"
 label_settings = SubResource("LabelSettings_6cfcq")
+vertical_alignment = 2
+
+[node name="star1" type="TextureRect" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(19, 21)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = SubResource("AtlasTexture_isi1y")
+expand_mode = 1
+
+[node name="star2" type="TextureRect" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(19, 21)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = SubResource("AtlasTexture_isi1y")
+expand_mode = 1
+
+[node name="star3" type="TextureRect" parent="MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(19, 21)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = SubResource("AtlasTexture_isi1y")
+expand_mode = 1
 
 [node name="valentia" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

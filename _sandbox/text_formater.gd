@@ -23,8 +23,10 @@ extends Node
 #
 #
 		for i in some_array.size():
-			final += "MOLECULA_" + some_array[i] + ",\"\",\"\"\n"
-#
-		print(final)
+			var string = (some_array[i] as String).left(-2) + ", RANKING: " + str(randi() % 4) + "},"
+			print(string)
+
+
+
 
 

@@ -55,25 +55,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_db8mu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12678"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lgei"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu5gu"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4jla"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jx7dq"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j06h3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3f847"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -299,7 +299,7 @@ script/source = "extends ColorRect
 
 
 var lod: float
-var _lod: float = 10.0
+var _lod: float = 0.0
 
 
 func _process(delta):
@@ -406,19 +406,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_db8mu")
+material = SubResource("ShaderMaterial_12678")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_2lgei")
+material = SubResource("ShaderMaterial_qu5gu")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_d4jla")
+material = SubResource("ShaderMaterial_jx7dq")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_j06h3")
+material = SubResource("ShaderMaterial_3f847")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
