@@ -12,3 +12,6 @@ func bake():
 	
 	text += "[p]"
 	text += tr("MOLECULA_" + symbol)
+	
+	if text == "MOLECULA_" + symbol:
+		visible = false

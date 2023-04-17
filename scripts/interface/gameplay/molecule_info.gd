@@ -31,6 +31,11 @@ func _notification(what: int):
 		visible = false
 
 
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("ui_cancel"):
+		visible = false
+
+
 func load_info(element: Element):
 	_reset()
 	
@@ -80,8 +85,10 @@ func load_info(element: Element):
 func load_header_info(data: Dictionary, color: Color):
 	header_name.text = tr(data[Element.NAME])
 	header_name.modulate = (color * 0.35) + (Color.WHITE * 0.75)
+	
 	header_effect.text = tr("MOLECULA_" + data[Element.NAME])
+	header_effect.visible = header_effect.text != "MOLECULA_" + data[Element.NAME]
 
 
-
-
+func _close_pressed():
+	visible = false

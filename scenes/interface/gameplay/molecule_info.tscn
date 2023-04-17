@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8olai4bngrps"]
+[gd_scene load_steps=8 format=3 uid="uid://c8olai4bngrps"]
 
 [ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="1_ti3gx"]
 [ext_resource type="Theme" uid="uid://d20giirqakg3w" path="res://resouces/themes/panel_gameplay.theme" id="1_uipgq"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/molecule_info.gd" id="2_iliq2"]
 [ext_resource type="StyleBox" uid="uid://bhul54i7fb6xo" path="res://resouces/stylebox/label_bg_panel.stylebox" id="3_jk4v6"]
+[ext_resource type="Texture2D" uid="uid://dorte8gvr7clr" path="res://resouces/atlas/main/close.tres" id="4_e70gp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sir23"]
 
@@ -28,6 +29,23 @@ patch_margin_left = 94
 patch_margin_top = 70
 patch_margin_right = 120
 patch_margin_bottom = 54
+
+[node name="close" type="TextureButton" parent="NinePatchRect"]
+modulate = Color(0.764706, 0.827451, 0.870588, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -14.0
+offset_top = -9.0
+offset_right = 10.0
+offset_bottom = 15.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_e70gp")
+ignore_texture_size = true
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -58,3 +76,5 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
+
+[connection signal="pressed" from="NinePatchRect/close" to="." method="_close_pressed"]

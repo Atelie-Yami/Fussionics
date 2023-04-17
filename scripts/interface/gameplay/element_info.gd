@@ -35,6 +35,11 @@ func _notification(what: int):
 		visible = false
 
 
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("ui_cancel"):
+		visible = false
+
+
 func load_data(data: Dictionary, atomic_number: int):
 	var symbol_color: Color = Element.COLOR_SERIES[Element.DATA[atomic_number][Element.SERIE]]
 	
