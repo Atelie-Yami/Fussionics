@@ -5,7 +5,7 @@ const SAVE_NAME_PATH := "system.sv"
 const SAVE_MODEL := {
 		"campaign_progress": 0,
 		"volume_master": false,
-		"widgets_deck": [[], [], [], [], [], [], [], [], [], [], [], []], # [atomic_numer, ranking]
+		"widgets_deck": [[], [], [0, 1], [], [], [], [], [], [], [], [], []], # [atomic_numer, ranking]
 		"widgets": {
 		#   atomic_numer: [isotopo_id, isotopo_id, isotopo_id]
 		}

@@ -41,12 +41,12 @@ func _unhandled_input(event: InputEvent):
 
 
 func load_data(data: Dictionary, atomic_number: int):
-	var symbol_color: Color = Element.COLOR_SERIES[Element.DATA[atomic_number][Element.SERIE]]
+	var symbol_color: Color = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]]
 	
-	element_name.text = tr(data[Element.NAME])
+	element_name.text = tr(data[GameBook.NAME])
 	element_name.modulate = (symbol_color * 0.35) + (Color.WHITE * 0.75)
 	
-	serie.text = tr(SERIES[data[Element.SERIE]])
+	serie.text = tr(SERIES[data[GameBook.SERIE]])
 	serie.modulate = (symbol_color * 0.6) + (Color.WHITE * 0.4)
 	
 #	stars.map(func(c): c.visible = false)
@@ -55,18 +55,18 @@ func load_data(data: Dictionary, atomic_number: int):
 #		stars[i].visible = true
 	
 	
-	valentia.text = tr("VALENTIA") + str(data[Element.VALENTIA])
-	skill_effect.text = tr("EFFECT_" + data[Element.NAME])
+	valentia.text = tr("VALENTIA") + str(data[GameBook.VALENCY])
+	skill_effect.text = tr("EFFECT_" + data[GameBook.NAME])
 	
-	var has_text: bool = skill_effect.text != "EFFECT_" + data[Element.NAME]
+	var has_text: bool = skill_effect.text != "EFFECT_" + data[GameBook.NAME]
 	skill_effect.visible = has_text
 	skill_effect_title.visible = has_text
 	
-	valentia.modulate = Color.PALE_VIOLET_RED if data[Element.VALENTIA] == 0 else Color.WHITE
+	valentia.modulate = Color.PALE_VIOLET_RED if data[GameBook.VALENCY] == 0 else Color.WHITE
 
 
 func show_info(element: Element):
-	var data = Element.DATA[element.atomic_number]
+	var data = GameBook.ELEMENTS[element.atomic_number]
 	load_data(data, element.atomic_number)
 	
 	molecule_info.load_info(element)

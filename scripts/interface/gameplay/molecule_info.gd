@@ -47,8 +47,8 @@ func load_info(element: Element):
 		return
 	
 	load_header_info(
-			Element.DATA[element.atomic_number], 
-			Element.COLOR_SERIES[Element.DATA[element.atomic_number][Element.SERIE]]
+			GameBook.ELEMENTS[element.atomic_number], 
+			GameBook.COLOR_SERIES[GameBook.ELEMENTS[element.atomic_number][GameBook.SERIE]]
 	)
 	if not element.molecule_effect:
 		visible = true
@@ -74,8 +74,8 @@ func load_info(element: Element):
 			kill_list.append(label)
 			
 			_flag_bind_elements[effect.element.atomic_number] = label
-			label.color = Element.COLOR_SERIES[Element.DATA[effect.element.atomic_number][Element.SERIE]]
-			label.symbol = Element.DATA[effect.element.atomic_number][Element.NAME]
+			label.color = GameBook.COLOR_SERIES[GameBook.ELEMENTS[effect.element.atomic_number[GameBook.SERIE]]]
+			label.symbol = GameBook.ELEMENTS[effect.element.atomic_number][GameBook.NAME]
 			label.binds = 1
 			label.bake()
 	
@@ -83,11 +83,11 @@ func load_info(element: Element):
 
 
 func load_header_info(data: Dictionary, color: Color):
-	header_name.text = tr(data[Element.NAME])
+	header_name.text = tr(data[GameBook.NAME])
 	header_name.modulate = (color * 0.35) + (Color.WHITE * 0.75)
 	
-	header_effect.text = tr("MOLECULA_" + data[Element.NAME])
-	header_effect.visible = header_effect.text != "MOLECULA_" + data[Element.NAME]
+	header_effect.text = tr("MOLECULA_" + data[GameBook.NAME])
+	header_effect.visible = header_effect.text != "MOLECULA_" + data[GameBook.NAME]
 
 
 func _close_pressed():

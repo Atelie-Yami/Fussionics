@@ -23,7 +23,17 @@ func _draw():
 		return
 	
 	_draw_stars()
-	_draw_symbol()
+	
+	var data: Dictionary = GameBook.ELEMENTS[atomic_number]
+	var color: Color = GameBook.COLOR_SERIES[data[GameBook.SERIE]]
+	
+	if is_dragging:
+		color = Color.WHITE
+	
+	_draw_symbol(data[GameBook.SYMBOL], color)
+	
+	if not is_dragging:
+		modulate = (color * 0.3) + (Color.WHITE * 0.7) if can_drop else Color(0.6, 0.6, 0.6, 0.3)
 
 
 func _draw_stars():
@@ -34,11 +44,7 @@ func _draw_stars():
 		draw_texture_rect(STAR, Rect2(final_position, STAR_SIZE), false)
 
 
-func _draw_symbol():
-	var data: Dictionary = Element.DATA[atomic_number]
-	var symbol: String = data[Element.SIMBOL]
-	var color: Color = Element.COLOR_SERIES[data[Element.SERIE]]
-	
+func _draw_symbol(symbol: String, color: Color):
 	var string_size = Element.FUTURE_SALLOW.get_string_size(
 			symbol, HORIZONTAL_ALIGNMENT_CENTER, -1, FONT_SIZE
 	) / 2.0
@@ -50,7 +56,6 @@ func _draw_symbol():
 			FONT_SIZE,
 			(color * 0.2) + (Color.WHITE * 0.8) if can_drop else Color.LIGHT_STEEL_BLUE
 	)
-	modulate = (color * 0.3) + (Color.WHITE * 0.7) if can_drop else Color(0.6, 0.6, 0.6, 0.3)
 
 
 func _get_drag_data(_p):
@@ -58,6 +63,8 @@ func _get_drag_data(_p):
 		return null
 	
 	var preview: WidgetSlot = duplicate()
+	preview.atomic_number = atomic_number
+	preview.ranking = ranking
 	preview.is_dragging = true
 	
 	Gameplay.element_drag_preview.add_child(preview)

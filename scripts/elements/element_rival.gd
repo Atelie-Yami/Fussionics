@@ -10,7 +10,7 @@ func _gui_input(event: InputEvent):
 			Gameplay.selected_element_target = self
 		
 		else:
-			Gameplay.element_info.load_data(Element.DATA[atomic_number], atomic_number)
+			Gameplay.element_info.load_data(GameBook.ELEMENTS[atomic_number], atomic_number)
 			Gameplay.passive_status.set_element(self)
 
 

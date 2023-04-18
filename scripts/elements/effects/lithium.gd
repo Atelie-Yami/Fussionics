@@ -7,7 +7,7 @@ extends SkillEffect
 ## Esse efeito pode acumular até 8 vezes.
 
 
-func _init(_element: Element):
+func a_init(_element: Element):
 	element = _element
 	skill_type = SkillType.ACTION
 	mechanic_mode = MechanicMode.DESTROYER

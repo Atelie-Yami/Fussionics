@@ -23,8 +23,8 @@ func _ready():
 		player_a = get_node(player_a_path)
 		element_info = get_node(element_info_path)
 		
-	simbol = Element.DATA[element][Element.SIMBOL]
-	color = Element.COLOR_SERIES[Element.DATA[element][Element.SERIE]]
+	simbol = GameBook.ELEMENTS[element][GameBook.SYMBOL]
+	color = GameBook.COLOR_SERIES[GameBook.ELEMENTS[element][GameBook.SERIE]]
 
 
 func _process(delta):
@@ -48,7 +48,7 @@ func _draw():
 
 func _gui_input(event):
 	if event.is_action_pressed("mouse_right"):
-		element_info.load_data(Element.DATA[element], element)
+		element_info.load_data(GameBook.ELEMENTS[element], element)
 		element_info.visible = true
 	
 	if not can_drop:

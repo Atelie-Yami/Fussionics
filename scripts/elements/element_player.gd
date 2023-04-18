@@ -54,3 +54,9 @@ func _mouse_entered():
 		)
 	else:
 		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+
+
+func _drop_data(_p, data):
+	if data is WidgetSlot:
+		if atomic_number == data.atomic_number:
+			data.ranking

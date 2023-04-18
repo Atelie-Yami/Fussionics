@@ -2,7 +2,7 @@ extends Node
 
 
 #func _ready():
-#	var d = Element.DATA.duplicate(true)
+#	var d = GameBook.ELEMENTS.duplicate(true)
 #
 #	for i in d.size():
 #		d[i][4] = randi() % 4

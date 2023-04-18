@@ -8,10 +8,6 @@ enum MoleculeEffectType {
 	MULTI,      ## possui alguma combinação dos tipos anteriores
 }
 
-const BOOK := {
-	
-}
-
 var molecule_effect_type: MoleculeEffectType
 var cluster: EffectCluster
 
