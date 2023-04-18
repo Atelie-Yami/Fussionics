@@ -49,10 +49,10 @@ func load_data(data: Dictionary, atomic_number: int):
 	serie.text = tr(SERIES[data[Element.SERIE]])
 	serie.modulate = (symbol_color * 0.6) + (Color.WHITE * 0.4)
 	
-	stars.map(func(c): c.visible = false)
-	
-	for i in data[Element.RANKING]:
-		stars[i].visible = true
+#	stars.map(func(c): c.visible = false)
+#
+#	for i in data[Element.RANKING]:
+#		stars[i].visible = true
 	
 	
 	valentia.text = tr("VALENTIA") + str(data[Element.VALENTIA])

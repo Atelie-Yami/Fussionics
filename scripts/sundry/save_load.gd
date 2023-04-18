@@ -3,8 +3,12 @@ class_name SaveLoad extends RefCounted
 const SAVE_DIR_PATH := "user://system/"
 const SAVE_NAME_PATH := "system.sv"
 const SAVE_MODEL := {
-		"campaign_progress" : 0,
-		"volume_master" : false
+		"campaign_progress": 0,
+		"volume_master": false,
+		"widgets_deck": [[], [], [], [], [], [], [], [], [], [], [], []], # [atomic_numer, ranking]
+		"widgets": {
+		#   atomic_numer: [isotopo_id, isotopo_id, isotopo_id]
+		}
 }
 
 
@@ -20,8 +24,9 @@ static func load_data(sv: Dictionary):
 	check_directiry()
 	var file = FileAccess.open(SAVE_DIR_PATH + SAVE_NAME_PATH, FileAccess.READ)
 	if not file:
-		save_data(SAVE_MODEL.duplicate())
-		return SAVE_MODEL.duplicate()
+		sv = SAVE_MODEL.duplicate(true)
+		save_data(sv)
+		return
 	
 	var new_sv = file.get_var()
 	file.close()
@@ -32,11 +37,11 @@ static func load_data(sv: Dictionary):
 				continue
 			
 			new_sv[item] = SAVE_MODEL[item]
-		
-		return new_sv
+		sv = new_sv
 	else:
-		save_data(SAVE_MODEL.duplicate())
-		return SAVE_MODEL.duplicate()
+		sv = SAVE_MODEL.duplicate(true)
+		save_data(sv)
+		return
 
 
 static func check_directiry():

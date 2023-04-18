@@ -42,11 +42,21 @@ enum MechanicMode {
 	# OTHERS
 	SPECIAL, ## possiu um efeito que altera algo no jogo de forma unica.
 }
+enum Ranking {
+	IMPROVED, ## tem um efeito simples
+	ENHANCED, ## tem um efeito significativo
+	ELITE,    ## tem um efeito poderoso
+}
 
 ## aqui se define onde essa skill vai ser chamada.
-var skill_type: SkillType
 var mechanic_mode: MechanicMode
 var target_mode: TargetMode
+var skill_type: SkillType:
+	set(value):
+		skill_type = value
+		
+		if skill_type != SkillType.ACTION:
+			register(0)
 
 var element: Element
 
