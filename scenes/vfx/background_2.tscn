@@ -51,23 +51,21 @@ turbulence_influence_max = 1.0
 layer = -1
 script = ExtResource("1_b7oef")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="A" type="AspectRatioContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="A"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource("1_psfpg")
 
-[node name="layer_1" type="Sprite2D" parent="."]
-scale = Vector2(1.3, 1.3)
-texture = ExtResource("2_uwwvt")
-centered = false
-offset = Vector2(-180, -100)
-
-[node name="particles" type="GPUParticles2D" parent="."]
+[node name="particles" type="GPUParticles2D" parent="A"]
 position = Vector2(960, 540)
 amount = 128
 process_material = SubResource("ParticleProcessMaterial_f77cl")
@@ -77,8 +75,10 @@ randomness = 0.9
 visibility_rect = Rect2(-960, -540, 1920, 1080)
 local_coords = true
 
-[node name="layer_2" type="Sprite2D" parent="."]
-scale = Vector2(1.3, 1.3)
+[node name="layer_1" type="TextureRect" parent="A"]
+layout_mode = 2
+texture = ExtResource("2_uwwvt")
+
+[node name="layer_2" type="TextureRect" parent="A"]
+layout_mode = 2
 texture = ExtResource("4_prd2d")
-centered = false
-offset = Vector2(-180, -100)

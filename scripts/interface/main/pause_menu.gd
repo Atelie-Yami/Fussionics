@@ -126,6 +126,7 @@ func _voltar_pressed():
 
 
 func _menu_inicial_pressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/interface/main_menu/main.tscn")
 
 
