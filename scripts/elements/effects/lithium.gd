@@ -32,8 +32,3 @@ func execute():
 			e.debuffs[PassiveEffect.Debuff.BURNING] = burn
 	
 	Gameplay.arena.remove_element(element.grid_position)
-
-
-
-
-

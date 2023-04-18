@@ -21,12 +21,12 @@ const MOLECULE_EFFECTS := {
 
 const SKILL_EFFECT := {
 	0: {
-		Ranking.IMPROVED: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
-		Ranking.ENHANCED: [EffectType.MOLECULE, preload("res://scripts/elements/effects/hidrogen.gd")],
-		Ranking.ELITE: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
+#		Ranking.IMPROVED: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
+#		Ranking.ENHANCED: [EffectType.MOLECULE, preload("res://scripts/elements/effects/hidrogen.gd")],
+#		Ranking.ELITE: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
 	},
 	2: {
-		Ranking.ENHANCED: [EffectType.SKILL, preload("res://scripts/elements/effects/lithium.gd")],
+#		Ranking.ENHANCED: [EffectType.SKILL, preload("res://scripts/elements/effects/lithium.gd")],
 	},
 }
 const COLOR_SERIES = {
