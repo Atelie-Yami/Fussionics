@@ -57,25 +57,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_my0m0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pxkmg"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddbqf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uia4c"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jueik"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5oopl"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oadvv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4fbx"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -280,6 +280,13 @@ region = Rect2(888, 783, 401, 150)
 font = ExtResource("14_virs7")
 font_size = 30
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb1b0"]
+atlas = ExtResource("19_rqw3s")
+region = Rect2(1463, 834, 391, 159)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_saf35"]
+texture = SubResource("AtlasTexture_qb1b0")
+
 [sub_resource type="Shader" id="Shader_apioj"]
 code = "shader_type canvas_item;
 
@@ -351,13 +358,6 @@ func _is_pressed():
 
 "
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qb1b0"]
-atlas = ExtResource("19_rqw3s")
-region = Rect2(1463, 834, 391, 159)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_saf35"]
-texture = SubResource("AtlasTexture_qb1b0")
-
 [node name="world" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [851.0]
 metadata/_edit_vertical_guides_ = [464.0]
@@ -421,19 +421,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_my0m0")
+material = SubResource("ShaderMaterial_pxkmg")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_ddbqf")
+material = SubResource("ShaderMaterial_uia4c")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_jueik")
+material = SubResource("ShaderMaterial_5oopl")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_oadvv")
+material = SubResource("ShaderMaterial_k4fbx")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -941,42 +941,6 @@ disabled = true
 text = "NEXT_TURN"
 flat = true
 
-[node name="blur" type="ColorRect" parent="GUI"]
-process_mode = 3
-material = SubResource("ShaderMaterial_7e6jv")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 1, 1, 0)
-script = SubResource("GDScript_a5rge")
-metadata/_edit_lock_ = true
-
-[node name="pause_meun" type="Button" parent="GUI"]
-process_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -58.0
-offset_top = 18.0
-offset_right = -18.0
-offset_bottom = 58.0
-grow_horizontal = 0
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_6p1hu")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_7r7rx")
-icon = SubResource("AtlasTexture_ds21w")
-flat = true
-icon_alignment = 1
-expand_icon = true
-script = SubResource("GDScript_i0b5j")
-blur_path = NodePath("../blur")
-pause_menu_path = NodePath("../PauseMenu")
-
-[node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
-
 [node name="widgets" type="Panel" parent="GUI"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -1083,6 +1047,42 @@ custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
 script = ExtResource("32_rg6yl")
+
+[node name="blur" type="ColorRect" parent="GUI"]
+process_mode = 3
+material = SubResource("ShaderMaterial_7e6jv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = SubResource("GDScript_a5rge")
+metadata/_edit_lock_ = true
+
+[node name="pause_meun" type="Button" parent="GUI"]
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = 58.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_6p1hu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7r7rx")
+icon = SubResource("AtlasTexture_ds21w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = SubResource("GDScript_i0b5j")
+blur_path = NodePath("../blur")
+pause_menu_path = NodePath("../PauseMenu")
+
+[node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
 
 [connection signal="end_game" from="turn_machine" to="turn_machine" method="_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]

@@ -18,8 +18,7 @@ const SERIES := [
 	$MarginContainer/VBoxContainer/element_profile/VBoxContainer/HBoxContainer/star3 as Control,
 ]
 
-@onready var valentia: Label = $MarginContainer/VBoxContainer/valentia/valentia_text
-@onready var extra_neutrons: Label = $MarginContainer/VBoxContainer/valentia/extra_neutrons
+@onready var valentia: Label = $MarginContainer/VBoxContainer/valentia_text
 @onready var skill_effect: RichTextLabel = $MarginContainer/VBoxContainer/effect
 @onready var molecule_effect: RichTextLabel = $MarginContainer/VBoxContainer/molecule_effect
 @onready var skill_effect_title: Label = $MarginContainer/VBoxContainer/skill_effect_title
@@ -49,39 +48,35 @@ func load_data(data: Dictionary, atomic_number: int):
 	serie.text = tr(SERIES[data[GameBook.SERIE]])
 	serie.modulate = (symbol_color * 0.6) + (Color.WHITE * 0.4)
 	
-#	stars.map(func(c): c.visible = false)
-#
-#	for i in data[Element.RANKING]:
-#		stars[i].visible = true
-	
-	
 	valentia.text = tr("VALENTIA") + str(data[GameBook.VALENCY])
-	skill_effect.text = tr("EFFECT_" + data[GameBook.NAME])
-	
-	var has_text: bool = skill_effect.text != "EFFECT_" + data[GameBook.NAME]
-	skill_effect.visible = has_text
-	skill_effect_title.visible = has_text
-	
 	valentia.modulate = Color.PALE_VIOLET_RED if data[GameBook.VALENCY] == 0 else Color.WHITE
 
 
 func show_info(element: Element):
 	var data = GameBook.ELEMENTS[element.atomic_number]
+	
+	stars.map(func(c): c.visible = false)
+	skill_effect_title.visible = false
+	skill_effect.visible = false
+	
 	load_data(data, element.atomic_number)
-	
-	molecule_info.load_info(element)
-	
-	if element.neutrons != element.atomic_number:
-		extra_neutrons.text = tr("ISOTOPO")
-		
-		var diff = element.atomic_number - element.neutrons
-		extra_neutrons.text += ("+" if diff > 0 else "-") + str(diff)
-		extra_neutrons.modulate = Color.PALE_VIOLET_RED if diff > 0 else Color.PALE_GREEN
-	else:
-		extra_neutrons.text = ""
-		extra_neutrons.modulate = Color.WHITE
-	
 	visible = true
+	
+	if not element.effect:
+		return
+	
+	if element.effect is MoleculeEffect:
+		molecule_info.load_info(element)
+	
+	var ranking: int = element.effect.ranking
+	
+	skill_effect.text = tr("EFFECT_" + str(ranking) + "_" + data[GameBook.NAME])
+	skill_effect.visible = true
+	skill_effect_title.visible = true
+	
+	for i in ranking:
+		stars[i].visible = true
+
 
 
 func _close_pressed():

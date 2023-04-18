@@ -5,6 +5,7 @@ extends SkillEffect
 
 
 func _init(_element: Element):
+	player = _element.player
 	element = _element
 	skill_type = SkillType.COOKED_ACCELR
 	mechanic_mode = MechanicMode.SPECIAL

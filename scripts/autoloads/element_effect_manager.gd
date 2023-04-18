@@ -36,15 +36,15 @@ func _init():
 	one_shot = true
 
 
-func _reset_pool(player: PlayerController.Players):
-	for type in effects_pool_players[player]:
-		effects_pool_players[player][type] = []
-
-
 func _process(delta):
 	for _players in 2:
 		for effect in effects_pool_players[_players][BaseEffect.SkillType.PASSIVE]:
 			effect.execute()
+
+
+func _reset_pool(player: PlayerController.Players):
+	for type in effects_pool_players[player]:
+		effects_pool_players[player][type] = []
 
 
 func call_passive_effects(player: PlayerController.Players):

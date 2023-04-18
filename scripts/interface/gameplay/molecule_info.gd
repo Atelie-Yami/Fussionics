@@ -50,7 +50,7 @@ func load_info(element: Element):
 			GameBook.ELEMENTS[element.atomic_number], 
 			GameBook.COLOR_SERIES[GameBook.ELEMENTS[element.atomic_number][GameBook.SERIE]]
 	)
-	if not element.molecule_effect:
+	if not element.effect or not element.effect is MoleculeEffect:
 		visible = true
 		return
 	
@@ -60,7 +60,7 @@ func load_info(element: Element):
 			pack.append(e.effect)
 	
 	var cluster: Dictionary
-	EffectCluster.filter_relative_elements(element.molecule_effect.mechanic_mode, pack, cluster)
+	EffectCluster.filter_relative_elements(element.effect.mechanic_mode, pack, cluster)
 	
 	for list in cluster.cluster:
 		for effect in cluster.cluster[list]:

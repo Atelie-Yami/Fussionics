@@ -7,7 +7,8 @@ extends SkillEffect
 ## Esse efeito pode acumular até 8 vezes.
 
 
-func a_init(_element: Element):
+func _init(_element: Element):
+	player = _element.player
 	element = _element
 	skill_type = SkillType.ACTION
 	mechanic_mode = MechanicMode.DESTROYER
@@ -23,7 +24,7 @@ func execute():
 			e.debuffs[PassiveEffect.Debuff.BURNING].life_time = 3
 		else:
 			var burn = PassiveEffect.DEBUFF_BOOK[PassiveEffect.Debuff.BURNING].new(
-					e.skill_effect, Gameplay.arena.elements[e.grid_position].player
+					e.effect, player
 			)
 			burn.stack = 1
 			burn.origin = e

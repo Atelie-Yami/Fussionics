@@ -51,27 +51,29 @@ enum Ranking {
 ## aqui se define onde essa skill vai ser chamada.
 var mechanic_mode: MechanicMode
 var target_mode: TargetMode
+var ranking: Ranking
+
 var skill_type: SkillType:
 	set(value):
 		skill_type = value
 		
 		if skill_type != SkillType.ACTION:
-			register(0)
+			register()
 
 var element: Element
-
+var player: PlayerController.Players
 var _registred: bool
 var active := true
 
 
 ## registra esse efeito de acordo com o tempo de ação
-func register(player: PlayerController.Players):
+func register():
 	ElementEffectManager.effects_pool_players[player][skill_type].append(self)
 	_registred = true
 
 
 ## remove o registro
-func unregister(player: PlayerController.Players):
+func unregister():
 	if _registred:
 		ElementEffectManager.effects_pool_players[player][skill_type].erase(self)
 

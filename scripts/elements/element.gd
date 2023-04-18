@@ -71,14 +71,14 @@ var active: bool:
 # {PassiveEffect.Debuff.Type: PassiveEffect.DebuffEffect}
 var debuffs: Dictionary
 var buffs: Dictionary
-var skill_effect: SkillEffect
-var molecule_effect: MoleculeEffect
+var effect #: BaseEffect
 
 #var current_state: State
 var current_node_state: NodeState
 var position_offset: Vector2
 var selected: bool
 
+var player: PlayerController.Players
 var grid_position: Vector2i
 
 var legancy: Panel = LEGANCY.instantiate()
@@ -208,8 +208,8 @@ func _exit_tree():
 	if Gameplay.selected_element == self:
 		Gameplay.selected_element = null
 	
-	if skill_effect:
-		skill_effect.unregister(0)
+	if effect:
+		effect.unregister()
 
 
 func build(_atomic_number: int):
@@ -218,12 +218,6 @@ func build(_atomic_number: int):
 	neutrons = atomic_number
 	valentia = GameBook.ELEMENTS[atomic_number][GameBook.VALENCY]
 	tooltip_text = GameBook.ELEMENTS[atomic_number][GameBook.NAME]
-	
-#	if SkillEffect.BOOK.has(atomic_number):
-#		skill_effect = SkillEffect.BOOK[atomic_number][0].new(self)
-#
-#	if MoleculeEffect.BOOK.has(atomic_number):
-#		molecule_effect = MoleculeEffect.BOOK[atomic_number][0].new(self)
 
 
 func reset():

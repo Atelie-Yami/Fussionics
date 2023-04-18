@@ -132,7 +132,7 @@ func _action_pressed(action: ElementActions):
 			slot_interact_indicator.set_slots(selected_element.links, 2, selected_element.grid_position)
 		
 		ElementActions.EFFECT:
-			selected_element.skill_effect.execute()
+			selected_element.effect.execute()
 			action_state = ActionState.NORMAL
 
 
@@ -172,14 +172,18 @@ func slot_get_actions(slot: Arena.Slot):
 	if slot.skill_used:
 		return
 	
-	if slot.element.molecule_effect:
-		if (
-				slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER or
-				slot.element.molecule_effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.MULTI
-		):
+	if not slot.element.effect:
+		return actions
+	
+	if slot.element.effect is MoleculeEffect:
+		var is_action: bool = (
+				slot.element.effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER or
+				slot.element.effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.MULTI
+		)
+		if is_action and slot.molecule:
 			actions.append(ElementActions.EFFECT)
 	
-	if slot.element.skill_effect and slot.element.skill_effect.skill_type == BaseEffect.SkillType.ACTION:
+	elif slot.element.effect.skill_type == BaseEffect.SkillType.ACTION:
 		actions.append(ElementActions.EFFECT)
 	
 	return actions

@@ -56,7 +56,13 @@ func _mouse_entered():
 		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
 
 
+func _can_drop_data(_p, data):
+	return data is WidgetSlot
+
+
 func _drop_data(_p, data):
-	if data is WidgetSlot:
-		if atomic_number == data.atomic_number:
-			data.ranking
+	if atomic_number == data.atomic_number:
+		var skill: Array = GameBook.WIDGETS[atomic_number][data.ranking]
+		
+		effect = skill[1].new(self)
+		effect.ranking = data.ranking
