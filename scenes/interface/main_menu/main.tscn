@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://yq0ynwg4ckg5"]
+[gd_scene load_steps=27 format=3 uid="uid://yq0ynwg4ckg5"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -32,8 +32,8 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anns1"]
 shader = SubResource("Shader_apioj")
-shader_parameter/lod = 2.5
-shader_parameter/saturation = 0.0
+shader_parameter/lod = 3.0
+shader_parameter/saturation = 0.4
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ytrk"]
 texture = ExtResource("5_fhi5r")
@@ -76,7 +76,7 @@ colors = PackedColorArray(0.1176, 0.279813, 0.56, 1, 0, 0.137255, 0.388235, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rf2c6"]
 gradient = SubResource("Gradient_2yxwd")
 fill_from = Vector2(0, 0.1)
-fill_to = Vector2(0.866097, 1)
+fill_to = Vector2(1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4bss4"]
 texture = SubResource("GradientTexture2D_rf2c6")
@@ -88,6 +88,11 @@ border_width_top = 5
 border_color = Color(0, 0.313726, 0.545098, 1)
 expand_margin_left = 5.0
 expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ecym"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 0.0
 
 [sub_resource type="Gradient" id="Gradient_jumed"]
 interpolation_mode = 2
@@ -126,7 +131,6 @@ color = Color(1, 1, 1, 0)
 metadata/_edit_lock_ = true
 
 [node name="Buttons" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -210,7 +214,6 @@ layout_mode = 1
 InGame = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -256,11 +259,15 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="campaign" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 193.0
-offset_right = 495.0
-offset_bottom = 1023.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -480.0
+offset_right = -28.0
+offset_bottom = 480.0
+grow_vertical = 2
 theme = ExtResource("1_w7i78")
 theme_override_styles/panel = SubResource("StyleBoxTexture_4bss4")
 
@@ -271,37 +278,42 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_fyo4p")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="campaign"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5ecym")
 horizontal_scroll_mode = 0
 
 [node name="buttons" type="VBoxContainer" parent="campaign/ScrollContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 12
+theme_override_constants/separation = 5
 
 [node name="saga" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
 phases_path = NodePath("../../../../phases")
+metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga2" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-disabled = true
 saga_id = 1
 phases_path = NodePath("../../../../phases")
+metadata/_edit_horizontal_guides_ = [80.0]
+
+[node name="saga3" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
+layout_mode = 2
+saga_id = 2
+phases_path = NodePath("../../../../phases")
+metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="phases" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -60.0
-offset_right = -104.0
-offset_bottom = 60.0
+layout_mode = 2
+offset_left = 1812.0
+offset_top = 480.0
+offset_right = 1812.0
+offset_bottom = 600.0
 grow_horizontal = 0
 grow_vertical = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 0
+alignment = 2
 script = ExtResource("13_katue")
 
 [node name="level_button1" parent="phases" instance=ExtResource("12_70y16")]

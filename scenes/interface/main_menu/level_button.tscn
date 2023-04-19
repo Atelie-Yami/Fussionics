@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/interface/main/level_button.gd" id="1_opdxl"]
 
 [node name="level_button" type="Button"]
+visible = false
 custom_minimum_size = Vector2(120, 120)
 flat = true
 script = ExtResource("1_opdxl")
@@ -21,19 +22,23 @@ expand_mode = 1
 [node name="mini_boss" type="TextureRect" parent="."]
 visible = false
 layout_mode = 2
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 105.0
-offset_bottom = 105.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 100.0
 texture = ExtResource("1_1d86l")
 expand_mode = 1
 
 [node name="boss" type="TextureRect" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 1.047
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -10.64
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_1d86l")

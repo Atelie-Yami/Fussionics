@@ -1,7 +1,7 @@
 class_name GameBook extends Node
 
 enum Sagas {
-	TUTORIAL, MAKINO
+	TUTORIAL, MAKINO, CHAM_INK
 }
 enum PhaseConfig {
 	NORMAL, MINIBOSS_A, MINIBOSS_B, MINIBOSS_C, BOSS
@@ -191,6 +191,16 @@ const SAGAS := {
 			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
 			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
 		},
-	}
+	},
+	Sagas.CHAM_INK: {
+		Campagn.PHASES_CONFIG: [
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
+		],
+		Campagn.SKINS: {
+			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
+			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+		},
+	},
 	
 }
