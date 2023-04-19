@@ -55,9 +55,16 @@ script = ExtResource("1_b7oef")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -45.0
+offset_right = -80.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.08, 1.08)
+ratio = 1.778
 stretch_mode = 3
+metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="A"]
 layout_mode = 2
@@ -65,8 +72,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource("1_psfpg")
 
-[node name="particles" type="GPUParticles2D" parent="A"]
-position = Vector2(960, 540)
+[node name="Control" type="Control" parent="A/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="particles" type="GPUParticles2D" parent="A/TextureRect/Control"]
+position = Vector2(20, 20)
 amount = 128
 process_material = SubResource("ParticleProcessMaterial_f77cl")
 texture = ExtResource("3_k22gq")

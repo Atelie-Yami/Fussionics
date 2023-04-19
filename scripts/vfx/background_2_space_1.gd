@@ -7,7 +7,6 @@ var position_offset: Vector2
 
 @onready var layer_1: TextureRect = $A/layer_1
 @onready var layer_2: TextureRect = $A/layer_2
-@onready var particles = $A/particles
 
 
 func _process(delta):
@@ -15,4 +14,3 @@ func _process(delta):
 	
 	layer_1.position = lerp(layer_1.position, (pos / 50) - position_offset, 0.03)
 	layer_2.position = lerp(layer_2.position, (pos / 350) - position_offset, 0.05)
-	particles.position = lerp(particles.position, SCREEN_CENTER + (pos / 200) - position_offset, 0.04)

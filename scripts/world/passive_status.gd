@@ -60,7 +60,8 @@ func _process(delta):
 
 
 func _unhandled_input(event):
-	if (event.is_action("mouse_click") or event.is_action("ui_cancel")) and event.is_pressed():
+	if event.is_action_pressed("mouse_click") or event.is_action_pressed("ui_cancel"):
+		set_element(null)
 		visible = false
 
 

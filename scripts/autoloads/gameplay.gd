@@ -1,5 +1,6 @@
 extends Node
 
+signal set_to_default
 signal show_action_buttons(actions)
 signal element_selected(valid)
 
@@ -91,7 +92,6 @@ func _process(delta):
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("mouse_click") or event.is_action_pressed("ui_cancel"):
 		action_state = ActionState.NORMAL
-		passive_status.set_element(null)
 
 
 func _notification(what: int):
@@ -100,7 +100,7 @@ func _notification(what: int):
 	
 	if what == NOTIFICATION_DRAG_END:
 		element_drag_preview.visible = false
-		for c in element_drag_preview.get_children(): c.queue_free()
+		element_drag_preview.get_children().map(func(c): c.queue_free())
 
 
 func _action_pressed(action: ElementActions):
@@ -193,6 +193,8 @@ func _disable_to_normal_state():
 	callback_action = -1
 	selected_element = null
 	selected_element_target = null
-	attack_omega_handler.visible = false
+	
+	set_to_default.emit()
+	
 	slot_interact_indicator.set_slots({}, 2)
 	slot_interact_indicator.element_in_action.x = 20

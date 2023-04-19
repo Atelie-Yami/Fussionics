@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://df0o6qfbqf50g"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scripts/interface/TabelaPeriodica/element_of_table.gd" id="1_x4ymv"]
+[ext_resource type="Script" path="res://scripts/interface/periodic_table/element_of_table.gd" id="1_x4ymv"]
 
 [node name="ElementOfTable" type="Control"]
 layout_mode = 3

@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://cq1u1im676edn"]
+[gd_scene load_steps=16 format=3]
 
-[ext_resource type="Script" path="res://scripts/interface/TabelaPeriodica/tabela.gd" id="1_hotf5"]
+[ext_resource type="Script" path="res://scripts/interface/periodic_table/table.gd" id="1_hotf5"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_q71oh"]
 [ext_resource type="PackedScene" uid="uid://df0o6qfbqf50g" path="res://scenes/interface/periodic_table/element_of_table.tscn" id="2_7idje"]
 [ext_resource type="Texture2D" uid="uid://bck8xdfqjac37" path="res://assets/img/buttons/login/enter.png" id="4_7fi6l"]

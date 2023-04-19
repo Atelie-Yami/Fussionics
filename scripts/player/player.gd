@@ -1,4 +1,4 @@
-class_name Player extends Node
+class_name Player extends Node2D
 
 signal end_game(win)
 

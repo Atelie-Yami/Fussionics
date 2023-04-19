@@ -8,7 +8,12 @@ var animation := 0.0
 
 func _init():
 	Gameplay.attack_omega_handler = self
+	Gameplay.set_to_default.connect(_set_to_default)
 	visibility_changed.connect(_visibility_changed)
+
+
+func _set_to_default():
+	visible = false
 
 
 func _visibility_changed():
