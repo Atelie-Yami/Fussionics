@@ -11,12 +11,11 @@ const SLOT_INTERACT_INDICATOR := preload("res://scripts/vfx/slot_interact_indica
 const ACTION_BUTTON := preload("res://scenes/elements/element_action_button.tscn")
 
 var time: float = 0.0
-
 var token: String
 
-var canvas := CanvasLayer.new()
 var element_drag_preview := Node2D.new()
 var element_focus := Sprite2D.new()
+var canvas := CanvasLayer.new()
 
 var in_link_state: bool
 var in_unlink_state: bool

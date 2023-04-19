@@ -1,5 +1,15 @@
 class_name GameBook extends Node
 
+enum Sagas {
+	TUTORIAL, MAKINO
+}
+enum PhaseConfig {
+	NORMAL, MINIBOSS_A, MINIBOSS_B, MINIBOSS_C, BOSS
+}
+enum Campagn {
+	PHASES_CONFIG, NORMAL_PHASE_ID, MINIBOSS_A_ID, MINIBOSS_B_ID, MINIBOSS_C_ID, BOSS_ID,
+	SKINS
+}
 enum Series {
 	ALKALINE, ALKALINE_EARTH, LANTANIDIUM, ACTINIDIUM, TRANSITION, OTHERS, SEMI, METALLOID, HALOGEN, NOBLE, UNKNOWN
 }
@@ -15,17 +25,6 @@ enum Ranking {
 enum EffectType {
 	SKILL,    ## age quando estiver sem link
 	MOLECULE, ## age quando estiver em molecula
-}
-
-const WIDGETS := {
-	0: {
-		Ranking.IMPROVED: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
-#		Ranking.ENHANCED: [EffectType.MOLECULE, preload("res://scripts/elements/effects/hidrogen.gd")],
-#		Ranking.ELITE: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
-	},
-	2: {
-		Ranking.ENHANCED: [EffectType.SKILL, preload("res://scripts/elements/effects/lithium.gd")],
-	},
 }
 const COLOR_SERIES = {
 	Series.ALKALINE:       Color("f05459"),
@@ -161,3 +160,37 @@ const ELEMENTS = [
 	{SYMBOL : "Og", NAME : "OGANESSON", VALENCY :0, SERIE : Series.NOBLE},
 	{SYMBOL : "Uue", NAME : "UNUNENNUIUM", VALENCY :1, SERIE : Series.ALKALINE},
 ]
+const WIDGETS := {
+	0: {
+		Ranking.IMPROVED: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
+#		Ranking.ENHANCED: [EffectType.MOLECULE, preload("res://scripts/elements/effects/hidrogen.gd")],
+#		Ranking.ELITE: [EffectType.SKILL, preload("res://scripts/elements/effects/hidrogen.gd")],
+	},
+	2: {
+		Ranking.ENHANCED: [EffectType.SKILL, preload("res://scripts/elements/effects/lithium.gd")],
+	},
+}
+const SAGAS := {
+	Sagas.TUTORIAL: {
+		Campagn.PHASES_CONFIG: [
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL,
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
+		],
+		Campagn.NORMAL_PHASE_ID: 0,
+		Campagn.BOSS_ID: 0,
+		Campagn.SKINS: {
+			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+		},
+	},
+	Sagas.MAKINO: {
+		Campagn.PHASES_CONFIG: [
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
+		],
+		Campagn.SKINS: {
+			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
+			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+		},
+	}
+	
+}

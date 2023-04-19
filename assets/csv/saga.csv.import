@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://c3tcan81616c6"
+
+[deps]
+
+files=["res://assets/csv/saga.pt.translation", "res://assets/csv/saga.en.translation"]
+
+source_file="res://assets/csv/saga.csv"
+dest_files=["res://assets/csv/saga.pt.translation", "res://assets/csv/saga.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0

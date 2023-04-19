@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://blancqrp5degm"]
+
+[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_1d86l"]
+[ext_resource type="Script" path="res://scripts/interface/main/level_button.gd" id="1_opdxl"]
+
+[node name="level_button" type="Button"]
+custom_minimum_size = Vector2(120, 120)
+flat = true
+script = ExtResource("1_opdxl")
+
+[node name="normal" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 88.0
+offset_bottom = 88.0
+texture = ExtResource("1_1d86l")
+expand_mode = 1
+
+[node name="mini_boss" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 105.0
+offset_bottom = 105.0
+texture = ExtResource("1_1d86l")
+expand_mode = 1
+
+[node name="boss" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1d86l")
+expand_mode = 1
+
+[connection signal="pressed" from="." to="." method="_is_pressed"]

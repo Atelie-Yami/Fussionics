@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtht0elohpm5h"]
+
+[ext_resource type="Script" path="res://scripts/interface/main/saga_button.gd" id="1_6tsdn"]
+[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_u31km"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kg46y"]
+bg_color = Color(0, 0, 0.105882, 0.352941)
+border_width_left = 4
+border_width_top = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q7j2l"]
+bg_color = Color(0.0941176, 0.0941176, 0.109804, 0.439216)
+border_width_left = 4
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ki41y"]
+font_size = 40
+
+[node name="saga" type="Button"]
+custom_minimum_size = Vector2(450, 100)
+offset_right = 450.0
+offset_bottom = 100.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_kg46y")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kg46y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kg46y")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_q7j2l")
+script = ExtResource("1_6tsdn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 91.0
+offset_bottom = 92.0
+texture = ExtResource("1_u31km")
+expand_mode = 1
+
+[node name="name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217778
+anchor_top = 0.19
+anchor_right = 1.0
+anchor_bottom = 0.81
+offset_left = 2.0
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_ki41y")
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="." to="." method="_is_pressed"]

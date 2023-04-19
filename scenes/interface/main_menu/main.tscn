@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://yq0ynwg4ckg5"]
+[gd_scene load_steps=26 format=3 uid="uid://yq0ynwg4ckg5"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/links/Twiter.png" id="9_v862e"]
 [ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/links/insta.png" id="10_w5so5"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="11_5tmd3"]
-[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="11_etsu3"]
+[ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
+[ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
+[ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
 
 [sub_resource type="Shader" id="Shader_apioj"]
 code = "shader_type canvas_item;
@@ -66,15 +68,35 @@ texture_margin_bottom = 8.0
 region_rect = Rect2(0, 0, 507, 290)
 modulate_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kg46y"]
-bg_color = Color(0, 0, 0.105882, 0.352941)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+[sub_resource type="Gradient" id="Gradient_2yxwd"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.571429)
+colors = PackedColorArray(0.1176, 0.279813, 0.56, 1, 0, 0.137255, 0.388235, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ki41y"]
-font_size = 40
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rf2c6"]
+gradient = SubResource("Gradient_2yxwd")
+fill_from = Vector2(0, 0.1)
+fill_to = Vector2(0.866097, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4bss4"]
+texture = SubResource("GradientTexture2D_rf2c6")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyo4p"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0, 0.313726, 0.545098, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+
+[sub_resource type="Gradient" id="Gradient_jumed"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0, 0.576471, 1, 0.572549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ipxk"]
+gradient = SubResource("Gradient_jumed")
+fill_from = Vector2(0.216524, 0.310541)
+fill_to = Vector2(0.923077, 0.91453)
 
 [node name="main_menu" type="Control" node_paths=PackedStringArray("Settings")]
 layout_mode = 3
@@ -233,341 +255,96 @@ texture_normal = ExtResource("10_w5so5")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="canpagn" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -814.0
-offset_right = 500.0
-grow_vertical = 0
+[node name="campaign" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 193.0
+offset_right = 495.0
+offset_bottom = 1023.0
+theme = ExtResource("1_w7i78")
+theme_override_styles/panel = SubResource("StyleBoxTexture_4bss4")
+
+[node name="Panel" type="Panel" parent="campaign"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyo4p")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="campaign"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="buttons" type="VBoxContainer" parent="campaign/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="saga" type="Button" parent="canpagn"]
-custom_minimum_size = Vector2(0, 100)
+[node name="saga" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_kg46y")
+phases_path = NodePath("../../../../phases")
 
-[node name="TextureRect" type="TextureRect" parent="canpagn/saga"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = -359.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="name" type="Label" parent="canpagn/saga"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 102.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Tutorial"
-label_settings = SubResource("LabelSettings_ki41y")
-vertical_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
-
-[node name="saga2" type="Button" parent="canpagn"]
-custom_minimum_size = Vector2(0, 100)
+[node name="saga2" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_kg46y")
+disabled = true
+saga_id = 1
+phases_path = NodePath("../../../../phases")
 
-[node name="TextureRect" type="TextureRect" parent="canpagn/saga2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = -359.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="name" type="Label" parent="canpagn/saga2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 95.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Da ssdas da s dsa asdas asda"
-label_settings = SubResource("LabelSettings_ki41y")
-vertical_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
-
-[node name="saga3" type="Button" parent="canpagn"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_kg46y")
-
-[node name="TextureRect" type="TextureRect" parent="canpagn/saga3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = -359.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="name" type="Label" parent="canpagn/saga3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 95.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Da ssdas da s dsa asdas asda"
-label_settings = SubResource("LabelSettings_ki41y")
-vertical_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+[node name="phases" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -1246.0
+offset_left = -104.0
 offset_top = -60.0
-offset_right = -134.0
+offset_right = -104.0
 offset_bottom = 60.0
 grow_horizontal = 0
 grow_vertical = 2
-alignment = 2
+script = ExtResource("13_katue")
 
-[node name="Button5" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
+[node name="level_button1" parent="phases" instance=ExtResource("12_70y16")]
 layout_mode = 2
-flat = true
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button5"]
+[node name="level_button2" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button3" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button4" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button5" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button6" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button7" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button8" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="level_button9" parent="phases" instance=ExtResource("12_70y16")]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button5/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button9" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button9"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button9/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button10" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button10"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button10/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button11" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button11"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button11/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button" type="Button" parent="Control/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button6" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button6"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button6/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button7" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button7"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button7/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button8" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button8"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button8/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
-
-[node name="Button2" type="Button" parent="Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-flat = true
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Button2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/Button2/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_etsu3")
-expand_mode = 1
+offset_left = -959.0
+offset_top = -1079.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_3ipxk")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Buttons/ModoCampanha" to="." method="_modo_campanha_pressed"]
 [connection signal="pressed" from="Buttons/PartidaRapida" to="." method="_partida_rapida_pressed"]

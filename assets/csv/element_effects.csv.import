@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://capd676k07vox"
+
+[deps]
+
+files=["res://assets/csv/element_effects.pt.translation", "res://assets/csv/element_effects.en.translation"]
+
+source_file="res://assets/csv/element_effects.csv"
+dest_files=["res://assets/csv/element_effects.pt.translation", "res://assets/csv/element_effects.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0

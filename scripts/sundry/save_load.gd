@@ -3,7 +3,10 @@ class_name SaveLoad extends RefCounted
 const SAVE_DIR_PATH := "user://system/"
 const SAVE_NAME_PATH := "system.sv"
 const SAVE_MODEL := {
-		"campaign_progress": 0,
+		"campaign_progress": {
+			# saga_id : ultima_fase_feita
+			#     int : int
+		},
 		"volume_master": false,
 		"widgets_deck": [[], [], [0, 1], [], [], [], [], [2, 2], [], [], [], []], # [atomic_numer, ranking]
 		"widgets": {
