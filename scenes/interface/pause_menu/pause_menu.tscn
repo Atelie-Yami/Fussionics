@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqp6pxhhl443d"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_0a5qg"]
-[ext_resource type="Script" path="res://scripts/interface/main/pause_menu.gd" id="2_pq420"]
-[ext_resource type="Texture2D" uid="uid://dorte8gvr7clr" path="res://resouces/atlas/main/close.tres" id="3_83v5c"]
+[ext_resource type="PackedScene" uid="uid://cd1gpq63mch1k" path="res://scenes/interface/pause_menu/options_settings.tscn" id="2_ai0wl"]
+[ext_resource type="Script" path="res://scenes/interface/pause_menu/pause_menu.gd" id="2_j2xja"]
+[ext_resource type="Script" path="res://scripts/interface/main/PauseOptionsMenu.gd" id="3_doa31"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_4qwqi"]
-
-[node name="PauseMenu" type="Control" node_paths=PackedStringArray("DisplayModeButton", "MaxFpsValueLabel", "MaxFpsSlider", "MasterVolumeValueLabel", "MasterVolumeSlider", "MusicVolumeValueLabel", "MusicVolumeSlider", "SFXVolumeValueLabel", "SFXVolumeSlider", "OptionsSettings", "OptionsMenu")]
+[node name="PauseMenu" type="Control"]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -18,248 +18,13 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_0a5qg")
-script = ExtResource("2_pq420")
-DisplayModeButton = NodePath("OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/DisplayModeButton")
-MaxFpsValueLabel = NodePath("OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsValueLabel")
-MaxFpsSlider = NodePath("OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsSlider")
-MasterVolumeValueLabel = NodePath("OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer/MasterVolumeValueLabel")
-MasterVolumeSlider = NodePath("OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer/MasterVolumeSlider")
-MusicVolumeValueLabel = NodePath("OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2/MusicVolumeValueLabel")
-MusicVolumeSlider = NodePath("OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2/MusicVolumeSlider")
-SFXVolumeValueLabel = NodePath("OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3/SFXVolumeValueLabel")
-SFXVolumeSlider = NodePath("OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3/SFXVolumeSlider")
-OptionsSettings = NodePath("OptionsSettings")
-OptionsMenu = NodePath("OptionsMenu")
+script = ExtResource("2_j2xja")
 
-[node name="OptionsSettings" type="Control" parent="."]
-visible = false
+[node name="OptionsSettings" parent="." node_paths=PackedStringArray("OptionsMenu") instance=ExtResource("2_ai0wl")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -427.0
-offset_top = -287.5
-offset_right = 427.0
-offset_bottom = 287.5
-grow_horizontal = 2
-grow_vertical = 2
+OptionsMenu = NodePath("../OptionsMenu")
 
-[node name="OptionsSettings2" type="TabContainer" parent="OptionsSettings"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -428.5
-offset_top = -286.0
-offset_right = 428.5
-offset_bottom = 286.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_default_cursor_shape = 2
-theme_override_constants/side_margin = 21
-
-[node name="VIDEO" type="TabBar" parent="OptionsSettings/OptionsSettings2"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="OptionsSettings/OptionsSettings2/VIDEO"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
-
-[node name="ConfiguraçõesVideo" type="GridContainer" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="DisplayModeLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-layout_mode = 2
-text = "DISPLAY MODE"
-
-[node name="DisplayModeButton" type="OptionButton" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 10
-mouse_default_cursor_shape = 2
-button_group = SubResource("ButtonGroup_4qwqi")
-
-[node name="VsyncLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-layout_mode = 2
-text = "VSYNC:"
-
-[node name="VsyncButton" type="CheckButton" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-
-[node name="MaxFpsLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-layout_mode = 2
-text = "MAX FPS:"
-
-[node name="MaxFpsContainer" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-layout_mode = 2
-alignment = 2
-
-[node name="MaxFpsValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "50
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MaxFpsSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_direction = 1
-layout_mode = 2
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-max_value = 360.0
-value = 50.0
-
-[node name="BloomLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-visible = false
-layout_mode = 2
-text = "Vsync:"
-
-[node name="BloomButton" type="CheckButton" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-visible = false
-layout_mode = 2
-
-[node name="BrightnessLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-visible = false
-layout_mode = 2
-text = "Brightness:"
-
-[node name="BrightnessContainer" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo"]
-visible = false
-layout_mode = 2
-
-[node name="BrightnessValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/BrightnessContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "MAX:000"
-
-[node name="BrightnessSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/BrightnessContainer"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-value = 50.0
-
-[node name="AUDIO" type="TabBar" parent="OptionsSettings/OptionsSettings2"]
-visible = false
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="OptionsSettings/OptionsSettings2/AUDIO"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
-
-[node name="ConfiguraçõesAudio" type="GridContainer" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer"]
-layout_direction = 1
-layout_mode = 2
-columns = 2
-
-[node name="MasterVolumeLabel" type="Label" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio"]
-layout_direction = 1
-layout_mode = 2
-text = "MASTER VOLUME:    "
-
-[node name="MasterVolumeContainer" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-
-[node name="MasterVolumeValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Max"
-
-[node name="MasterVolumeSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-value = 100.0
-
-[node name="MusicVolumeLabel2" type="Label" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio"]
-layout_direction = 1
-layout_mode = 2
-text = "MUSIC VOLUME:    "
-
-[node name="MusicVolumeContainer2" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-
-[node name="MusicVolumeValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Max"
-
-[node name="MusicVolumeSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-value = 100.0
-
-[node name="SFXVolumeLabel3" type="Label" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio"]
-layout_direction = 1
-layout_mode = 2
-text = "SFX VOLUME:    "
-
-[node name="SFXVolumeContainer3" type="HBoxContainer" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-
-[node name="SFXVolumeValueLabel" type="Label" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Max"
-
-[node name="SFXVolumeSlider" type="HSlider" parent="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-value = 100.0
-
-[node name="Close_OptionsSettings" type="TextureButton" parent="OptionsSettings"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -29.0
-offset_bottom = 30.0
-grow_horizontal = 0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("3_83v5c")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="OptionsMenu" type="VBoxContainer" parent="."]
-visible = false
+[node name="OptionsMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("OptionsSettings")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -273,15 +38,17 @@ offset_bottom = 92.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
+script = ExtResource("3_doa31")
+OptionsSettings = NodePath("../OptionsSettings")
 
-[node name="Voltar" type="Button" parent="OptionsMenu"]
+[node name="Back" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
 text = "VOLTAR"
 
-[node name="Reiniciar" type="Button" parent="OptionsMenu"]
+[node name="Restart" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_vertical = 3
@@ -297,7 +64,7 @@ mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
 text = "AJUSTES"
 
-[node name="Menu Inicial" type="Button" parent="OptionsMenu"]
+[node name="Main_menu" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_vertical = 3
@@ -305,7 +72,7 @@ mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
 text = "MENU INICIAL"
 
-[node name="Sair do jogo" type="Button" parent="OptionsMenu"]
+[node name="exit" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_vertical = 3
@@ -313,15 +80,8 @@ mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
 text = "SAIR DO JOGO"
 
-[connection signal="item_selected" from="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/DisplayModeButton" to="." method="_display_mode_button_item_selected"]
-[connection signal="toggled" from="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/VsyncButton" to="." method="_vsync_button_toggled"]
-[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/VIDEO/MarginContainer/ConfiguraçõesVideo/MaxFpsContainer/MaxFpsSlider" to="." method="_max_fps_slider_value_changed"]
-[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MasterVolumeContainer/MasterVolumeSlider" to="." method="_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/MusicVolumeContainer2/MusicVolumeSlider" to="." method="_music_volume_slider_value_changed"]
-[connection signal="value_changed" from="OptionsSettings/OptionsSettings2/AUDIO/MarginContainer/ConfiguraçõesAudio/SFXVolumeContainer3/SFXVolumeSlider" to="." method="_sfx_volume_slider_value_changed"]
-[connection signal="pressed" from="OptionsSettings/Close_OptionsSettings" to="." method="_close_options_settings_pressed"]
-[connection signal="pressed" from="OptionsMenu/Voltar" to="." method="_voltar_pressed"]
-[connection signal="pressed" from="OptionsMenu/Reiniciar" to="." method="_reiniciar_pressed"]
-[connection signal="pressed" from="OptionsMenu/Settings" to="." method="_settings_pressed"]
-[connection signal="pressed" from="OptionsMenu/Menu Inicial" to="." method="_menu_inicial_pressed"]
-[connection signal="pressed" from="OptionsMenu/Sair do jogo" to="." method="_sair_do_jogo_pressed"]
+[connection signal="pressed" from="OptionsMenu/Back" to="OptionsMenu" method="_back_pressed"]
+[connection signal="pressed" from="OptionsMenu/Restart" to="OptionsMenu" method="_restart_pressed"]
+[connection signal="pressed" from="OptionsMenu/Settings" to="OptionsMenu" method="_settings_pressed"]
+[connection signal="pressed" from="OptionsMenu/Main_menu" to="OptionsMenu" method="_main_menu_pressed"]
+[connection signal="pressed" from="OptionsMenu/exit" to="OptionsMenu" method="_exit_pressed"]

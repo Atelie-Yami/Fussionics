@@ -56,7 +56,7 @@ func _galeriafussion_pressed():
 
 
 func _configuraes_pressed():
-	Settings.OpenOpitionSettings()
+	Settings.visible = true
 
 
 func _sairdo_jogo_pressed():

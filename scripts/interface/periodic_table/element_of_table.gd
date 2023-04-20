@@ -4,7 +4,6 @@ class_name TableElement extends Element
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	modulate=COLOR_SERIES[DATA[atomic_number][SERIE]]
 	active = true
 	disabled = true
 	super()

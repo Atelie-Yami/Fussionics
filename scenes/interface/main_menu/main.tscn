@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://jaf55i6w3x3h" path="res://assets/img/interface/main_image/button/button_normal_left.svg" id="5_fhi5r"]
 [ext_resource type="Texture2D" uid="uid://djpg8dtf6g0gp" path="res://assets/img/interface/main_image/button/button_select_left.svg" id="6_1g0l3"]
 [ext_resource type="Texture2D" uid="uid://chqeumhuln75r" path="res://assets/img/interface/main_image/button/button_pressed_left.svg" id="7_y3glx"]
-[ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="8_l2hvn"]
 [ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/links/itch-io.png" id="8_w0tyg"]
 [ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/links/Twiter.png" id="9_v862e"]
 [ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/links/insta.png" id="10_w5so5"]
@@ -13,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
 [ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
 [ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
+[ext_resource type="PackedScene" uid="uid://cd1gpq63mch1k" path="res://scenes/interface/pause_menu/options_settings.tscn" id="14_2y24q"]
 
 [sub_resource type="Shader" id="Shader_apioj"]
 code = "shader_type canvas_item;
@@ -112,7 +112,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_w7i78")
 script = ExtResource("2_iafsg")
-Settings = NodePath("PauseMenu")
+Settings = NodePath("OptionsSettings")
 metadata/_edit_lock_ = true
 
 [node name="background_2" parent="." instance=ExtResource("11_5tmd3")]
@@ -208,10 +208,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "SAIR DO JOGO"
 alignment = 0
-
-[node name="PauseMenu" parent="." instance=ExtResource("8_l2hvn")]
-layout_mode = 1
-InGame = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -357,6 +353,9 @@ grow_horizontal = 0
 grow_vertical = 0
 texture = SubResource("GradientTexture2D_3ipxk")
 metadata/_edit_lock_ = true
+
+[node name="OptionsSettings" parent="." instance=ExtResource("14_2y24q")]
+layout_mode = 1
 
 [connection signal="pressed" from="Buttons/ModoCampanha" to="." method="_modo_campanha_pressed"]
 [connection signal="pressed" from="Buttons/PartidaRapida" to="." method="_partida_rapida_pressed"]
