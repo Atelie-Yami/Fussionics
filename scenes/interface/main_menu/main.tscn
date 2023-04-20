@@ -6,22 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://jaf55i6w3x3h" path="res://assets/img/interface/main_image/button/button_normal_left.svg" id="5_fhi5r"]
 [ext_resource type="Texture2D" uid="uid://djpg8dtf6g0gp" path="res://assets/img/interface/main_image/button/button_select_left.svg" id="6_1g0l3"]
 [ext_resource type="Texture2D" uid="uid://chqeumhuln75r" path="res://assets/img/interface/main_image/button/button_pressed_left.svg" id="7_y3glx"]
-<<<<<<< HEAD
+
 [ext_resource type="Script" path="res://scripts/interface/main/links.gd" id="8_546f0"]
-=======
->>>>>>> 337611a7116401840a780db1fe02408b9734818c
-[ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/links/itch-io.png" id="8_w0tyg"]
-[ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/links/Twiter.png" id="9_v862e"]
-[ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/links/insta.png" id="10_w5so5"]
-[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="11_5tmd3"]
-[ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
-[ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
-[ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
-<<<<<<< HEAD
+
 [ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
-=======
-[ext_resource type="PackedScene" uid="uid://cd1gpq63mch1k" path="res://scenes/interface/pause_menu/options_settings.tscn" id="14_2y24q"]
->>>>>>> 337611a7116401840a780db1fe02408b9734818c
 
 [sub_resource type="Shader" id="Shader_apioj"]
 code = "shader_type canvas_item;
@@ -145,11 +133,8 @@ grow_vertical = 2
 pivot_offset = Vector2(960, 540)
 theme = ExtResource("1_w7i78")
 script = ExtResource("2_iafsg")
-<<<<<<< HEAD
-Settings = NodePath("")
-=======
+
 Settings = NodePath("OptionsSettings")
->>>>>>> 337611a7116401840a780db1fe02408b9734818c
 metadata/_edit_lock_ = true
 
 [node name="background_2" parent="." instance=ExtResource("11_5tmd3")]
@@ -247,11 +232,8 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "SAIR DO JOGO"
 alignment = 0
 
-<<<<<<< HEAD
 [node name="links" type="MarginContainer" parent="."]
-=======
-[node name="MarginContainer" type="MarginContainer" parent="."]
->>>>>>> 337611a7116401840a780db1fe02408b9734818c
+
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -399,7 +381,6 @@ grow_vertical = 0
 texture = SubResource("GradientTexture2D_3ipxk")
 metadata/_edit_lock_ = true
 
-<<<<<<< HEAD
 [node name="vfx" type="CanvasLayer" parent="."]
 
 [node name="blur" type="ColorRect" parent="vfx"]
@@ -422,16 +403,3 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="links/links/itch" to="links" method="_itch_pressed"]
 [connection signal="pressed" from="links/links/twiter" to="links" method="_twiter_pressed"]
 [connection signal="pressed" from="links/links/instagram" to="links" method="_insta_pressed"]
-=======
-[node name="OptionsSettings" parent="." instance=ExtResource("14_2y24q")]
-layout_mode = 1
-
-[connection signal="pressed" from="Buttons/ModoCampanha" to="." method="_modo_campanha_pressed"]
-[connection signal="pressed" from="Buttons/PartidaRapida" to="." method="_partida_rapida_pressed"]
-[connection signal="pressed" from="Buttons/galeriafussion" to="." method="_galeriafussion_pressed"]
-[connection signal="pressed" from="Buttons/Configurações" to="." method="_configuraes_pressed"]
-[connection signal="pressed" from="Buttons/SairdoJogo" to="." method="_sairdo_jogo_pressed"]
-[connection signal="pressed" from="MarginContainer/links/itch" to="." method="_itch_pressed"]
-[connection signal="pressed" from="MarginContainer/links/twiter" to="." method="_twiter_pressed"]
-[connection signal="pressed" from="MarginContainer/links/insta" to="." method="_insta_pressed"]
->>>>>>> 337611a7116401840a780db1fe02408b9734818c
