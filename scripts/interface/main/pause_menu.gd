@@ -1,16 +1,18 @@
 extends Control
 class_name PauseMenu
 
-signal close_menu
+
 
 #Video
+
 @export var DisplayModeButton:OptionButton
 @export var MaxFpsValueLabel:Label
 @export var MaxFpsSlider:HSlider
 
-
 #VideoEnd
+
 #Audio
+
 @export var MasterVolumeValueLabel:Label
 @export var MasterVolumeSlider:HSlider
 @export var MusicVolumeValueLabel:Label
@@ -19,12 +21,10 @@ signal close_menu
 @export var SFXVolumeSlider:HSlider
 
 #AudioEnd
-#OptionMenu Var
-@export var OptionsSettings:Control
+
 @export var OptionsMenu:VBoxContainer
 
-#OptionMenu Var End
-@export var InGame=true
+@export var InGame=false
 
 
 func _ready():
@@ -34,6 +34,8 @@ func _ready():
 
 
 #Video Settings
+
+
 func ChangeModeScreen(value)->void:
 	if value=="Windowed":
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
@@ -68,7 +70,11 @@ func _max_fps_slider_value_changed(value):
 
 
 #Video Settings END
+
+
 #Audio Settings
+
+
 func ChangeBusVolume(id,value)->void:
 	AudioServer.set_bus_volume_db(id,value)
 
@@ -89,54 +95,13 @@ func _sfx_volume_slider_value_changed(value):
 
 
 #Audio Settings End
-#OptionsMenu
-func OpenOpitionSettings()->void:
-	OptionsSettings.visible=true
-#	var tween=create_tween()
-#	tween.tween_property(OptionsSettings,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
-
-
-func OpenMenuSettings()->void:
-	OptionsMenu.visible=true
-	get_tree().paused = true
-#	var tween=create_tween()
-#	tween.tween_property(OptionsMenu,"scale",Vector2(1,1),0.2).from(Vector2(0.1,0.1))
-
-
-func close_menu_settings()->void:
-	OptionsSettings.visible = false
-	OptionsMenu.visible = false
-	get_tree().paused = false
-	close_menu.emit()
-
-
-func _settings_pressed():
-	OptionsMenu.visible = false
-	OpenOpitionSettings()
 
 
 func _close_options_settings_pressed():
-	OptionsSettings.visible=false
+	visible=false
 	if InGame:
-		OpenMenuSettings()
+		OptionsMenu.visible=true
 
 
-func _voltar_pressed():
-	close_menu_settings()
 
 
-func _menu_inicial_pressed():
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/interface/main_menu/main.tscn")
-
-
-func _reiniciar_pressed():
-	#Tem que ter condição para saber se esta online
-	pass
-
-
-func _sair_do_jogo_pressed():
-	#Se quiser pode colocar algum save
-	get_tree().quit()
-
-#OptionsMenu End
