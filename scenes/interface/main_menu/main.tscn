@@ -1,11 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://yq0ynwg4ckg5"]
+[gd_scene load_steps=31 format=3 uid="uid://yq0ynwg4ckg5"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
+[ext_resource type="Script" path="res://scripts/interface/main/Buttons.gd" id="4_nhbod"]
 [ext_resource type="Texture2D" uid="uid://jaf55i6w3x3h" path="res://assets/img/interface/main_image/button/button_normal_left.svg" id="5_fhi5r"]
 [ext_resource type="Texture2D" uid="uid://djpg8dtf6g0gp" path="res://assets/img/interface/main_image/button/button_select_left.svg" id="6_1g0l3"]
 [ext_resource type="Texture2D" uid="uid://chqeumhuln75r" path="res://assets/img/interface/main_image/button/button_pressed_left.svg" id="7_y3glx"]
-[ext_resource type="PackedScene" uid="uid://bqp6pxhhl443d" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="8_l2hvn"]
+[ext_resource type="Script" path="res://scripts/interface/main/links.gd" id="8_546f0"]
 [ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/links/itch-io.png" id="8_w0tyg"]
 [ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/links/Twiter.png" id="9_v862e"]
 [ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/links/insta.png" id="10_w5so5"]
@@ -13,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
 [ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
 [ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
+[ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
 
 [sub_resource type="Shader" id="Shader_apioj"]
 code = "shader_type canvas_item;
@@ -31,6 +33,7 @@ void fragment(){
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anns1"]
+resource_local_to_scene = true
 shader = SubResource("Shader_apioj")
 shader_parameter/lod = 3.0
 shader_parameter/saturation = 0.4
@@ -103,6 +106,28 @@ gradient = SubResource("Gradient_jumed")
 fill_from = Vector2(0.216524, 0.310541)
 fill_to = Vector2(0.923077, 0.91453)
 
+[sub_resource type="Shader" id="Shader_q5b5q"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
+uniform float lod: hint_range(0.0, 5) = 0.0;
+uniform float saturation: hint_range(0.0, 1.0, 0.01);
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	float _unsatured = pow((color.r + color.g + color.b) / 3.0, 1.2);
+	
+	color.rgb = mix(color.rgb, vec3(_unsatured), saturation);
+	
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_217i7"]
+resource_local_to_scene = true
+shader = SubResource("Shader_q5b5q")
+shader_parameter/lod = 0.0
+shader_parameter/saturation = 0.0
+
 [node name="main_menu" type="Control" node_paths=PackedStringArray("Settings")]
 layout_mode = 3
 anchors_preset = 15
@@ -110,9 +135,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(960, 540)
 theme = ExtResource("1_w7i78")
 script = ExtResource("2_iafsg")
-Settings = NodePath("PauseMenu")
+Settings = NodePath("")
 metadata/_edit_lock_ = true
 
 [node name="background_2" parent="." instance=ExtResource("11_5tmd3")]
@@ -141,10 +167,11 @@ offset_right = 400.0
 offset_bottom = 188.0
 grow_vertical = 2
 theme_override_constants/separation = 14
-metadata/_edit_group_ = true
+script = ExtResource("4_nhbod")
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
-[node name="ModoCampanha" type="Button" parent="Buttons"]
+[node name="campaign" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -157,7 +184,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "MODO CAMPANHA"
 alignment = 0
 
-[node name="PartidaRapida" type="Button" parent="Buttons"]
+[node name="quick_game" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -170,7 +197,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "PARTIDA RAPIDA"
 alignment = 0
 
-[node name="galeriafussion" type="Button" parent="Buttons"]
+[node name="fussion_galery" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -183,7 +210,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "GALERIA FUSSION "
 alignment = 0
 
-[node name="Configurações" type="Button" parent="Buttons"]
+[node name="config" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -196,7 +223,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "CONFIGURACOES"
 alignment = 0
 
-[node name="SairdoJogo" type="Button" parent="Buttons"]
+[node name="quit" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -209,11 +236,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "SAIR DO JOGO"
 alignment = 0
 
-[node name="PauseMenu" parent="." instance=ExtResource("8_l2hvn")]
-layout_mode = 1
-InGame = false
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="links" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -228,13 +251,14 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+script = ExtResource("8_546f0")
 
-[node name="links" type="HBoxContainer" parent="MarginContainer"]
+[node name="links" type="HBoxContainer" parent="links"]
 layout_mode = 2
 theme_override_constants/separation = 20
 metadata/_edit_group_ = true
 
-[node name="itch" type="TextureButton" parent="MarginContainer/links"]
+[node name="itch" type="TextureButton" parent="links/links"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -242,7 +266,7 @@ texture_normal = ExtResource("8_w0tyg")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="twiter" type="TextureButton" parent="MarginContainer/links"]
+[node name="twiter" type="TextureButton" parent="links/links"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -250,7 +274,7 @@ texture_normal = ExtResource("9_v862e")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="insta" type="TextureButton" parent="MarginContainer/links"]
+[node name="instagram" type="TextureButton" parent="links/links"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -270,6 +294,7 @@ offset_bottom = 480.0
 grow_vertical = 2
 theme = ExtResource("1_w7i78")
 theme_override_styles/panel = SubResource("StyleBoxTexture_4bss4")
+script = ExtResource("13_sggw1")
 
 [node name="Panel" type="Panel" parent="campaign"]
 layout_mode = 2
@@ -351,18 +376,33 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -959.0
-offset_top = -1079.0
+offset_top = -1068.0
+offset_right = 959.0
+offset_bottom = 11.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = SubResource("GradientTexture2D_3ipxk")
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Buttons/ModoCampanha" to="." method="_modo_campanha_pressed"]
-[connection signal="pressed" from="Buttons/PartidaRapida" to="." method="_partida_rapida_pressed"]
-[connection signal="pressed" from="Buttons/galeriafussion" to="." method="_galeriafussion_pressed"]
-[connection signal="pressed" from="Buttons/Configurações" to="." method="_configuraes_pressed"]
-[connection signal="pressed" from="Buttons/SairdoJogo" to="." method="_sairdo_jogo_pressed"]
-[connection signal="pressed" from="MarginContainer/links/itch" to="." method="_itch_pressed"]
-[connection signal="pressed" from="MarginContainer/links/twiter" to="." method="_twiter_pressed"]
-[connection signal="pressed" from="MarginContainer/links/insta" to="." method="_insta_pressed"]
+[node name="vfx" type="CanvasLayer" parent="."]
+
+[node name="blur" type="ColorRect" parent="vfx"]
+process_mode = 3
+material = SubResource("ShaderMaterial_217i7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Buttons/campaign" to="Buttons" method="_campaign_pressed"]
+[connection signal="pressed" from="Buttons/quick_game" to="Buttons" method="_quick_game_pressed"]
+[connection signal="pressed" from="Buttons/fussion_galery" to="Buttons" method="_fussion_galery_pressed"]
+[connection signal="pressed" from="Buttons/config" to="Buttons" method="_config_pressed"]
+[connection signal="pressed" from="Buttons/quit" to="Buttons" method="_quit_pressed"]
+[connection signal="pressed" from="links/links/itch" to="links" method="_itch_pressed"]
+[connection signal="pressed" from="links/links/twiter" to="links" method="_twiter_pressed"]
+[connection signal="pressed" from="links/links/instagram" to="links" method="_insta_pressed"]

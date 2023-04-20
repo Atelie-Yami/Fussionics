@@ -46,35 +46,34 @@ func set_mode(_mode: int, skin: Texture, _type: int):
 
 
 func _draw():
-	var color := Color.WHITE
-	
-	if not begin and mode != 2:
-		draw_line(Vector2(0, 60), Vector2(LAST_LINE_POS[mode], 60), Color.WHITE if type != Type.DISABLED else Color.DIM_GRAY, 2)
-	
-	if not last and mode != 2:
-		draw_line(Vector2(BEGIN_LINE_POS[mode], 60), Vector2(120, 60), Color.WHITE if type == Type.PASSED else Color.DIM_GRAY, 2)
-	
+	if mode != 2:
+		if not begin:
+			draw_line(Vector2(0, 60), Vector2(LAST_LINE_POS[mode], 60), Color.WHITE if type != Type.DISABLED else Color.DIM_GRAY, 2)
+		
+		if not last:
+			draw_line(Vector2(BEGIN_LINE_POS[mode], 60), Vector2(120, 60), Color.WHITE if type == Type.PASSED else Color.DIM_GRAY, 2)
+			
+			if type == Type.PASSED:
+				draw_circle(Vector2(BEGIN_BALL_POS[mode], 60), BALL_RADIUS, Color.WHITE)
+		
+		match type:
+			Type.DISABLED:
+				draw_circle(Vector2(BEGIN_BALL_POS[mode], 60), BALL_RADIUS, Color.DIM_GRAY)
+			
+			Type.NEXT:
+				draw_circle(Vector2(BEGIN_BALL_POS[mode], 60), BALL_RADIUS, Color.DIM_GRAY)
 	
 	match type:
 		Type.DISABLED:
 			draw_circle(Vector2(LAST_BALL_POS[mode], 60), BALL_RADIUS, Color.DIM_GRAY)
-			if mode != 2:
-				draw_circle(Vector2(BEGIN_BALL_POS[mode], 60), BALL_RADIUS, Color.DIM_GRAY)
-		
+			
 		Type.NEXT:
 			draw_arc(Vector2(LAST_BALL_POS[mode], 60), CIRCLE_RADIUS, 0, TAU, 64, Color.WHITE, 1, true)
-			if mode != 2:
-				draw_circle(Vector2(BEGIN_BALL_POS[mode], 60), BALL_RADIUS, Color.DIM_GRAY)
-		
+			
 		Type.PASSED:
 			if not begin:
 				draw_circle(Vector2(LAST_BALL_POS[mode], 60), BALL_RADIUS, Color.WHITE)
-			
-			if not last and mode != 2:
-				draw_circle(Vector2(BEGIN_BALL_POS[mode], 60), BALL_RADIUS, Color.WHITE)
-	
-	
-	
+
 
 
 func _is_pressed():
