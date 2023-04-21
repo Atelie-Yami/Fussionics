@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqp6pxhhl443d"]
+[gd_scene load_steps=5 format=3 uid="uid://cfyrrvl0nbfwn"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_0a5qg"]
 [ext_resource type="PackedScene" uid="uid://cd1gpq63mch1k" path="res://scenes/interface/pause_menu/options_settings.tscn" id="2_ai0wl"]
-[ext_resource type="Script" path="res://scenes/interface/pause_menu/pause_menu.gd" id="2_j2xja"]
+[ext_resource type="Script" path="res://scripts/interface/pause_menu.gd" id="2_j2xja"]
 [ext_resource type="Script" path="res://scripts/interface/main/PauseOptionsMenu.gd" id="3_doa31"]
 
 [node name="PauseMenu" type="Control"]

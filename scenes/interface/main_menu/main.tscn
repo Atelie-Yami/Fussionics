@@ -6,9 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://jaf55i6w3x3h" path="res://assets/img/interface/main_image/button/button_normal_left.svg" id="5_fhi5r"]
 [ext_resource type="Texture2D" uid="uid://djpg8dtf6g0gp" path="res://assets/img/interface/main_image/button/button_select_left.svg" id="6_1g0l3"]
 [ext_resource type="Texture2D" uid="uid://chqeumhuln75r" path="res://assets/img/interface/main_image/button/button_pressed_left.svg" id="7_y3glx"]
-
 [ext_resource type="Script" path="res://scripts/interface/main/links.gd" id="8_546f0"]
-
+[ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/links/itch-io.png" id="8_w0tyg"]
+[ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/links/Twiter.png" id="9_v862e"]
+[ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/links/insta.png" id="10_w5so5"]
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="11_5tmd3"]
+[ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
+[ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
+[ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
 [ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
 
 [sub_resource type="Shader" id="Shader_apioj"]
@@ -133,9 +138,10 @@ grow_vertical = 2
 pivot_offset = Vector2(960, 540)
 theme = ExtResource("1_w7i78")
 script = ExtResource("2_iafsg")
-
-Settings = NodePath("OptionsSettings")
+Settings = NodePath("")
 metadata/_edit_lock_ = true
+
+[node name="background_2" parent="." instance=ExtResource("11_5tmd3")]
 
 [node name="blur" type="ColorRect" parent="."]
 process_mode = 3
@@ -231,7 +237,6 @@ text = "SAIR DO JOGO"
 alignment = 0
 
 [node name="links" type="MarginContainer" parent="."]
-
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
