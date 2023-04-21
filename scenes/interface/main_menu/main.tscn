@@ -137,8 +137,6 @@ script = ExtResource("2_iafsg")
 Settings = NodePath("OptionsSettings")
 metadata/_edit_lock_ = true
 
-[node name="background_2" parent="." instance=ExtResource("11_5tmd3")]
-
 [node name="blur" type="ColorRect" parent="."]
 process_mode = 3
 material = SubResource("ShaderMaterial_anns1")
