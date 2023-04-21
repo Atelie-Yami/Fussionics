@@ -6,7 +6,7 @@ extends Button
 @export var phases_path: NodePath
 @onready var phases: Control = get_node(phases_path)
 
-@onready var texture_rect = $TextureRect
+#@onready var texture_rect = $TextureRect
 @onready var progress = $ProgressBar
 @onready var saga_name = $name
 

@@ -8,7 +8,7 @@ enum PhaseConfig {
 }
 enum Campagn {
 	PHASES_CONFIG, NORMAL_PHASE_ID, MINIBOSS_A_ID, MINIBOSS_B_ID, MINIBOSS_C_ID, BOSS_ID,
-	SKINS
+	SKINS, BOTS
 }
 enum Series {
 	ALKALINE, ALKALINE_EARTH, LANTANIDIUM, ACTINIDIUM, TRANSITION, OTHERS, SEMI, METALLOID, HALOGEN, NOBLE, UNKNOWN
@@ -191,6 +191,11 @@ const SAGAS := {
 			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
 			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
 		},
+		Campagn.BOTS: {
+			PhaseConfig.NORMAL: 0,
+			PhaseConfig.MINIBOSS_A: 0,
+			PhaseConfig.BOSS: 0,
+		}
 	},
 	Sagas.CHAM_INK: {
 		Campagn.PHASES_CONFIG: [

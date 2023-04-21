@@ -1,19 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtht0elohpm5h"]
+[gd_scene load_steps=5 format=3 uid="uid://dtht0elohpm5h"]
 
 [ext_resource type="Script" path="res://scripts/interface/main/saga_button.gd" id="1_6tsdn"]
-[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_u31km"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kg46y"]
-bg_color = Color(0, 0, 0.105882, 0.352941)
-border_width_left = 4
-border_width_top = 4
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q7j2l"]
-bg_color = Color(0.0941176, 0.0941176, 0.109804, 0.439216)
-border_width_left = 4
-border_width_top = 4
-border_color = Color(0.211765, 0.211765, 0.329412, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjgw1"]
 
@@ -24,14 +11,10 @@ bg_color = Color(0.270588, 0.333333, 0.458824, 1)
 font_size = 40
 
 [node name="saga" type="Button"]
-custom_minimum_size = Vector2(450, 100)
-offset_right = 450.0
-offset_bottom = 100.0
+custom_minimum_size = Vector2(470, 101)
+offset_right = 345.0
+offset_bottom = 101.0
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_kg46y")
-theme_override_styles/hover = SubResource("StyleBoxFlat_kg46y")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_kg46y")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_q7j2l")
 script = ExtResource("1_6tsdn")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -48,16 +31,6 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_xjgw1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_i5qjd")
 max_value = 1.0
 show_percentage = false
-metadata/_edit_lock_ = true
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 91.0
-offset_bottom = 92.0
-texture = ExtResource("1_u31km")
-expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="name" type="Label" parent="."]
