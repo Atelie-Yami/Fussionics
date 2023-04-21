@@ -6,10 +6,7 @@ const SAVE_MODEL := {
 		"campaign_progress": 1,
 		"saga_progress": 3,
 		"volume_master": false,
-		"widgets_deck": [
-		#   [[atomic_numer: int, ranking: int], []]
-			[], [], [], [], [], [], [], [], [], [], [], []
-		],
+		"widgets_deck": GameBook.DECK,
 		"widgets": {
 		#   atomic_numer: [isotopo_id, isotopo_id, isotopo_id]
 		}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://yq0ynwg4ckg5"]
+[gd_scene load_steps=31 format=3 uid="uid://yq0ynwg4ckg5"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -96,15 +96,6 @@ expand_margin_top = 5.0
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 0.0
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_42kn5"]
-resource_name = "sagas"
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_cm6u6"]
-resource_name = "sagas"
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ycr33"]
-resource_name = "sagas"
 
 [sub_resource type="Gradient" id="Gradient_jumed"]
 interpolation_mode = 2
@@ -322,20 +313,17 @@ theme_override_constants/separation = 5
 
 [node name="saga" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_42kn5")
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga2" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_cm6u6")
 saga_id = 1
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga3" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_ycr33")
 saga_id = 2
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
