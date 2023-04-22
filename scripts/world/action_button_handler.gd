@@ -1,5 +1,7 @@
 extends Node2D
 
+const ARENA_POSITION := Vector2(605, 320)
+
 
 func _ready():
 	Gameplay.show_action_buttons.connect(_show_action_buttons)
@@ -12,7 +14,7 @@ func _element_selected(value: bool):
 
 
 func _process(delta):
-	position = Gameplay.element_focus.position
+	global_position = Gameplay.element_focus.global_position
 
 
 func _notification(what: int):

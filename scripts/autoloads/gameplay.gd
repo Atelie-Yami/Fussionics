@@ -78,7 +78,7 @@ func _ready():
 
 func _process(delta):
 	if selected_element:
-		element_focus.position = selected_element.position + Vector2(40, 40)
+		element_focus.global_position = selected_element.global_position + Vector2(40, 40)
 		
 		time += delta
 		var scale = abs(cos(time * 4.0)) * 0.1
@@ -113,7 +113,7 @@ func _action_pressed(action: ElementActions):
 		ElementActions.ATTACK:
 			if not GameJudge.can_element_attack(selected_element):
 				return
-			
+
 			var slot = Gameplay.arena.elements[selected_element.grid_position]
 			if slot.molecule and not slot.eletrons_charged:
 				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)

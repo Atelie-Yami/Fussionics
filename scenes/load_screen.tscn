@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cim70fis4b88y"]
+
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_f8bns"]
+
+[sub_resource type="Shader" id="Shader_apioj"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
+uniform float lod: hint_range(0.0, 5) = 0.0;
+uniform float saturation: hint_range(0.0, 1.0, 0.01);
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	float _unsatured = pow((color.r + color.g + color.b) / 3.0, 1.2);
+	
+	color.rgb = mix(color.rgb, vec3(_unsatured), saturation);
+	
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvbn2"]
+resource_local_to_scene = true
+shader = SubResource("Shader_apioj")
+shader_parameter/lod = 3.0
+shader_parameter/saturation = 0.4
+
+[node name="load_screen" instance=ExtResource("1_f8bns")]
+
+[node name="blur" type="ColorRect" parent="." index="1"]
+process_mode = 3
+material = SubResource("ShaderMaterial_pvbn2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true

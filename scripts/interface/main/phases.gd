@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 
-var saga_data: Dictionary
+var saga_id: int
 
 
 func _input(event: InputEvent):
@@ -9,10 +9,12 @@ func _input(event: InputEvent):
 		get_children().map(func(c): c.visible = false)
 
 
-func load_saga(saga_id: int):
+func load_saga(_saga_id: int):
+	saga_id = _saga_id
+	
 	get_children().map(func(c): c.visible = false)
 	
-	saga_data = GameBook.SAGAS[saga_id]
+	var saga_data = GameBook.SAGAS[saga_id]
 	for i in saga_data[GameBook.Campagn.PHASES_CONFIG].size():
 		var mode: int = saga_data[GameBook.Campagn.PHASES_CONFIG][i]
 		var skin: Texture
@@ -43,4 +45,4 @@ func load_saga(saga_id: int):
 
 
 func load_level(level_id: int):
-	print(saga_data[GameBook.Campagn.PHASES_CONFIG][level_id])
+	GameConfig.start_game(saga_id, level_id)

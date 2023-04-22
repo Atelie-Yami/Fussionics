@@ -11,7 +11,7 @@ extends Button
 
 
 func _ready():
-	saga_name.text = tr("SAGA_" + str(saga_id))
+	saga_name.text = GameBook.SAGAS[saga_id][GameBook.Campagn.NAME]
 	
 	if saga_id == GameConfig.save.campaign_progress:
 		var max: float = GameBook.SAGAS[saga_id][GameBook.Campagn.PHASES_CONFIG].size()

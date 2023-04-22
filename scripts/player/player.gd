@@ -1,6 +1,7 @@
 class_name Player extends Node2D
 
 signal end_game(win)
+signal play
 
 enum Players {A, B}
 
@@ -81,8 +82,4 @@ func gain_energy(_energy: int):
 	energy += _energy
 
 
-func play():
-	arena.create_element(
-			randi_range(0, 10), PlayerController.Players.B, 
-			Vector2i(randi_range(0, 7), randi_range(0, 4)), false
-	)
+

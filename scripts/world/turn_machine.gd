@@ -7,7 +7,7 @@ signal init_turn(player: int)
 signal main_turn(player: int)
 signal end_turn(player: int)
 
-const TURN_TIME = 5.0
+const TURN_TIME = 30.9
 const PHASE_IDLE_TIME := 0.2
 const COOK_FUSION_TIME = 0.15
 const COOK_ACCELR_TIME = 0.15
@@ -79,9 +79,12 @@ func _machine():
 					current_player as PlayerController.Players,
 					BaseEffect.SkillType.MAIN_PHASE
 			)
-			start(1 if current_player == 1 else 20)
+			await ElementEffectManager.call_passive_effects(current_player as PlayerController.Players)
+			
+			start(TURN_TIME)
 			if not timeout.is_connected(_main_phase_timeout):
 				timeout.connect(_main_phase_timeout, CONNECT_ONE_SHOT)
+			
 			main_turn.emit(current_player)
 		
 		State.END:

@@ -9,6 +9,7 @@ shader = ExtResource("2_vxlwc")
 
 [node name="level_button" type="Button"]
 custom_minimum_size = Vector2(120, 120)
+focus_mode = 0
 flat = true
 script = ExtResource("1_opdxl")
 

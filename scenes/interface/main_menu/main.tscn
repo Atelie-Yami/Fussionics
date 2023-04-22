@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
 [ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
 
-[sub_resource type="Shader" id="Shader_apioj"]
+[sub_resource type="Shader" id="Shader_my6u5"]
 code = "shader_type canvas_item;
 
 uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
@@ -34,7 +34,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anns1"]
 resource_local_to_scene = true
-shader = SubResource("Shader_apioj")
+shader = SubResource("Shader_my6u5")
 shader_parameter/lod = 3.0
 shader_parameter/saturation = 0.4
 
@@ -313,6 +313,7 @@ theme_override_constants/separation = 5
 
 [node name="saga" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
+saga_id = null
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
 

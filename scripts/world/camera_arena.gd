@@ -33,7 +33,7 @@ func _physics_process(delta):
 			if element_info.visible:
 				distance_fucus *= 3.0
 			
-			global_position = ((Gameplay.selected_element.position - POSITION_CENTER) * distance_fucus * extra_zoom) + POSITION_CENTER + turbulence
+			global_position = ((Gameplay.selected_element.global_position - POSITION_CENTER) * distance_fucus * extra_zoom) + POSITION_CENTER + turbulence
 			
 		zoom = lerp(zoom, Vector2(extra_zoom, extra_zoom) * Vector2(1.25, 1.25), 0.2)
 		

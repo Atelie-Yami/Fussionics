@@ -1,13 +1,13 @@
 class_name GameBook extends Node
 
 enum Sagas {
-	TUTORIAL, MAKINO, CHAM_INK
+	MAKINO, CHAM_INK, WILLO
 }
 enum PhaseConfig {
 	NORMAL, MINIBOSS_A, MINIBOSS_B, MINIBOSS_C, BOSS
 }
 enum Campagn {
-	PHASES_CONFIG, NORMAL_PHASE_ID, MINIBOSS_A_ID, MINIBOSS_B_ID, MINIBOSS_C_ID, BOSS_ID,
+	NAME, PHASES_CONFIG, NORMAL_PHASE_ID, MINIBOSS_A_ID, MINIBOSS_B_ID, MINIBOSS_C_ID, BOSS_ID,
 	SKINS, BOTS
 }
 enum Series {
@@ -172,22 +172,8 @@ const WIDGETS := {
 	},
 }
 const SAGAS := {
-	Sagas.TUTORIAL: {
-		Campagn.PHASES_CONFIG: [
-			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL,
-			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
-		],
-		Campagn.NORMAL_PHASE_ID: 0,
-		Campagn.BOSS_ID: 0,
-		Campagn.SKINS: {
-			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
-		},
-		Campagn.BOTS: {
-			PhaseConfig.NORMAL: "res://scripts/bots/chips/tutorial/normal.gd",
-			PhaseConfig.BOSS: "res://scripts/bots/chips/tutorial/boss.gd",
-		},
-	},
 	Sagas.MAKINO: {
+		Campagn.NAME: "Makino",
 		Campagn.PHASES_CONFIG: [
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
@@ -203,6 +189,18 @@ const SAGAS := {
 		}
 	},
 	Sagas.CHAM_INK: {
+		Campagn.NAME: "Chan Ink",
+		Campagn.PHASES_CONFIG: [
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
+			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
+		],
+		Campagn.SKINS: {
+			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
+			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+		},
+	},
+	Sagas.WILLO: {
+		Campagn.NAME: "Willo",
 		Campagn.PHASES_CONFIG: [
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,

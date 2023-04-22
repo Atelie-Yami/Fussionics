@@ -4,13 +4,24 @@ class_name Bot extends Node
 
 var chip: BotChip
 var deck := GameBook.DECK.duplicate(true)
-var player: Player
+@onready var player: Player = $".."
 
 
-func start_game(chip_path: String):
-	chip = load(chip_path).new()
-	player = Gameplay.arena.current_players[1]
+func _ready():
+	chip = GameConfig.game_match.bot_chip.new()
+	player.play.connect(_play)
 
 
-func play():
+func _play():
 	var result = await chip.analysis(self)
+	
+	player.arena.create_element(
+			randi_range(0, 10), PlayerController.Players.B, 
+			Vector2i(randi_range(0, 7), randi_range(0, 4)), false
+	)
+	
+	end_turn()
+
+
+func end_turn():
+	player.arena.turn_machine.next_phase()

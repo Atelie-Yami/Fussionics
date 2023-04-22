@@ -30,4 +30,5 @@ func _process(delta):
 func _gui_input(event: InputEvent):
 	if event.is_action_pressed("mouse_click"):
 		Gameplay.arena.direct_attack(Gameplay.selected_element.grid_position)
+		Gameplay.action_state = 0
 		visible = false

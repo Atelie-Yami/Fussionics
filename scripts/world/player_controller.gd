@@ -43,11 +43,7 @@ func _set_current_player_controller(player: Players):
 	current_players[player].set_turn(true)
 	current_players[player].energy_max += 1
 	current_players[player].energy = current_players[player].energy_max
-	
-	ElementEffectManager.call_passive_effects(player)
-	
-	if player == Players.B:
-		current_players[player].play()
+	current_players[player].play.emit()
 
 
 func _remove_players_control(player: Players):
