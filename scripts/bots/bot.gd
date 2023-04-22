@@ -7,8 +7,8 @@ var deck := GameBook.DECK.duplicate(true)
 var player: Player
 
 
-func start_game(_chip: BotChip):
-	chip = _chip
+func start_game(chip_path: String):
+	chip = load(chip_path).new()
 	player = Gameplay.arena.current_players[1]
 
 

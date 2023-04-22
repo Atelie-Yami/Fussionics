@@ -182,6 +182,10 @@ const SAGAS := {
 		Campagn.SKINS: {
 			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
 		},
+		Campagn.BOTS: {
+			PhaseConfig.NORMAL: "res://scripts/bots/chips/tutorial/normal.gd",
+			PhaseConfig.BOSS: "res://scripts/bots/chips/tutorial/boss.gd",
+		},
 	},
 	Sagas.MAKINO: {
 		Campagn.PHASES_CONFIG: [
@@ -193,9 +197,9 @@ const SAGAS := {
 			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
 		},
 		Campagn.BOTS: {
-			PhaseConfig.NORMAL: 0,
-			PhaseConfig.MINIBOSS_A: 0,
-			PhaseConfig.BOSS: 0,
+			PhaseConfig.NORMAL: "res://scripts/bots/chips/makino/normal.gd",
+			PhaseConfig.MINIBOSS_A: "res://scripts/bots/chips/makino/mini_boss_A.gd",
+			PhaseConfig.BOSS: "res://scripts/bots/chips/makino/boss.gd",
 		}
 	},
 	Sagas.CHAM_INK: {
