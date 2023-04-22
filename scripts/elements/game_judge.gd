@@ -29,6 +29,16 @@ static func can_element_attack(element: Element) -> bool:
 	return true
 
 
+static func can_element_defend(element: Element) -> bool:
+	if element.disabled:
+		return false
+	
+	for debuff in element.debuffs:
+		if debuff.type == PassiveEffect.Debuff.DEFEND_BLOQ:
+			return false
+	return true
+
+
 static func can_remove_element(element: Element) -> bool:
 	for buff in element.buffs:
 		if buff.type == PassiveEffect.Buff.IMORTAL:
@@ -44,8 +54,7 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons - 1)
 			Gameplay.arena.remove_element(defender.element.grid_position)
-			attaker.can_act = false
-			attaker.element.disabled = true
+			disable_slot(attaker)
 		
 		Result.COUNTERATTACK:
 			if combat_check_result(defender.element, attaker.element) == Result.WINNER:
@@ -57,8 +66,12 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 		Result.DRAW:
 			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
-			attaker.can_act = false
-			attaker.element.disabled = true
+			disable_slot(attaker)
+
+
+static func disable_slot(slot):
+	slot.can_act = false
+	slot.element.disabled = true
 
 
 static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):

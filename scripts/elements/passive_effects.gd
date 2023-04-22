@@ -7,6 +7,7 @@ enum PassiveEffectLifetimeType {
 }
 enum Debuff {
 	ATTACK_BLOQ, # impede de atacar
+	DEFEND_BLOQ, # impede de defender
 	LINK_BLOQ, # impede de linkar
 	UNLINK_BLOQ, # impede de deslinkar
 	BURNING, # reduz até 8 netrons por turno, maximo 8 stacks

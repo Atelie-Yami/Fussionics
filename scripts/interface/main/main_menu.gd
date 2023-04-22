@@ -9,7 +9,7 @@ enum State {
 
 @onready var buttons = $Buttons
 @onready var links = $links
-@onready var campaign = $campaign
+@onready var campaign = $campaign/campaign
 
 var state: State:
 	set(value):

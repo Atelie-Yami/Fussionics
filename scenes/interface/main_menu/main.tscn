@@ -282,55 +282,55 @@ texture_normal = ExtResource("10_w5so5")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="campaign" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="campaign" type="CanvasLayer" parent="."]
+
+[node name="campaign" type="PanelContainer" parent="campaign"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = -500.0
 offset_top = -480.0
-offset_right = -28.0
+offset_right = -8.0
 offset_bottom = 480.0
 grow_vertical = 2
 theme = ExtResource("1_w7i78")
 theme_override_styles/panel = SubResource("StyleBoxTexture_4bss4")
 script = ExtResource("13_sggw1")
 
-[node name="Panel" type="Panel" parent="campaign"]
+[node name="Panel" type="Panel" parent="campaign/campaign"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fyo4p")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="campaign"]
+[node name="ScrollContainer" type="ScrollContainer" parent="campaign/campaign"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5ecym")
 horizontal_scroll_mode = 0
 
-[node name="buttons" type="VBoxContainer" parent="campaign/ScrollContainer"]
+[node name="buttons" type="VBoxContainer" parent="campaign/campaign/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="saga" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
+[node name="saga" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
 saga_id = null
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
 
-[node name="saga2" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
+[node name="saga2" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
 saga_id = 1
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
 
-[node name="saga3" parent="campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
+[node name="saga3" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
 saga_id = 2
 phases_path = NodePath("../../../../phases")
 metadata/_edit_horizontal_guides_ = [80.0]
 
-[node name="phases" type="HBoxContainer" parent="."]
-layout_mode = 2
+[node name="phases" type="HBoxContainer" parent="campaign"]
 offset_left = 1812.0
 offset_top = 480.0
 offset_right = 1812.0
@@ -342,45 +342,44 @@ theme_override_constants/separation = 0
 alignment = 2
 script = ExtResource("13_katue")
 
-[node name="level_button1" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button1" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button2" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button2" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button3" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button3" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button4" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button4" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button5" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button5" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button6" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button6" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button7" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button7" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button8" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button8" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="level_button9" parent="phases" instance=ExtResource("12_70y16")]
+[node name="level_button9" parent="campaign/phases" instance=ExtResource("12_70y16")]
 visible = false
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="campaign"]
 show_behind_parent = true
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

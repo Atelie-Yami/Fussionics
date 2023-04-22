@@ -18,6 +18,7 @@ class Slot:
 	var skill_used: bool = false
 	var eletrons_charged: bool
 	var can_act: bool = true
+	var defend_mode: bool
 	
 	func _init(_e: Element, _p: Players):
 		element = _e; player = _p
@@ -243,6 +244,12 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	else:
 		await GameJudge.combat(slot_attacker, slot_defender)
 	action_in_process = false
+
+
+func defend_mode(element: Vector2i):
+	if not elements[element].can_act or action_in_process:
+		return
+	
 
 
 func direct_attack(attacker: Vector2i):

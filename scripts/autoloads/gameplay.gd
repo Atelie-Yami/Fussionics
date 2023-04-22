@@ -4,7 +4,7 @@ signal set_to_default
 signal show_action_buttons(actions)
 signal element_selected(valid)
 
-enum ElementActions {ATTACK, LINK, UNLINK, EFFECT}
+enum ElementActions {ATTACK, DEFEND, LINK, UNLINK, EFFECT}
 enum ActionState {NORMAL, ATTACK, LINK, UNLINK}
 
 const SLOT_INTERACT_INDICATOR := preload("res://scripts/vfx/slot_interact_indicator.gd")
@@ -113,7 +113,7 @@ func _action_pressed(action: ElementActions):
 		ElementActions.ATTACK:
 			if not GameJudge.can_element_attack(selected_element):
 				return
-
+			
 			var slot = Gameplay.arena.elements[selected_element.grid_position]
 			if slot.molecule and not slot.eletrons_charged:
 				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)
@@ -121,6 +121,14 @@ func _action_pressed(action: ElementActions):
 			
 			slot_interact_indicator.set_slots(arena.elements, 0)
 			action_state = ActionState.ATTACK
+		
+		ElementActions.DEFEND:
+			if not GameJudge.can_element_defend(selected_element):
+				return
+			
+			var slot = Gameplay.arena.elements[selected_element.grid_position]
+			
+			action_state = ActionState.NORMAL
 		
 		ElementActions.LINK:
 			action_state = ActionState.LINK
