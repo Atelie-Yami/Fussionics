@@ -4,6 +4,7 @@ enum Mode {
 	ATTACK, LINK, UNLINK
 }
 const EXCLAMATION := preload("res://assets/img/interface/exclamation.png")
+const SHIELD := preload("res://resouces/atlas/gameplay/icon_shiled.atlastex")
 const SWORD := preload("res://assets/img/interface/sword.png")
 const LINK := preload("res://assets/img/interface/link.png")
 const UNLINK := preload("res://assets/img/interface/unlink.png")
@@ -17,6 +18,8 @@ var time := 0.0
 var animation := 0.0
 var animation_2 := 0.0
 var _slots: Array[Vector2i]
+var _defended: Array[Vector2i]
+var _defensor := Vector2(20, 0)
 var element_in_action := Vector2(20, 0)
 
 
@@ -26,16 +29,27 @@ func _init():
 
 
 func set_slots(elements: Dictionary, _mode: int, args = null):
+	_defended.clear()
 	_slots.clear()
 	mode = _mode
 	time = 0.0
+	_defensor.x = 20
 	
 	if mode == Mode.ATTACK:
 		var has_enemies: bool
 		for slot in elements:
 			if elements[slot].player == 1:
-				_slots.append(elements[slot].element.grid_position)
 				has_enemies = true
+				
+				if elements[slot].molecule and elements[slot].molecule.defender:
+					if elements[slot].molecule.defender == elements[slot].element:
+						_defensor = elements[slot].element.grid_position
+					
+					else:
+						_defended.append(elements[slot].element.grid_position)
+				
+				else:
+					_slots.append(elements[slot].element.grid_position)
 		
 		Gameplay.attack_omega_handler.visible = not has_enemies
 		
@@ -73,8 +87,23 @@ func _process(delta):
 func _draw():
 	var _motion := Vector2(animation, animation) * 10.0
 	
+	if mode == Mode.ATTACK:
+		for slot in _defended:
+			var _pos := Vector2(slot * SLOT_SIZE) + _motion - Vector2(5, 5)
+			var _rect := Rect2(_pos, RECT_SIZE - (_motion * 2))
+			var _color_a := animation
+			
+			draw_texture_rect(SHIELD, _rect, false, Color.DARK_SEA_GREEN * animation * 0.5)
+	
+	if _defensor.x < 20:
+		var _pos := Vector2(_defensor * SLOT_SIZE) + _motion
+		var _rect := Rect2(_pos, RECT_SIZE - (_motion * 2))
+		var _color_a := animation
+		
+		draw_texture_rect(SHIELD, _rect, false, Color.RED * animation * 0.5)
+	
 	for slot in _slots:
-		var _pos := Vector2((slot * SLOT_SIZE) - TEXTURE_OFFSET[mode]) + _motion
+		var _pos := Vector2(slot * SLOT_SIZE) + _motion
 		var _rect := Rect2(_pos, RECT_SIZE - (_motion * 2))
 		var _color_a := animation
 		

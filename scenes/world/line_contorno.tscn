@@ -343,6 +343,7 @@ sources/0 = SubResource("TileSetAtlasSource_e5t1f")
 sources/1 = SubResource("TileSetAtlasSource_ou4gt")
 
 [node name="LineContorno" type="TileMap"]
+visible = false
 modulate = Color(1, 1, 1, 0.698039)
 z_index = 2
 position = Vector2(-30, -45)
