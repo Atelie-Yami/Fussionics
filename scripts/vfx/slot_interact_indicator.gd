@@ -4,7 +4,8 @@ enum Mode {
 	ATTACK, LINK, UNLINK
 }
 const EXCLAMATION := preload("res://assets/img/interface/exclamation.png")
-const SHIELD := preload("res://resouces/atlas/gameplay/icon_shiled.atlastex")
+const SHIELD_NORMAL := preload("res://resouces/atlas/gameplay/icon_shiled.atlastex")
+const SHIELD_TARGET := preload("res://resouces/atlas/gameplay/icon_shiled_target.atlastex")
 const SWORD := preload("res://assets/img/interface/sword.png")
 const LINK := preload("res://assets/img/interface/link.png")
 const UNLINK := preload("res://assets/img/interface/unlink.png")
@@ -12,6 +13,8 @@ const SLOT_SIZE := 90.0
 const RECT_SIZE := Vector2(SLOT_SIZE, SLOT_SIZE)
 const ANIMATION_SPEED := 2.5
 const TEXTURE_OFFSET := [Vector2(3, 3), Vector2(5, 5), Vector2(3, 3)]
+
+const INDICATION_ALPHA := 0.7
 
 var mode: Mode
 var time := 0.0
@@ -93,14 +96,14 @@ func _draw():
 			var _rect := Rect2(_pos, RECT_SIZE - (_motion * 2))
 			var _color_a := animation
 			
-			draw_texture_rect(SHIELD, _rect, false, Color.DARK_SEA_GREEN * animation * 0.5)
+			draw_texture_rect(SHIELD_NORMAL, _rect, false, Color.SKY_BLUE * animation * INDICATION_ALPHA)
 	
 	if _defensor.x < 20:
-		var _pos := Vector2(_defensor * SLOT_SIZE) + _motion
+		var _pos := Vector2(_defensor * SLOT_SIZE) + _motion - Vector2(5, 5)
 		var _rect := Rect2(_pos, RECT_SIZE - (_motion * 2))
 		var _color_a := animation
 		
-		draw_texture_rect(SHIELD, _rect, false, Color.RED * animation * 0.5)
+		draw_texture_rect(SHIELD_TARGET, _rect, false, Color.ORANGE_RED * animation * INDICATION_ALPHA)
 	
 	for slot in _slots:
 		var _pos := Vector2(slot * SLOT_SIZE) + _motion
@@ -109,7 +112,7 @@ func _draw():
 		
 		match mode:
 			Mode.ATTACK:
-				draw_texture_rect(SWORD, _rect, false, Color.RED * animation * 0.5)
+				draw_texture_rect(SWORD, _rect, false, Color.RED * animation * INDICATION_ALPHA)
 				
 			Mode.LINK:
 				draw_texture_rect(LINK, _rect, false, Color("#ccffd8") * _color_a)

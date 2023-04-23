@@ -3,8 +3,8 @@ class_name SaveLoad extends RefCounted
 const SAVE_DIR_PATH := "user://system/"
 const SAVE_NAME_PATH := "system.sv"
 const SAVE_MODEL := {
-		"campaign_progress": 1,
-		"saga_progress": 0,
+		"campaign_progress": 0,
+		"saga_progress": 5,
 		"volume_master": false,
 		"widgets_deck": GameBook.DECK,
 		"widgets": {

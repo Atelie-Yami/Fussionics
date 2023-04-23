@@ -405,7 +405,6 @@ boss_info_path = NodePath("../../../../VBoxContainer/boss_info")
 metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="phases" type="HBoxContainer" parent="campaign"]
-modulate = Color(0.690196, 0.909804, 0.839216, 1)
 offset_left = 150.0
 offset_top = 736.0
 offset_right = 1350.0

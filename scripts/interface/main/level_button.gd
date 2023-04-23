@@ -68,7 +68,7 @@ func set_mode(_mode: int, skin: Texture, _type: int):
 
 
 func _draw():
-	if mode != 2:
+	if mode != Mode.BOSS:
 		if not begin:
 			draw_line(Vector2(0, 60), Vector2(LAST_LINE_POS[mode], 60), Color.WHITE if type != Type.DISABLED else Color.DIM_GRAY, 2)
 		
@@ -97,6 +97,9 @@ func _draw():
 				draw_circle(Vector2(LAST_BALL_POS[mode], 60), BALL_RADIUS, Color.WHITE)
 	
 	draw_texture_rect_region(TEXTURE, RECT_BASE[mode], RECT_SOUCE[mode][type], Color.WHITE)
+	
+	if mode == Mode.NORMAL and type == Type.PASSED:
+		draw_circle(Vector2(60, 60), 10, Color.WHITE)
 
 
 func _is_pressed():

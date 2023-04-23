@@ -2,6 +2,11 @@ extends BotChip
 
 
 func analysis(bot: Bot):
+	if randi_range(0, 4) == 0:
+		var pos = bot.get_empty_slot()
+		if pos:
+			await create_element(bot, randi_range(0, 10), pos)
+	
 	if bot.player.energy > 2:
 		var pos = bot.get_empty_slot()
 		if pos:
