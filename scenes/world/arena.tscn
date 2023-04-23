@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=79 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -58,25 +58,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wk4n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0v6np"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_63w0v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t60hl"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ap3d1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_38ppw"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cccqc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mt06"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -243,14 +243,19 @@ content_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruh63"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vnb5y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ntdq"]
 atlas = ExtResource("15_7qkxm")
-region = Rect2(520, 360, 230, 230)
+region = Rect2(519, 359, 230, 230)
 margin = Rect2(20, 20, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wwb2n"]
 atlas = ExtResource("15_7qkxm")
 region = Rect2(289, 874, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnb5y"]
+atlas = ExtResource("15_7qkxm")
+region = Rect2(1038, 621, 230, 230)
+margin = Rect2(20, 20, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u78wn"]
 atlas = ExtResource("15_7qkxm")
@@ -426,19 +431,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_6wk4n")
+material = SubResource("ShaderMaterial_0v6np")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_63w0v")
+material = SubResource("ShaderMaterial_t60hl")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_ap3d1")
+material = SubResource("ShaderMaterial_38ppw")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_cccqc")
+material = SubResource("ShaderMaterial_7mt06")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -670,7 +675,7 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_vnb5y")
+texture = SubResource("AtlasTexture_8ntdq")
 expand_mode = 1
 
 [node name="element_action2" parent="actions" instance=ExtResource("10_jw2y0")]
@@ -719,7 +724,7 @@ icon_alignment = 1
 expand_icon = true
 action = 2
 
-[node name="TextureRect3" type="TextureRect" parent="actions/element_action3"]
+[node name="TextureRect" type="TextureRect" parent="actions/element_action3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -730,7 +735,7 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_u78wn")
+texture = SubResource("AtlasTexture_vnb5y")
 expand_mode = 1
 
 [node name="element_action4" parent="actions" instance=ExtResource("10_jw2y0")]
@@ -749,7 +754,7 @@ icon_alignment = 1
 expand_icon = true
 action = 3
 
-[node name="TextureRect4" type="TextureRect" parent="actions/element_action4"]
+[node name="TextureRect3" type="TextureRect" parent="actions/element_action4"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -760,14 +765,14 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_oy12e")
+texture = SubResource("AtlasTexture_u78wn")
 expand_mode = 1
 
 [node name="element_action5" parent="actions" instance=ExtResource("10_jw2y0")]
-offset_left = -124.0
-offset_top = -83.0
-offset_right = -74.0
-offset_bottom = -33.0
+offset_left = 161.0
+offset_top = -19.0
+offset_right = 211.0
+offset_bottom = 31.0
 pivot_offset = Vector2(25, 25)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
@@ -779,7 +784,7 @@ icon_alignment = 1
 expand_icon = true
 action = 4
 
-[node name="TextureRect" type="TextureRect" parent="actions/element_action5"]
+[node name="TextureRect4" type="TextureRect" parent="actions/element_action5"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -790,7 +795,7 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_vnb5y")
+texture = SubResource("AtlasTexture_oy12e")
 expand_mode = 1
 
 [node name="info_panel" type="CanvasLayer" parent="."]

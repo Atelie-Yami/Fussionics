@@ -6,13 +6,17 @@ enum Result {
 	DRAW, # sem resultado, ninguem perdeu
 }
 
-static func combat_check_result(element_attacker: Element, element_defender: Element) -> Result:
-	# avaliar os efeitos pra saber se tem codições nesse caso atual
-	
-	if element_attacker.eletrons > element_defender.neutrons + 1:
+static func combat_check_result(element_attacker: Element, element_defender: Element, defended: bool) -> Result:
+	if (
+			(not defended and element_attacker.eletrons > element_defender.neutrons + 1) or 
+			(defended and element_attacker.eletrons > element_defender.eletrons)
+	):
 		return Result.WINNER
 	
-	elif element_attacker.eletrons == element_defender.neutrons + 1:
+	elif (
+		(not defended and element_attacker.eletrons == element_defender.neutrons + 1) or
+		(defended and element_attacker.eletrons == element_defender.eletrons)
+	):
 		return Result.DRAW
 	
 	else:
@@ -47,17 +51,27 @@ static func can_remove_element(element: Element) -> bool:
 
 
 static func combat(attaker: Arena.Slot, defender: Arena.Slot):
-	var result: Result = combat_check_result(attaker.element, defender.element)
+	if defender.molecule and defender.molecule.defender:
+		defender = Gameplay.arena.elements[defender.molecule.defender.grid_position]
+	
+	var result: Result = combat_check_result(attaker.element, defender.element, defender.defend_mode)
+	disable_slot(attaker)
+	
 	match result:
 		Result.WINNER:
 			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
-			Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons - 1)
+			
+			if not defender.defend_mode:
+				Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons - 1)
+			
 			Gameplay.arena.remove_element(defender.element.grid_position)
-			disable_slot(attaker)
 		
 		Result.COUNTERATTACK:
-			if combat_check_result(defender.element, attaker.element) == Result.WINNER:
+			if defender.defend_mode:
+				return
+			
+			if combat_check_result(defender.element, attaker.element, false) == Result.WINNER:
 				await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.eletrons - attaker.element.neutrons - 1)
@@ -66,12 +80,11 @@ static func combat(attaker: Arena.Slot, defender: Arena.Slot):
 		Result.DRAW:
 			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
-			disable_slot(attaker)
 
 
 static func disable_slot(slot):
-	slot.can_act = false
 	slot.element.disabled = true
+	slot.can_act = false
 
 
 static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
@@ -84,7 +97,7 @@ static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 				enemies.append(Gameplay.arena.elements[_pos].element)
 
 
-static func charge_eletrons_to_attack(header: Element, molecule: Molecule):
+static func charge_eletrons_power(header: Element, molecule: Molecule):
 	var power := 0
 	var charged_elements: Array[Element]
 	

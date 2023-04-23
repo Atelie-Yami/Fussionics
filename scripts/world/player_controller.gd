@@ -5,10 +5,9 @@ enum Players {A, B}
 const GRID_OFFSET := Vector2i(605, 320)
 const SLOT_SIZE := Vector2i(90, 90)
 
-@onready var current_players: Array[Player] = [
-	$"../Player_A" as Player,
-	$"../Player_B" as Player,
-]
+var elements: Dictionary
+
+@onready var current_players: Array[Player] = [$"../Player_A" as Player, $"../Player_B" as Player]
 @onready var turn_machine: TurnMachine = %turn_machine
 
 
@@ -39,6 +38,10 @@ func _pre_init_turn(player: Players):
 	pass
 
 
+func _check_slot_empty(slot: Vector2i):
+	return not elements.has(slot)
+
+
 func _set_current_player_controller(player: Players):
 	current_players[player].set_turn(true)
 	current_players[player].energy_max += 1
@@ -62,6 +65,30 @@ func _check_slot_only_out(slot: Vector2i):
 func _get_snapped_slot_position(slot: Vector2i):
 	var _slot = (slot - Vector2i(16, 0)) if slot.x > 11 else slot
 	return (SLOT_SIZE * _slot) + GRID_OFFSET
+
+
+func _handle_molecule(element: Element):
+	var molecule_config: Array[Element]
+	var molecula: Molecule
+	
+	if element.has_link:
+		_procedural_search_link_nodes(element, molecule_config)
+	
+	if molecule_config.is_empty():
+		if elements[element.grid_position].molecule:
+			elements[element.grid_position].molecule.redux_ref()
+		elements[element.grid_position].molecule = null
+		
+	else:
+		molecula = Molecule.new()
+		molecula.configuration = molecule_config
+		
+		if is_instance_valid(elements[element.grid_position].molecule.border_line):
+			elements[element.grid_position].molecule.border_line.queue_free()
+		
+		for e in molecule_config:
+			elements[e.grid_position].molecule = molecula
+			molecula.gain_ref()
 
 
 func _link_elements(element_a: Element, element_b: Element):

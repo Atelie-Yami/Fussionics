@@ -46,3 +46,6 @@ func load_saga(_saga_id: int):
 
 func load_level(level_id: int):
 	GameConfig.start_game(saga_id, level_id)
+
+
+

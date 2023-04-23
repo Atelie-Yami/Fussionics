@@ -4,25 +4,26 @@ extends Timer
 const TIME_CAST_EFFECT := 0.2
 
 ## Quando um efeito de turno for iniciado, ele vai se registrar aqui e esperar se chamado
-var EFFECTS_POOL := {
-	BaseEffect.SkillType.PRE_INIT_PHASE: [], #
-	BaseEffect.SkillType.COOKED_FUSION: [], #
-	BaseEffect.SkillType.COOKED_ACCELR: [], #
-	BaseEffect.SkillType.INIT_PHASE: [], #
-	BaseEffect.SkillType.MAIN_PHASE: [], #
-	BaseEffect.SkillType.END_PHASE: [], #
-	BaseEffect.SkillType.LINKED: [], #
-	BaseEffect.SkillType.UNLINKED: [], #
-	BaseEffect.SkillType.PRE_ATTACK: [], #
-	BaseEffect.SkillType.POS_ATTACK: [], #
-	BaseEffect.SkillType.PRE_DEFEND: [], #
-	BaseEffect.SkillType.POS_DEFEND: [], #
-	BaseEffect.SkillType.POS_ACTION: [], #
-	BaseEffect.SkillType.PASSIVE: [], #
+const EFFECTS_POOL := {
+	BaseEffect.SkillType.PRE_INIT_PHASE: [],
+	BaseEffect.SkillType.COOKED_FUSION: [],
+	BaseEffect.SkillType.COOKED_ACCELR: [],
+	BaseEffect.SkillType.INIT_PHASE: [],
+	BaseEffect.SkillType.MAIN_PHASE: [],
+	BaseEffect.SkillType.END_PHASE: [],
+	BaseEffect.SkillType.LINKED: [],
+	BaseEffect.SkillType.UNLINKED: [],
+	BaseEffect.SkillType.PRE_ATTACK: [],
+	BaseEffect.SkillType.POS_ATTACK: [],
+	BaseEffect.SkillType.PRE_DEFEND: [],
+	BaseEffect.SkillType.POS_DEFEND: [],
+	BaseEffect.SkillType.POS_ACTION: [],
+	BaseEffect.SkillType.DEFEND_MODE: [],
+	BaseEffect.SkillType.PASSIVE: [],
 }
 var effects_pool_players := {
-	PlayerController.Players.A: EFFECTS_POOL.duplicate(),
-	PlayerController.Players.B: EFFECTS_POOL.duplicate(),
+#	PlayerController.Players.A: EFFECTS_POOL.duplicate(true),
+#	PlayerController.Players.B: EFFECTS_POOL.duplicate(true),
 }
 var passive_pool_effects := {
 	PlayerController.Players.A: [],
@@ -34,6 +35,12 @@ var is_processing_tasks := false
 
 func _init():
 	one_shot = true
+	effects_pool_players[PlayerController.Players.A] = {}
+	effects_pool_players[PlayerController.Players.B] = {}
+	
+	for i in BaseEffect.SkillType.values():
+		effects_pool_players[PlayerController.Players.A][i] = []
+		effects_pool_players[PlayerController.Players.B][i] = []
 
 
 func _process(delta):

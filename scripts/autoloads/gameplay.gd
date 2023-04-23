@@ -116,7 +116,7 @@ func _action_pressed(action: ElementActions):
 			
 			var slot = Gameplay.arena.elements[selected_element.grid_position]
 			if slot.molecule and not slot.eletrons_charged:
-				GameJudge.charge_eletrons_to_attack(selected_element, slot.molecule)
+				GameJudge.charge_eletrons_power(selected_element, slot.molecule)
 				slot.eletrons_charged = true
 			
 			slot_interact_indicator.set_slots(arena.elements, 0)
@@ -126,8 +126,7 @@ func _action_pressed(action: ElementActions):
 			if not GameJudge.can_element_defend(selected_element):
 				return
 			
-			var slot = Gameplay.arena.elements[selected_element.grid_position]
-			
+			await arena.defend_mode(selected_element.grid_position)
 			action_state = ActionState.NORMAL
 		
 		ElementActions.LINK:
@@ -175,6 +174,9 @@ func slot_get_actions(slot: Arena.Slot):
 		return actions
 	
 	actions.append(ElementActions.ATTACK)
+	
+	if not slot.defend_mode:
+		actions.append(ElementActions.DEFEND)
 	
 	if slot.skill_used:
 		return

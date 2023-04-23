@@ -60,8 +60,8 @@ class Ligament:
 
 var ref_count: int = 1
 
+var defender: Element
 var configuration: Array[Element]
-
 var border_line: LineMap = BORDELINE.instantiate()
 
 var effect_pool := {

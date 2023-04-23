@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://yq0ynwg4ckg5"]
+[gd_scene load_steps=37 format=3 uid="uid://yq0ynwg4ckg5"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -12,9 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://b2llvwneyveuk" path="res://assets/img/links/insta.png" id="10_w5so5"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="11_5tmd3"]
 [ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
+[ext_resource type="Script" path="res://scripts/interface/main/campaign_backgroud.gd" id="12_7kcyd"]
 [ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
 [ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
 [ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
+[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="17_euaro"]
 
 [sub_resource type="Shader" id="Shader_my6u5"]
 code = "shader_type canvas_item;
@@ -71,6 +73,18 @@ texture_margin_bottom = 8.0
 region_rect = Rect2(0, 0, 507, 290)
 modulate_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Gradient" id="Gradient_jumed"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0.494118, 0.784314, 0.698039, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ipxk"]
+gradient = SubResource("Gradient_jumed")
+width = 1024
+height = 1024
+use_hdr = true
+fill_from = Vector2(0.307692, 0.669516)
+fill_to = Vector2(1, 0.91453)
+
 [sub_resource type="Gradient" id="Gradient_2yxwd"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.571429)
@@ -97,14 +111,32 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 0.0
 
-[sub_resource type="Gradient" id="Gradient_jumed"]
-interpolation_mode = 2
-colors = PackedColorArray(0, 0, 0, 0, 0, 0.576471, 1, 0.572549)
+[sub_resource type="GDScript" id="GDScript_o6bkh"]
+script/source = "extends VBoxContainer
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ipxk"]
-gradient = SubResource("Gradient_jumed")
-fill_from = Vector2(0.216524, 0.310541)
-fill_to = Vector2(0.923077, 0.91453)
+
+func _input(event: InputEvent):
+	if event.is_action_pressed(\"ui_cancel\"):
+		get_children().map(func(c): c.visible = false)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kq6i1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="LabelSettings" id="LabelSettings_35yp7"]
+font = ExtResource("17_euaro")
+font_size = 80
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8tgd"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.392157)
 
 [sub_resource type="Shader" id="Shader_q5b5q"]
 code = "shader_type canvas_item;
@@ -284,6 +316,37 @@ stretch_mode = 5
 
 [node name="campaign" type="CanvasLayer" parent="."]
 
+[node name="backgroud" type="TextureRect" parent="campaign"]
+show_behind_parent = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_3ipxk")
+script = ExtResource("12_7kcyd")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="boss" type="TextureRect" parent="campaign/backgroud"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -840.0
+offset_top = -948.0
+offset_right = 122.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
+
 [node name="campaign" type="PanelContainer" parent="campaign"]
 anchors_preset = 4
 anchor_top = 0.5
@@ -314,32 +377,41 @@ theme_override_constants/separation = 5
 
 [node name="saga" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-saga_id = null
+campaign_path = NodePath("../../..")
+backgroud_path = NodePath("../../../../backgroud")
 phases_path = NodePath("../../../../phases")
+boss_name_path = NodePath("../../../../VBoxContainer/boss_name")
+boss_info_path = NodePath("../../../../VBoxContainer/boss_info")
 metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga2" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
 saga_id = 1
+campaign_path = NodePath("../../..")
+backgroud_path = NodePath("../../../../backgroud")
 phases_path = NodePath("../../../../phases")
+boss_name_path = NodePath("../../../../VBoxContainer/boss_name")
+boss_info_path = NodePath("../../../../VBoxContainer/boss_info")
 metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga3" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
 saga_id = 2
+campaign_path = NodePath("../../..")
+backgroud_path = NodePath("../../../../backgroud")
 phases_path = NodePath("../../../../phases")
+boss_name_path = NodePath("../../../../VBoxContainer/boss_name")
+boss_info_path = NodePath("../../../../VBoxContainer/boss_info")
 metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="phases" type="HBoxContainer" parent="campaign"]
-offset_left = 1812.0
-offset_top = 480.0
-offset_right = 1812.0
-offset_bottom = 600.0
-grow_horizontal = 0
-grow_vertical = 2
+modulate = Color(0.690196, 0.909804, 0.839216, 1)
+offset_left = 150.0
+offset_top = 736.0
+offset_right = 1350.0
+offset_bottom = 856.0
 size_flags_horizontal = 8
 theme_override_constants/separation = 0
-alignment = 2
 script = ExtResource("13_katue")
 
 [node name="level_button1" parent="campaign/phases" instance=ExtResource("12_70y16")]
@@ -378,20 +450,42 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="campaign"]
-show_behind_parent = true
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1068.0
-offset_right = 959.0
-offset_bottom = 11.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = SubResource("GradientTexture2D_3ipxk")
+[node name="level_button10" parent="campaign/phases" instance=ExtResource("12_70y16")]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="campaign"]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 1050.0
+offset_bottom = 583.0
+mouse_filter = 2
+script = SubResource("GDScript_o6bkh")
 metadata/_edit_lock_ = true
+
+[node name="boss_name" type="Label" parent="campaign/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kq6i1")
+text = "boss name"
+label_settings = SubResource("LabelSettings_35yp7")
+vertical_alignment = 2
+
+[node name="boss_info" type="RichTextLabel" parent="campaign/VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("17_euaro")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_e8tgd")
+bbcode_enabled = true
+text = "asdasdasdasdsaas 
+asdasda
+da 
+dasdasdasdasdsadasdsa"
+fit_content = true
+scroll_active = false
 
 [node name="vfx" type="CanvasLayer" parent="."]
 

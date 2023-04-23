@@ -37,9 +37,15 @@ func set_turn(active: bool):
 	for pos in arena.elements:
 		var slot = arena.elements[pos]
 		if slot.player == player:
+			
+			
 			slot.element.active = active
 			
 			if active:
+				if slot.defend_mode and slot.molecule:
+					slot.molecule.defender = null
+				slot.defend_mode = false
+				
 				slot.eletrons_charged = false
 				slot.skill_used = false
 				slot.can_act = true

@@ -8,7 +8,7 @@ enum PhaseConfig {
 }
 enum Campagn {
 	NAME, PHASES_CONFIG, NORMAL_PHASE_ID, MINIBOSS_A_ID, MINIBOSS_B_ID, MINIBOSS_C_ID, BOSS_ID,
-	SKINS, BOTS
+	SKINS, SKINS_BACKGROUND, BOTS, COLOR
 }
 enum Series {
 	ALKALINE, ALKALINE_EARTH, LANTANIDIUM, ACTINIDIUM, TRANSITION, OTHERS, SEMI, METALLOID, HALOGEN, NOBLE, UNKNOWN
@@ -174,13 +174,15 @@ const WIDGETS := {
 const SAGAS := {
 	Sagas.MAKINO: {
 		Campagn.NAME: "Makino",
+		Campagn.COLOR: "#7ec8b2",
+		Campagn.SKINS_BACKGROUND: preload("res://assets/img/saga/makino.png"),
 		Campagn.PHASES_CONFIG: [
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
 		],
 		Campagn.SKINS: {
-			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
-			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+			PhaseConfig.MINIBOSS_A: preload("res://assets/img/saga/makino_icone.png"),
+			PhaseConfig.BOSS: preload("res://assets/img/saga/makino_icone.png"),
 		},
 		Campagn.BOTS: {
 			PhaseConfig.NORMAL: "res://scripts/bots/chips/makino/normal.gd",
@@ -190,24 +192,28 @@ const SAGAS := {
 	},
 	Sagas.CHAM_INK: {
 		Campagn.NAME: "Chan Ink",
+		Campagn.COLOR: "#887766",
+		Campagn.SKINS_BACKGROUND: preload("res://assets/img/icon.svg"),
 		Campagn.PHASES_CONFIG: [
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
 		],
 		Campagn.SKINS: {
 			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
-			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+			PhaseConfig.BOSS: preload("res://assets/img/icon.svg"),
 		},
 	},
 	Sagas.WILLO: {
 		Campagn.NAME: "Willo",
+		Campagn.COLOR: "#009988",
+		Campagn.SKINS_BACKGROUND: preload("res://assets/img/icon.svg"),
 		Campagn.PHASES_CONFIG: [
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.MINIBOSS_A,
 			PhaseConfig.NORMAL, PhaseConfig.NORMAL, PhaseConfig.BOSS,
 		],
 		Campagn.SKINS: {
 			PhaseConfig.MINIBOSS_A: preload("res://assets/img/icon.svg"),
-			PhaseConfig.BOSS: preload("res://assets/img/icon.svg")
+			PhaseConfig.BOSS: preload("res://assets/img/icon.svg"),
 		},
 	},
 	

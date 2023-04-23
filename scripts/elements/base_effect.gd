@@ -16,6 +16,7 @@ enum SkillType {
 	PRE_DEFEND, ## antes de sofrer ataque
 	POS_DEFEND, ## depois de sofrer ataque
 	POS_ACTION, ## após um efeito for ativado
+	DEFEND_MODE, ## quando o elemento entrar em modo de defesa
 	PASSIVE, ## efeito sempre ativo, assim q é instanciado e até o elemento ser removido 
 }
 enum TargetMode {

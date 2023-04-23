@@ -39,7 +39,6 @@ class Slot:
 # ------------------------- #
 
 ## {Vector2i position : Slot slot}
-var elements: Dictionary
 var action_in_process: bool
 var reactor_canceled_by_effect: bool
 
@@ -49,10 +48,6 @@ var reactor_canceled_by_effect: bool
 
 func _init():
 	Gameplay.arena = self
-
-
-func _check_slot_empty(slot: Vector2i):
-	return not elements.has(slot)
 
 
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
@@ -89,6 +84,9 @@ func remove_element(slot_position: Vector2i):
 	if slot.molecule:
 		var neigbors: Array[Element]
 		
+		if slot.defend_mode:
+			slot.molecule.defender = null
+		
 		for link in slot.element.links:
 			if not slot.element.links[link]:
 				continue
@@ -118,6 +116,7 @@ func _remove_element(slot: Slot, slot_position: Vector2i):
 
 func create_element(atomic_number: int, player: Players, _position: Vector2i, focus: bool):
 	if action_in_process or not _check_slot_empty(_position) or _check_slot_only_out(_position):
+		print("ata")
 		return
 	
 	action_in_process = true
@@ -204,30 +203,6 @@ func unlink_elements(element_A: Element, element_B: Element):
 		print("has not link")
 
 
-func _handle_molecule(element: Element):
-	var molecule_config: Array[Element]
-	var molecula: Molecule
-	
-	if element.has_link:
-		_procedural_search_link_nodes(element, molecule_config)
-	
-	if molecule_config.is_empty():
-		if elements[element.grid_position].molecule:
-			elements[element.grid_position].molecule.redux_ref()
-		elements[element.grid_position].molecule = null
-		
-	else:
-		molecula = Molecule.new()
-		molecula.configuration = molecule_config
-		
-		if is_instance_valid(elements[element.grid_position].molecule.border_line):
-			elements[element.grid_position].molecule.border_line.queue_free()
-		
-		for e in molecule_config:
-			elements[e.grid_position].molecule = molecula
-			molecula.gain_ref()
-
-
 func attack_element(attacker: Vector2i, defender: Vector2i):
 	if not elements[attacker].can_act or action_in_process: return
 	
@@ -250,6 +225,19 @@ func defend_mode(element: Vector2i):
 	if not elements[element].can_act or action_in_process:
 		return
 	
+	var slot: Slot = elements[element]
+	action_in_process = true
+	
+	if slot.molecule and not slot.eletrons_charged:
+		GameJudge.charge_eletrons_power(slot.element, slot.molecule)
+		slot.molecule.defender = slot.element
+		slot.eletrons_charged = true
+	
+	slot.defend_mode = true
+	GameJudge.disable_slot(slot)
+	
+	await ElementEffectManager.call_effects(slot.player, BaseEffect.SkillType.DEFEND_MODE)
+	action_in_process = false
 
 
 func direct_attack(attacker: Vector2i):
@@ -350,7 +338,8 @@ func _drop_data(_p, data):
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:
-		create_element(data.element, Players.A, final_position, false)
+		var element = create_element(data.element, Players.A, final_position, false)
 		current_players[Players.A].spend_energy(data.element +1)
+
 
 
