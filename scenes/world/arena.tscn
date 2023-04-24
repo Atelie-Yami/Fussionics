@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=86 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://dsbid6s4o58bs" path="res://scenes/interface/gameplay/passive_status.tscn" id="15_1splr"]
 [ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="15_7qkxm"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
+[ext_resource type="Script" path="res://scripts/vfx/dead_star_animation.tres.gd" id="16_fscc4"]
 [ext_resource type="Texture2D" uid="uid://cosq08vrujqag" path="res://assets/img/interface/sword.png" id="16_gf66l"]
 [ext_resource type="Script" path="res://scripts/world/attack_omega.gd" id="17_e32wq"]
 [ext_resource type="Script" path="res://scripts/bots/bot.gd" id="18_pcprk"]
@@ -152,6 +153,55 @@ use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2v83a"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+spread = 160.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 800.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 50.0
+radial_accel_max = 50.0
+damping_min = 100.0
+damping_max = 150.0
+scale_min = 0.5
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_7gh72")
+hue_variation_min = -0.05
+hue_variation_max = 0.05
+turbulence_noise_strength = 15.77
+turbulence_noise_scale = 1.0
+turbulence_noise_speed = Vector3(0, 1, 0)
+turbulence_noise_speed_random = 1.0
+turbulence_influence_min = 1.0
+turbulence_influence_max = 1.0
+turbulence_initial_displacement_min = 25.2
+turbulence_initial_displacement_max = 34.0
+
+[sub_resource type="Gradient" id="Gradient_q0i8i"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.942675)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5qvwo"]
+gradient = SubResource("Gradient_q0i8i")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_t1dqd"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.1, 0.5, 0.9)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n4jn2"]
+gradient = SubResource("Gradient_t1dqd")
+height = 1024
 
 [sub_resource type="Shader" id="Shader_xeja2"]
 code = "shader_type canvas_item;
@@ -531,6 +581,34 @@ one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 
+[node name="dead" type="Node2D" parent="Player_A"]
+position = Vector2(-851, 0)
+script = ExtResource("16_fscc4")
+camera_path = NodePath("../../CameraArena")
+
+[node name="particles" type="GPUParticles2D" parent="Player_A/dead"]
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_2v83a")
+texture = SubResource("GradientTexture2D_tt8ex")
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.8
+
+[node name="center" type="Sprite2D" parent="Player_A/dead"]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.35, 0.35)
+texture = SubResource("GradientTexture2D_5qvwo")
+
+[node name="halos" type="Node2D" parent="Player_A/dead"]
+
+[node name="halo" type="Sprite2D" parent="Player_A/dead/halos"]
+modulate = Color(1, 1, 1, 0)
+rotation = 1.29852
+scale = Vector2(1, 4)
+texture = SubResource("GradientTexture2D_n4jn2")
+
 [node name="Player_B" type="Node2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("13_wjs4m")
@@ -636,6 +714,35 @@ randomness = 1.0
 
 [node name="Bot" type="Node" parent="Player_B"]
 script = ExtResource("18_pcprk")
+
+[node name="dead" type="Node2D" parent="Player_B"]
+position = Vector2(851, 0)
+script = ExtResource("16_fscc4")
+camera_path = NodePath("../../CameraArena")
+
+[node name="particles" type="GPUParticles2D" parent="Player_B/dead"]
+scale = Vector2(-1, 1)
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_2v83a")
+texture = SubResource("GradientTexture2D_tt8ex")
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.8
+
+[node name="center" type="Sprite2D" parent="Player_B/dead"]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.35, 0.35)
+texture = SubResource("GradientTexture2D_5qvwo")
+
+[node name="halos" type="Node2D" parent="Player_B/dead"]
+
+[node name="halo" type="Sprite2D" parent="Player_B/dead/halos"]
+modulate = Color(1, 1, 1, 0)
+rotation = 1.29852
+scale = Vector2(1, 4)
+texture = SubResource("GradientTexture2D_n4jn2")
 
 [node name="CameraArena" type="Camera2D" parent="."]
 position = Vector2(960, 0)
@@ -1139,6 +1246,8 @@ visible = false
 
 [node name="end_game" parent="GUI" instance=ExtResource("36_dihyf")]
 visible = false
+modulate = Color(1, 1, 1, 0)
+pivot_offset = Vector2(520, 128)
 
 [connection signal="end_game" from="turn_machine" to="GUI" method="_turn_machine_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]

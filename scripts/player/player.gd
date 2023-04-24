@@ -15,14 +15,6 @@ var energy := energy_max
 
 @export var player: Players
 
-var life: int = MAX_LIFE:
-	set(value):
-		life = max(value, 0)
-		
-		if life == 0:
-			arena.turn_machine.game_end(player == 1)
-			disable_elements()
-
 @export var area_damage_path: NodePath
 @onready var area_damage_vfx: TextureRect = get_node(area_damage_path)
 
@@ -30,6 +22,16 @@ var life: int = MAX_LIFE:
 @onready var camera_arena = $"../CameraArena"
 @onready var particles = $omega/particles
 @onready var omega = $omega
+@onready var dead = $dead
+
+var life: int = MAX_LIFE:
+	set(value):
+		life = max(value, 0)
+		
+		if life == 0:
+			arena.turn_machine.game_end(player == 1)
+			disable_elements()
+			dead.play()
 
 
 func set_turn(active: bool):

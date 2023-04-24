@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var signboard = $signboard
 @onready var widgets = $widgets
 
+@onready var pause_meun = $pause_meun
 @onready var blur = $blur
 @onready var energy = $deck/energy
 @onready var next_turn = $signboard/next_turn
@@ -47,9 +48,13 @@ func _next_turn_pressed():
 
 
 func _turn_machine_end_game(win):
+	pause_meun.visible = false
 	signboard.visible = false
 	widgets.visible = false
 	deck.visible = false
+	
+	await get_tree().create_timer(2.0).timeout
+	end_game.animation(true)
 	
 	next_turn.disabled = true
 	end_game.visible = true
