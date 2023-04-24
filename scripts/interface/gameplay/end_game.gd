@@ -20,7 +20,6 @@ func animation(_in: bool):
 	
 	scale = Vector2(initial_scale, initial_scale)
 	modulate.a = float(not _in)
-	
 	visible =  true
 	
 	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

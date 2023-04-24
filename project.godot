@@ -76,7 +76,7 @@ test={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/csv/saga.en.translation", "res://assets/csv/saga.pt.translation", "res://assets/csv/elements.en.translation", "res://assets/csv/elements.pt.translation", "res://assets/csv/element_effects.en.translation", "res://assets/csv/element_effects.pt.translation", "res://assets/csv/gameplay.en.translation", "res://assets/csv/gameplay.pt.translation", "res://assets/csv/passive_effects.en.translation", "res://assets/csv/passive_effects.pt.translation", "res://assets/csv/main.en.translation", "res://assets/csv/main.pt.translation")
+locale/translations=PackedStringArray("res://assets/csv/saga.en.translation", "res://assets/csv/saga.pt.translation", "res://assets/csv/elements.en.translation", "res://assets/csv/elements.pt.translation", "res://assets/csv/element_effects.en.translation", "res://assets/csv/element_effects.pt.translation", "res://assets/csv/passive_effects.en.translation", "res://assets/csv/passive_effects.pt.translation", "res://assets/csv/interface.en.translation", "res://assets/csv/interface.pt.translation")
 
 [rendering]
 

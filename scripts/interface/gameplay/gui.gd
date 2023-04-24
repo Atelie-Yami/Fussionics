@@ -55,7 +55,6 @@ func _turn_machine_end_game(win):
 	
 	await get_tree().create_timer(2.0).timeout
 	end_game.animation(true)
-	
 	next_turn.disabled = true
 	end_game.visible = true
 	blur.lod = 2.7

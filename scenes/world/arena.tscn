@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=87 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" path="res://scripts/interface/gameplay/widgets_panel.gd" id="32_4axw2"]
 [ext_resource type="Script" path="res://scripts/interface/gameplay/widget_slot.gd" id="32_rg6yl"]
 [ext_resource type="PackedScene" uid="uid://cp4c3erm1ajyf" path="res://scenes/interface/gameplay/end_game.tscn" id="36_dihyf"]
+[ext_resource type="PackedScene" uid="uid://bu0r65h3xcsu" path="res://scenes/interface/gameplay/start_game.tscn" id="38_3qupm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
 resource_local_to_scene = true
@@ -61,25 +62,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b6pyg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w186j"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7e76m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xo2r7"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_agosi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ak1b"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3hbr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_neo55"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -183,8 +184,8 @@ turbulence_initial_displacement_max = 34.0
 
 [sub_resource type="Gradient" id="Gradient_q0i8i"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.942675)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.0318471, 0.350318, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.440396, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5qvwo"]
 gradient = SubResource("Gradient_q0i8i")
@@ -359,7 +360,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7e6jv"]
 shader = SubResource("Shader_2tkdk")
-shader_parameter/lod = 0.0
+shader_parameter/lod = 3.0
 shader_parameter/saturation = 0.0
 
 [sub_resource type="GDScript" id="GDScript_a5rge"]
@@ -367,8 +368,8 @@ script/source = "extends ColorRect
 
 
 
-var lod: float
-var _lod: float = 0.0
+@export var lod: float
+@onready var _lod: float = lod
 
 var saturation: float
 var _saturation: float
@@ -485,19 +486,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_b6pyg")
+material = SubResource("ShaderMaterial_w186j")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_7e76m")
+material = SubResource("ShaderMaterial_xo2r7")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_agosi")
+material = SubResource("ShaderMaterial_0ak1b")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_v3hbr")
+material = SubResource("ShaderMaterial_neo55")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -933,6 +934,7 @@ offset_bottom = 341.0
 script = ExtResource("21_l3veq")
 
 [node name="deck" type="TextureRect" parent="GUI"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -1057,6 +1059,7 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="signboard" type="TextureRect" parent="GUI"]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -1100,6 +1103,7 @@ text = "NEXT_TURN"
 flat = true
 
 [node name="widgets" type="Panel" parent="GUI"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -1218,10 +1222,12 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
 script = SubResource("GDScript_a5rge")
+lod = 3.0
 metadata/_edit_lock_ = true
 
 [node name="pause_meun" type="Button" parent="GUI"]
 process_mode = 3
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1248,6 +1254,9 @@ visible = false
 visible = false
 modulate = Color(1, 1, 1, 0)
 pivot_offset = Vector2(520, 128)
+
+[node name="start_game" parent="GUI" instance=ExtResource("38_3qupm")]
+modulate = Color(1, 1, 1, 0)
 
 [connection signal="end_game" from="turn_machine" to="GUI" method="_turn_machine_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]

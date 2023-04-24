@@ -25,11 +25,6 @@ var current_stage: State:
 @onready var arena: Arena = $"../arena"
 
 
-func _ready():
-	await get_tree().create_timer(1).timeout
-	start_turn()
-
-
 func start_turn():
 	start_game.emit()
 	self.current_stage = State.PRE_INIT

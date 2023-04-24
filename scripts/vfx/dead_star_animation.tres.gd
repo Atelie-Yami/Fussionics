@@ -33,7 +33,7 @@ func _process(delta):
 		var halo2: Node2D = halo.duplicate()
 		halos.add_child(halo2)
 		halo2.rotation = randf_range(-180, 180)
-		halo2.scale.x = randf_range(0.1, 2)
+		halo2.scale.x = randf_range(0.1, 1)
 		halo2.modulate.a = randf_range(0.2, 1)
 		halo2.modulate.r = randf_range(0.7, 1)
 		halo2.modulate.g = randf_range(0.8, 1)
@@ -45,7 +45,7 @@ func _process(delta):
 		halos.modulate.a = 1.0 - clamp((timer - 2.3) * 5.0, 0.0, 1.0)
 		
 	else:
-		center.modulate.a = clamp(timer / 2.0, 0.0, 1.0)
+		center.modulate.a = clamp(timer / 1.5, 0.0, 1.0)
 	
 	if timer > 2.5:
 		center.visible = false

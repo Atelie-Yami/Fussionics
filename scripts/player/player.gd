@@ -63,7 +63,10 @@ func disable_elements():
 
 func take_damage(danage: int):
 	life -= danage
-	particles.emitting = true
+	
+	if particles.emitting:
+		particles.restart()
+	particles.set_deferred("emitting", true)
 	
 	var final_position: Vector2 = omega.position
 	omega.position += Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized() * 50.0

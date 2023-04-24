@@ -44,30 +44,35 @@ OptionsSettings = NodePath("../OptionsSettings")
 custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 text = "RETURN"
 
 [node name="Restart" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 text = "RESTART"
 
 [node name="Settings" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 text = "CONFIG"
 
 [node name="Main_menu" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 text = "MAIN"
 
 [node name="exit" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 text = "QUIT"
 
 [connection signal="pressed" from="OptionsMenu/Back" to="OptionsMenu" method="_back_pressed"]

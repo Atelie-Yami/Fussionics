@@ -72,6 +72,12 @@ func load_saga(_saga_id: int):
 
 
 func load_level(level_id: int):
+	animation(false)
+	$"../boss_descrition".animation(false)
+	$"../backgroud/boss".animation(false)
+	$"../backgroud".animation(false)
+	
+	await get_tree().create_timer(0.5).timeout
 	GameConfig.start_game(saga_id, level_id)
 
 
