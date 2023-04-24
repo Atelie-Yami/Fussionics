@@ -7,7 +7,6 @@
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -31,54 +30,45 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -93.0
-offset_top = -92.5
-offset_right = 93.0
-offset_bottom = 92.5
+offset_left = -106.0
+offset_top = -157.0
+offset_right = 106.0
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 16
 script = ExtResource("3_doa31")
 OptionsSettings = NodePath("../OptionsSettings")
 
 [node name="Back" type="Button" parent="OptionsMenu"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
-size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-text = "VOLTAR"
+size_flags_vertical = 0
+text = "RETURN"
 
 [node name="Restart" type="Button" parent="OptionsMenu"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
-size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 18
-text = "REINICIAR"
+size_flags_vertical = 0
+text = "RESTART"
 
 [node name="Settings" type="Button" parent="OptionsMenu"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
-size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 18
-text = "AJUSTES"
+size_flags_vertical = 0
+text = "CONFIG"
 
 [node name="Main_menu" type="Button" parent="OptionsMenu"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
-size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 18
-text = "MENU INICIAL"
+size_flags_vertical = 0
+text = "MAIN"
 
 [node name="exit" type="Button" parent="OptionsMenu"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
-size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 18
-text = "SAIR DO JOGO"
+size_flags_vertical = 0
+text = "QUIT"
 
 [connection signal="pressed" from="OptionsMenu/Back" to="OptionsMenu" method="_back_pressed"]
 [connection signal="pressed" from="OptionsMenu/Restart" to="OptionsMenu" method="_restart_pressed"]

@@ -19,10 +19,6 @@ static func save_data(sv: Dictionary):
 	if file:
 		file.store_var(sv)
 		file.close()
-	
-		print("do")
-	else:
-		print("not")
 
 
 static func load_data():

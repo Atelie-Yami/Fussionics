@@ -12,11 +12,8 @@ extends Button
 @export var phases_path: NodePath
 @onready var phases: Control = get_node(phases_path)
 
-@export var boss_name_path: NodePath
-@onready var boss_name: Control = get_node(boss_name_path)
-
-@export var boss_info_path: NodePath
-@onready var boss_info: Control = get_node(boss_info_path)
+@export var boss_descition_path: NodePath
+@onready var boss_descition: Control = get_node(boss_descition_path)
 
 @onready var progress = $ProgressBar
 @onready var saga_name = $name
@@ -46,9 +43,8 @@ func _is_pressed():
 			GameBook.SAGAS[saga_id][GameBook.Campagn.COLOR]
 	)
 	
-	boss_name.text = GameBook.SAGAS[saga_id][GameBook.Campagn.NAME]
-	boss_name.visible = true
-	boss_info.text = tr("SAGA_" + str(saga_id))
-	boss_info.visible = true
+	boss_descition.boss_name.text = GameBook.SAGAS[saga_id][GameBook.Campagn.NAME]
+	boss_descition.boss_info.text = tr("SAGA_" + str(saga_id))
+	boss_descition.animation(true)
 	
 	campaign.animation(false)

@@ -1,12 +1,37 @@
 extends HBoxContainer
 
+const TRANSITION_TIME := 0.3
 
 var saga_id: int
+var tween: Tween
+
+
+func animation(_in: bool):
+	if tween and tween.is_valid():
+		tween.kill()
+	
+	var final_scale = 1.0 if _in else 1.2
+	var initial_scale = 1.2 if _in else 1.0
+	
+	scale = Vector2(initial_scale, initial_scale)
+	modulate.a = float(not _in)
+	
+	visible =  true
+	
+	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "scale", Vector2(final_scale, final_scale), TRANSITION_TIME)
+	tween.parallel().tween_property(self, "modulate:a", float(_in), TRANSITION_TIME)
+	tween.finished.connect(animation_finished)
+
+
+func animation_finished():
+	if modulate.a < 0.5:
+		visible = false
 
 
 func _input(event: InputEvent):
-	if event.is_action_pressed("ui_cancel"):
-		get_children().map(func(c): c.visible = false)
+	if event.is_action_pressed("ui_cancel") and modulate.a > 0.5:
+		animation(false)
 
 
 func load_saga(_saga_id: int):
@@ -42,6 +67,8 @@ func load_saga(_saga_id: int):
 			
 		else:
 			get_child(i).set_mode(mode, skin, 0)
+	
+	animation(true)
 
 
 func load_level(level_id: int):
