@@ -1,7 +1,7 @@
 class_name TurnMachine extends Timer
 
 signal start_game
-signal end_game(player)
+signal end_game(win)
 signal pre_init_turn(player: int)
 signal init_turn(player: int)
 signal main_turn(player: int)
@@ -16,7 +16,6 @@ enum State {PRE_INIT, INIT, MAIN, END}
 enum Players {A, B}
 
 var current_player: Players = randi() % Players.size() as Players
-
 var current_stage: State:
 	set(value):
 		current_stage = value
@@ -126,7 +125,6 @@ func _arena_end_game(winner):
 	stop()
 
 
-func _end_game(win: bool):
+func game_end(win: bool):
+	end_game.emit(win)
 	stop()
-	if not win:
-		get_tree().change_scene_to_file("res://scenes/interface/main_menu/main.tscn")

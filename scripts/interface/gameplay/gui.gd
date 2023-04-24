@@ -4,11 +4,12 @@ extends CanvasLayer
 @onready var player_a = $"../Player_A"
 
 @onready var turn_machine = %turn_machine
-
+@onready var blur = $blur
 @onready var energy = $deck/energy
 @onready var next_turn = $signboard/next_turn
 @onready var timer = $signboard/timer
 @onready var h_box_container = $deck/HBoxContainer
+@onready var end_game = $end_game
 
 
 func _process(delta):
@@ -40,3 +41,20 @@ func _turn_machine_end_turn(player):
 
 func _next_turn_pressed():
 	turn_machine.next_phase()
+
+
+func _turn_machine_end_game(win):
+	next_turn.disabled = true
+	end_game.visible = true
+	blur.lod = 2.7
+	
+	end_game.title.text = tr("WIN" if win else "LOSE")
+	end_game.restart.visible = not win
+	end_game.next.visible = win
+	
+	if not win:
+		blur.saturation = 0.1
+	
+	elif GameConfig.game_match.progress_mode:
+			GameConfig.advance_progress()
+

@@ -4,7 +4,7 @@ const SAVE_DIR_PATH := "user://system/"
 const SAVE_NAME_PATH := "system.sv"
 const SAVE_MODEL := {
 		"campaign_progress": 0,
-		"saga_progress": 5,
+		"saga_progress": 0,
 		"volume_master": false,
 		"widgets_deck": GameBook.DECK,
 		"widgets": {
@@ -19,15 +19,19 @@ static func save_data(sv: Dictionary):
 	if file:
 		file.store_var(sv)
 		file.close()
+	
+		print("do")
+	else:
+		print("not")
 
 
-static func load_data(sv: Dictionary):
+static func load_data():
 	check_directiry()
 	var file = FileAccess.open(SAVE_DIR_PATH + SAVE_NAME_PATH, FileAccess.READ)
 	if not file:
-		sv = SAVE_MODEL.duplicate(true)
+		var sv = SAVE_MODEL.duplicate(true)
 		save_data(sv)
-		return
+		return sv
 	
 	var new_sv = file.get_var()
 	file.close()
@@ -38,11 +42,11 @@ static func load_data(sv: Dictionary):
 				continue
 			
 			new_sv[item] = SAVE_MODEL[item]
-		sv = new_sv
+		return new_sv
 	else:
-		sv = SAVE_MODEL.duplicate(true)
+		var sv = SAVE_MODEL.duplicate(true)
 		save_data(sv)
-		return
+		return sv
 
 
 static func check_directiry():

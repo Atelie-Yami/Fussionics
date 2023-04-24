@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://cp4c3erm1ajyf"]
+
+[ext_resource type="Script" path="res://scripts/interface/gameplay/end_game.gd" id="1_7sdp5"]
+[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="2_el42g"]
+[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="3_erf15"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7vxy"]
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pg1jx"]
+font = ExtResource("2_el42g")
+font_size = 80
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c3cea"]
+content_margin_top = 8.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ar61h"]
+color = Color(1, 1, 1, 0.392157)
+thickness = 2
+
+[node name="end_game" type="VBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.5
+offset_top = -218.5
+offset_right = 520.5
+offset_bottom = 302.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+script = ExtResource("1_7sdp5")
+metadata/_edit_lock_ = true
+
+[node name="title" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7vxy")
+text = "WIN"
+label_settings = SubResource("LabelSettings_pg1jx")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c3cea")
+bbcode_enabled = true
+text = "dados numericos
+dados numericos
+dados numericos
+[center]dados numericos[/center]"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxLine_ar61h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("3_erf15")
+
+[node name="main" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "MAIN_MENU"
+
+[node name="next" type="Button" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "NEXT"
+
+[node name="restart" type="Button" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "RESTART
+"
+
+[connection signal="pressed" from="HBoxContainer/main" to="." method="_main_pressed"]
+[connection signal="pressed" from="HBoxContainer/next" to="." method="_next_pressed"]
+[connection signal="pressed" from="HBoxContainer/restart" to="." method="_restart_pressed"]

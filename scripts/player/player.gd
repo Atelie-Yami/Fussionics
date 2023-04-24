@@ -1,6 +1,5 @@
 class_name Player extends Node2D
 
-signal end_game(win)
 signal play
 
 enum Players {A, B}
@@ -21,7 +20,7 @@ var life: int = MAX_LIFE:
 		life = max(value, 0)
 		
 		if life == 0:
-			end_game.emit(player == 1)
+			arena.turn_machine.game_end(player == 1)
 			disable_elements()
 
 @export var area_damage_path: NodePath
