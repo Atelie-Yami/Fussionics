@@ -12,23 +12,44 @@ class Match:
 		campaign = c; level = l; progress_mode = p
 		bot_chip = load(chip)
 
+class Widget:
+	var atomic_number: int
+	var ranking: int
+	
+	func _init(a, r):
+		atomic_number = a; ranking = r
 
 var save: Dictionary = SaveLoad.SAVE_MODEL.duplicate(true)
 var game_match: Match
 
+var widgets: Array[Widget]
+var last_widget_progress: int = 0
+
+
 
 func _ready():
 	save = SaveLoad.load_data()
+	
+	for saga in save.campaign_progress:
+		for w in GameBook.WIDGET_DROPS[saga]:
+			widgets.append(Widget.new(GameBook.WIDGET_DROPS[saga][w][0], GameBook.WIDGET_DROPS[saga][w][1]))
+	
+	for w in GameBook.WIDGET_DROPS[save.campaign_progress]:
+		if w < save.saga_progress:
+			widgets.append(Widget.new(
+					GameBook.WIDGET_DROPS[save.campaign_progress][w][0],
+					GameBook.WIDGET_DROPS[save.campaign_progress][w][1])
+			)
 
 
 func start_game(saga_id: int, level_id: int):
 	var saga: Dictionary = GameBook.SAGAS[saga_id]
-	var phase: GameBook.PhaseConfig = saga[GameBook.Campagn.PHASES_CONFIG][level_id]
+	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][level_id]
 	var progress_mode = (
 			(saga_id == save.campaign_progress and level_id == save.saga_progress) or 
 			(saga_id > save.campaign_progress and level_id == 0)
 	)
-	game_match = Match.new(saga_id, level_id, progress_mode, saga[GameBook.Campagn.BOTS][phase])
+	game_match = Match.new(saga_id, level_id, progress_mode, saga[GameBook.Campagn.BOTS][phase[GameBook.Campagn.PHASES_CONFIG]])
 	restart_game()
 
 
@@ -45,6 +66,11 @@ func advance_progress():
 	else:
 		save.saga_progress += 1
 	
-	print(save)
+	if (GameBook.WIDGET_DROPS[save.campaign_progress] as Dictionary).has(save.saga_progress):
+		widgets.append(Widget.new(
+				GameBook.WIDGET_DROPS[save.campaign_progress][save.saga_progress][0],
+				GameBook.WIDGET_DROPS[save.campaign_progress][save.saga_progress][1])
+		)
+	
 	SaveLoad.save_data(save)
 

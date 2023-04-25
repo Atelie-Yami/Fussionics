@@ -1,5 +1,6 @@
 class_name WidgetSlot extends Panel
 
+const STYLEBOX := preload("res://resouces/stylebox/widget_panel.stylebox")
 const STAR := preload("res://resouces/atlas/gameplay/star.atlastex")
 const CENTER_POSITION := Vector2(27.5, 27.5)
 
@@ -15,6 +16,10 @@ var ranking: int
 
 var is_dragging: bool
 var can_drop: bool = true
+
+
+func _init():
+	add_theme_stylebox_override("panel", STYLEBOX)
 
 
 func _draw():

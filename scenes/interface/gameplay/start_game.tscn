@@ -15,6 +15,7 @@ thickness = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uqwam"]
 content_margin_left = 20.0
+content_margin_bottom = 4.0
 
 [node name="start_game" type="VBoxContainer"]
 anchors_preset = 8
@@ -59,6 +60,10 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_uqwam")
 bbcode_enabled = true
 text = "Nada a declarar..."
 fit_content = true
+
+[node name="widgets" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="HSeparator2" type="HSeparator" parent="."]
 layout_mode = 2

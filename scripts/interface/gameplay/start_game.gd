@@ -4,8 +4,7 @@ const TRANSITION_TIME := 0.3
 
 @onready var title = $title
 @onready var rich_text_label = $RichTextLabel
-
-@onready var blur = $"../blur"
+@onready var widgets = $widgets
 
 
 var tween: Tween
@@ -13,12 +12,28 @@ var tween: Tween
 
 func _ready():
 	var saga = GameBook.SAGAS[GameConfig.game_match.campaign]
-	var mode = saga[GameBook.Campagn.PHASES_CONFIG][GameConfig.game_match.level]
+	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][GameConfig.game_match.level]
 	
 	title.text = saga[GameBook.Campagn.NAME]
-	rich_text_label.text = tr("CHALLENGER") + tr(GameBook.PhaseConfig.keys()[mode])
+	rich_text_label.text = tr("CHALLENGER") + tr(GameBook.PhaseConfig.keys()[phase[GameBook.Campagn.PHASES_CONFIG]])
 	
-	
+	if not (phase[GameBook.Campagn.WIDGETS] as Array).is_empty():
+		rich_text_label.text += "\n\n\n" + tr("WIDGETS")
+		
+		for widget in phase[GameBook.Campagn.WIDGETS]:
+			if not widget is Array:
+				continue
+			
+			var widget_node := WidgetSlot.new()
+			
+			widget_node.custom_minimum_size = Vector2(55, 55)
+			widget_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			widget_node.atomic_number = widget[0]
+			widget_node.ranking = widget[1]
+			widget_node.can_drop = true
+			
+			widgets.add_child(widget_node)
+			widgets.queue_redraw.call_deferred()
 	animation(true)
 
 
@@ -28,6 +43,7 @@ func animation(_in: bool):
 	
 	var final_scale = 1.0 if _in else 1.2
 	var initial_scale = 1.2 if _in else 1.0
+	
 	
 	scale = Vector2(initial_scale, initial_scale)
 	modulate.a = float(not _in)

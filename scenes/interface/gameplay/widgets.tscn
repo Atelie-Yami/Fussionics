@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://v413e1bd5ce2"]
+
+[ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="1_y8k6t"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/widgets_panel.gd" id="2_g0bn8"]
+[ext_resource type="StyleBox" uid="uid://dx7hdw5ismxw" path="res://resouces/stylebox/widget_panel.stylebox" id="3_lckxs"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/widget_slot.gd" id="4_5fmsf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb1b0"]
+atlas = ExtResource("1_y8k6t")
+region = Rect2(1463, 834, 391, 159)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_saf35"]
+texture = SubResource("AtlasTexture_qb1b0")
+
+[node name="widgets" type="Panel"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 569.0
+offset_top = -159.0
+offset_right = 960.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_saf35")
+script = ExtResource("2_g0bn8")
+metadata/_edit_lock_ = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -363.0
+offset_top = -130.0
+offset_right = -13.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 5
+columns = 6
+metadata/_edit_lock_ = true
+
+[node name="widget_1" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_2" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_3" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_4" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_5" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_6" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_7" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_8" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_9" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_10" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_11" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")
+
+[node name="widget_12" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_lckxs")
+script = ExtResource("4_5fmsf")

@@ -7,9 +7,6 @@ const SAVE_MODEL := {
 		"saga_progress": 0,
 		"volume_master": false,
 		"widgets_deck": GameBook.DECK,
-		"widgets": {
-		#   atomic_numer: [isotopo_id, isotopo_id, isotopo_id]
-		}
 }
 
 

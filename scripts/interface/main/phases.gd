@@ -41,13 +41,17 @@ func load_saga(_saga_id: int):
 	
 	var saga_data = GameBook.SAGAS[saga_id]
 	for i in saga_data[GameBook.Campagn.PHASES_CONFIG].size():
-		var mode: int = saga_data[GameBook.Campagn.PHASES_CONFIG][i]
+		var phase: Dictionary = saga_data[GameBook.Campagn.PHASES_CONFIG][i]
 		var skin: Texture
 		
-		if mode > 0:
-			skin = saga_data[GameBook.Campagn.SKINS][mode]
 		
-		mode = [0, 1, 1, 1, 2][mode]
+		GameBook.Campagn.WIDGETS
+		GameBook.Campagn.DROPS
+		
+		if phase[GameBook.Campagn.PHASES_CONFIG] != GameBook.PhaseConfig.NORMAL:
+			skin = saga_data[GameBook.Campagn.SKINS][phase[GameBook.Campagn.PHASES_CONFIG]]
+		
+		var mode = [0, 1, 1, 1, 2][phase[GameBook.Campagn.PHASES_CONFIG]]
 		
 		get_child(i).visible = true
 		get_child(i).level_id = i

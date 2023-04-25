@@ -47,25 +47,21 @@ func _next_turn_pressed():
 	turn_machine.next_phase()
 
 
-func _turn_machine_end_game(win):
+func _turn_machine_end_game(win: bool):
 	pause_meun.visible = false
 	signboard.visible = false
 	widgets.visible = false
 	deck.visible = false
 	
+	if win and GameConfig.game_match.progress_mode:
+		GameConfig.advance_progress()
+	
 	await get_tree().create_timer(2.0).timeout
-	end_game.animation(true)
 	next_turn.disabled = true
-	end_game.visible = true
+	end_game.end(win)
+	
 	blur.lod = 2.7
-	
-	end_game.title.text = tr("WIN" if win else "LOSE")
-	end_game.restart.visible = not win
-	end_game.next.visible = win
-	
 	if not win:
 		blur.saturation = 0.1
-	
-	elif GameConfig.game_match.progress_mode:
-			GameConfig.advance_progress()
+
 

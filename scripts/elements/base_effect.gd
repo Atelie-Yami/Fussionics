@@ -44,6 +44,7 @@ enum MechanicMode {
 	SPECIAL, ## possiu um efeito que altera algo no jogo de forma unica.
 }
 enum Ranking {
+	NORMAL,   ## sem efeito
 	IMPROVED, ## tem um efeito simples
 	ENHANCED, ## tem um efeito significativo
 	ELITE,    ## tem um efeito poderoso
