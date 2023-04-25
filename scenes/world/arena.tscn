@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=86 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
 [ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
@@ -61,25 +61,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1iuxv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nbhsb"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4t3mp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8s85"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nr3no"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jmw43"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ahesp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86281"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -188,6 +188,19 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.440396, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5qvwo"]
 gradient = SubResource("Gradient_q0i8i")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_52gub"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.280255, 0.694268, 0.866242, 0.987261, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.407843, 1, 1, 1, 0.76196, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fm46a"]
+gradient = SubResource("Gradient_52gub")
 width = 512
 height = 512
 fill = 1
@@ -352,7 +365,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7e6jv"]
 shader = SubResource("Shader_2tkdk")
-shader_parameter/lod = 3.0
+shader_parameter/lod = 0.0
 shader_parameter/saturation = 0.0
 
 [sub_resource type="GDScript" id="GDScript_a5rge"]
@@ -478,19 +491,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_1iuxv")
+material = SubResource("ShaderMaterial_nbhsb")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_4t3mp")
+material = SubResource("ShaderMaterial_y8s85")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_nr3no")
+material = SubResource("ShaderMaterial_jmw43")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_ahesp")
+material = SubResource("ShaderMaterial_86281")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -573,6 +586,7 @@ lifetime = 1.5
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+visibility_rect = Rect2(-512, -512, 1024, 1024)
 
 [node name="dead" type="Node2D" parent="Player_A"]
 position = Vector2(-851, 0)
@@ -588,11 +602,17 @@ lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
 randomness = 0.8
+visibility_rect = Rect2(-512, -512, 1024, 1024)
 
 [node name="center" type="Sprite2D" parent="Player_A/dead"]
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.35, 0.35)
 texture = SubResource("GradientTexture2D_5qvwo")
+
+[node name="explosion" type="Sprite2D" parent="Player_A/dead"]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_fm46a")
 
 [node name="halos" type="Node2D" parent="Player_A/dead"]
 
@@ -649,6 +669,7 @@ mouse_filter = 0
 texture = ExtResource("8_krhtp")
 expand_mode = 1
 script = ExtResource("8_jy5ie")
+metadata/_edit_use_anchors_ = true
 
 [node name="atomo" type="ColorRect" parent="Player_B/omega"]
 show_behind_parent = true
@@ -660,6 +681,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.235294, 0.286275, 0.360784, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="life_title" type="Label" parent="Player_B/omega"]
 layout_mode = 1
@@ -704,6 +726,7 @@ lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+visibility_rect = Rect2(-512, -512, 1024, 1024)
 
 [node name="Bot" type="Node" parent="Player_B"]
 script = ExtResource("18_pcprk")
@@ -723,11 +746,17 @@ lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
 randomness = 0.8
+visibility_rect = Rect2(-512, -512, 1024, 1024)
 
 [node name="center" type="Sprite2D" parent="Player_B/dead"]
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.35, 0.35)
 texture = SubResource("GradientTexture2D_5qvwo")
+
+[node name="explosion" type="Sprite2D" parent="Player_B/dead"]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_fm46a")
 
 [node name="halos" type="Node2D" parent="Player_B/dead"]
 

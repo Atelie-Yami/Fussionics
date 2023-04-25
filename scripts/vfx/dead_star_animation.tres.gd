@@ -10,6 +10,7 @@ extends Node2D
 @onready var halos = $halos
 
 @onready var omega = $"../omega"
+@onready var explosion = $"explosion"
 
 
 var timer := 0.0
@@ -39,7 +40,12 @@ func _process(delta):
 		halo2.modulate.g = randf_range(0.8, 1)
 		halo2.modulate.b = randf_range(0.9, 1.1)
 	
+	if timer > 2.15:
+		explosion.modulate.a = clamp((timer - 2.15) * 5.0, 0.0, 1.0)
+		explosion.scale = Vector2.ONE * (timer - 2.2) * 28.0
+		
 	if timer > 2.3:
+		omega.visible = false
 		particles.emitting = true
 		center.modulate.a = 1.0 - clamp((timer - 2.3) * 5.0, 0.0, 1.0)
 		halos.modulate.a = 1.0 - clamp((timer - 2.3) * 5.0, 0.0, 1.0)
@@ -48,9 +54,10 @@ func _process(delta):
 		center.modulate.a = clamp(timer / 1.5, 0.0, 1.0)
 	
 	if timer > 2.5:
+		explosion.visible = false
 		center.visible = false
 		omega.visible = false
-		set_process(false)
 		camera.shake(5.0)
+		set_process(false)
 	
 	center.scale = Vector2(0.35 + timer, 0.35 + timer)

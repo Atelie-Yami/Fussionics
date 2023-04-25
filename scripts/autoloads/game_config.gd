@@ -26,7 +26,6 @@ var widgets: Array[Widget]
 var last_widget_progress: int = 0
 
 
-
 func _ready():
 	save = SaveLoad.load_data()
 	

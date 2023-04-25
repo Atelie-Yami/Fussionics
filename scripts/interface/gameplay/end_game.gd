@@ -7,6 +7,8 @@ const TRANSITION_TIME := 0.5
 
 @onready var next = $HBoxContainer/next
 @onready var restart = $HBoxContainer/restart
+@onready var widgets = $widgets
+
 
 var tween: Tween
 
@@ -16,6 +18,20 @@ func _ready():
 	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][GameConfig.game_match.level]
 	
 	rich_text_label.text = tr("CHALLENGER") + tr(GameBook.PhaseConfig.keys()[phase[GameBook.Campagn.PHASES_CONFIG]])
+	rich_text_label.text += "[p]" + tr("PHASE") + str(GameConfig.game_match.level + 1)
+	
+	if not (phase[GameBook.Campagn.DROPS] as Array).is_empty():
+		rich_text_label.text += "\n\n\n" + tr("DROPS")
+		
+		for widget in phase[GameBook.Campagn.DROPS]:
+			var widget_node := WidgetSlot.new()
+			
+			widget_node.custom_minimum_size = Vector2(55, 55)
+			widget_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			widget_node.atomic_number = widget[0]
+			widget_node.ranking = widget[1]
+			widget_node.can_drop = true
+			widgets.add_child(widget_node)
 
 
 func animation(_in: bool):
@@ -40,6 +56,7 @@ func end(win: bool):
 	
 	title.text = tr("WIN" if win else "LOSE")
 	restart.visible = not win
+	widgets.visible = win
 	next.visible = win
 
 

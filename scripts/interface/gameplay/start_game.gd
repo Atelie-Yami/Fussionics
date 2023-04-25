@@ -16,14 +16,12 @@ func _ready():
 	
 	title.text = saga[GameBook.Campagn.NAME]
 	rich_text_label.text = tr("CHALLENGER") + tr(GameBook.PhaseConfig.keys()[phase[GameBook.Campagn.PHASES_CONFIG]])
+	rich_text_label.text += "[p]" + tr("PHASE") + str(GameConfig.game_match.level + 1)
 	
 	if not (phase[GameBook.Campagn.WIDGETS] as Array).is_empty():
 		rich_text_label.text += "\n\n\n" + tr("WIDGETS")
 		
 		for widget in phase[GameBook.Campagn.WIDGETS]:
-			if not widget is Array:
-				continue
-			
 			var widget_node := WidgetSlot.new()
 			
 			widget_node.custom_minimum_size = Vector2(55, 55)
@@ -33,7 +31,6 @@ func _ready():
 			widget_node.can_drop = true
 			
 			widgets.add_child(widget_node)
-			widgets.queue_redraw.call_deferred()
 	animation(true)
 
 

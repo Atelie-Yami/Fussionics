@@ -53,6 +53,11 @@ bbcode_enabled = true
 text = "asdsadasdas"
 fit_content = true
 
+[node name="widgets" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
 [node name="HSeparator2" type="HSeparator" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 40
