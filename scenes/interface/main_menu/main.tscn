@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://yq0ynwg4ckg5"]
+[gd_scene load_steps=47 format=3 uid="uid://snj7e1bo2ftc"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -17,6 +17,12 @@
 [ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
 [ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="17_euaro"]
+[ext_resource type="Script" path="res://scripts/interface/main/deck.gd" id="18_1kxpi"]
+[ext_resource type="Script" path="res://scripts/interface/widgets/list_widget.gd" id="18_v4e5i"]
+[ext_resource type="StyleBox" uid="uid://dx7hdw5ismxw" path="res://resouces/stylebox/widget_panel.stylebox" id="18_vspi1"]
+[ext_resource type="Script" path="res://scripts/interface/widgets/deck.gd" id="19_kfnwv"]
+[ext_resource type="Script" path="res://scripts/interface/widgets/deck_widget_slot.gd" id="20_p8nu7"]
+[ext_resource type="Script" path="res://scripts/interface/widgets/base_widget_slot.gd" id="20_sdbt4"]
 
 [sub_resource type="Shader" id="Shader_my6u5"]
 code = "shader_type canvas_item;
@@ -177,7 +183,6 @@ func animation(_in: bool):
 	
 	scale = Vector2(initial_scale, initial_scale)
 	modulate.a = float(not _in)
-	
 	visible =  true
 	
 	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -214,6 +219,18 @@ content_margin_bottom = 4.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbp1o"]
+font_size = 22
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vyr5q"]
+color = Color(1, 1, 1, 0.392157)
+grow_begin = 40.0
+grow_end = 40.0
+thickness = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_e7axj"]
+font_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="Shader" id="Shader_q5b5q"]
 code = "shader_type canvas_item;
@@ -280,6 +297,19 @@ script = ExtResource("4_nhbod")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
+[node name="tutorial" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
+text = "Tutorial"
+alignment = 0
+
 [node name="campaign" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_horizontal = 7
@@ -307,8 +337,9 @@ text = "QUICK_GAME"
 alignment = 0
 
 [node name="fussion_galery" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
-size_flags_horizontal = 7
+size_flags_horizontal = 0
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -318,6 +349,21 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "GALERY"
 alignment = 0
+
+[node name="deck" type="Button" parent="Buttons/fussion_galery"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 130.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 0
+text = "Deck"
 
 [node name="config" type="Button" parent="Buttons"]
 layout_mode = 2
@@ -568,6 +614,1045 @@ dasdasdasdasdsadasdsa"
 fit_content = true
 scroll_active = false
 
+[node name="deck" type="CanvasLayer" parent="."]
+
+[node name="Deck" type="VBoxContainer" parent="deck"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -547.0
+offset_top = -252.0
+offset_right = 413.0
+offset_bottom = 304.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(488, 278)
+theme = ExtResource("1_w7i78")
+script = ExtResource("18_1kxpi")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="deck/Deck"]
+layout_mode = 2
+text = "DIPONIBLE_WIDGETS"
+label_settings = SubResource("LabelSettings_qbp1o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="deck/Deck"]
+custom_minimum_size = Vector2(0, 265)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="deck/Deck/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 12
+
+[node name="list" type="GridContainer" parent="deck/Deck/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 16
+script = ExtResource("18_v4e5i")
+
+[node name="Panel" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel2" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel3" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel4" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel5" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel6" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel7" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel8" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel9" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel10" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel11" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel12" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel13" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel14" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel15" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel16" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel17" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel18" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel19" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel20" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel21" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel22" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel23" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel24" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel25" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel26" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel27" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel28" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel29" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel30" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel31" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel32" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel33" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel34" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel35" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel36" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel37" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel38" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel39" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel40" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel41" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel42" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel43" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel44" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel45" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel46" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel47" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel48" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel49" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel50" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel51" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel52" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel53" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel54" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel55" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel56" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel57" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel58" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel59" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel60" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel61" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel62" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel63" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel64" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel65" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel66" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel67" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel68" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel69" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel70" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel71" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel72" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel73" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel74" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel75" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel76" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel77" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel78" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel79" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel80" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel81" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel82" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel83" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel84" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel85" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel86" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel87" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel88" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel89" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel90" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel91" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel92" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel93" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel94" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel95" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel96" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel97" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel98" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel99" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel100" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel101" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel102" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel103" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel104" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel105" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel106" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel107" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel108" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel109" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel110" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel111" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel112" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel113" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel114" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel115" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel116" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel117" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel118" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel119" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel120" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel121" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel122" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel123" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel124" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel125" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel126" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel127" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="Panel128" type="Panel" parent="deck/Deck/ScrollContainer/MarginContainer/list"]
+modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_sdbt4")
+
+[node name="HSeparator" type="HSeparator" parent="deck/Deck"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_vyr5q")
+
+[node name="info" type="Label" parent="deck/Deck"]
+layout_mode = 2
+text = "DECK_DRAG_INFO"
+label_settings = SubResource("LabelSettings_e7axj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="title" type="Label" parent="deck/Deck"]
+layout_mode = 2
+text = "Deck"
+label_settings = SubResource("LabelSettings_qbp1o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="deck" type="GridContainer" parent="deck/Deck"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 6
+script = ExtResource("19_kfnwv")
+
+[node name="DeckWidgetSlot" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot2" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot3" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot4" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot5" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot6" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot7" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot8" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot9" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot10" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot11" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
+[node name="DeckWidgetSlot12" type="Panel" parent="deck/Deck/deck"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("18_vspi1")
+script = ExtResource("20_p8nu7")
+
 [node name="vfx" type="CanvasLayer" parent="."]
 
 [node name="blur" type="ColorRect" parent="vfx"]
@@ -585,6 +1670,7 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="Buttons/campaign" to="Buttons" method="_campaign_pressed"]
 [connection signal="pressed" from="Buttons/quick_game" to="Buttons" method="_quick_game_pressed"]
 [connection signal="pressed" from="Buttons/fussion_galery" to="Buttons" method="_fussion_galery_pressed"]
+[connection signal="pressed" from="Buttons/fussion_galery/deck" to="Buttons" method="_deck_pressed"]
 [connection signal="pressed" from="Buttons/config" to="Buttons" method="_config_pressed"]
 [connection signal="pressed" from="Buttons/quit" to="Buttons" method="_quit_pressed"]
 [connection signal="pressed" from="links/links/itch" to="links" method="_itch_pressed"]

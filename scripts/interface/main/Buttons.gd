@@ -12,7 +12,7 @@ func animation(_in: bool):
 		tween.kill()
 	
 	tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self, "position", Vector2(48 if _in else -400, position.y), TRANSITION_TIME)
+	tween.tween_property(self, "position", Vector2(48 if _in else -500, position.y), TRANSITION_TIME)
 
 
 func _campaign_pressed():
@@ -21,6 +21,10 @@ func _campaign_pressed():
 
 func _quick_game_pressed():
 	pass # Replace with function body.
+
+
+func _deck_pressed():
+	main_menu.state = main_menu.State.DECK
 
 
 func _fussion_galery_pressed():
