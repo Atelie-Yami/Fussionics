@@ -8,10 +8,6 @@ var element: Element
 @onready var panel_container = $PanelContainer
 
 
-func _init():
-	Gameplay.passive_status = self
-
-
 func set_element(_element: Element):
 	element = _element
 	

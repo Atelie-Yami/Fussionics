@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://snj7e1bo2ftc"]
+[gd_scene load_steps=40 format=3 uid="uid://snj7e1bo2ftc"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_81oey"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dtht0elohpm5h" path="res://scenes/interface/main_menu/saga_button.tscn" id="11_big4a"]
 [ext_resource type="Script" path="res://scripts/interface/main/campaign_backgroud.gd" id="12_7kcyd"]
 [ext_resource type="PackedScene" uid="uid://blancqrp5degm" path="res://scenes/interface/main_menu/level_button.tscn" id="12_70y16"]
-[ext_resource type="Texture2D" uid="uid://bu4bs1e1m8wil" path="res://assets/img/interface/menu.svg" id="12_kxxsf"]
 [ext_resource type="Script" path="res://scripts/interface/main/phases.gd" id="13_katue"]
 [ext_resource type="Script" path="res://scripts/interface/main/campaign.gd" id="13_sggw1"]
 [ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="17_euaro"]
@@ -119,38 +118,6 @@ expand_margin_top = 5.0
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 0.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xc1y1"]
-texture = ExtResource("12_kxxsf")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 60.0
-texture_margin_bottom = 60.0
-region_rect = Rect2(14, 2080, 510, 326)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ivbuw"]
-texture = ExtResource("12_kxxsf")
-texture_margin_left = 16.0
-texture_margin_top = 17.0
-texture_margin_right = 60.0
-texture_margin_bottom = 60.0
-region_rect = Rect2(541, 2080, 510, 326)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdy66"]
-texture = ExtResource("12_kxxsf")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 60.0
-texture_margin_bottom = 60.0
-region_rect = Rect2(1089.96, 2080, 510, 326)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tfqmr"]
-texture = ExtResource("12_kxxsf")
-texture_margin_left = 33.0
-texture_margin_top = 8.0
-texture_margin_right = 60.0
-texture_margin_bottom = 60.0
-region_rect = Rect2(14, 2442, 510, 326)
 
 [sub_resource type="GDScript" id="GDScript_o6bkh"]
 script/source = "extends VBoxContainer
@@ -469,41 +436,14 @@ theme_override_constants/separation = 5
 
 [node name="saga" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_xc1y1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ivbuw")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdy66")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_tfqmr")
-campaign_path = NodePath("../../..")
-backgroud_path = NodePath("../../../../backgroud")
-phases_path = NodePath("../../../../phases")
-boss_descition_path = NodePath("../../../../boss_descrition")
-metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga2" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_xc1y1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ivbuw")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdy66")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_tfqmr")
 saga_id = 1
-campaign_path = NodePath("../../..")
-backgroud_path = NodePath("../../../../backgroud")
-phases_path = NodePath("../../../../phases")
-boss_descition_path = NodePath("../../../../boss_descrition")
-metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="saga3" parent="campaign/campaign/ScrollContainer/buttons" instance=ExtResource("11_big4a")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_xc1y1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ivbuw")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdy66")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_tfqmr")
 saga_id = 2
-campaign_path = NodePath("../../..")
-backgroud_path = NodePath("../../../../backgroud")
-phases_path = NodePath("../../../../phases")
-boss_descition_path = NodePath("../../../../boss_descrition")
-metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="phases" type="HBoxContainer" parent="campaign"]
 modulate = Color(1, 1, 1, 0)

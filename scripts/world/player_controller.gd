@@ -27,7 +27,7 @@ func _ready():
 func _gui_input(event):
 	if event.is_action_pressed("mouse_click"):
 		Gameplay.action_state = Gameplay.ActionState.NORMAL
-		Gameplay.passive_status.set_element(null)
+		Gameplay.world.passive_status.set_element(null)
 
 
 func _start_game():

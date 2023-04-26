@@ -10,21 +10,10 @@ enum ActionState {NORMAL, ATTACK, LINK, UNLINK}
 const SLOT_INTERACT_INDICATOR := preload("res://scripts/vfx/slot_interact_indicator.gd")
 const ACTION_BUTTON := preload("res://scenes/elements/element_action_button.tscn")
 
-var time: float = 0.0
-var token: String
-
-var element_drag_preview := Node2D.new()
-var element_focus := Sprite2D.new()
-var canvas := CanvasLayer.new()
-
 var in_link_state: bool
 var in_unlink_state: bool
-
-var arena: Arena
-var element_info: Control
-var passive_status: Node2D
-var slot_interact_indicator: Control = SLOT_INTERACT_INDICATOR.new()
-var attack_omega_handler: Control
+var time: float = 0.0
+var token: String
 
 var callback_action: int
 var selected_element_target: Element:
@@ -59,6 +48,14 @@ var action_state := ActionState.NORMAL:
 		
 		if action_state == ActionState.NORMAL:
 			_disable_to_normal_state()
+
+var slot_interact_indicator: Control = SLOT_INTERACT_INDICATOR.new()
+var element_drag_preview := Node2D.new()
+var element_focus := Sprite2D.new()
+var canvas := CanvasLayer.new()
+
+var world: Node2D
+var arena: Arena
 
 
 func _ready():

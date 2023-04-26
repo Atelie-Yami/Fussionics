@@ -25,10 +25,6 @@ const SERIES := [
 @onready var molecule_effect_title: Label = $MarginContainer/VBoxContainer/molecule_effect_title
 
 
-func _init():
-	Gameplay.element_info = self
-
-
 func _notification(what: int):
 	if what == NOTIFICATION_DRAG_BEGIN:
 		visible = false

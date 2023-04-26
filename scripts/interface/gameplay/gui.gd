@@ -15,6 +15,8 @@ extends CanvasLayer
 @onready var h_box_container = $deck/HBoxContainer
 @onready var end_game = $end_game
 
+@onready var info_panel = $"../info_panel"
+
 @onready var turn_machine = %turn_machine
 
 
@@ -48,6 +50,7 @@ func _next_turn_pressed():
 
 
 func _turn_machine_end_game(win: bool):
+	info_panel.visible = false
 	pause_meun.visible = false
 	signboard.visible = false
 	widgets.visible = false
