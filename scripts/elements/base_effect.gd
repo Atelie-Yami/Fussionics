@@ -29,12 +29,12 @@ enum TargetMode {
 enum MechanicMode {
 	# ASSALT
 	DESTROYER, ## mira em inimigos para destruilos
-	WEAKENER,  ## enfraquece o inimigo para tormar mais facil de derrotar
-	DECLINER,  ## focado em reduzir o ataque do inimigo
+	WEAKENER,  ## enfraquece o inimigo para tormar mais facil de derrotar e/ou melhora o ataque aliado
 	# DEFENDER
 	DEFENDER, ## possui mecanicas de proteção da molecula
 	IMPROVER, ## melhora as formas de defesa
 	# SUPORT
+	DECLINER, ## focado em reduzir o ataque e/ou defesa do inimigo
 	DEBUFFER, ## aplica efeitos maleficos nos inimigos
 	BUFFER,   ## aplica efeitos beneficos na molecula
 	# CONTROLLERS

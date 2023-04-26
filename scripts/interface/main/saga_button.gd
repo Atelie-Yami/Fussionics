@@ -23,8 +23,8 @@ func _ready():
 	saga_name.text = GameBook.SAGAS[saga_id][GameBook.Campagn.NAME]
 	
 	if saga_id == GameConfig.save.campaign_progress:
-		var max: float = GameBook.SAGAS[saga_id][GameBook.Campagn.PHASES_CONFIG].size()
-		progress.value = GameConfig.save.saga_progress / max
+		var _max: float = GameBook.SAGAS[saga_id][GameBook.Campagn.PHASES_CONFIG].size()
+		progress.value = GameConfig.save.saga_progress / _max
 	
 	elif saga_id > GameConfig.save.campaign_progress:
 		disabled = true
