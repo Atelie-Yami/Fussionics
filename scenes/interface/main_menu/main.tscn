@@ -1,11 +1,8 @@
-[gd_scene load_steps=47 format=3 uid="uid://snj7e1bo2ftc"]
+[gd_scene load_steps=40 format=3 uid="uid://snj7e1bo2ftc"]
 
-[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_w7i78"]
+[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_p1q5i"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
 [ext_resource type="Script" path="res://scripts/interface/main/Buttons.gd" id="4_nhbod"]
-[ext_resource type="Texture2D" uid="uid://jaf55i6w3x3h" path="res://assets/img/interface/main_image/button/button_normal_left.svg" id="5_fhi5r"]
-[ext_resource type="Texture2D" uid="uid://djpg8dtf6g0gp" path="res://assets/img/interface/main_image/button/button_select_left.svg" id="6_1g0l3"]
-[ext_resource type="Texture2D" uid="uid://chqeumhuln75r" path="res://assets/img/interface/main_image/button/button_pressed_left.svg" id="7_y3glx"]
 [ext_resource type="Script" path="res://scripts/interface/main/links.gd" id="8_546f0"]
 [ext_resource type="Texture2D" uid="uid://dl544sk34r1dd" path="res://assets/img/links/itch-io.png" id="8_w0tyg"]
 [ext_resource type="Texture2D" uid="uid://bar57aol5dqm2" path="res://assets/img/links/Twiter.png" id="9_v862e"]
@@ -45,47 +42,6 @@ resource_local_to_scene = true
 shader = SubResource("Shader_my6u5")
 shader_parameter/lod = 3.0
 shader_parameter/saturation = 0.4
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ytrk"]
-content_margin_left = 16.0
-content_margin_top = 20.0
-texture = ExtResource("5_fhi5r")
-texture_margin_left = 9.0
-texture_margin_top = 9.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 507, 290)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_87xcq"]
-content_margin_left = 16.0
-content_margin_top = 20.0
-texture = ExtResource("6_1g0l3")
-texture_margin_left = 9.0
-texture_margin_top = 9.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 507, 290)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wh05v"]
-content_margin_left = 16.0
-content_margin_top = 20.0
-texture = ExtResource("7_y3glx")
-texture_margin_left = 9.0
-texture_margin_top = 9.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 507, 290)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_haisc"]
-content_margin_left = 16.0
-content_margin_top = 20.0
-texture = ExtResource("7_y3glx")
-texture_margin_left = 9.0
-texture_margin_top = 9.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 507, 290)
-modulate_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_jumed"]
 interpolation_mode = 2
@@ -262,7 +218,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(960, 540)
-theme = ExtResource("1_w7i78")
+theme = ExtResource("1_p1q5i")
 script = ExtResource("2_iafsg")
 Settings = NodePath("")
 metadata/_edit_lock_ = true
@@ -303,10 +259,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "Tutorial"
 alignment = 0
 
@@ -316,10 +268,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "CAMPAIGN"
 alignment = 0
 
@@ -329,10 +277,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "QUICK_GAME"
 alignment = 0
 
@@ -343,10 +287,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "GALERY"
 alignment = 0
 
@@ -371,10 +311,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "CONFIG"
 alignment = 0
 
@@ -384,10 +320,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_7ytrk")
-theme_override_styles/hover = SubResource("StyleBoxTexture_87xcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wh05v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_haisc")
 text = "QUIT"
 alignment = 0
 
@@ -484,7 +416,6 @@ offset_top = -480.0
 offset_right = -8.0
 offset_bottom = 480.0
 grow_vertical = 2
-theme = ExtResource("1_w7i78")
 theme_override_styles/panel = SubResource("StyleBoxTexture_4bss4")
 script = ExtResource("13_sggw1")
 
@@ -629,8 +560,8 @@ offset_right = 413.0
 offset_bottom = 304.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.2, 1.2)
 pivot_offset = Vector2(488, 278)
-theme = ExtResource("1_w7i78")
 script = ExtResource("18_1kxpi")
 metadata/_edit_lock_ = true
 
