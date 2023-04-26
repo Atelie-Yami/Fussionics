@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://snj7e1bo2ftc"]
 
-[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_p1q5i"]
+[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_81oey"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
 [ext_resource type="Script" path="res://scripts/interface/main/Buttons.gd" id="4_nhbod"]
 [ext_resource type="Script" path="res://scripts/interface/main/links.gd" id="8_546f0"]
@@ -251,7 +251,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(960, 540)
-theme = ExtResource("1_p1q5i")
+theme = ExtResource("1_81oey")
 script = ExtResource("2_iafsg")
 Settings = NodePath("")
 metadata/_edit_lock_ = true

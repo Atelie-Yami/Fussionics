@@ -1,32 +1,76 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtht0elohpm5h"]
+[gd_scene load_steps=10 format=3 uid="uid://dtht0elohpm5h"]
 
 [ext_resource type="Script" path="res://scripts/interface/main/saga_button.gd" id="1_6tsdn"]
+[ext_resource type="Texture2D" uid="uid://bu4bs1e1m8wil" path="res://assets/img/interface/menu.svg" id="1_jvcnm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xc1y1"]
+texture = ExtResource("1_jvcnm")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 60.0
+texture_margin_bottom = 60.0
+region_rect = Rect2(14, 2080, 510, 326)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ivbuw"]
+texture = ExtResource("1_jvcnm")
+texture_margin_left = 16.0
+texture_margin_top = 17.0
+texture_margin_right = 60.0
+texture_margin_bottom = 60.0
+region_rect = Rect2(541, 2080, 510, 326)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdy66"]
+texture = ExtResource("1_jvcnm")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 60.0
+texture_margin_bottom = 60.0
+region_rect = Rect2(1089.96, 2080, 510, 326)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tfqmr"]
+texture = ExtResource("1_jvcnm")
+texture_margin_left = 33.0
+texture_margin_top = 8.0
+texture_margin_right = 60.0
+texture_margin_bottom = 60.0
+region_rect = Rect2(14, 2442, 510, 326)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjgw1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5qjd"]
-bg_color = Color(0.270588, 0.333333, 0.458824, 1)
+bg_color = Color(0.658824, 0.870588, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ki41y"]
 font_size = 40
 
 [node name="saga" type="Button"]
 custom_minimum_size = Vector2(470, 101)
-offset_right = 345.0
+offset_right = 490.0
 offset_bottom = 101.0
 focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_xc1y1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ivbuw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pdy66")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_tfqmr")
 script = ExtResource("1_6tsdn")
+campaign_path = NodePath("../../..")
+backgroud_path = NodePath("../../../../backgroud")
+phases_path = NodePath("../../../../phases")
+boss_descition_path = NodePath("../../../../boss_descrition")
+metadata/_edit_horizontal_guides_ = [80.0]
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = -1
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -20.0
+offset_left = 16.0
+offset_top = -22.0
+offset_right = 426.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_xjgw1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_i5qjd")
 max_value = 1.0
