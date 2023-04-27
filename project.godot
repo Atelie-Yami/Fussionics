@@ -28,6 +28,7 @@ gdscript/warnings/unassigned_variable=0
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/narrowing_conversion=0
+gdscript/warnings/incompatible_ternary=0
 gdscript/warnings/unused_signal=0
 gdscript/warnings/int_as_enum_without_cast=0
 gdscript/warnings/int_as_enum_without_match=0
@@ -76,8 +77,8 @@ locale/translations=PackedStringArray("res://assets/csv/saga.en.translation", "r
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.101961, 0.0941176, 0.137255, 1)
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/screen_space_aa=1
+anti_aliasing/quality/use_taa=true

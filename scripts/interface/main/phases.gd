@@ -44,10 +44,6 @@ func load_saga(_saga_id: int):
 		var phase: Dictionary = saga_data[GameBook.Campagn.PHASES_CONFIG][i]
 		var skin: Texture
 		
-		
-		GameBook.Campagn.WIDGETS
-		GameBook.Campagn.DROPS
-		
 		if phase[GameBook.Campagn.PHASES_CONFIG] != GameBook.PhaseConfig.NORMAL:
 			skin = saga_data[GameBook.Campagn.SKINS][phase[GameBook.Campagn.PHASES_CONFIG]]
 		
