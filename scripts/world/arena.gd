@@ -12,7 +12,7 @@ const FORJE_SLOTS_OFFSET := [
 
 class Slot:
 	var player: Players
-	var element: Element
+	var element: ElementBase
 	var molecule: Molecule
 	
 	var skill_used: bool = false
@@ -20,7 +20,7 @@ class Slot:
 	var can_act: bool = true
 	var defend_mode: bool
 	
-	func _init(_e: Element, _p: Players):
+	func _init(_e: ElementBase, _p: Players):
 		element = _e; player = _p
 		element.mouse_entered.connect(_mouse_hover.bind(true))
 		element.mouse_exited.connect(_mouse_hover.bind(false))
@@ -82,7 +82,7 @@ func remove_element(slot_position: Vector2i):
 		return
 	
 	if slot.molecule:
-		var neigbors: Array[Element]
+		var neigbors: Array[ElementBase]
 		
 		if slot.defend_mode:
 			slot.molecule.defender = null
@@ -121,7 +121,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	action_in_process = true
 	
-	var element: Element = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
+	var element: ElementBase = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
 	var slot = Slot.new(element, player)
 	
 	element.build(atomic_number)
@@ -144,7 +144,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	return element
 
 
-func link_elements(element_a: Element, element_b: Element):
+func link_elements(element_a: ElementBase, element_b: ElementBase):
 	if action_in_process:
 		return
 	
@@ -190,7 +190,7 @@ func link_elements(element_a: Element, element_b: Element):
 	action_in_process = false
 
 
-func unlink_elements(element_A: Element, element_B: Element):
+func unlink_elements(element_A: ElementBase, element_B: ElementBase):
 	if _unlink_elements(element_A, element_B):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
@@ -334,7 +334,7 @@ func _drop_data(_p, data):
 	if get_global_mouse_position().x - GRID_OFFSET.x < 0:
 		final_position.x = 15 + final_position.x
 	
-	if data is Element:
+	if data is ElementBase:
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:

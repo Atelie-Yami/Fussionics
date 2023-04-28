@@ -6,7 +6,7 @@ enum Result {
 	DRAW, # sem resultado, ninguem perdeu
 }
 
-static func combat_check_result(element_attacker: Element, element_defender: Element, defended: bool) -> Result:
+static func combat_check_result(element_attacker: ElementBase, element_defender: ElementBase, defended: bool) -> Result:
 	if (
 			(not defended and element_attacker.eletrons > element_defender.neutrons + 1) or 
 			(defended and element_attacker.eletrons > element_defender.eletrons)
@@ -23,7 +23,7 @@ static func combat_check_result(element_attacker: Element, element_defender: Ele
 		return Result.COUNTERATTACK
 
 
-static func can_element_attack(element: Element) -> bool:
+static func can_element_attack(element: ElementBase) -> bool:
 	if element.disabled:
 		return false
 	
@@ -33,7 +33,7 @@ static func can_element_attack(element: Element) -> bool:
 	return true
 
 
-static func can_element_defend(element: Element) -> bool:
+static func can_element_defend(element: ElementBase) -> bool:
 	if element.disabled:
 		return false
 	
@@ -43,7 +43,7 @@ static func can_element_defend(element: Element) -> bool:
 	return true
 
 
-static func can_remove_element(element: Element) -> bool:
+static func can_remove_element(element: ElementBase) -> bool:
 	for buff in element.buffs:
 		if buff.type == PassiveEffect.Buff.IMORTAL:
 			return false
@@ -87,7 +87,7 @@ static func disable_slot(slot):
 	slot.can_act = false
 
 
-static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
+static func get_neighbor_enemies(position: Vector2i, enemies: Array[ElementBase]):
 	var player = Gameplay.arena.elements[position].player
 	
 	for x in [-1, 0, 1]:
@@ -97,16 +97,16 @@ static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 				enemies.append(Gameplay.arena.elements[_pos].element)
 
 
-static func charge_eletrons_power(header: Element, molecule: Molecule):
+static func charge_eletrons_power(header: ElementBase, molecule: Molecule):
 	var power := 0
-	var charged_elements: Array[Element]
+	var charged_elements: Array[ElementBase]
 	
 	for link in header.links:
 		if not header.links[link]:
 			continue
 		
 		var level: int = header.links[link].level
-		var element: Element
+		var element: ElementBase
 		
 		if header.links[link].element_A == header:
 			element = header.links[link].element_B

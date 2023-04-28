@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://uk2xi4l2iob3"]
+
+[ext_resource type="Material" uid="uid://c6xqcjf8j6fei" path="res://resouces/material/particles/skill_start_particles.tres" id="1_tvipx"]
+[ext_resource type="Texture2D" uid="uid://cyinys7wu2543" path="res://resouces/textures/skill_start_particles.tres" id="2_xui5d"]
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+process_material = ExtResource("1_tvipx")
+texture = ExtResource("2_xui5d")
+speed_scale = 4.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]
+[connection signal="timeout" from="Timer2" to="." method="set_emitting" binds= [false]]

@@ -67,8 +67,8 @@ func _get_snapped_slot_position(slot: Vector2i):
 	return (SLOT_SIZE * _slot) + GRID_OFFSET
 
 
-func _handle_molecule(element: Element):
-	var molecule_config: Array[Element]
+func _handle_molecule(element: ElementBase):
+	var molecule_config: Array[ElementBase]
 	var molecula: Molecule
 	
 	if element.has_link:
@@ -91,7 +91,7 @@ func _handle_molecule(element: Element):
 			molecula.gain_ref()
 
 
-func _link_elements(element_a: Element, element_b: Element):
+func _link_elements(element_a: ElementBase, element_b: ElementBase):
 	for link in element_a.links:
 		var ligament_a = element_a.links[link]
 		if not ligament_a:
@@ -107,7 +107,7 @@ func _link_elements(element_a: Element, element_b: Element):
 				return
 
 
-func _unlink_elements(element_A: Element, element_B: Element):
+func _unlink_elements(element_A: ElementBase, element_B: ElementBase):
 	for link in element_A.links:
 		var ligament_A: Molecule.Ligament = element_A.links[link]
 		if not ligament_A:
@@ -129,7 +129,7 @@ func _unlink_elements(element_A: Element, element_B: Element):
 	return false
 
 
-func _procedural_search_link_nodes(element_parent: Element, anchored_array: Array[Element]):
+func _procedural_search_link_nodes(element_parent: ElementBase, anchored_array: Array[ElementBase]):
 	for l in element_parent.links:
 		var link: Molecule.Ligament = element_parent.links[l]
 		if not link: continue
@@ -141,7 +141,7 @@ func _procedural_search_link_nodes(element_parent: Element, anchored_array: Arra
 			_procedural_search_test(link.element_A, anchored_array)
 
 
-func _procedural_search_test(element: Element, anchored_array: Array[Element]):
+func _procedural_search_test(element: ElementBase, anchored_array: Array[ElementBase]):
 	if anchored_array.find(element) != -1:
 		return
 	

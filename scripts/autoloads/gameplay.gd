@@ -23,7 +23,7 @@ var selected_element_target: Element:
 		if selected_element_target:
 			callback_action_target(selected_element_target)
 
-var selected_element: Element:
+var selected_element: ElementBase:
 	set(value):
 		if selected_element:
 			selected_element.selected = false

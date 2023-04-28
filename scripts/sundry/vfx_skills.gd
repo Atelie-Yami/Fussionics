@@ -1,5 +1,0 @@
-class_name VFX extends Node
-
-enum Type {
-	LIGHTNING, ELECTRICITY, LASER, ORB, EXPLOSION, PROJECTILE, FIRE,
-}

@@ -16,7 +16,7 @@ var tokens: Dictionary
 var tags: Array
 
 
-func get_targets(target: Element):
+func get_targets(target: ElementBase):
 	pass
 
 
