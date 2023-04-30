@@ -13,14 +13,13 @@ static func combat_check_result(element_attacker: Element, element_defender: Ele
 	):
 		return Result.WINNER
 	
-	elif (
-		(not defended and element_attacker.eletrons == element_defender.neutrons + 1) or
-		(defended and element_attacker.eletrons == element_defender.eletrons)
+	if (
+		(not defended and element_attacker.eletrons < element_defender.neutrons + 1) or
+		(defended and element_attacker.eletrons < element_defender.eletrons)
 	):
-		return Result.DRAW
-	
-	else:
 		return Result.COUNTERATTACK
+	
+	return Result.DRAW
 
 
 static func can_element_attack(element: Element) -> bool:
@@ -50,22 +49,26 @@ static func can_remove_element(element: Element) -> bool:
 	return true
 
 
-static func combat(attaker: ArenaSlot, defender: ArenaSlot):
+static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 	if defender.molecule and defender.molecule.defender:
 		defender = Gameplay.arena.elements[defender.molecule.defender.grid_position]
 	
-	var result: Result = combat_check_result(attaker.element, defender.element, defender.defend_mode)
-	disable_slot(attaker)
+	var result: Result = combat_check_result(attacker.element, defender.element, defender.defend_mode)
+	disable_slot(attacker)
 	
 	var damage: int
 	var can_take_damage: bool
 	
 	match result:
 		Result.WINNER:
-			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
+			await Gameplay.world.vfx.handler_attack(
+					attacker.element, defender.element.global_position + Vector2(40, 40)
+			)
+			
+			await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 			
-			damage = attaker.element.eletrons - defender.element.neutrons - 1
+			damage = attacker.element.eletrons - defender.element.neutrons - 1
 			can_take_damage = not defender.defend_mode
 			
 			await Gameplay.arena.remove_element(defender.element.grid_position, true)
@@ -77,17 +80,33 @@ static func combat(attaker: ArenaSlot, defender: ArenaSlot):
 			if defender.defend_mode:
 				return
 			
-			if combat_check_result(defender.element, attaker.element, false) == Result.WINNER:
-				await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
+			if combat_check_result(defender.element, attacker.element, false) == Result.WINNER:
+				await Gameplay.world.vfx.handler_attack(
+						attacker.element, defender.element.global_position + Vector2(40, 40)
+				)
+				await Gameplay.world.vfx.emit_defended_vfx(
+						defender.element.global_position + Vector2(40, 40)
+				)
+				await Gameplay.world.vfx.handler_attack(
+						defender.element, attacker.element.global_position + Vector2(40, 40)
+				)
+				
+				await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 				
-				damage = defender.element.eletrons - attaker.element.neutrons - 1
+				damage = defender.element.eletrons - attacker.element.neutrons - 1
 				
-				await Gameplay.arena.remove_element(attaker.element.grid_position, true)
-				Gameplay.arena.current_players[attaker.player].take_damage(damage)
+				await Gameplay.arena.remove_element(attacker.element.grid_position, true)
+				Gameplay.arena.current_players[attacker.player].take_damage(damage)
 		
 		Result.DRAW:
-			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
+			await Gameplay.world.vfx.handler_attack(
+					attacker.element, defender.element.global_position + Vector2(40, 40)
+			)
+			await Gameplay.world.vfx.emit_defended_vfx(
+					defender.element.global_position + Vector2(40, 40)
+			)
+			await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 
 

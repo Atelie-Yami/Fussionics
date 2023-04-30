@@ -195,7 +195,6 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	
 	action_in_process = true
 	
-	await Gameplay.world.vfx.emit_start_vfx(slot_attacker.element)
 	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
 	await ElementEffectManager.call_effects(elements[defender].player, BaseEffect.SkillType.PRE_DEFEND)
 	
@@ -227,19 +226,26 @@ func defend_mode(element: Vector2i):
 
 
 func direct_attack(attacker: Vector2i):
-	if not elements[attacker].can_act or action_in_process: return
+	if not elements[attacker].can_act or action_in_process:
+		return
 	
 	var slot_attacker: ArenaSlot = elements[attacker]
 	action_in_process = true
 	
 	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
+	await Gameplay.world.vfx.handler_attack(
+			slot_attacker.element, Vector2(109 if slot_attacker.player else 1811, 540)
+	)
 	
-	if slot_attacker.molecule:
+	if (
+			slot_attacker.molecule and slot_attacker.element.effect and slot_attacker.element.effect is MoleculeEffect and
+			slot_attacker.element.effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER
+	):
 		pass
-	else:
-		current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
-		slot_attacker.element.disabled = true
-		slot_attacker.can_act = false
+	
+	current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
+	slot_attacker.element.disabled = true
+	slot_attacker.can_act = false
 	
 	action_in_process = false
 

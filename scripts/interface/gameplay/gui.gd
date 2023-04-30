@@ -63,7 +63,7 @@ func _turn_machine_end_game(win: bool):
 	next_turn.disabled = true
 	end_game.end(win)
 	
-	blur.lod = 2.7
+	blur.lod = 1.7
 	if not win:
 		blur.saturation = 0.1
 

@@ -158,15 +158,19 @@ func effects_cluster_assembly(header: ArenaSlot, target: ArenaSlot, kit: Kit):
 			not header.element.effect or not header.element.effect is MoleculeEffect or
 			header.element.effect.molecule_effect_type != MoleculeEffect.MoleculeEffectType.TRIGGER
 	):
+		GameJudge.charge_eletrons_power(header.element, self)
 		await GameJudge.combat(header, target)
 	
 	match kit:
 		Kit.ATTACK:
-			if header.element.effect is MoleculeEffect and header.element.effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER:
+			if header.element.effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER:
 				await assembly_kit_combat_effects(header.element.effect, target.element)
+			
 			else:
+				GameJudge.charge_eletrons_power(header.element, self)
 				await GameJudge.combat(header, target)
 				header.element.disabled = true
+			
 		Kit.EFFECT:
 			pass
 

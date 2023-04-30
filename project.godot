@@ -71,6 +71,7 @@ locale/translations=PackedStringArray("res://assets/csv/elements.en.translation"
 
 [rendering]
 
+textures/default_filters/use_nearest_mipmap_filter=true
 environment/defaults/default_clear_color=Color(0.00784314, 0.0313726, 0.168627, 1)
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/screen_space_aa=1

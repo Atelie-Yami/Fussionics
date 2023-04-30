@@ -21,9 +21,9 @@ const RECT_BASE := [
 ]
 const RECT_SOUCE := [
 	[
-		Rect2(Vector2(1364, 957), Vector2(301, 301)),
-		Rect2(Vector2(495, 957), Vector2(301, 301)),
-		Rect2(Vector2(941, 957), Vector2(301, 301)),
+		Rect2(Vector2(1364, 957), Vector2(303, 303)),
+		Rect2(Vector2(495, 957), Vector2(303, 303)),
+		Rect2(Vector2(941, 957), Vector2(303, 303)),
 	],
 	[
 		Rect2(Vector2(1356, 1310), Vector2(317, 317)),
