@@ -53,7 +53,7 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	elements_update.emit()
 
 
-func remove_element(slot_position: Vector2i):
+func remove_element(slot_position: Vector2i, animated: bool):
 	if not elements.has(slot_position):
 		return
 	
@@ -83,14 +83,17 @@ func remove_element(slot_position: Vector2i):
 		for element in neigbors:
 			_handle_molecule(element)
 	
-	_remove_element(slot, slot_position)
+	await _remove_element(slot, slot_position, animated)
 	elements_update.emit()
 	
 	if slot_position.x < 8:
 		get_child(slot_position.x + (slot_position.y * 8)).visible = true
 
 
-func _remove_element(slot: ArenaSlot, slot_position: Vector2i):
+func _remove_element(slot: ArenaSlot, slot_position: Vector2i, animated: bool):
+	if animated:
+		await Gameplay.world.vfx.emit_end_vfx(slot.element)
+	
 	slot.element.queue_free()
 	elements.erase(slot_position)
 
@@ -192,6 +195,7 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	
 	action_in_process = true
 	
+	await Gameplay.world.vfx.emit_start_vfx(slot_attacker.element)
 	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
 	await ElementEffectManager.call_effects(elements[defender].player, BaseEffect.SkillType.PRE_DEFEND)
 	
@@ -199,6 +203,7 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 		await slot_attacker.molecule.effects_cluster_assembly(slot_attacker, slot_defender, Molecule.Kit.ATTACK)
 	else:
 		await GameJudge.combat(slot_attacker, slot_defender)
+	
 	action_in_process = false
 
 
@@ -251,7 +256,7 @@ func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: 
 		return
 	
 	if elements.has(Vector2i(slot_id + 1, 0)):
-		remove_element(Vector2i(slot_id + 1, 0))
+		await remove_element(Vector2i(slot_id + 1, 0), true)
 	
 	var element_C = create_element(min(atn, 118), current_player, Vector2i(slot_id + 1, 0), false)
 	if not element_C:
@@ -262,8 +267,8 @@ func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: 
 	# animação
 	await reactors.fusion_elements(elements[slot_fusion_A].element, elements[slot_fusion_B].element, element_C, current_player)
 	
-	remove_element(slot_fusion_A)
-	remove_element(slot_fusion_B)
+	remove_element(slot_fusion_A, false)
+	remove_element(slot_fusion_B, false)
 	
 	if atn > 24:
 			Gameplay.arena.current_players[current_player].take_damage(atn - 24)
@@ -295,7 +300,7 @@ func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: 
 			return
 		
 		if elements.has(Vector2i(slot_id +1, 5)):
-			remove_element(Vector2i(slot_id +1, 5))
+			await remove_element(Vector2i(slot_id +1, 5), true)
 		
 		var element_C = create_element(min(atn_result, 118), current_player, Vector2i(slot_id +1, 5), false)
 		if not element_C:
@@ -306,8 +311,8 @@ func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: 
 		# anim
 		await reactors.accelr_elements(elements[slot_accelr_A].element, elements[slot_accelr_B].element, element_C, current_player)
 		
-		remove_element(slot_accelr_A)
-		remove_element(slot_accelr_B)
+		remove_element(slot_accelr_A, false)
+		remove_element(slot_accelr_B, false)
 
 
 func _drop_data(_p, data):

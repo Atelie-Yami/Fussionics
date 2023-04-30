@@ -57,15 +57,21 @@ static func combat(attaker: ArenaSlot, defender: ArenaSlot):
 	var result: Result = combat_check_result(attaker.element, defender.element, defender.defend_mode)
 	disable_slot(attaker)
 	
+	var damage: int
+	var can_take_damage: bool
+	
 	match result:
 		Result.WINNER:
 			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
 			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 			
-			if not defender.defend_mode:
-				Gameplay.arena.current_players[defender.player].take_damage(attaker.element.eletrons - defender.element.neutrons - 1)
+			damage = attaker.element.eletrons - defender.element.neutrons - 1
+			can_take_damage = not defender.defend_mode
 			
-			Gameplay.arena.remove_element(defender.element.grid_position)
+			await Gameplay.arena.remove_element(defender.element.grid_position, true)
+			
+			if can_take_damage:
+				Gameplay.arena.current_players[defender.player].take_damage(damage)
 		
 		Result.COUNTERATTACK:
 			if defender.defend_mode:
@@ -74,8 +80,11 @@ static func combat(attaker: ArenaSlot, defender: ArenaSlot):
 			if combat_check_result(defender.element, attaker.element, false) == Result.WINNER:
 				await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)
 				await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
-				Gameplay.arena.current_players[attaker.player].take_damage(defender.element.eletrons - attaker.element.neutrons - 1)
-				Gameplay.arena.remove_element(attaker.element.grid_position)
+				
+				damage = defender.element.eletrons - attaker.element.neutrons - 1
+				
+				await Gameplay.arena.remove_element(attaker.element.grid_position, true)
+				Gameplay.arena.current_players[attaker.player].take_damage(damage)
 		
 		Result.DRAW:
 			await ElementEffectManager.call_effects(attaker.player, BaseEffect.SkillType.POS_ATTACK)

@@ -32,4 +32,4 @@ func execute():
 			burn.life_time = 3
 			e.debuffs[PassiveEffect.Debuff.BURNING] = burn
 	
-	Gameplay.arena.remove_element(element.grid_position)
+	Gameplay.arena.remove_element(element.grid_position, false)

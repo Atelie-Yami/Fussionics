@@ -15,24 +15,23 @@ var canvas_item_particles_2_RID: RID
 @onready var _timer = $Timer
 
 
-
 func handler(actuators: Array[Element], targets: Array[Vector2], type: Type, id: int):
 	for e in actuators:
-		var timer := Timer.new()
-		add_child(timer)
-		emit_start_vfx(e, timer)
+		emit_start_vfx(e)
 	
 	_timer.start(0.6)
 	await _timer.timeout
 
 
-func emit_start_vfx(element: Element, timer: Timer):
+func emit_start_vfx(element: Element):
 	var _position := element.global_position + Vector2(40, 40)
 	
 	var skill_start_2: GPUParticles2D = START_SKILL_PARTICLES.instantiate()
 	add_child(skill_start_2)
 	skill_start_2.position = _position
 	
+	var timer := Timer.new()
+	add_child(timer)
 	timer.start(0.25)
 	await timer.timeout
 	
@@ -71,5 +70,8 @@ func emit_end_vfx(element: Element):
 	add_child(dead_particles)
 	dead_particles.position = element.global_position + Vector2(40, 40)
 	dead_particles.emitting = true
+	
+	timer.start(0.03)
+	await timer.timeout
 	
 	timer.queue_free()
