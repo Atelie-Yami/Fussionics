@@ -5,6 +5,7 @@ enum Type {
 }
 
 const START_SKILL_PARTICLES := preload("res://scenes/vfx/start_skill_particles.tscn")
+const ELEMENT_DEAD := preload("res://scenes/vfx/element_dead.tscn")
 
 var particles_2_RID: RID
 var canvas_item_particles_2_RID: RID
@@ -54,3 +55,13 @@ func emit_start_vfx(element: Element, timer: Timer):
 	tween.finished.connect(ghost.queue_free)
 
 
+func emit_end_vfx(element: Element):
+	element.is_dead_flag = true
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(element, "factor_dead", 10, 0.3)
+	await tween.finished
+	
+	element.visible = false
+	var dead_particles := ELEMENT_DEAD.instantiate()
+	add_child(dead_particles)
+	dead_particles.position = element.global_position + Vector2(40, 40)

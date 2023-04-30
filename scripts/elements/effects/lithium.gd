@@ -15,7 +15,7 @@ func _init(_element: Element):
 
 
 func execute():
-	var enemies: Array[Element]
+	var enemies: Array[ElementBase]
 	GameJudge.get_neighbor_enemies(element.grid_position, enemies)
 	
 	for e in enemies:

@@ -1,21 +1,26 @@
 ## Classe que define os elementos.
 class_name Element extends ElementRender
 
-## Dicionario que define os efeitos em seus tempos de ação:[br]
-## [codeblock]
-## {ActionTime.INIT: Callable(self, "nome_da_func")}
-## {ActionTime.INIT: nome_da_func)}
-## [/codeblock]
-var action_time: Dictionary
-
-# {PassiveEffect.Debuff.Type: PassiveEffect.DebuffEffect}
 
 var effect #: BaseEffect
 
-#var current_state: State
+
+func _ready():
+	mouse_entered.connect(_mouse_entered)
+	mouse_exited .connect(_mouse_exited )
 
 
-var glow: Sprite2D = GLOW.instantiate()
+func _input(event: InputEvent):
+	if event.is_action_pressed("test"):
+		await Gameplay.world.vfx.emit_end_vfx(self)
+
+
+func _exit_tree():
+	if Gameplay.selected_element == self:
+		Gameplay.selected_element = null
+	
+	if effect:
+		effect.unregister()
 
 
 func can_link(ref: Element):
@@ -34,42 +39,6 @@ func can_link(ref: Element):
 			return true
 	
 	return false
-
-
-func _init():
-	custom_minimum_size = Vector2(80, 80)
-	pivot_offset = Vector2(40, 40)
-	focus_mode = Control.FOCUS_NONE
-	add_child(legancy)
-	add_child(glow)
-	glow.position = Vector2(40, 40)
-
-
-func _ready():
-	legancy.modulate = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]]
-	mouse_entered.connect(_mouse_entered)
-	mouse_exited .connect(_mouse_exited )
-
-
-func _process(delta):
-	queue_redraw()
-	# dar uma corzinha pra tudo
-	modulate = (Color.WHITE * 0.7) +  (GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] * 0.3)
-	modulate.a = 1.0
-	glow.modulate = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] if active else Color(0.1, 0.1, 0.1, 1.0)
-
-
-func _input(event: InputEvent):
-	if event.is_action_pressed("test"):
-		await Gameplay.world.vfx.emit_start_vfx(self)
-
-
-func _exit_tree():
-	if Gameplay.selected_element == self:
-		Gameplay.selected_element = null
-	
-	if effect:
-		effect.unregister()
 
 
 func build(_atomic_number: int):

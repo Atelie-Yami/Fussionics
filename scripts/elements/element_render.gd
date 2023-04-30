@@ -1,5 +1,6 @@
 class_name ElementRender extends ElementBase
 
+signal selected_changed(value: bool)
 
 const ICON_PASSIVE := preload("res://assets/img/elements/buff_debuff.svg")
 const FUTURE_SALLOW := preload("res://assets/fonts/Future Sallow.ttf")
@@ -7,6 +8,7 @@ const GIANT_ROBOT := preload("res://assets/fonts/GiantRobotArmy-Medium.ttf")
 const SLOT := preload("res://assets/img/elements/Slot_0.png")
 
 const GLOW := preload("res://scenes/elements/glow.tscn")
+const LEGANCY := preload("res://scenes/elements/legancy.tscn")
 
 const LIGAMENT_SPACCAMENT := 10.0
 const LIGAMENT_SIDE_SPACCAMENT := LIGAMENT_SPACCAMENT / 2.0
@@ -14,8 +16,41 @@ const MAX_PASSIVE_ICON := 3
 const FONT_SIZE := 48.0
 const FONT_ATRIBUTES_SIZE := 13.0
 
+var active: bool:
+	set(value):
+		active = value
+		disabled = !active
+		if not active:
+			_set_current_node_state(NodeState.NORMAL)
+
+var disabled: bool:
+	set(value):
+		disabled = value
+		legancy.set_fade(float(!value))
+
+var is_dead_flag: bool
+var factor_dead := 1.0
+
+var glow: Sprite2D = GLOW.instantiate()
+var legancy: Panel = LEGANCY.instantiate()
 
 
+func _init():
+	custom_minimum_size = Vector2(80, 80)
+	pivot_offset = Vector2(40, 40)
+	focus_mode = Control.FOCUS_NONE
+	add_child(legancy)
+	add_child(glow)
+	glow.position = Vector2(40, 40)
+	legancy.modulate = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]]
+
+
+func _process(delta):
+	queue_redraw()
+	# dar uma corzinha pra tudo
+	modulate = (Color.WHITE * 0.7) +  (GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] * 0.3)
+	modulate.a = 1.0
+	glow.modulate = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] if active else Color(0.1, 0.1, 0.1, 1.0)
 
 
 func _draw_ligaments():
@@ -47,7 +82,7 @@ func _draw():
 	
 	alpha += 0.3 if active else 0.0
 	
-	draw_texture_rect(SLOT, Rect2(-8, -8, 96, 96), false, Color.WHITE * alpha)
+	draw_texture_rect(SLOT, Rect2(-8, -8, 96, 96), false, factor_dead if is_dead_flag else Color.WHITE * alpha)
 	
 	# obter a cor
 	var symbol_color: Color = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]]
@@ -88,3 +123,16 @@ func _draw():
 			draw_texture_rect_region(
 					ICON_PASSIVE, Rect2(-5, 69 - (i * 9), 14, 10), Rect2(0, 0, 15, 11)
 			)
+
+
+func _set_current_node_state(state: NodeState):
+	if current_node_state == state: return
+
+	if current_node_state == NodeState.SELECTED:
+		selected_changed.emit(false)
+
+	current_node_state = state
+
+	if current_node_state == NodeState.SELECTED:
+		Gameplay.selected_element = self
+		selected_changed.emit(true)
