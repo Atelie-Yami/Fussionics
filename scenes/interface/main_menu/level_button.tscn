@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://blancqrp5degm"]
 
-[ext_resource type="Texture2D" uid="uid://bjafw2scx8c7g" path="res://assets/img/icon.svg" id="1_1d86l"]
+[ext_resource type="Texture2D" uid="uid://bhubs1yi6c27b" path="res://assets/img/icon.svg" id="1_1d86l"]
 [ext_resource type="Script" path="res://scripts/interface/main/level_button.gd" id="1_opdxl"]
 [ext_resource type="Shader" path="res://scripts/shaders/circular_texture.gdshader" id="2_vxlwc"]
 

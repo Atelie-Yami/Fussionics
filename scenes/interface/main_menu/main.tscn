@@ -533,6 +533,7 @@ scroll_active = false
 [node name="deck" type="CanvasLayer" parent="."]
 
 [node name="Deck" type="VBoxContainer" parent="deck"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5

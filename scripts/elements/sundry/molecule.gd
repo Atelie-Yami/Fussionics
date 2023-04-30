@@ -12,14 +12,14 @@ const BORDELINE := preload("res://scenes/world/line_contorno.tscn")
 #------------------------------------------------------------------------------#
 ## classe que vai ser a coneção entre 2 elementos
 class Ligament:
-	var element_A: ElementBase
-	var element_B: ElementBase
+	var element_A: Element
+	var element_B: Element
 	var position: LigamentPosition
 	
 	## quantidade de eletrons linkados, de 1 a 3 pq é assim na quimica kk
 	var level: int = 1
 	
-	func _init(origin: ElementBase, neighbor: ElementBase, pos: LigamentPosition):
+	func _init(origin: Element, neighbor: Element, pos: LigamentPosition):
 		element_A = origin; element_B = neighbor; position = pos
 		
 		origin  .number_electrons_in_valencia -= 1
@@ -60,8 +60,8 @@ class Ligament:
 
 var ref_count: int = 1
 
-var defender: ElementBase
-var configuration: Array[ElementBase]
+var defender: Element
+var configuration: Array[Element]
 var border_line: LineMap = BORDELINE.instantiate()
 
 var effect_pool := {
@@ -99,19 +99,19 @@ func redux_ref():
 		update_border()
 
 
-func prepare_element_for_attack(header: ElementBase):
+func prepare_element_for_attack(header: Element):
 	configuration.map(_handle_element_action.bind(header))
 	Gameplay.arena.elements[header.grid_position].can_act = false
 	header.disabled = true
 
 
-func _handle_element_action(element: ElementBase, header: ElementBase):
+func _handle_element_action(element: Element, header: Element):
 	if element != header and element.eletrons > 0:
 		element.eletrons -= 1
 		header.eletrons += 1
 
 
-func link_elements(element_a: ElementBase, element_b: ElementBase):
+func link_elements(element_a: Element, element_b: Element):
 	var elements_array := [element_a, element_b]
 	var orientation: LigamentPosition
 	var link: Ligament
@@ -133,7 +133,7 @@ func link_elements(element_a: ElementBase, element_b: ElementBase):
 	link = Ligament.new(elements_array[0], elements_array[1], orientation)
 
 
-func remove_element(element: ElementBase):
+func remove_element(element: Element):
 	configuration.erase(element)
 	for link in element.links:
 		if element.links[link]:
@@ -141,19 +141,19 @@ func remove_element(element: ElementBase):
 	border_line.Update([])
 
 
-func add_element(element: ElementBase):
+func add_element(element: Element):
 	configuration.append(element)
 	Gameplay.arena.elements[element.grid_position].molecule = self
 
 
 func get_eletron_power() -> int:
 	var power := 0
-	configuration.map(func(c: ElementBase): power += c.eletrons)
+	configuration.map(func(c: Element): power += c.eletrons)
 	
 	return power
 
 
-func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
+func effects_cluster_assembly(header: ArenaSlot, target: ArenaSlot, kit: Kit):
 	if (
 			not header.element.effect or not header.element.effect is MoleculeEffect or
 			header.element.effect.molecule_effect_type != MoleculeEffect.MoleculeEffectType.TRIGGER
@@ -162,16 +162,16 @@ func effects_cluster_assembly(header: Arena.Slot, target: Arena.Slot, kit: Kit):
 	
 	match kit:
 		Kit.ATTACK:
-#			if header.element.effect is MoleculeEffect and header.element.effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER:
-#				await assembly_kit_combat_effects(header.element.effect, target.element)
-#			else:
+			if header.element.effect is MoleculeEffect and header.element.effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER:
+				await assembly_kit_combat_effects(header.element.effect, target.element)
+			else:
 				await GameJudge.combat(header, target)
 				header.element.disabled = true
 		Kit.EFFECT:
 			pass
 
 
-func assembly_kit_combat_effects(header: MoleculeEffect, target: ElementBase):
+func assembly_kit_combat_effects(header: MoleculeEffect, target: Element):
 	var pack: Array[MoleculeEffect]
 	for e in configuration:
 		if e.effect and e.effect is MoleculeEffect:

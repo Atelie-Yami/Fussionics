@@ -1,38 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://ba48pli8y3b4y"]
+[gd_scene load_steps=5 format=3 uid="uid://ba48pli8y3b4y"]
+
+[ext_resource type="Texture2D" uid="uid://ccxvtoff6bi3j" path="res://assets/img/vfx/mini_star.png" id="1_gmh8t"]
+
+[sub_resource type="Gradient" id="Gradient_ooc20"]
+offsets = PackedFloat32Array(0, 0.1, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kfnw5"]
+gradient = SubResource("Gradient_ooc20")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lbtec"]
+lifetime_randomness = 0.7
+emission_shape = 3
+emission_box_extents = Vector3(40, 40, 1)
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
-spread = 90.0
-gravity = Vector3(0, -20, 0)
+spread = 120.0
+gravity = Vector3(0, -30, 0)
 initial_velocity_min = 20.0
-initial_velocity_max = 30.0
+initial_velocity_max = 40.0
+angular_velocity_min = -150.0
+angular_velocity_max = 150.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-damping_min = 15.0
-damping_max = 15.0
-
-[sub_resource type="Gradient" id="Gradient_1m2pe"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_im3iu"]
-gradient = SubResource("Gradient_1m2pe")
-width = 8
-height = 8
+tangential_accel_min = -20.0
+tangential_accel_max = 20.0
+damping_min = 20.0
+damping_max = 20.0
+angle_max = 360.0
+scale_min = 0.2
+scale_max = 1.5
+color_ramp = SubResource("GradientTexture1D_kfnw5")
 
 [node name="skill_end" type="GPUParticles2D"]
 emitting = false
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_lbtec")
-texture = SubResource("GradientTexture2D_im3iu")
+texture = ExtResource("1_gmh8t")
 lifetime = 2.0
 one_shot = true
 speed_scale = 2.0
-explosiveness = 0.8
+explosiveness = 0.95
 randomness = 1.0
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.7
 one_shot = true
 autostart = true
 

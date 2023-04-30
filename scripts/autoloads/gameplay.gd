@@ -23,7 +23,7 @@ var selected_element_target: Element:
 		if selected_element_target:
 			callback_action_target(selected_element_target)
 
-var selected_element: ElementBase:
+var selected_element: Element:
 	set(value):
 		if selected_element:
 			selected_element.selected = false
@@ -153,7 +153,7 @@ func callback_action_target(target: Element):
 	action_state = ActionState.NORMAL
 
 
-func slot_get_actions(slot: Arena.Slot):
+func slot_get_actions(slot: ArenaSlot):
 	var actions: Array[ElementActions]
 	
 	if slot.element.has_link:

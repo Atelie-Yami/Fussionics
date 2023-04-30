@@ -42,7 +42,7 @@ func emit_start_vfx(element: Element, timer: Timer):
 	await timer.timeout
 	timer.queue_free()
 	
-	var ghost := Element.new()
+	var ghost := ElementGhost.new()
 	ghost.atomic_number = element.atomic_number
 	ghost.eletrons = element.eletrons
 	ghost.neutrons = element.neutrons
@@ -58,10 +58,18 @@ func emit_start_vfx(element: Element, timer: Timer):
 func emit_end_vfx(element: Element):
 	element.is_dead_flag = true
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(element, "factor_dead", 10, 0.3)
-	await tween.finished
+	tween.tween_property(element, "factor_dead", 1.5, 0.3)
+	tween.parallel().tween_property(element, "scale", Vector2(1.15, 1.15), 0.3)
+	var timer := Timer.new()
+	add_child(timer)
+	
+	timer.start(0.28)
+	await timer.timeout
 	
 	element.visible = false
 	var dead_particles := ELEMENT_DEAD.instantiate()
 	add_child(dead_particles)
 	dead_particles.position = element.global_position + Vector2(40, 40)
+	dead_particles.emitting = true
+	
+	timer.queue_free()

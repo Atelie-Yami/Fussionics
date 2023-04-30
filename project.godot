@@ -19,19 +19,11 @@ config/icon="res://assets/img/marketing/icon.png"
 
 GameConfig="*res://scripts/autoloads/game_config.gd"
 Gameplay="*res://scripts/autoloads/gameplay.gd"
-ServerManager="*res://scripts/autoloads/server_manager.gd"
 ElementEffectManager="*res://scripts/autoloads/element_effect_manager.gd"
 
 [debug]
 
-gdscript/warnings/unassigned_variable=0
-gdscript/warnings/unused_variable=0
-gdscript/warnings/unused_parameter=0
-gdscript/warnings/narrowing_conversion=0
-gdscript/warnings/incompatible_ternary=0
-gdscript/warnings/unused_signal=0
-gdscript/warnings/int_as_enum_without_cast=0
-gdscript/warnings/int_as_enum_without_match=0
+gdscript/warnings/enable=false
 
 [display]
 
@@ -43,10 +35,12 @@ window/stretch/aspect="expand"
 
 [editor]
 
-naming/default_signal_callback_name="_{node_name}_{signal_name}"
-naming/default_signal_callback_to_self_name="_{signal_name}"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [filesystem]
 
@@ -60,25 +54,23 @@ mouse_click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
 ]
 }
-mouse_right={
-"deadzone": 0.5,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
-]
-}
 test={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
+mouse_right={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
+]
+}
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/csv/saga.en.translation", "res://assets/csv/saga.pt.translation", "res://assets/csv/elements.en.translation", "res://assets/csv/elements.pt.translation", "res://assets/csv/element_effects.en.translation", "res://assets/csv/element_effects.pt.translation", "res://assets/csv/passive_effects.en.translation", "res://assets/csv/passive_effects.pt.translation", "res://assets/csv/interface.en.translation", "res://assets/csv/interface.pt.translation")
+locale/translations=PackedStringArray("res://assets/csv/elements.en.translation", "res://assets/csv/elements.pt.translation", "res://assets/csv/element_effects.en.translation", "res://assets/csv/element_effects.pt.translation", "res://assets/csv/interface.en.translation", "res://assets/csv/interface.pt.translation", "res://assets/csv/passive_effects.en.translation", "res://assets/csv/passive_effects.pt.translation", "res://assets/csv/saga.en.translation", "res://assets/csv/saga.pt.translation")
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.101961, 0.0941176, 0.137255, 1)
+environment/defaults/default_clear_color=Color(0.00784314, 0.0313726, 0.168627, 1)
 anti_aliasing/quality/msaa_2d=1
-anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/screen_space_aa=1
-anti_aliasing/quality/use_taa=true

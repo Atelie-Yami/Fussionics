@@ -6,7 +6,7 @@ enum Result {
 	DRAW, # sem resultado, ninguem perdeu
 }
 
-static func combat_check_result(element_attacker: ElementBase, element_defender: ElementBase, defended: bool) -> Result:
+static func combat_check_result(element_attacker: Element, element_defender: Element, defended: bool) -> Result:
 	if (
 			(not defended and element_attacker.eletrons > element_defender.neutrons + 1) or 
 			(defended and element_attacker.eletrons > element_defender.eletrons)
@@ -23,7 +23,7 @@ static func combat_check_result(element_attacker: ElementBase, element_defender:
 		return Result.COUNTERATTACK
 
 
-static func can_element_attack(element: ElementBase) -> bool:
+static func can_element_attack(element: Element) -> bool:
 	if element.disabled:
 		return false
 	
@@ -33,7 +33,7 @@ static func can_element_attack(element: ElementBase) -> bool:
 	return true
 
 
-static func can_element_defend(element: ElementBase) -> bool:
+static func can_element_defend(element: Element) -> bool:
 	if element.disabled:
 		return false
 	
@@ -43,14 +43,14 @@ static func can_element_defend(element: ElementBase) -> bool:
 	return true
 
 
-static func can_remove_element(element: ElementBase) -> bool:
+static func can_remove_element(element: Element) -> bool:
 	for buff in element.buffs:
 		if buff.type == PassiveEffect.Buff.IMORTAL:
 			return false
 	return true
 
 
-static func combat(attaker: Arena.Slot, defender: Arena.Slot):
+static func combat(attaker: ArenaSlot, defender: ArenaSlot):
 	if defender.molecule and defender.molecule.defender:
 		defender = Gameplay.arena.elements[defender.molecule.defender.grid_position]
 	
@@ -87,7 +87,7 @@ static func disable_slot(slot):
 	slot.can_act = false
 
 
-static func get_neighbor_enemies(position: Vector2i, enemies: Array[ElementBase]):
+static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 	var player = Gameplay.arena.elements[position].player
 	
 	for x in [-1, 0, 1]:
@@ -97,16 +97,16 @@ static func get_neighbor_enemies(position: Vector2i, enemies: Array[ElementBase]
 				enemies.append(Gameplay.arena.elements[_pos].element)
 
 
-static func charge_eletrons_power(header: ElementBase, molecule: Molecule):
+static func charge_eletrons_power(header: Element, molecule: Molecule):
 	var power := 0
-	var charged_elements: Array[ElementBase]
+	var charged_elements: Array[Element]
 	
 	for link in header.links:
 		if not header.links[link]:
 			continue
 		
 		var level: int = header.links[link].level
-		var element: ElementBase
+		var element: Element
 		
 		if header.links[link].element_A == header:
 			element = header.links[link].element_B

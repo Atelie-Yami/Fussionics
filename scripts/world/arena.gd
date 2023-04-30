@@ -10,25 +10,6 @@ const FORJE_SLOTS_OFFSET := [
 	Vector2i(720, 450), Vector2i(900, 450), Vector2i(810, 540),   # slots 19, 20, 21
 ]
 
-class Slot:
-	var player: Players
-	var element: ElementBase
-	var molecule: Molecule
-	
-	var skill_used: bool = false
-	var eletrons_charged: bool
-	var can_act: bool = true
-	var defend_mode: bool
-	
-	func _init(_e: ElementBase, _p: Players):
-		element = _e; player = _p
-		element.mouse_entered.connect(_mouse_hover.bind(true))
-		element.mouse_exited.connect(_mouse_hover.bind(false))
-	
-	func _mouse_hover(entered: bool):
-		if molecule and is_instance_valid(molecule.border_line):
-			molecule.border_line.visible = entered
-
 ## os slots
 # ------------------------- #
 ##   slot   |    x    |  y  |
@@ -38,7 +19,7 @@ class Slot:
 ## accelr B |  9 e 11 |  4  |
 # ------------------------- #
 
-## {Vector2i position : Slot slot}
+## {Vector2i position : ArenaSlot slot}
 var action_in_process: bool
 var reactor_canceled_by_effect: bool
 
@@ -76,13 +57,13 @@ func remove_element(slot_position: Vector2i):
 	if not elements.has(slot_position):
 		return
 	
-	var slot: Slot = elements[slot_position]
+	var slot: ArenaSlot = elements[slot_position]
 	
 	if not GameJudge.can_remove_element(slot.element):
 		return
 	
 	if slot.molecule:
-		var neigbors: Array[ElementBase]
+		var neigbors: Array[Element]
 		
 		if slot.defend_mode:
 			slot.molecule.defender = null
@@ -109,7 +90,7 @@ func remove_element(slot_position: Vector2i):
 		get_child(slot_position.x + (slot_position.y * 8)).visible = true
 
 
-func _remove_element(slot: Slot, slot_position: Vector2i):
+func _remove_element(slot: ArenaSlot, slot_position: Vector2i):
 	slot.element.queue_free()
 	elements.erase(slot_position)
 
@@ -121,8 +102,8 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	action_in_process = true
 	
-	var element: ElementBase = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
-	var slot = Slot.new(element, player)
+	var element: Element = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
+	var slot = ArenaSlot.new(element, player)
 	
 	element.build(atomic_number)
 	element.grid_position = _position
@@ -144,14 +125,14 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	return element
 
 
-func link_elements(element_a: ElementBase, element_b: ElementBase):
+func link_elements(element_a: Element, element_b: Element):
 	if action_in_process:
 		return
 	
 	action_in_process = true
 	
-	var slot_a: Slot = elements[element_a.grid_position]
-	var slot_b: Slot = elements[element_b.grid_position]
+	var slot_a: ArenaSlot = elements[element_a.grid_position]
+	var slot_b: ArenaSlot = elements[element_b.grid_position]
 	
 	if not element_a.can_link(element_b) or element_b.number_electrons_in_valencia == 0:
 		print("ata")
@@ -190,7 +171,7 @@ func link_elements(element_a: ElementBase, element_b: ElementBase):
 	action_in_process = false
 
 
-func unlink_elements(element_A: ElementBase, element_B: ElementBase):
+func unlink_elements(element_A: Element, element_B: Element):
 	if _unlink_elements(element_A, element_B):
 		_handle_molecule(element_A)
 		_handle_molecule(element_B)
@@ -206,8 +187,8 @@ func unlink_elements(element_A: ElementBase, element_B: ElementBase):
 func attack_element(attacker: Vector2i, defender: Vector2i):
 	if not elements[attacker].can_act or action_in_process: return
 	
-	var slot_attacker: Slot = elements[attacker]
-	var slot_defender: Slot = elements[defender]
+	var slot_attacker: ArenaSlot = elements[attacker]
+	var slot_defender: ArenaSlot = elements[defender]
 	
 	action_in_process = true
 	
@@ -225,7 +206,7 @@ func defend_mode(element: Vector2i):
 	if not elements[element].can_act or action_in_process:
 		return
 	
-	var slot: Slot = elements[element]
+	var slot: ArenaSlot = elements[element]
 	action_in_process = true
 	
 	if slot.molecule and not slot.eletrons_charged:
@@ -243,7 +224,7 @@ func defend_mode(element: Vector2i):
 func direct_attack(attacker: Vector2i):
 	if not elements[attacker].can_act or action_in_process: return
 	
-	var slot_attacker: Slot = elements[attacker]
+	var slot_attacker: ArenaSlot = elements[attacker]
 	action_in_process = true
 	
 	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
@@ -334,7 +315,7 @@ func _drop_data(_p, data):
 	if get_global_mouse_position().x - GRID_OFFSET.x < 0:
 		final_position.x = 15 + final_position.x
 	
-	if data is ElementBase:
+	if data is Element:
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:
