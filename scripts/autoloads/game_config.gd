@@ -1,6 +1,16 @@
 extends Node
 
 const LOAD_SCREEN := preload("res://scenes/load_screen.tscn")
+const MOUSE_IMAGE := {
+	DEFAULT = preload("res://assets/img/mouse/default.png"),
+	ATACK = preload("res://assets/img/mouse/atack.png"),
+	ACTION = preload("res://assets/img/mouse/action.png"),
+	BLOQ = preload("res://assets/img/mouse/bloq.png"),
+	LINK = preload("res://assets/img/mouse/link.png"),
+	DESLINK = preload("res://assets/img/mouse/deslink.png"),
+	MOVE = preload("res://assets/img/mouse/move.png"),
+	MOVE_ACTION = preload("res://assets/img/mouse/move_action.png"),
+}
 
 class Match:
 	var progress_mode: bool
@@ -43,6 +53,18 @@ func _ready():
 			)
 
 
+func mouse_image():
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.DEFAULT,     Input.CURSOR_ARROW,         Vector2( 0,  0))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.ACTION,      Input.CURSOR_POINTING_HAND, Vector2( 0,  0))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.MOVE,        Input.CURSOR_DRAG,          Vector2(16, 16))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.MOVE,        Input.CURSOR_MOVE,          Vector2(16, 16))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.ATACK,       Input.CURSOR_WAIT,          Vector2( 0,  0))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.BLOQ,        Input.CURSOR_FORBIDDEN,     Vector2(16, 17))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.MOVE_ACTION, Input.CURSOR_CAN_DROP,      Vector2(16, 16))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.LINK,        Input.CURSOR_HSIZE,         Vector2(16, 16))
+	Input.set_custom_mouse_cursor(MOUSE_IMAGE.DESLINK,     Input.CURSOR_HSPLIT,        Vector2(16, 16))
+
+
 func start_game(saga_id: int, level_id: int):
 	var saga: Dictionary = GameBook.SAGAS[saga_id]
 	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][level_id]
@@ -75,21 +97,3 @@ func advance_progress():
 	
 	SaveLoad.save_data(save)
 
-var mg : Dictionary = {
-	default = load("res://assets/img/mouse/default.png"),
-	atack = load("res://assets/img/mouse/atack.png"),
-	action = load("res://assets/img/mouse/action.png"),
-	bloq = load("res://assets/img/mouse/bloq.png"),
-	link = load("res://assets/img/mouse/link.png"),
-	deslink = load("res://assets/img/mouse/deslink.png"),
-	move = load("res://assets/img/mouse/move.png"),
-	move_action = load("res://assets/img/mouse/move_action.png"),
-}
-
-func mouse_image() -> void:
-	Input.set_custom_mouse_cursor(mg.default,Input.CURSOR_ARROW)
-	Input.set_custom_mouse_cursor(mg.action,Input.CURSOR_POINTING_HAND)
-	Input.set_custom_mouse_cursor(mg.move,Input.CURSOR_DRAG)
-	Input.set_custom_mouse_cursor(mg.move,Input.CURSOR_MOVE)
-	Input.set_custom_mouse_cursor(mg.bloq,Input.CURSOR_FORBIDDEN)
-	Input.set_custom_mouse_cursor(mg.move_action,Input.CURSOR_CAN_DROP)

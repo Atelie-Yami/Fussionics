@@ -16,7 +16,7 @@ func _gui_input(event: InputEvent):
 
 func _mouse_entered():
 	if Gameplay.action_state == Gameplay.ActionState.ATTACK:
-		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		mouse_default_cursor_shape = Control.CURSOR_WAIT
 
 	else:
 		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN

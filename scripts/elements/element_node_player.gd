@@ -44,9 +44,19 @@ func _get_drag_data(_p):
 func _mouse_entered():
 	if not disabled:
 		_set_current_node_state(NodeState.HOVER)
+		
 		mouse_default_cursor_shape = (
 				Control.CURSOR_POINTING_HAND if has_link else
 				Control.CURSOR_MOVE
 		)
+		
+		if Gameplay.selected_element != self:
+			match Gameplay.action_state:
+				Gameplay.ActionState.LINK:
+					mouse_default_cursor_shape = Control.CURSOR_HSIZE
+				
+				Gameplay.ActionState.UNLINK:
+					mouse_default_cursor_shape = Control.CURSOR_HSPLIT
+		
 	else:
 		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
