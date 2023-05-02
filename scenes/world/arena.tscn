@@ -63,25 +63,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7mv5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vb181"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fd1po"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dr7ha"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltjep"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gnkvw"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v73eo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x4u3w"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -559,19 +559,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_v7mv5")
+material = SubResource("ShaderMaterial_vb181")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_fd1po")
+material = SubResource("ShaderMaterial_dr7ha")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_ltjep")
+material = SubResource("ShaderMaterial_gnkvw")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_v73eo")
+material = SubResource("ShaderMaterial_x4u3w")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -796,7 +796,8 @@ explosiveness = 1.0
 randomness = 1.0
 visibility_rect = Rect2(-512, -512, 1024, 1024)
 
-[node name="Bot" type="Node" parent="Player_B"]
+[node name="Bot" type="Timer" parent="Player_B"]
+one_shot = true
 script = ExtResource("18_pcprk")
 
 [node name="dead" type="Node2D" parent="Player_B"]

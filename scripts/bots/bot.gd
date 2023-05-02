@@ -1,4 +1,4 @@
-class_name Bot extends Node
+class_name Bot extends Timer
 ## classe que detem os links e referencias do jogo, classe generica
 
 const MAX_SEARCH_TEST := 40
@@ -11,9 +11,6 @@ var deck := GameBook.DECK.duplicate(true)
 
 
 func _ready():
-	add_child(breath_time)
-	breath_time.one_shot = true
-	
 	chip = GameConfig.game_match.bot_chip.new()
 	player.play.connect(_play)
 

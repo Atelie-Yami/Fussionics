@@ -241,7 +241,7 @@ func direct_attack(attacker: Vector2i):
 			slot_attacker.molecule and slot_attacker.element.effect and slot_attacker.element.effect is MoleculeEffect and
 			slot_attacker.element.effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER
 	):
-		pass
+		pass # tomar alguma providencia quando tiver efeito de molecula ao atacar o omega
 	
 	current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
 	slot_attacker.element.disabled = true
