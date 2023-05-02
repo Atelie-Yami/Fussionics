@@ -27,6 +27,8 @@ var last_widget_progress: int = 0
 
 
 func _ready():
+	mouse_image()
+	
 	save = SaveLoad.load_data()
 	
 	for saga in save.campaign_progress:
@@ -73,3 +75,21 @@ func advance_progress():
 	
 	SaveLoad.save_data(save)
 
+var mg : Dictionary = {
+	default = load("res://assets/img/mouse/default.png"),
+	atack = load("res://assets/img/mouse/atack.png"),
+	action = load("res://assets/img/mouse/action.png"),
+	bloq = load("res://assets/img/mouse/bloq.png"),
+	link = load("res://assets/img/mouse/link.png"),
+	deslink = load("res://assets/img/mouse/deslink.png"),
+	move = load("res://assets/img/mouse/move.png"),
+	move_action = load("res://assets/img/mouse/move_action.png"),
+}
+
+func mouse_image() -> void:
+	Input.set_custom_mouse_cursor(mg.default,Input.CURSOR_ARROW)
+	Input.set_custom_mouse_cursor(mg.action,Input.CURSOR_POINTING_HAND)
+	Input.set_custom_mouse_cursor(mg.move,Input.CURSOR_DRAG)
+	Input.set_custom_mouse_cursor(mg.move,Input.CURSOR_MOVE)
+	Input.set_custom_mouse_cursor(mg.bloq,Input.CURSOR_FORBIDDEN)
+	Input.set_custom_mouse_cursor(mg.move_action,Input.CURSOR_CAN_DROP)
