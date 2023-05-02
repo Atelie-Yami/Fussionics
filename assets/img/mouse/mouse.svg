@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="43mm"
+   height="36mm"
+   viewBox="0 0 43 36"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="mouse.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#000000"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#b67979"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="150.26019"
+     inkscape:cy="153.44217"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path5488"
+       style="fill:#2d2737;fill-opacity:1;fill-rule:evenodd;stroke-width:0.923568;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="M 4.5440596,2.3377274 12.47681,6.3630194 11.757956,9.5516234 8.5693516,10.270477 Z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\default.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="rect5485"
+       style="fill:#49496b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="M 4.2265348,2.0202014 13.43649,5.0341734 11.038327,8.8319954 7.2405066,11.230158 Z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path12854"
+       style="fill:#767690;fill-opacity:1;fill-rule:evenodd;stroke-width:1.09546;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 15.2419,1.7620274 8.374863,3.740194 -0.852637,3.782032 -3.782032,0.8526376 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\action.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path12856"
+       style="fill:#bdb7cb;fill-opacity:1;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 15.232704,1.7528324 9.016179,2.820193 -2.395394,3.800591 -3.800592,2.3953936 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path16578"
+       style="fill:#232337;fill-opacity:1;fill-rule:evenodd;stroke-width:0.798909;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 5.5953279,3.3705954 6.0119491,2.216706 -1.222795,2.572449 -2.5724484,1.222796 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path16580"
+       style="fill:#587fc4;fill-opacity:1;fill-rule:evenodd;stroke-width:0.796072;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 16.800313,3.3702664 5.621374,1.839606 -1.269138,2.512629 -2.512633,1.269142 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path25066"
+       style="fill:#bac1d7;fill-opacity:1;fill-rule:evenodd;stroke-width:1.09546;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 15.2419,1.7620274 8.374863,3.740194 -0.852637,3.782032 -3.782032,0.8526376 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path25068"
+       style="fill:#5b6999;fill-opacity:1;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 15.232704,1.7528324 9.016179,2.820193 -2.395394,3.800591 -3.800592,2.3953936 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path25070"
+       style="fill:#dce6f6;fill-opacity:1;fill-rule:evenodd;stroke-width:0.806936;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 16.795414,3.3653684 5.698174,1.864739 -1.286478,2.546957 -2.546959,1.286478 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path25074"
+       style="fill:#8d738b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.09546;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 24.785333,2.3755864 7.984568,3.349896 -0.462341,4.1723293 -4.172328,0.4623413 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\atack.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path25080"
+       style="fill:#c6a2b6;fill-opacity:0;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 24.776138,2.3663894 9.016177,2.820194 -2.043067,4.152915 -4.152918,2.0430686 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path27325"
+       style="fill:#e0aeca;fill-opacity:1;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 24.773241,2.3692864 7.507478,1.311494 -0.534369,5.661616 -5.661615,0.5343683 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path25082"
+       style="fill:#c36a8f;fill-opacity:1;fill-rule:evenodd;stroke-width:0.89281;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 25.575842,3.1663734 5.827305,1.339081 -0.473694,4.014532 -4.014534,0.473695 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path29611"
+       style="fill:#515d88;fill-opacity:1;fill-rule:evenodd;stroke-width:1.01686;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 7.9694536,13.942407 3.2778494,3.17263 -6.15e-4,2.769075 -3.2772064,3.224428 -3.2772055,-3.224428 -0.01729,-2.769075 z"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\move.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path29613"
+       style="fill:#c6a2b6;fill-opacity:0;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="M 7.9694536,13.193452 12.350675,21.563029 7.9694536,23.054917 3.5882307,21.563029 Z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path29617"
+       style="fill:#7b9ad1;fill-opacity:1;fill-rule:evenodd;stroke-width:0.714428;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="M 7.9645376,15.090611 11.338599,18.539478 7.9645376,21.88148 4.5079121,18.539478 Z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="rect29675"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1.8126;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 7.9721236,14.298869 -1.4355717,1.767334 0.8991697,-0.259932 v 2.203483 H 5.233789 l 0.2604492,-0.90072 -1.769401,1.437121 1.769401,1.367876 -0.2563151,-0.887285 h 2.1977985 v 2.18798 l -0.9012368,-0.259932 1.4376388,1.769401 1.367875,-1.769401 -0.887285,0.255798 v -2.183846 h 2.1853974 l -0.255282,0.885734 1.767333,-1.366325 -1.767333,-1.435571 0.259416,0.89917 H 8.4527136 v -2.199349 l 0.885218,0.255798 z" />
+    <path
+       id="path13380"
+       style="fill:#2d2737;fill-opacity:1;fill-rule:evenodd;stroke-width:1.01686;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 17.700856,13.942407 3.27785,3.17263 -6.16e-4,2.769075 -3.277205,3.224428 -3.277206,-3.224428 -0.0173,-2.769075 z"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\bloq.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path13382"
+       style="fill:#c6a2b6;fill-opacity:0;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 17.700856,13.193452 4.381222,8.369577 -4.381222,1.491888 -4.381223,-1.491888 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path13384"
+       style="fill:#bb527e;fill-opacity:1;fill-rule:evenodd;stroke-width:1.23872;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 17.697291,14.095729 2.160433,2.21287 2.226548,2.212869 -2.226548,2.162929 -2.160433,2.162933 -2.226548,-2.162933 -2.226547,-2.162929 2.226547,-2.212869 z"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\path13384.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path13386"
+       style="fill:#562c46;fill-opacity:1;fill-rule:evenodd;stroke-width:0.713209;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 17.69587,15.096405 3.368303,3.442982 -3.368303,3.336299 -3.450727,-3.336299 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="rect15643"
+       style="fill:#bb527e;fill-opacity:1;fill-rule:evenodd;stroke-width:1.84775;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 15.944737,15.946612 -0.814864,0.814865 1.733229,1.73355 -1.733229,1.73323 0.814864,0.814864 1.73355,-1.733551 1.733231,1.733551 0.814864,-0.814864 -1.733551,-1.733231 1.733551,-1.733549 -0.814864,-0.814865 -1.733231,1.73323 z" />
+    <path
+       id="path21316"
+       style="fill:#885171;fill-opacity:1;fill-rule:evenodd;stroke-width:1.01686;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 27.398556,13.942407 3.277851,3.17263 -6.16e-4,2.769075 -3.277206,3.224428 -3.277207,-3.224428 -0.0173,-2.769075 z"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\deslink.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path21318"
+       style="fill:#c6a2b6;fill-opacity:0;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 27.398556,13.193452 4.381223,8.369577 -4.381223,1.491888 -4.381223,-1.491888 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path21320"
+       style="fill:#e0aeca;fill-opacity:1;fill-rule:evenodd;stroke-width:1.21873;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 27.394459,14.166355 2.125561,2.177154 2.190613,2.177153 -2.190613,2.128019 -2.125561,2.128023 -2.190612,-2.128023 -2.190611,-2.128019 2.190611,-2.177153 z"
+       sodipodi:nodetypes="ccccccccc" />
+    <path
+       id="path21322"
+       style="fill:#a35372;fill-opacity:1;fill-rule:evenodd;stroke-width:0.714428;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 27.393641,15.090611 3.374061,3.448867 -3.374061,3.342002 -3.456625,-3.342002 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path29643"
+       style="fill:#49496b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.01686;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 36.358757,13.942407 3.277853,3.17263 -6.63e-4,2.769075 -3.277204,3.224428 -3.277207,-3.224428 -0.0173,-2.769075 z"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\link.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path29645"
+       style="fill:#c6a2b6;fill-opacity:0;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 36.358757,13.193452 4.381223,8.369577 -4.381223,1.491888 -4.381221,-1.491888 z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path29647"
+       style="fill:#9eb9e5;fill-opacity:1;fill-rule:evenodd;stroke-width:1.21873;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 36.35466,14.166355 2.125562,2.177155 2.190612,2.177152 -2.190612,2.128019 -2.125562,2.128023 -2.19061,-2.128023 -2.190611,-2.128019 2.190611,-2.177152 z"
+       sodipodi:nodetypes="ccccccccc" />
+    <path
+       id="path29649"
+       style="fill:#7e7eaf;fill-opacity:1;fill-rule:evenodd;stroke-width:0.714428;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 36.353844,15.09061 3.37406,3.448868 -3.37406,3.342002 -3.456626,-3.342002 z"
+       sodipodi:nodetypes="ccccc" />
+    <rect
+       style="fill:#fefefe;fill-opacity:1;fill-rule:evenodd;stroke-width:1.1844;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect29651"
+       width="1.7157731"
+       height="1.6951014"
+       x="37.167831"
+       y="17.66852"
+       rx="0.38825989"
+       ry="0.38825989" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1.33798;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect29595"
+       width="2.705271"
+       height="1.067016"
+       x="34.928143"
+       y="17.988615"
+       rx="0.40479636"
+       ry="0.40479636" />
+    <rect
+       style="fill:#fefefe;fill-opacity:1;fill-rule:evenodd;stroke-width:1.1844;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect30381"
+       width="1.7157731"
+       height="1.6951014"
+       x="33.794834"
+       y="17.66852"
+       rx="0.43786877"
+       ry="0.43786877" />
+    <rect
+       style="fill:#472234;fill-opacity:1;fill-rule:evenodd;stroke-width:1.33798;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect33109"
+       width="2.705271"
+       height="1.067016"
+       x="25.951307"
+       y="17.988615"
+       rx="0"
+       ry="0" />
+    <rect
+       style="fill:#5d2e43;fill-opacity:1;fill-rule:evenodd;stroke-width:1.1844;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect33107"
+       width="1.7157731"
+       height="1.6951014"
+       x="28.191004"
+       y="17.66852"
+       rx="0.34726563"
+       ry="0.34726563" />
+    <rect
+       style="fill:#5d2e43;fill-opacity:1;fill-rule:evenodd;stroke-width:1.1844;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect33111"
+       width="1.7157731"
+       height="1.6951014"
+       x="24.818003"
+       y="17.66852"
+       rx="0.35518619"
+       ry="0.35518619" />
+    <rect
+       style="fill:#a35372;fill-opacity:1;fill-rule:evenodd;stroke-width:1.51029;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect33234"
+       width="0.8456434"
+       height="2.638684"
+       x="26.945507"
+       y="17.120741"
+       rx="0"
+       ry="0" />
+    <rect
+       style="fill:#a35372;fill-opacity:1;fill-rule:evenodd;stroke-width:1.30097;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       id="rect33236"
+       width="0.8456434"
+       height="1.9579298"
+       x="26.945507"
+       y="17.516317"
+       rx="0"
+       ry="0" />
+    <path
+       id="path43910"
+       style="fill:#a2bff0;fill-opacity:1;fill-rule:evenodd;stroke-width:1.11383;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 7.9470796,24.279691 4.2360524,4.27773 -7.97e-4,-2.64e-4 -4.2352214,4.232587 -4.2571068,-4.232587 -4.586e-4,2.64e-4 z"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="..\GitHub\Fussionics\assets\img\mouse\move_action.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       id="path43912"
+       style="fill:#c6a2b6;fill-opacity:0;fill-rule:evenodd;stroke-width:1.30427;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="M 7.9694536,23.202696 12.350675,31.572273 7.9694536,33.064161 3.5882307,31.572273 Z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path43914"
+       style="fill:#1c2a56;fill-opacity:1;fill-rule:evenodd;stroke-width:0.557886;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="M 7.9554926,25.843847 10.590245,28.537014 7.9554926,31.146732 5.2562668,28.537014 Z"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path43916"
+       style="fill:#4d6291;fill-opacity:1;fill-rule:evenodd;stroke-width:1.63148;stroke-linecap:square;stroke-miterlimit:0;paint-order:markers fill stroke"
+       d="m 7.9686636,24.729063 -1.292122,1.590733 0.80932,-0.233959 v 1.983301 H 5.5039568 l 0.2344239,-0.810716 -1.592594,1.293517 1.592594,1.231192 -0.2307029,-0.798623 h 1.9781838 v 1.969345 l -0.811181,-0.233958 1.293983,1.592594 1.231191,-1.592594 -0.798623,0.230238 v -1.965625 h 1.9670214 l -0.229773,0.797226 1.590732,-1.229795 -1.590732,-1.292121 0.233494,0.80932 H 8.4012316 v -1.979579 l 0.796762,0.230237 z" />
+  </g>
+</svg>
