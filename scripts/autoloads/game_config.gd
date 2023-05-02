@@ -13,14 +13,16 @@ const MOUSE_IMAGE := {
 }
 
 class Match:
+	var bot_deck: Array
 	var progress_mode: bool
 	var bot_chip: GDScript
 	var campaign: int
 	var level: int
 	
-	func _init(c: int, l: int, p: bool, chip: String):
+	func _init(c: int, l: int, p: bool, chip: String, deck: Array):
 		campaign = c; level = l; progress_mode = p
 		bot_chip = load(chip)
+		bot_deck = deck
 
 class Widget:
 	var atomic_number: int
@@ -72,7 +74,11 @@ func start_game(saga_id: int, level_id: int):
 			(saga_id == save.campaign_progress and level_id == save.saga_progress) or 
 			(saga_id > save.campaign_progress and level_id == 0)
 	)
-	game_match = Match.new(saga_id, level_id, progress_mode, saga[GameBook.Campagn.BOTS][phase[GameBook.Campagn.PHASES_CONFIG]])
+	game_match = Match.new(
+			saga_id, level_id, progress_mode,
+			saga[GameBook.Campagn.BOTS][phase[GameBook.Campagn.PHASES_CONFIG]],
+			phase[GameBook.Campagn.WIDGETS],
+	)
 	restart_game()
 
 

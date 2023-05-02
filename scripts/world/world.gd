@@ -7,7 +7,6 @@ extends Node2D
 @onready var vfx = $VFX
 
 
-
 func _init():
 	Gameplay.world = self
 

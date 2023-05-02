@@ -5,6 +5,10 @@ enum Result {
 	COUNTERATTACK, # se perdeu e foi contra atacado
 	DRAW, # sem resultado, ninguem perdeu
 }
+const REACTOR_POSITIONS := [
+	Vector2i( 9, 0), Vector2i(11, 0), Vector2i( 9, 4), Vector2i(11, 4),
+	Vector2i(12, 0), Vector2i(14, 0), Vector2i(12, 4), Vector2i(14, 4),
+]
 
 static func combat_check_result(element_attacker: Element, element_defender: Element, defended: bool) -> Result:
 	if (
@@ -125,6 +129,15 @@ static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 				enemies.append(Gameplay.arena.elements[_pos].element)
 
 
+static func calcule_max_molecule_eletrons_power(molecule: Molecule):
+	var power := 0
+	
+	for element in molecule.configuration:
+		power += element.eletrons
+	
+	return power
+
+
 static func charge_eletrons_power(header: Element, molecule: Molecule):
 	var power := 0
 	var charged_elements: Array[Element]
@@ -179,3 +192,18 @@ static func is_neighbor_to_link(position: Vector2i):
 	var x: int = abs(Gameplay.selected_element.grid_position.x - position.x)
 	var y: int = abs(Gameplay.selected_element.grid_position.y - position.y)
 	return (x == 1 and y != 1) or (x != 1 and y == 1)
+
+
+static func is_element_in_reactor(position: Vector2i):
+	return REACTOR_POSITIONS.has(position)
+
+
+static func is_molecule_opened(molecule: Molecule):
+	for elements in molecule.configuration:
+		if elements.number_electrons_in_valencia <= 0:
+			continue
+		
+		for link in elements.links:
+			if elements.links[link]:
+				return true
+	return false
