@@ -63,25 +63,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7mv5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8l7s"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fd1po"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwbij"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltjep"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fummi"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v73eo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_krjsy"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -559,19 +559,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_v7mv5")
+material = SubResource("ShaderMaterial_j8l7s")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_fd1po")
+material = SubResource("ShaderMaterial_uwbij")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_ltjep")
+material = SubResource("ShaderMaterial_fummi")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_v73eo")
+material = SubResource("ShaderMaterial_krjsy")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
