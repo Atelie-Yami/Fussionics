@@ -22,7 +22,7 @@ func get_modus(_analysis: FieldAnalysis) -> Bot.ModusOperandi:
 	return Bot.ModusOperandi.UNDECIDED
 
 
-func make_decision(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi):
-	pass
+func make_decision(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
+	return {}
 
 

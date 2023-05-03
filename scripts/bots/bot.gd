@@ -26,12 +26,12 @@ func _play():
 	# talvez tratar modus_operandi antes de atualizar
 	modus_operandi = chip.get_modus(analysis)
 	
-	await chip.make_decision(self, analysis, modus_operandi)
+	var desicion: Dictionary = await chip.make_decision(self, analysis, modus_operandi)
 	
 	var modus_callable: Array[Callable] = [
 			chip.aggressive, chip.defensive, chip.indecided, chip.tatical_aggressive, chip.tatical_defensive
 	]
-	await modus_callable[modus_operandi].call(self, analysis)
+	await modus_callable[modus_operandi].call(self, desicion)
 	
 	end_turn()
 

@@ -2,10 +2,10 @@ class_name BotChip extends RefCounted
 ## classe que detem as caracteristicas e modus operandi do bot
 
 enum Action {
-	DESTROY, DEFEND, POTENTIALIZE, MITIGATE, MERGE, COOK,
+	DESTROY, DEFEND, POTENTIALIZE, MITIGATE, MERGE, COOK, CREATE
 }
 enum ActionTarget {
-	MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
+	NEW, MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
 }
 
 class FieldAnalysis:
@@ -20,6 +20,14 @@ class FieldAnalysis:
 	
 	var has_my_elements_in_field: bool
 	var has_rival_elements_in_field: bool
+
+class Decision:
+	var decision_link: Decision # se tem outra tarefa antes dessa completar
+	var completed: bool
+	
+	var action: Action
+	var action_target: ActionTarget
+	var targets: Array
 
 
 func analysis(bot: Bot) -> FieldAnalysis:
@@ -62,5 +70,5 @@ func get_modus(analysis: FieldAnalysis):
 	pass
 
 
-func make_decision(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi):
-	pass
+func make_decision(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
+	return {}
