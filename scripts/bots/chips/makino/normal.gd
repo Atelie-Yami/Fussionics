@@ -1,28 +1,27 @@
 extends BotChip
 
 
-
 func get_modus(_analysis: FieldAnalysis) -> Bot.ModusOperandi:
-	if not _analysis.has_my_elements_in_field and _analysis.has_rival_elements_in_field:
-		return Bot.ModusOperandi.DEFENSIVE
-	
-	if _analysis.has_my_elements_in_field and not _analysis.has_rival_elements_in_field:
-		return Bot.ModusOperandi.AGGRESSIVE
-	
-	for m in _analysis.my_molecules:
-		var power: int = GameJudge.calcule_max_molecule_eletrons_power(m)
-		if power > 7 and GameJudge.is_molecule_opened(m):
-			return Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE
-	
-	if _analysis.my_molecules.is_empty():
-		for e in _analysis.my_single_elements:
-			if e.atomic_number > 3:
-				return Bot.ModusOperandi.STRATEGICAL_DEFENSIVE
-	
-	return Bot.ModusOperandi.UNDECIDED
+	return ChipSetAmethist.get_modus(_analysis)
 
 
-func make_decision(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
-	return {}
+func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, _analysis: BotChip.FieldAnalysis):
+	match modus:
+		Bot.ModusOperandi.AGGRESSIVE:
+			return ChipSetAmethist.aggressive(bot, _analysis)
+		
+		Bot.ModusOperandi.DEFENSIVE:
+			return ChipSetAmethist.defensive(bot, _analysis)
+		
+		Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE:
+			return ChipSetAmethist.tatical_aggressive(bot, _analysis)
+		
+		Bot.ModusOperandi.STRATEGICAL_DEFENSIVE:
+			return ChipSetAmethist.tatical_defensive(bot, _analysis)
+		
+		Bot.ModusOperandi.UNDECIDED:
+			return ChipSetAmethist.indecided(bot, _analysis)
 
 
+func execute(bot: Bot, desicions: Array[BotChip.Decision]):
+	await ChipSetAmethist.execute(bot, desicions)

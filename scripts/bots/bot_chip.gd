@@ -70,5 +70,27 @@ func get_modus(analysis: FieldAnalysis):
 	pass
 
 
-func make_decision(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
-	return {}
+func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.FieldAnalysis):
+	match modus:
+		Bot.ModusOperandi.AGGRESSIVE:
+			pass
+		
+		
+		Bot.ModusOperandi.DEFENSIVE:
+			pass
+		
+		
+		Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE:
+			pass
+		
+		
+		Bot.ModusOperandi.STRATEGICAL_DEFENSIVE:
+			pass
+		
+		
+		Bot.ModusOperandi.UNDECIDED:
+			pass
+
+
+func execute(bot: Bot, desicions: Array[BotChip.Decision]):
+	pass

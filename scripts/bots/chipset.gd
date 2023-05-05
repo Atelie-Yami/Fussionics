@@ -1,26 +1,33 @@
 class_name ChipSet extends RefCounted
 
+static func get_modus(_analysis: BotChip.FieldAnalysis) -> Bot.ModusOperandi:
+	return Bot.ModusOperandi.UNDECIDED
 
-func decision(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
+
+static func execute(bot: Bot, desicions: Array[BotChip.Decision]):
+	pass
+
+
+static func decision(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
 	return {}
 
 
-func aggressive():
-	pass
+static func aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	return []
 
 
-func defensive():
-	pass
+static func defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	return []
 
 
-func indecided():
-	pass
+static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
+	return []
 
 
-func tatical_aggressive():
-	pass
+static func tatical_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	return []
 
 
-func tatical_defensive():
-	pass
+static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	return []
 

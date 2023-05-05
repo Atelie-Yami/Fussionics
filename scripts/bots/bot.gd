@@ -22,25 +22,16 @@ func _ready():
 
 func _play():
 	var analysis: BotChip.FieldAnalysis = await chip.analysis(self)
-	
-	# talvez tratar modus_operandi antes de atualizar
+	## da pra analizar o modus_operandi antes de atualizar
 	modus_operandi = chip.get_modus(analysis)
 	
-	var desicion: Dictionary = await chip.make_decision(self, analysis, modus_operandi)
-	
-	var modus_callable: Array[Callable] = [
-			chip.aggressive, chip.defensive, chip.indecided, chip.tatical_aggressive, chip.tatical_defensive
-	]
-	await modus_callable[modus_operandi].call(self, desicion)
-	
+	var desicions: Array[BotChip.Decision] = chip.call_modus_action(modus_operandi, self, analysis)
+	await chip.execute(self, desicions)
 	end_turn()
 
 
 func end_turn():
 	player.arena.turn_machine.next_phase()
-
-
-
 
 
 func get_empty_slot():
