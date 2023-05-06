@@ -70,7 +70,7 @@ func get_modus(analysis: FieldAnalysis):
 	pass
 
 
-func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.FieldAnalysis):
+func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.FieldAnalysis) -> Array[BotChip.Decision]:
 	match modus:
 		Bot.ModusOperandi.AGGRESSIVE:
 			pass
@@ -90,6 +90,9 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.Fie
 		
 		Bot.ModusOperandi.UNDECIDED:
 			pass
+	
+	var ops: Array[BotChip.Decision]
+	return ops
 
 
 func execute(bot: Bot, desicions: Array[BotChip.Decision]):

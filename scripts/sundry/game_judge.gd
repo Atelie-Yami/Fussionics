@@ -26,6 +26,15 @@ static func combat_check_result(element_attacker: Element, element_defender: Ele
 	return Result.DRAW
 
 
+static func can_element_link(element: Element) -> bool:
+	var has_ligament_empty: bool
+	for link in element.links:
+		if not element.links[link]:
+			has_ligament_empty = true
+			break
+	return has_ligament_empty and element.number_electrons_in_valencia > 0
+
+
 static func can_element_attack(element: Element) -> bool:
 	if element.disabled:
 		return false

@@ -76,3 +76,18 @@ func create_element(atomic_number: int, position: Vector2i):
 	start(0.2)
 	await timeout
 	return element
+
+
+func move_element_to_slot(element: Element, slot_position: Vector2i):
+	var final_position: Vector2 = Gameplay.arena._get_snapped_slot_position(slot_position)
+	
+	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(element, "position", final_position, 0.3)
+	await tween.finished
+	
+	Gameplay.arena.move_element(element.grid_position, slot_position)
+	
+	
+	
+	
+	

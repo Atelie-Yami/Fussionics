@@ -8,26 +8,32 @@ static func execute(bot: Bot, desicions: Array[BotChip.Decision]):
 	pass
 
 
-static func decision(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi) -> Dictionary:
-	return {}
+static func decision(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi):
+	var decision_list: Array[BotChip.Decision]
+	return decision_list
 
 
 static func aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
-	return []
+	var decision_list: Array[BotChip.Decision]
+	return decision_list
 
 
 static func defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
-	return []
+	var decision_list: Array[BotChip.Decision]
+	return decision_list
 
 
 static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
-	return []
+	var decision_list: Array[BotChip.Decision]
+	return decision_list
 
 
 static func tatical_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
-	return []
+	var decision_list: Array[BotChip.Decision]
+	return decision_list
 
 
 static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
-	return []
+	var decision_list: Array[BotChip.Decision]
+	return decision_list
 
