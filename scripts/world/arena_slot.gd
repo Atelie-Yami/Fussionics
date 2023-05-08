@@ -8,6 +8,7 @@ var molecule: Molecule
 var skill_used: bool = false
 var eletrons_charged: bool
 var can_act: bool = true
+var has_attacked: bool
 var defend_mode: bool
 
 
@@ -20,3 +21,10 @@ func _init(_e: Element, _p: PlayerController.Players):
 func _mouse_hover(entered: bool):
 	if molecule and is_instance_valid(molecule.border_line):
 		molecule.border_line.visible = entered
+
+
+func disable():
+		element.active = false
+		has_attacked = false
+		skill_used = true
+		can_act = false

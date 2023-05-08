@@ -24,7 +24,7 @@ extends Node
 #
 		for i in some_array.size():
 			var string = (some_array[i] as String).left(-2) + ", RANKING: " + str(randi() % 4) + "},"
-			print(string)
+
 
 
 

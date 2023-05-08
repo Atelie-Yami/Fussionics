@@ -55,10 +55,7 @@ func set_turn(active: bool):
 
 func disable_elements():
 	for pos in arena.elements:
-		var slot = arena.elements[pos]
-		slot.element.active = false
-		slot.skill_used = true
-		slot.can_act = false
+		arena.elements[pos].disable()
 
 
 func take_damage(danage: int):

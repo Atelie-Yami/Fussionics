@@ -100,7 +100,6 @@ func _remove_element(slot: ArenaSlot, slot_position: Vector2i, animated: bool):
 
 func create_element(atomic_number: int, player: Players, _position: Vector2i, focus: bool):
 	if action_in_process or not _check_slot_empty(_position) or _check_slot_only_out(_position):
-		print("ata")
 		return
 	
 	action_in_process = true
@@ -132,14 +131,13 @@ func link_elements(element_a: Element, element_b: Element):
 	if action_in_process:
 		return
 	
-	action_in_process = true
-	
 	var slot_a: ArenaSlot = elements[element_a.grid_position]
 	var slot_b: ArenaSlot = elements[element_b.grid_position]
 	
 	if not element_a.can_link(element_b) or element_b.number_electrons_in_valencia == 0:
-		print("ata")
 		return
+	
+	action_in_process = true
 	
 	if slot_a.molecule and slot_b.molecule:
 		if slot_a.molecule == slot_b.molecule:
@@ -183,12 +181,11 @@ func unlink_elements(element_A: Element, element_B: Element):
 		
 		await ElementEffectManager.call_effects(player, BaseEffect.SkillType.UNLINKED)
 		current_players[player].spend_energy(1)
-	else:
-		print("has not link")
 
 
 func attack_element(attacker: Vector2i, defender: Vector2i):
-	if not elements[attacker].can_act or action_in_process: return
+	if not elements[attacker].can_act or action_in_process or elements[attacker].has_attacked:
+		return
 	
 	var slot_attacker: ArenaSlot = elements[attacker]
 	var slot_defender: ArenaSlot = elements[defender]
@@ -226,7 +223,7 @@ func defend_mode(element: Vector2i):
 
 
 func direct_attack(attacker: Vector2i):
-	if not elements[attacker].can_act or action_in_process:
+	if not elements[attacker].can_act or action_in_process or elements[attacker].has_attacked:
 		return
 	
 	var slot_attacker: ArenaSlot = elements[attacker]
@@ -236,7 +233,6 @@ func direct_attack(attacker: Vector2i):
 	await Gameplay.world.vfx.handler_attack(
 			slot_attacker.element, Vector2(109 if slot_attacker.player else 1811, 540)
 	)
-	
 	if (
 			slot_attacker.molecule and slot_attacker.element.effect and slot_attacker.element.effect is MoleculeEffect and
 			slot_attacker.element.effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER

@@ -5,7 +5,13 @@ enum Action {
 	DESTROY, DEFEND, POTENTIALIZE, MITIGATE, MERGE, COOK, CREATE
 }
 enum ActionTarget {
-	NEW, MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
+	MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
+}
+enum Directive {
+	NON, # sem diretiva
+	FORCED, # força a execução a garantir sucesso
+	RELINK, # remova os links e os ligue novamente
+	CLEAR_SLOT # remova o elemento do slot caso haja algo
 }
 
 class FieldAnalysis:
@@ -27,6 +33,7 @@ class Decision:
 	
 	var action: Action
 	var action_target: ActionTarget
+	var directive: Directive
 	var targets: Array
 
 
@@ -96,4 +103,8 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.Fie
 
 
 func execute(bot: Bot, desicions: Array[BotChip.Decision]):
+	pass
+
+
+func lockdown(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi):
 	pass

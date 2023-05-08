@@ -28,3 +28,20 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, _analysis: BotChip.Fi
 
 func execute(bot: Bot, desicions: Array[BotChip.Decision]):
 	await ChipSetAmethist.execute(bot, desicions)
+
+
+func lockdown(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi):
+	match modus:
+		Bot.ModusOperandi.AGGRESSIVE:
+			await ChipSetAmethist.lockdown_aggressive(bot, analysis)
+		
+		Bot.ModusOperandi.DEFENSIVE:
+			await ChipSetAmethist.lockdown_defensive(bot, analysis)
+		
+		Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE, Bot.ModusOperandi.STRATEGICAL_DEFENSIVE:
+			await ChipSetAmethist.lockdown_tatical(bot, analysis)
+		
+		Bot.ModusOperandi.UNDECIDED:
+			await ChipSetAmethist.lockdown_indecided(bot, analysis)
+
+

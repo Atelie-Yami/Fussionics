@@ -128,6 +128,37 @@ static func disable_slot(slot):
 	slot.can_act = false
 
 
+static func make_full_link_elements(element_A: Element, element_B: Element):
+	for i in 3:
+		await Gameplay.arena.link_elements(element_A, element_B)
+
+
+static func get_powerful_element_in_molecule(molecule: Molecule) -> Element:
+	var best_match: Element
+	for element in molecule.configuration:
+		if not best_match:
+			best_match = element
+			continue
+		
+		if element.eletrons > best_match.eletrons or element.neutrons > best_match.neutrons:
+			best_match = element
+	
+	return best_match
+
+
+static func get_weak_element_molecule(molecule: Molecule) -> Element:
+	var best_match: Element
+	for element in molecule.configuration:
+		if not best_match:
+			best_match = element
+			continue
+		
+		if element.eletrons < best_match.eletrons or element.neutrons < best_match.neutrons:
+			best_match = element
+	
+	return best_match
+
+
 static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 	var player = Gameplay.arena.elements[position].player
 	
@@ -136,6 +167,15 @@ static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
 			var _pos = position + Vector2i(x, y)
 			if Gameplay.arena.elements.has(_pos) and Gameplay.arena.elements[_pos].player != player:
 				enemies.append(Gameplay.arena.elements[_pos].element)
+
+
+static func get_active_elements_in_molecule(molecule: Molecule):
+	var list: Array
+	for element in molecule.configuration:
+		if can_element_attack(element):
+			list.append(element)
+	
+	return list
 
 
 static func calcule_max_molecule_eletrons_power(molecule: Molecule):
@@ -201,6 +241,14 @@ static func is_neighbor_to_link(position: Vector2i):
 	var x: int = abs(Gameplay.selected_element.grid_position.x - position.x)
 	var y: int = abs(Gameplay.selected_element.grid_position.y - position.y)
 	return (x == 1 and y != 1) or (x != 1 and y == 1)
+
+
+static func is_positions_neighbor(position_A: Vector2i, position_B: Vector2i):
+	for x in [-1, 0, 1]:
+		for y in [-1, 0, 1]:
+			if position_A == position_B + Vector2i(x, y):
+				return true
+	return false
 
 
 static func is_element_in_reactor(position: Vector2i):

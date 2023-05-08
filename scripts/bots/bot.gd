@@ -21,12 +21,16 @@ func _ready():
 
 
 func _play():
+	print("game")
 	var analysis: BotChip.FieldAnalysis = await chip.analysis(self)
-	## da pra analizar o modus_operandi antes de atualizar
-	modus_operandi = chip.get_modus(analysis)
+	modus_operandi = chip.get_modus(analysis) ## da pra analizar o modus_operandi antes de atualizar
 	
 	var desicions: Array[BotChip.Decision] = chip.call_modus_action(modus_operandi, self, analysis)
 	await chip.execute(self, desicions)
+	
+	var pos_analysis: BotChip.FieldAnalysis = await chip.analysis(self)
+	await chip.lockdown(self, pos_analysis, modus_operandi)
+	
 	end_turn()
 
 
@@ -70,7 +74,7 @@ func get_neighbor_allied_elements(pos: Vector2i):
 
 
 func create_element(atomic_number: int, position: Vector2i):
-	var element = Gameplay.arena.create_element(atomic_number, PlayerController.Players.B, position, false)
+	var element = await Gameplay.arena.create_element(atomic_number, PlayerController.Players.B, position, false)
 	Gameplay.arena.current_players[PlayerController.Players.B].spend_energy(atomic_number + 1)
 	
 	start(0.2)
@@ -82,12 +86,11 @@ func move_element_to_slot(element: Element, slot_position: Vector2i):
 	var final_position: Vector2 = Gameplay.arena._get_snapped_slot_position(slot_position)
 	
 	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(element, "position", final_position, 0.3)
+	tween.tween_property(element, "global_position", final_position, 0.4)
 	await tween.finished
 	
-	Gameplay.arena.move_element(element.grid_position, slot_position)
-	
-	
-	
-	
-	
+	await Gameplay.arena.move_element(element.grid_position, slot_position)
+
+
+func element_attack(element_atk: Element, element_def: Element):
+	pass

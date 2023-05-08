@@ -160,6 +160,7 @@ func effects_cluster_assembly(header: ArenaSlot, target: ArenaSlot, kit: Kit):
 	):
 		GameJudge.charge_eletrons_power(header.element, self)
 		await GameJudge.combat(header, target)
+		return
 	
 	match kit:
 		Kit.ATTACK:
