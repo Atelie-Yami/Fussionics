@@ -137,19 +137,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 	
 	match decision.action:
 		BotChip.Action.COOK:
-			var reactor_selector: int = -1 ## 0 fusão 1 acelerador
-			if (
-					Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[0]) and
-					Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[1])
-			):
-				reactor_selector = 0
-			
-			elif (
-					Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[2]) and
-					Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[3])
-			): 
-				reactor_selector = 1
-			
+			var reactor_selector: int = bot.get_reactor_empty()
 			if reactor_selector == -1:
 				decision.completed = true
 				return
@@ -157,16 +145,13 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 			if decision.targets.size() == 2 and decision.targets[0] is Element and decision.targets[1] is Element:
 				for i in decision.targets.size():
 					await bot.move_element_to_slot(decision.targets[i], Vector2i(9 + (i * 2), 4 if reactor_selector else 0))
-					
 					bot.start(0.2)
 					await bot.timeout
 					
 			elif decision.targets.size() == 1:
 				await bot.move_element_to_slot(decision.targets[0], Vector2i(9, 4 if reactor_selector else 0))
-				
 				bot.start(0.2)
 				await bot.timeout
-				
 				await bot.create_element(bot.player.energy -1, Vector2i(11, 4 if reactor_selector else 0))
 			
 			decision.completed = true
@@ -178,30 +163,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 					bot.create_element(bot.player.energy -1, position)
 				
 			elif decision.action_target == BotChip.ActionTarget.MY_MOLECULE:
-				while true:
-					var position1 = bot.get_empty_slot()
-					if position1 == null:
-						break
-					
-					var positions: Array = bot.get_neighbor_empty_slot(position1)
-					if positions.is_empty():
-						break
-					
-					var _diff: int = bot.player.energy % 2
-					
-					print("- energy")
-					print(bot.player.energy)
-					print(((bot.player.energy + _diff) / 2) -1)
-					print(((bot.player.energy - _diff) / 2) -1)
-					print("- energy")
-					
-					var element_A: Element = await bot.create_element(((bot.player.energy + _diff) / 2) -1, position1)
-					var element_B: Element = await bot.create_element(((bot.player.energy - _diff) / 2) -1, positions[0])
-					
-					if element_A and element_B:
-						await GameJudge.make_full_link_elements(element_A, element_B)
-					
-					break
+				await execute_create_molecule(bot)
 			
 			decision.completed = true
 		
@@ -228,7 +190,8 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 							return
 						
 						var element_A = await bot.create_element(bot.player.energy -1, positions[0])
-						await Gameplay.arena.link_elements(element_A, decision.targets[0])
+						if element_A:
+							await Gameplay.arena.link_elements(element_A, decision.targets[0])
 					
 					elif decision.targets.size() == 1 and decision.targets[0] is Molecule:
 						var molecule: Molecule = decision.targets[0]
@@ -264,18 +227,20 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 									continue
 									
 								await bot.move_element_to_slot(decision.targets[(i + 1) % 2], empty_slots[0])
+								break
 						
 						if GameJudge.is_positions_neighbor(element_A.grid_position, element_B.grid_position):
 							await GameJudge.make_full_link_elements(element_A, element_B)
-					else:
-						decision.completed = true
-						return
+					
+					decision.completed = true
 					
 				BotChip.ActionTarget.MY_MOLECULE:
 					var molecule: Molecule = decision.targets[0]
 					for element in molecule.configuration:
 						if not GameJudge.can_element_link(element):
-								continue
+							continue
+						
+						var molecules_linked: bool
 						
 						var ally_slots: Array = bot.get_neighbor_allied_elements(element.grid_position)
 						for e in ally_slots:
@@ -285,11 +250,11 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 								continue
 							
 							await GameJudge.make_full_link_elements(element, e)
+							molecules_linked = true
 							break
 						
-						var empty_slots: Array = bot.get_neighbor_empty_slot(element.grid_position)
-						if empty_slots.is_empty():
-							continue
+						if molecules_linked:
+							break
 		
 		BotChip.Action.MITIGATE:
 			pass
@@ -297,7 +262,29 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 		BotChip.Action.POTENTIALIZE:
 			pass
 	
-	decision.completed
+	decision.completed = true
+
+
+static func execute_create_molecule(bot: Bot):
+	var position1 = bot.get_empty_slot()
+	if position1 == null:
+		return
+	
+	var positions: Array = bot.get_neighbor_empty_slot(position1)
+	if positions.is_empty():
+		return
+	
+	var _diff: int = bot.player.energy % 2
+	var max_atomic: int = (bot.player.energy + _diff) / 2
+	var min_atomic: int = (bot.player.energy - _diff) / 2
+	print("max_atomic ", max_atomic)
+	print("min_atomic ", min_atomic)
+	
+	var element_A: Element = await bot.create_element(max_atomic -1, position1)
+	var element_B: Element = await bot.create_element(min_atomic -1, positions[0])
+	
+	if element_A and element_B:
+		await GameJudge.make_full_link_elements(element_A, element_B)
 
 # ----------------------------------------------------------------------------------------------- #
 # LOCKDOWN

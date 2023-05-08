@@ -48,6 +48,20 @@ func get_empty_slot():
 			return position_test
 
 
+func get_reactor_empty() -> int:
+	if (
+			Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[0]) and
+			Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[1])
+	):
+		return 0 # fusão
+	elif (
+			Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[2]) and
+			Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[3])
+	): 
+		return 1 # aceleração
+	return -1 # nenhum
+
+
 func get_neighbor_empty_slot(pos: Vector2i):
 	var targets := []
 	for _offset in [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]:
@@ -74,7 +88,7 @@ func get_neighbor_allied_elements(pos: Vector2i):
 
 
 func create_element(atomic_number: int, position: Vector2i):
-	var element = await Gameplay.arena.create_element(atomic_number, PlayerController.Players.B, position, false)
+	var element = Gameplay.arena.create_element(atomic_number, PlayerController.Players.B, position, false)
 	Gameplay.arena.current_players[PlayerController.Players.B].spend_energy(atomic_number + 1)
 	
 	start(0.2)

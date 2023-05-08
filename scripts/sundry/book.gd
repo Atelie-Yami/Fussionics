@@ -222,9 +222,9 @@ const SAGAS := {
 			PhaseConfig.BOSS: preload("res://assets/img/saga/makino_icone.png"),
 		},
 		Campagn.BOTS: {
-			PhaseConfig.NORMAL: "res://scripts/bots/chips/makino/normal.gd",
-			PhaseConfig.MINIBOSS_A: "res://scripts/bots/chips/makino/mini_boss_A.gd",
-			PhaseConfig.BOSS: "res://scripts/bots/chips/makino/boss.gd",
+			PhaseConfig.NORMAL: "res://scripts/bots/chips/makino_soldier.gd",
+			PhaseConfig.MINIBOSS_A: "res://scripts/bots/chips/makino_soldier.gd",
+			PhaseConfig.BOSS: "res://scripts/bots/chips/makino_soldier.gd",
 		},
 	},
 	Sagas.CHAM_INK: {
