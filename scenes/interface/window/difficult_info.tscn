@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_dd4ub"]
+[ext_resource type="Script" path="res://resouces/atlas/main/enemy.tres" id="2_0530h"]
+[ext_resource type="Texture2D" path="res://resouces/atlas/main/enemy.tres" id="3_l5ikt"]
+
+[node name="Difficult_Info" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1678.0
+offset_bottom = -967.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dd4ub")
+script = ExtResource("2_0530h")
+level_name = "NIGHT'Z"
+difficult = 4
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.152941)
+
+[node name="Vb" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="name" type="Label" parent="Vb"]
+layout_mode = 2
+text = "NIGHT'Z"
+horizontal_alignment = 1
+
+[node name="hs" type="HSeparator" parent="Vb"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Level" type="HBoxContainer" parent="Vb"]
+layout_mode = 2
+alignment = 1
+
+[node name="Difficult" type="TextureRect" parent="Vb/Level"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_l5ikt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult2" type="TextureRect" parent="Vb/Level"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_l5ikt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult3" type="TextureRect" parent="Vb/Level"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_l5ikt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult4" type="TextureRect" parent="Vb/Level"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_l5ikt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult5" type="TextureRect" parent="Vb/Level"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_l5ikt")
+expand_mode = 1
+stretch_mode = 5
