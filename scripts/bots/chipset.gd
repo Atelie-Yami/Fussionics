@@ -99,14 +99,15 @@ static func insight_get_slots_nearly(bot: Bot, slots_count: int):
 
 
 static func insight_element_match_attack(element: Element, targets: Array[Element]):
-	for rival_element in targets:
-		var rival_slot: ArenaSlot = Gameplay.arena.elements[rival_element.grid_position]
+	for i in range(1, targets.size()):
+		var rival_slot: ArenaSlot = Gameplay.arena.elements[targets[-i].grid_position]
 		if (
 				GameJudge.combat_check_result(
-						element, rival_element, rival_slot.defend_mode
+						element, targets[-i], rival_slot.defend_mode
 				) == GameJudge.Result.WINNER
 		):
-			await Gameplay.arena.attack_element(element.grid_position, rival_element.grid_position)
+			await Gameplay.arena.attack_element(element.grid_position, targets[-i].grid_position)
+			targets.erase(targets[-i])
 			return
 
 
@@ -134,3 +135,9 @@ static func insight_molecule_match_attack(element: Element, targets: Array[Molec
 					element.grid_position, weak_element.grid_position
 			)
 			continue
+
+
+static func insight_set_element_defende_mode(element: Element):
+	var slot: ArenaSlot = Gameplay.arena.elements[element.grid_position]
+	if not slot.eletrons_charged:
+		await Gameplay.arena.defend_mode(element.grid_position)

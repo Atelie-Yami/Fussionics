@@ -155,7 +155,6 @@ func get_eletron_power() -> int:
 
 func effects_cluster_assembly(header: ArenaSlot, target: ArenaSlot, kit: Kit):
 	if not GameJudge.is_element_header_to_molecule(header.element):
-		GameJudge.charge_eletrons_power(header.element, self)
 		await GameJudge.combat(header, target)
 		GameJudge.disable_molecule(self)
 		return
@@ -186,7 +185,6 @@ func assembly_kit_combat_effects(header: MoleculeEffect, target: Element):
 
 func effects_cluster_direct_attack(slot_attacker: ArenaSlot):
 	if not GameJudge.is_element_header_to_molecule(slot_attacker.element):
-		GameJudge.charge_eletrons_power(slot_attacker.element, self)
 		GameJudge.disable_molecule(self)
 		return
 	MoleculeEffect.TargetMode.NO_TARGET

@@ -35,21 +35,32 @@ var life: int = MAX_LIFE:
 
 
 func set_turn(active: bool):
+	var defend_mode_list: Array[ArenaSlot]
+	
 	for pos in arena.elements:
-		var slot = arena.elements[pos]
+		var slot: ArenaSlot = arena.elements[pos]
 		if slot.player == player:
+			slot.element.reset()
+			
+			slot.can_act = active
 			slot.element.active = active
 			
 			if active:
 				if slot.defend_mode and slot.molecule:
 					slot.molecule.defender = null
-				slot.defend_mode = false
 				
 				slot.eletrons_charged = false
+				slot.has_attacked = false
+				slot.defend_mode = false
 				slot.skill_used = false
-				slot.can_act = true
-				slot.element.reset()
-
+				continue
+			
+			if slot.defend_mode and slot.molecule:
+				defend_mode_list.append(slot)
+	
+	for slot in defend_mode_list:
+		GameJudge.charge_eletrons_power(slot.element, slot.molecule)
+	
 
 func disable_elements():
 	for pos in arena.elements:

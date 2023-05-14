@@ -39,7 +39,13 @@ func _check_slot_empty(slot: Vector2i):
 
 func _set_current_player_controller(player: Players):
 	current_players[player].set_turn(true)
-	current_players[player].energy_max += 1
+	
+	if turn_machine.turn_count == 0 and player == Players.A:
+		pass
+	
+	else:
+		current_players[player].energy_max += 1
+	
 	current_players[player].energy = current_players[player].energy_max
 	current_players[player].play.emit()
 

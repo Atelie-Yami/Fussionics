@@ -15,6 +15,7 @@ const COOK_ACCELR_TIME = 0.15
 enum State {PRE_INIT, INIT, MAIN, END}
 enum Players {A, B}
 
+var turn_count: int = 0
 var current_player: Players = randi() % Players.size() as Players
 var current_stage: State:
 	set(value):
@@ -26,7 +27,7 @@ var current_stage: State:
 
 
 func start_turn():
-	start_game.emit()
+#	start_game.emit()
 	self.current_stage = State.PRE_INIT
 
 
@@ -37,6 +38,9 @@ func next_phase():
 		stop()
 	if current_stage == State.END:
 		current_player = (current_player + 1) % Players.size() as Players
+	
+	if current_stage == State.END:
+		turn_count += 1
 	
 	self.current_stage = (current_stage + 1) % State.size() as State
 

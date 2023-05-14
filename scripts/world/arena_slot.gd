@@ -24,7 +24,6 @@ func _mouse_hover(entered: bool):
 
 
 func disable():
-		element.active = false
-		has_attacked = false
-		skill_used = true
-		can_act = false
+	has_attacked = false
+	skill_used = true
+	can_act = false

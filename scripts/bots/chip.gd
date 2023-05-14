@@ -64,8 +64,8 @@ func analysis(bot: Bot) -> FieldAnalysis:
 				field_analysis.has_my_elements_in_reactor = true
 				field_analysis.my_elements_in_reactor.append(slot.element)
 				continue
-			else:
-				field_analysis.has_my_elements_in_field = true
+			
+			field_analysis.has_my_elements_in_field = true
 			
 			if slot.molecule:
 				if not field_analysis.my_molecules.has(slot.molecule):

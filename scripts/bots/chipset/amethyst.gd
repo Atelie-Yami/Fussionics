@@ -158,7 +158,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 				return
 			
 			if decision.action_target == BotChip.ActionTarget.MY_ELEMENT:
-				execute_create_handler(bot, bot.player.energy)
+				await execute_create_handler(bot, bot.player.energy)
 				
 			elif decision.action_target == BotChip.ActionTarget.MY_MOLECULE:
 				var _diff: int = bot.player.energy % 2
@@ -289,10 +289,10 @@ static func execute_create_handler(bot: Bot, energy: int):
 			if positions.is_empty():
 				return
 			
-			var element_A: Element = await bot.create_element(3, positions[0])
+			var element_A: Element = await bot.create_element(4, positions[0])
 			var element_B: Element = await bot.create_element(0, positions[1])
 			var element_C: Element = await bot.create_element(0, positions[2])
-			var element_D: Element = await bot.create_element(0, positions[4])
+			var element_D: Element = await bot.create_element(0, positions[3])
 			
 			if not element_A:
 				return
@@ -334,6 +334,9 @@ static func execute_create_molecule(bot: Bot, atomic_number_1: int, atomic_numbe
 # LOCKDOWN
 # ----------------------------------------------------------------------------------------------- #
 static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	if Gameplay.arena.turn_machine.turn_count == 0:
+		return
+	
 	for molecule in analysis.my_molecules:
 		var element: Element = GameJudge.get_powerful_element_in_molecule(molecule)
 		
@@ -359,7 +362,8 @@ static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 			await insight_molecule_match_attack(element, analysis.rival_molecules)
 	
 	for element in analysis.my_single_elements:
-		await insight_element_match_attack(element, analysis.rival_single_elements)
+		if is_instance_valid(element):
+			await insight_element_match_attack(element, analysis.rival_single_elements)
 		
 		bot.start(0.2)
 		await bot.timeout
@@ -390,13 +394,13 @@ static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 static func lockdown_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	for molecule in analysis.my_molecules:
 		var element: Element = GameJudge.get_powerful_element_in_molecule(molecule)
-		await Gameplay.arena.defend_mode(element.grid_position)
+		await insight_set_element_defende_mode(element)
 		
 		bot.start(0.1)
 		await bot.timeout
 	
 	for element in analysis.my_single_elements:
-		await Gameplay.arena.defend_mode(element.grid_position)
+		await insight_set_element_defende_mode(element)
 		
 		bot.start(0.1)
 		await bot.timeout
