@@ -362,8 +362,10 @@ static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 			await insight_molecule_match_attack(element, analysis.rival_molecules)
 	
 	for element in analysis.my_single_elements:
-		if is_instance_valid(element):
-			await insight_element_match_attack(element, analysis.rival_single_elements)
+		if not is_instance_valid(element):
+			continue
+		
+		await insight_element_match_attack(element, analysis.rival_single_elements)
 		
 		bot.start(0.2)
 		await bot.timeout
