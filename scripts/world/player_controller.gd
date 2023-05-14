@@ -15,7 +15,6 @@ func _ready():
 	turn_machine.pre_init_turn.connect(_pre_init_turn)
 	turn_machine.main_turn.connect(_set_current_player_controller)
 	turn_machine.end_turn.connect(_remove_players_control)
-	turn_machine.start_game.connect(_start_game)
 	
 	await  get_tree().create_timer(0.1).timeout
 	
@@ -28,10 +27,6 @@ func _gui_input(event):
 	if event.is_action_pressed("mouse_click"):
 		Gameplay.action_state = Gameplay.ActionState.NORMAL
 		Gameplay.world.passive_status.set_element(null)
-
-
-func _start_game():
-	current_players[turn_machine.current_player].energy_max -= 1
 
 
 func _pre_init_turn(player: Players):

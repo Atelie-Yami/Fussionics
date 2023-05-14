@@ -125,9 +125,6 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 # ----------------------------------------------------------------------------------------------- #
 static func execute(bot: Bot, desicions: Array[BotChip.Decision]):
 	for dsc in desicions:
-		print(dsc.action)
-		print(dsc.action_target)
-		print(dsc.targets)
 		await execute_decision(bot, dsc)
 
 

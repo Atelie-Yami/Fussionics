@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://dmmb6kloti1vo"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_dd4ub"]
-[ext_resource type="Script" path="res://resouces/atlas/main/enemy.tres" id="2_0530h"]
-[ext_resource type="Texture2D" path="res://resouces/atlas/main/enemy.tres" id="3_l5ikt"]
+[ext_resource type="Texture2D" uid="uid://2qfxtv40kr1i" path="res://resouces/atlas/main/enemy.tres" id="3_l5ikt"]
 
 [node name="Difficult_Info" type="Control"]
 layout_mode = 3
@@ -14,9 +13,7 @@ offset_bottom = -967.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_dd4ub")
-script = ExtResource("2_0530h")
-level_name = "NIGHT'Z"
-difficult = 4
+script = ExtResource("3_l5ikt")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1

@@ -63,25 +63,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4lmyc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blv3x"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnb5c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_816ne"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ql5pq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yh8jl"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3as0s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xfo6"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -559,19 +559,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_4lmyc")
+material = SubResource("ShaderMaterial_blv3x")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_tnb5c")
+material = SubResource("ShaderMaterial_816ne")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_ql5pq")
+material = SubResource("ShaderMaterial_yh8jl")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_3as0s")
+material = SubResource("ShaderMaterial_8xfo6")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -583,6 +583,7 @@ reactor_path = NodePath("../reactors")
 [node name="Player_A" type="Node2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("13_wjs4m")
+energy_max = 1
 area_damage_path = NodePath("../background_2/omega_A_damage")
 
 [node name="omega" type="TextureRect" parent="Player_A"]
@@ -693,6 +694,7 @@ texture = SubResource("GradientTexture2D_n4jn2")
 [node name="Player_B" type="Node2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("13_wjs4m")
+energy_max = 1
 player = 1
 area_damage_path = NodePath("../background_2/omega_B_damage")
 
