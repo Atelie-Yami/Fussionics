@@ -1,7 +1,7 @@
 class_name Molecule extends RefCounted
 
 enum Kit {
-	ATTACK, EFFECT, DEFENDE
+	ATTACK, ACTION, DEFENDE
 }
 enum LigamentPosition {
 	UP_DOWN, RIGHT_LEFT
@@ -154,33 +154,28 @@ func get_eletron_power() -> int:
 
 
 func effects_cluster_assembly(header: ArenaSlot, target: ArenaSlot, kit: Kit):
-	if (
-			not header.element.effect or not header.element.effect is MoleculeEffect or
-			header.element.effect.molecule_effect_type != MoleculeEffect.MoleculeEffectType.TRIGGER
-	):
+	if not GameJudge.is_element_header_to_molecule(header.element):
 		GameJudge.charge_eletrons_power(header.element, self)
 		await GameJudge.combat(header, target)
+		GameJudge.disable_molecule(self)
 		return
 	
 	match kit:
 		Kit.ATTACK:
 			if header.element.effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER:
-				await assembly_kit_combat_effects(header.element.effect, target.element)
+				await assembly_kit_effects(header.element.effect, target.element)
 			
 			else:
 				GameJudge.charge_eletrons_power(header.element, self)
 				await GameJudge.combat(header, target)
-				header.element.disabled = true
+				GameJudge.disable_molecule(self)
 			
-		Kit.EFFECT:
+		Kit.ACTION:
 			pass
 
 
 func assembly_kit_combat_effects(header: MoleculeEffect, target: Element):
-	var pack: Array[MoleculeEffect]
-	for e in configuration:
-		if e.effect and e.effect is MoleculeEffect:
-			pack.append(e.effect)
+	var pack: Array[MoleculeEffect] = _get_assembly_pack()
 	
 	var cluster := EffectCluster.new(header, pack, self)
 	header.get_targets(target)
@@ -188,3 +183,39 @@ func assembly_kit_combat_effects(header: MoleculeEffect, target: Element):
 	header.cluster = cluster
 	await header.execute()
 
+
+func effects_cluster_direct_attack(slot_attacker: ArenaSlot):
+	if not GameJudge.is_element_header_to_molecule(slot_attacker.element):
+		GameJudge.charge_eletrons_power(slot_attacker.element, self)
+		GameJudge.disable_molecule(self)
+		return
+	MoleculeEffect.TargetMode.NO_TARGET
+	MoleculeEffect.TargetMode.SINGLE
+	if (
+			slot_attacker.element.effect.mechanic_mode == MoleculeEffect.MechanicMode.DESTROYER and
+			(
+					slot_attacker.element.effect.target_mode == MoleculeEffect.TargetMode.SINGLE or
+					slot_attacker.element.effect.target_mode == MoleculeEffect.TargetMode.NO_TARGET
+			)
+	):
+		await assembly_kit_effects(slot_attacker.element.effect, null)
+
+
+func assembly_kit_effects(header: MoleculeEffect, target):
+	var pack: Array[MoleculeEffect] = _get_assembly_pack()
+	var cluster := EffectCluster.new(header, pack, self)
+	
+	if target:
+		header.get_targets(target)
+	
+	cluster.construct(header)
+	header.cluster = cluster
+	await header.execute()
+
+
+func _get_assembly_pack() -> Array[MoleculeEffect]:
+	var pack: Array[MoleculeEffect]
+	for e in configuration:
+		if e.effect and e.effect is MoleculeEffect:
+			pack.append(e.effect)
+	return pack

@@ -18,6 +18,9 @@ class FieldAnalysis:
 	var my_molecules: Array[Molecule]
 	var my_single_elements: Array[Element]
 	
+	var my_elements_in_reactor: Array[Element]
+	var rival_elements_in_reactor: Array[Element]
+	
 	var rival_single_elements: Array[Element]
 	var rival_molecules: Array[Molecule]
 	
@@ -29,8 +32,6 @@ class FieldAnalysis:
 
 class Decision:
 	var decision_link: Decision # se tem outra tarefa antes dessa completar
-	var completed: bool
-	
 	var action: Action
 	var action_target: ActionTarget
 	var directive: Directive
@@ -48,6 +49,8 @@ func analysis(bot: Bot) -> FieldAnalysis:
 		if slot.player == PlayerController.Players.A:
 			if GameJudge.is_element_in_reactor(slot.element.grid_position):
 				field_analysis.has_rival_elements_in_reactor = true
+				field_analysis.rival_elements_in_reactor.append(slot.element)
+				continue
 			else:
 				field_analysis.has_rival_elements_in_field = true
 			
@@ -59,6 +62,8 @@ func analysis(bot: Bot) -> FieldAnalysis:
 		else:
 			if GameJudge.is_element_in_reactor(slot.element.grid_position):
 				field_analysis.has_my_elements_in_reactor = true
+				field_analysis.my_elements_in_reactor.append(slot.element)
+				continue
 			else:
 				field_analysis.has_my_elements_in_field = true
 			

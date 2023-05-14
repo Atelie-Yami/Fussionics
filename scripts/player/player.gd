@@ -38,8 +38,6 @@ func set_turn(active: bool):
 	for pos in arena.elements:
 		var slot = arena.elements[pos]
 		if slot.player == player:
-			
-			
 			slot.element.active = active
 			
 			if active:

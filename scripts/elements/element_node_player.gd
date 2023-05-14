@@ -5,7 +5,7 @@ func _gui_input(event: InputEvent):
 	if event.is_action_pressed("mouse_right"):
 		Gameplay.world.element_info.show_info(self)
 
-	if not event.is_action_pressed("mouse_click") or disabled:
+	if not event.is_action_pressed("mouse_click") or disabled or in_reactor:
 		return
 
 	match Gameplay.action_state:

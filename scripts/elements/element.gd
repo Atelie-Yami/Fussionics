@@ -40,6 +40,7 @@ var active: bool:
 		if not active:
 			_set_current_node_state(NodeState.NORMAL)
 
+var in_reactor: bool
 var disabled: bool:
 	set(value):
 		disabled = value

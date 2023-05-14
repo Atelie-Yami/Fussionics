@@ -21,7 +21,6 @@ func _ready():
 
 
 func _play():
-	print("game")
 	var analysis: BotChip.FieldAnalysis = await chip.analysis(self)
 	modus_operandi = chip.get_modus(analysis) ## da pra analizar o modus_operandi antes de atualizar
 	
@@ -30,7 +29,6 @@ func _play():
 	
 	var pos_analysis: BotChip.FieldAnalysis = await chip.analysis(self)
 	await chip.lockdown(self, pos_analysis, modus_operandi)
-	
 	end_turn()
 
 

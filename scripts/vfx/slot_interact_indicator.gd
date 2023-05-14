@@ -41,16 +41,16 @@ func set_slots(elements: Dictionary, _mode: int, args = null):
 	if mode == Mode.ATTACK:
 		var has_enemies: bool
 		for slot in elements:
-			if elements[slot].player == 1:
+			if elements[slot].player == PlayerController.Players.B:
+				if elements[slot].element.in_reactor:
+					continue
 				has_enemies = true
 				
 				if elements[slot].molecule and elements[slot].molecule.defender:
 					if elements[slot].molecule.defender == elements[slot].element:
 						_defensor = elements[slot].element.grid_position
-					
 					else:
 						_defended.append(elements[slot].element.grid_position)
-				
 				else:
 					_slots.append(elements[slot].element.grid_position)
 		
@@ -72,10 +72,8 @@ func set_slots(elements: Dictionary, _mode: int, args = null):
 					var _l = elements[link]
 					if not _l:
 						continue
-					
 					if _l.element_A.grid_position == _position:
 						_slots.append(_l.element_B.grid_position)
-					
 					else:
 						_slots.append(_l.element_A.grid_position)
 

@@ -38,9 +38,13 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 			or elements[pre_slot].element.has_link
 	): return
 	
-	var slot = elements[pre_slot]
+	var slot: ArenaSlot = elements[pre_slot]
 	elements.erase(pre_slot)
 	elements[final_slot] = slot
+	
+	
+	if GameJudge.REACTOR_POSITIONS.has(final_slot):
+		slot.element.disabled = false
 	
 	if final_slot.x < 8:
 		get_child(final_slot.x + (final_slot.y * 8)).visible = false
@@ -48,8 +52,13 @@ func move_element(pre_slot: Vector2i, final_slot: Vector2i):
 	if slot.element.grid_position.x < 8:
 		get_child(slot.element.grid_position.x + (slot.element.grid_position.y * 8)).visible = true
 	
+	if GameJudge.REACTOR_POSITIONS.has(final_slot):
+		slot.element.disabled = false
+	
 	slot.element.grid_position = final_slot
 	slot.element.global_position = _get_snapped_slot_position(final_slot)
+	slot.element.in_reactor = GameJudge.REACTOR_POSITIONS.has(final_slot)
+	
 	elements_update.emit()
 
 
@@ -118,6 +127,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	element.active = _position.y < 8
 	element.global_position = _get_snapped_slot_position(_position)
+	element.in_reactor = GameJudge.REACTOR_POSITIONS.has(_position)
 	elements_update.emit()
 	
 	if _position.x < 8:
@@ -233,11 +243,8 @@ func direct_attack(attacker: Vector2i):
 	await Gameplay.world.vfx.handler_attack(
 			slot_attacker.element, Vector2(109 if slot_attacker.player else 1811, 540)
 	)
-	if (
-			slot_attacker.molecule and slot_attacker.element.effect and slot_attacker.element.effect is MoleculeEffect and
-			slot_attacker.element.effect.molecule_effect_type == MoleculeEffect.MoleculeEffectType.TRIGGER
-	):
-		pass # tomar alguma providencia quando tiver efeito de molecula ao atacar o omega
+	if slot_attacker.molecule:
+		await slot_attacker.molecule.effects_cluster_direct_attack(slot_attacker)
 	
 	current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
 	slot_attacker.element.disabled = true

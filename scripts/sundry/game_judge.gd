@@ -9,6 +9,9 @@ const REACTOR_POSITIONS := [
 	Vector2i( 9, 0), Vector2i(11, 0), Vector2i( 9, 4), Vector2i(11, 4),
 	Vector2i(12, 0), Vector2i(14, 0), Vector2i(12, 4), Vector2i(14, 4),
 ]
+const REACTOR_OUT_POSITIONS := [
+	Vector2i( 10, 0), Vector2i( 10, 4), Vector2i(13, 0), Vector2i(13, 4)
+]
 
 static func combat_check_result(element_attacker: Element, element_defender: Element, defended: bool) -> Result:
 	if (
@@ -126,6 +129,11 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 static func disable_slot(slot):
 	slot.element.disabled = true
 	slot.can_act = false
+
+
+static func disable_molecule(molecule: Molecule):
+	for element in molecule.configuration:
+		element.disabled = true
 
 
 static func make_full_link_elements(element_A: Element, element_B: Element):
@@ -264,3 +272,10 @@ static func is_molecule_opened(molecule: Molecule):
 			if elements.links[link]:
 				return true
 	return false
+
+
+static func is_element_header_to_molecule(element: Element):
+	return (
+			element.effect and element.effect is MoleculeEffect and
+			element.effect.molecule_effect_type != MoleculeEffect.MoleculeEffectType.TRIGGER
+	)
