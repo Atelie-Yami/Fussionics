@@ -1,0 +1,339 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd1gpq63mch1k"]
+
+[ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_ffrkj"]
+[ext_resource type="Script" path="res://scripts/interface/main/pause_menu.gd" id="1_imp1r"]
+[ext_resource type="Texture2D" uid="uid://dorte8gvr7clr" path="res://resouces/atlas/main/close.tres" id="1_mxrow"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q337r"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 12.0
+bg_color = Color(0.384314, 0.596078, 0.956863, 0.113725)
+border_width_bottom = 2
+border_color = Color(0.843137, 0.937255, 0.996078, 0.745098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hph87"]
+bg_color = Color(0.384314, 0.65098, 0.941176, 0.14902)
+border_width_bottom = 2
+border_color = Color(0.603922, 0.835294, 0.976471, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4qwqi"]
+
+[node name="OptionsSettings" type="Control" node_paths=PackedStringArray("DisplayModeButton", "MaxFpsValueLabel", "MaxFpsSlider", "MasterVolumeValueLabel", "MasterVolumeSlider", "MusicVolumeValueLabel", "MusicVolumeSlider", "SFXVolumeValueLabel", "SFXVolumeSlider")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_ffrkj")
+script = ExtResource("1_imp1r")
+DisplayModeButton = NodePath("OptionsSettings/VIDEO/Video_Options/DisplayContainer/Options/DisplayMode/DisplayModeButton")
+MaxFpsValueLabel = NodePath("OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS/MaxFpsContainer/MaxFpsValueLabel")
+MaxFpsSlider = NodePath("OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS/MaxFpsContainer/MaxFpsSlider")
+MasterVolumeValueLabel = NodePath("OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume/MasterVolumeContainer/MasterVolumeValueLabel")
+MasterVolumeSlider = NodePath("OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume/MasterVolumeContainer/MasterVolumeSlider")
+MusicVolumeValueLabel = NodePath("OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume/MusicVolumeContainer2/MusicVolumeValueLabel")
+MusicVolumeSlider = NodePath("OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume/MusicVolumeContainer2/MusicVolumeSlider")
+SFXVolumeValueLabel = NodePath("OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume/SFXVolumeContainer3/SFXVolumeValueLabel")
+SFXVolumeSlider = NodePath("OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume/SFXVolumeContainer3/SFXVolumeSlider")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1132.0
+offset_top = -696.0
+offset_right = 1132.0
+offset_bottom = 696.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0117647, 0, 0.0941176, 0.745098)
+
+[node name="OptionsSettings" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -456.0
+offset_top = -248.0
+offset_right = 456.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+
+[node name="VIDEO" type="TabBar" parent="OptionsSettings"]
+layout_mode = 2
+
+[node name="Video_Options" type="VBoxContainer" parent="OptionsSettings/VIDEO"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 13.0
+offset_right = -7.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="DisplayContainer" type="PanelContainer" parent="OptionsSettings/VIDEO/Video_Options"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q337r")
+
+[node name="Options" type="VBoxContainer" parent="OptionsSettings/VIDEO/Video_Options/DisplayContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Tittle" type="Label" parent="OptionsSettings/VIDEO/Video_Options/DisplayContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.407843, 0.760784, 0.984314, 1)
+theme_override_colors/font_outline_color = Color(0.407843, 0.760784, 0.984314, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/line_spacing = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_hph87")
+text = "DISPLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DisplayMode" type="HBoxContainer" parent="OptionsSettings/VIDEO/Video_Options/DisplayContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="DisplayModeLabel" type="Label" parent="OptionsSettings/VIDEO/Video_Options/DisplayContainer/Options/DisplayMode"]
+layout_mode = 2
+text = "DISPLAY MODE"
+
+[node name="DisplayModeButton" type="OptionButton" parent="OptionsSettings/VIDEO/Video_Options/DisplayContainer/Options/DisplayMode"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_constants/h_separation = 8
+button_group = SubResource("ButtonGroup_4qwqi")
+
+[node name="FPSContainer" type="PanelContainer" parent="OptionsSettings/VIDEO/Video_Options"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q337r")
+
+[node name="Options" type="VBoxContainer" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Tittle" type="Label" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.407843, 0.760784, 0.984314, 1)
+theme_override_colors/font_outline_color = Color(0.407843, 0.760784, 0.984314, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/line_spacing = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_hph87")
+text = "FPS
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSYNC" type="HBoxContainer" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VsyncLabel" type="Label" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/VSYNC"]
+layout_mode = 2
+text = "VSYNC"
+
+[node name="VsyncButton" type="CheckButton" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/VSYNC"]
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_default_cursor_shape = 2
+
+[node name="FPS" type="HBoxContainer" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MaxFpsLabel" type="Label" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS"]
+layout_mode = 2
+text = "MAX FPS"
+
+[node name="MaxFpsContainer" type="HBoxContainer" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS"]
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
+
+[node name="MaxFpsValueLabel" type="Label" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS/MaxFpsContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+text = "50
+"
+vertical_alignment = 2
+
+[node name="MaxFpsSlider" type="HSlider" parent="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS/MaxFpsContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+min_value = 30.0
+max_value = 360.0
+step = 15.0
+value = 45.0
+
+[node name="AUDIO" type="TabBar" parent="OptionsSettings"]
+visible = false
+layout_mode = 2
+
+[node name="Volume_Options" type="VBoxContainer" parent="OptionsSettings/AUDIO"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 13.0
+offset_right = -7.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeContainer" type="PanelContainer" parent="OptionsSettings/AUDIO/Volume_Options"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q337r")
+
+[node name="Options" type="VBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Tittle" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.407843, 0.760784, 0.984314, 1)
+theme_override_colors/font_outline_color = Color(0.407843, 0.760784, 0.984314, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/line_spacing = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_hph87")
+text = "VOLUME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Master_Volume" type="HBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MasterVolumeLabel" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume"]
+layout_direction = 1
+layout_mode = 2
+text = "MASTER VOLUME"
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MasterVolumeValueLabel" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Max"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume/MasterVolumeContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+value = 100.0
+
+[node name="Music_Volume" type="HBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MusicVolumeLabel2" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume"]
+layout_direction = 1
+layout_mode = 2
+text = "MUSIC VOLUME"
+
+[node name="MusicVolumeContainer2" type="HBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MusicVolumeValueLabel" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume/MusicVolumeContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Max"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume/MusicVolumeContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+value = 100.0
+
+[node name="SFX_Volume" type="HBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SFXVolumeLabel3" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume"]
+layout_direction = 1
+layout_mode = 2
+text = "SFX VOLUME"
+
+[node name="SFXVolumeContainer3" type="HBoxContainer" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SFXVolumeValueLabel" type="Label" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume/SFXVolumeContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Max"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume/SFXVolumeContainer3"]
+custom_minimum_size = Vector2(400, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+value = 100.0
+
+[node name="Close_OptionsSettings" type="TextureButton" parent="."]
+modulate = Color(1, 1, 1, 0.643137)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 416.0
+offset_top = -228.0
+offset_right = 445.0
+offset_bottom = -198.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("1_mxrow")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="item_selected" from="OptionsSettings/VIDEO/Video_Options/DisplayContainer/Options/DisplayMode/DisplayModeButton" to="." method="_display_mode_button_item_selected"]
+[connection signal="toggled" from="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/VSYNC/VsyncButton" to="." method="_vsync_button_toggled"]
+[connection signal="value_changed" from="OptionsSettings/VIDEO/Video_Options/FPSContainer/Options/FPS/MaxFpsContainer/MaxFpsSlider" to="." method="_max_fps_slider_value_changed"]
+[connection signal="value_changed" from="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Master_Volume/MasterVolumeContainer/MasterVolumeSlider" to="." method="_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/Music_Volume/MusicVolumeContainer2/MusicVolumeSlider" to="." method="_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="OptionsSettings/AUDIO/Volume_Options/VolumeContainer/Options/SFX_Volume/SFXVolumeContainer3/SFXVolumeSlider" to="." method="_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="Close_OptionsSettings" to="." method="_close_options_settings_pressed"]
