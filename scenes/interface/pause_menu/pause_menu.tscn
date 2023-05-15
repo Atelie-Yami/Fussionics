@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfyrrvl0nbfwn"]
+[gd_scene load_steps=6 format=3 uid="uid://cfyrrvl0nbfwn"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_0a5qg"]
 [ext_resource type="PackedScene" uid="uid://cd1gpq63mch1k" path="res://scenes/interface/pause_menu/options_settings.tscn" id="2_ai0wl"]
 [ext_resource type="Script" path="res://scripts/interface/pause_menu.gd" id="2_j2xja"]
 [ext_resource type="Script" path="res://scripts/interface/main/PauseOptionsMenu.gd" id="3_doa31"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_3wiat"]
+color = Color(0.647059, 0.780392, 1, 1)
+grow_begin = -45.0
+grow_end = -45.0
+thickness = 3
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -20,7 +26,13 @@ theme = ExtResource("1_0a5qg")
 script = ExtResource("2_j2xja")
 
 [node name="OptionsSettings" parent="." node_paths=PackedStringArray("OptionsMenu") instance=ExtResource("2_ai0wl")]
+visible = false
 layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 OptionsMenu = NodePath("../OptionsMenu")
 
 [node name="OptionsMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("OptionsSettings")]
@@ -30,10 +42,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -106.0
-offset_top = -157.0
-offset_right = 106.0
-offset_bottom = 117.0
+offset_left = -212.5
+offset_top = -161.0
+offset_right = 212.5
+offset_bottom = 161.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
@@ -60,6 +72,11 @@ layout_mode = 2
 size_flags_vertical = 0
 focus_mode = 0
 text = "CONFIG"
+
+[node name="Sep" type="HSeparator" parent="OptionsMenu"]
+layout_mode = 2
+theme_override_constants/separation = 32
+theme_override_styles/separator = SubResource("StyleBoxLine_3wiat")
 
 [node name="Main_menu" type="Button" parent="OptionsMenu"]
 custom_minimum_size = Vector2(150, 42)
