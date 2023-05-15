@@ -112,7 +112,6 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 		return
 	
 	action_in_process = true
-	
 	var element: Element = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
 	var slot = ArenaSlot.new(element, player)
 	
@@ -125,8 +124,11 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	current_players[player].add_child(element)
 	
+	var final_position: Vector2 = _get_snapped_slot_position(_position)
+	Gameplay.world.vfx.emit_element_instanciated(final_position + Vector2(40, 40), element.legancy.modulate)
+	
 	element.active = _position.y < 8
-	element.global_position = _get_snapped_slot_position(_position)
+	element.global_position = final_position
 	element.in_reactor = GameJudge.REACTOR_POSITIONS.has(_position)
 	elements_update.emit()
 	

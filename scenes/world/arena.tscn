@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://dosa0c0s4tkny"]
+[gd_scene load_steps=107 format=3 uid="uid://dosa0c0s4tkny"]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_a4ow6"]
 [ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
@@ -63,25 +63,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_htlnc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_23j15"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c65ri"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6etke"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hpcp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kch10"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("6_odbmm")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kaict"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_07jx1"]
 resource_local_to_scene = true
 shader = ExtResource("5_lvlx3")
 shader_parameter/powered = 0.0
@@ -492,6 +492,45 @@ scale_curve = SubResource("CurveTexture_1ttkv")
 color = Color(1, 1, 1, 0.541176)
 color_ramp = SubResource("GradientTexture1D_vjuk7")
 
+[sub_resource type="Gradient" id="Gradient_55xjy"]
+offsets = PackedFloat32Array(0, 0.65493, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3eov5"]
+gradient = SubResource("Gradient_55xjy")
+
+[sub_resource type="Curve" id="Curve_rw533"]
+_data = [Vector2(0, 0.401198), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hfsei"]
+curve = SubResource("Curve_rw533")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ecpa7"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 1.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_hfsei")
+color = Color(1, 1, 1, 0.85098)
+color_ramp = SubResource("GradientTexture1D_3eov5")
+
+[sub_resource type="Gradient" id="Gradient_vk41u"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.305732, 0.675159, 0.808917, 0.898089, 1)
+colors = PackedColorArray(1, 1, 1, 0.192157, 1, 1, 1, 0.551482, 1, 1, 1, 0.790385, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7x7co"]
+gradient = SubResource("Gradient_vk41u")
+width = 128
+height = 128
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
 [node name="world" type="Node2D"]
 script = ExtResource("1_a4ow6")
 metadata/_edit_horizontal_guides_ = [851.0]
@@ -559,19 +598,19 @@ script = ExtResource("5_o5tgb")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_htlnc")
+material = SubResource("ShaderMaterial_23j15")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_c65ri")
+material = SubResource("ShaderMaterial_6etke")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_5hpcp")
+material = SubResource("ShaderMaterial_kch10")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_kaict")
+material = SubResource("ShaderMaterial_07jx1")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
@@ -1265,6 +1304,13 @@ process_material = SubResource("ParticleProcessMaterial_h7tjp")
 texture = ExtResource("25_5h1c1")
 lifetime = 0.3
 visibility_rect = Rect2(-960, -540, 1920, 1080)
+
+[node name="element_instanciated" type="GPUParticles2D" parent="VFX"]
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_ecpa7")
+texture = SubResource("GradientTexture2D_7x7co")
+speed_scale = 4.0
 
 [connection signal="end_game" from="turn_machine" to="GUI" method="_turn_machine_end_game"]
 [connection signal="end_turn" from="turn_machine" to="actions" method="_turn_machine_end_turn"]

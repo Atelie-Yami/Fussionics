@@ -4,7 +4,7 @@ enum Type {
 	ANY, LIGHTNING, ELECTRICITY, LASER, ORB, EXPLOSION, PROJECTILE, FIRE,
 }
 
-
+const SUNDRY_PARTICLES := preload("res://scenes/vfx/sundry_particles.tscn")
 const START_SKILL_PARTICLES := preload("res://scenes/vfx/start_skill_particles.tscn")
 const ELEMENT_DEAD := preload("res://scenes/vfx/element_dead.tscn")
 
@@ -13,6 +13,7 @@ var canvas_item_particles_2_RID: RID
 
 @onready var skill_defended: GPUParticles2D = $skill_defended
 @onready var skill_start_1: GPUParticles2D = $skill_start_1
+@onready var element_instanciated = $element_instanciated
 
 @onready var _timer = $Timer
 
@@ -36,6 +37,19 @@ func emit_defended_vfx(_position: Vector2):
 	add_child(timer)
 	timer.start(0.22)
 	await timer.timeout
+
+
+func emit_element_instanciated(_position: Vector2, color: Color):
+	element_instanciated.emit_particle(
+			Transform2D(0.0, _position),
+			Vector2.ONE, Color.WHITE, Color.WHITE, GPUParticles2D.EMIT_FLAG_POSITION
+	)
+	var particles = SUNDRY_PARTICLES.instantiate()
+	add_child(particles)
+	particles.global_position = _position
+	
+	particles.modulate = color
+	element_instanciated.modulate = color
 
 
 func emit_start_vfx(element: Element):
