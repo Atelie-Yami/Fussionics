@@ -30,7 +30,8 @@ func _gui_input(event: InputEvent):
 
 
 func _get_drag_data(_p):
-	if disabled or self.has_link: return null
+	if disabled or self.has_link:
+		return null
 
 	var preview: Element = duplicate()
 	preview.modulate.a = 0.66
@@ -60,3 +61,16 @@ func _mouse_entered():
 		
 	else:
 		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+
+
+func _can_drop_data(_p, data):
+	return data is WidgetSlot and atomic_number == data.atomic_number
+
+
+func _drop_data(_p, data):
+	var skill: Array = GameBook.WIDGETS[atomic_number][data.ranking]
+	
+	effect = skill[1].new(self)
+	effect.ranking = data.ranking
+	
+	Gameplay.world.vfx.emit_get_widget(global_position + Vector2(40, 40), legancy.modulate)

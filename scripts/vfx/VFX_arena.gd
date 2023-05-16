@@ -14,6 +14,8 @@ var canvas_item_particles_2_RID: RID
 @onready var skill_defended: GPUParticles2D = $skill_defended
 @onready var skill_start_1: GPUParticles2D = $skill_start_1
 @onready var element_instanciated = $element_instanciated
+@onready var get_widget = $get_widget
+@onready var get_widget_reverse = $get_widget_reverse
 
 @onready var _timer = $Timer
 
@@ -107,3 +109,16 @@ func emit_end_vfx(element: Element):
 	await timer.timeout
 	
 	timer.queue_free()
+
+
+func emit_get_widget(_position: Vector2, color: Color):
+	get_widget.emit_particle(
+			Transform2D(0.0, _position), Vector2.ONE, Color.WHITE, Color.WHITE, GPUParticles2D.EMIT_FLAG_POSITION
+	)
+	var timer := Timer.new()
+	add_child(timer)
+	timer.start(0.5)
+	await timer.timeout
+	var particles = SUNDRY_PARTICLES.instantiate()
+	add_child(particles)
+	particles.global_position = _position

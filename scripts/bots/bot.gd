@@ -88,6 +88,9 @@ func get_neighbor_allied_elements(pos: Vector2i):
 func create_element(atomic_number: int, position: Vector2i):
 	var element = Gameplay.arena.create_element(atomic_number, PlayerController.Players.B, position, false)
 	Gameplay.arena.current_players[PlayerController.Players.B].spend_energy(atomic_number + 1)
+	Gameplay.world.vfx.emit_element_instanciated(
+			element.global_position + Vector2(40, 40), element.legancy.modulate
+	)
 	
 	start(0.2)
 	await timeout

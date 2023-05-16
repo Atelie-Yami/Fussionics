@@ -124,11 +124,8 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	
 	current_players[player].add_child(element)
 	
-	var final_position: Vector2 = _get_snapped_slot_position(_position)
-	Gameplay.world.vfx.emit_element_instanciated(final_position + Vector2(40, 40), element.legancy.modulate)
-	
 	element.active = _position.y < 8
-	element.global_position = final_position
+	element.global_position = _get_snapped_slot_position(_position)
 	element.in_reactor = GameJudge.REACTOR_POSITIONS.has(_position)
 	elements_update.emit()
 	
@@ -337,6 +334,9 @@ func _drop_data(_p, data):
 	elif data is DeckSlot:
 		var element = create_element(data.element, Players.A, final_position, false)
 		current_players[Players.A].spend_energy(data.element +1)
+		Gameplay.world.vfx.emit_element_instanciated(
+				element.global_position + Vector2(40, 40), element.legancy.modulate
+		)
 
 
 

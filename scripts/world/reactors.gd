@@ -41,6 +41,7 @@ func fusion_elements(element_A: Element, element_B: Element, element_C: Element,
 	(fusion_b if player else fusion_a).start(element_C.glow.modulate)
 	camera_arena.shake(2.5)
 	element_C.visible = true
+	Gameplay.world.vfx.emit_element_instanciated(element_C.global_position + Vector2(40, 40), element_C.legancy.modulate)
 
 
 func accelr_elements(element_A: Element, element_B: Element, element_C: Element, player: int):
@@ -70,6 +71,7 @@ func accelr_elements(element_A: Element, element_B: Element, element_C: Element,
 	element_A.visible = false
 	element_B.visible = false
 	element_C.visible = true
+	Gameplay.world.vfx.emit_element_instanciated(element_C.global_position + Vector2(40, 40), element_C.legancy.modulate)
 	
 	await motion(
 			create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN),

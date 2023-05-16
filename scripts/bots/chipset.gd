@@ -57,7 +57,7 @@ static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 # ----------------------------------------------------------------------------------------------- #
 # INSIGHTS
 # ----------------------------------------------------------------------------------------------- #
-static func insight_element_merge_molecule(molecule: Molecule):
+static func insight_create_element_merge_molecule(molecule: Molecule) -> BotChip.Decision:
 	var decision := BotChip.Decision.new()
 	decision.action_target = BotChip.ActionTarget.MY_ELEMENT ## tag MY_ELEMENT define que é sobre um elemento solto
 	decision.action = BotChip.Action.MERGE ## tag MERGE vai unir o novo elemento na molecula
@@ -65,21 +65,21 @@ static func insight_element_merge_molecule(molecule: Molecule):
 	return decision
 
 
-static func insight_create_molecule():
+static func insight_create_molecule() -> BotChip.Decision:
 	var decision := BotChip.Decision.new()
 	decision.action_target = BotChip.ActionTarget.MY_MOLECULE
 	decision.action = BotChip.Action.CREATE
 	return decision
 
 
-static func insight_create_element():
+static func insight_create_element() -> BotChip.Decision:
 	var decision := BotChip.Decision.new()
 	decision.action_target = BotChip.ActionTarget.MY_ELEMENT
 	decision.action = BotChip.Action.CREATE
 	return decision
 
 
-static func insight_get_slots_nearly(bot: Bot, slots_count: int):
+static func insight_get_slots_nearly(bot: Bot, slots_count: int) -> Array:
 	var positions: Array
 	
 	var count := Bot.MAX_SEARCH_TEST

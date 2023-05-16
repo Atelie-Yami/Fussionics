@@ -27,7 +27,7 @@ static func defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	var decision_list: Array[BotChip.Decision]
 	
 	if analysis.my_molecules.size() > 0:
-		decision_list.append(insight_element_merge_molecule(analysis.my_molecules[0]))
+		decision_list.append(insight_create_element_merge_molecule(analysis.my_molecules[0]))
 	
 	elif bot.player.energy > 7:
 		decision_list.append(insight_create_molecule())
@@ -55,7 +55,7 @@ static func aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 				best_match = molecule
 				
 		if best_match:
-			decision_list.append(insight_element_merge_molecule(best_match))
+			decision_list.append(insight_create_element_merge_molecule(best_match))
 	
 	elif bot.player.energy > 6:
 		decision_list.append(insight_create_molecule())
@@ -69,7 +69,7 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 	var decision_list: Array[BotChip.Decision]
 	
 	if analysis.my_molecules.size() == 1:
-		decision_list.append(insight_element_merge_molecule(analysis.my_molecules[0]))
+		decision_list.append(insight_create_element_merge_molecule(analysis.my_molecules[0]))
 	
 	elif analysis.my_molecules.size() > 1:
 		var d := BotChip.Decision.new()

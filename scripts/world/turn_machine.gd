@@ -1,6 +1,5 @@
 class_name TurnMachine extends Timer
 
-signal start_game
 signal end_game(win)
 signal pre_init_turn(player: int)
 signal init_turn(player: int)
@@ -27,7 +26,6 @@ var current_stage: State:
 
 
 func start_turn():
-#	start_game.emit()
 	self.current_stage = State.PRE_INIT
 
 
