@@ -31,12 +31,3 @@ func _unhandled_input(event: InputEvent):
 		state = State.MAIN_MENU
 
 
-func _partida_rapida_pressed():
-	get_tree().change_scene_to_file("res://scenes/world/arena.tscn")
-
-
-func _galeriafussion_pressed():
-	get_tree().change_scene_to_file("res://scenes/interface/periodic_table/table.tscn")
-
-
-

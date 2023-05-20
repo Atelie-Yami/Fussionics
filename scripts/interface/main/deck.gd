@@ -7,6 +7,11 @@ var tween: Tween
 @onready var deck = $deck
 
 
+func _init():
+	visible = false
+	modulate.a = 0.0
+
+
 func animation(_in: bool):
 	if tween and tween.is_valid():
 		tween.kill()

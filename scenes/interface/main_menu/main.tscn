@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://snj7e1bo2ftc"]
+[gd_scene load_steps=41 format=3 uid="uid://snj7e1bo2ftc"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_81oey"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://scripts/interface/widgets/deck.gd" id="19_kfnwv"]
 [ext_resource type="Script" path="res://scripts/interface/widgets/deck_widget_slot.gd" id="20_p8nu7"]
 [ext_resource type="Script" path="res://scripts/interface/widgets/base_widget_slot.gd" id="20_sdbt4"]
+[ext_resource type="PackedScene" uid="uid://xv227macm1rr" path="res://scenes/interface/main_menu/quick_game.tscn" id="21_lup7s"]
 
 [sub_resource type="Shader" id="Shader_my6u5"]
 code = "shader_type canvas_item;
@@ -534,7 +535,6 @@ scroll_active = false
 
 [node name="Deck" type="VBoxContainer" parent="deck"]
 visible = false
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1569,6 +1569,10 @@ custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("18_vspi1")
 script = ExtResource("20_p8nu7")
+
+[node name="quick_game" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" parent="quick_game" instance=ExtResource("21_lup7s")]
 
 [node name="vfx" type="CanvasLayer" parent="."]
 

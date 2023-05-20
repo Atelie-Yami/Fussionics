@@ -1,0 +1,174 @@
+[gd_scene load_steps=6 format=3 uid="uid://xv227macm1rr"]
+
+[ext_resource type="Texture2D" uid="uid://b47qlguqg1kt1" path="res://resouces/atlas/main/theme/scroll/Slider.tres" id="1_eqqcc"]
+[ext_resource type="Texture2D" uid="uid://2qfxtv40kr1i" path="res://resouces/atlas/main/enemy.tres" id="1_k2pq6"]
+[ext_resource type="StyleBox" uid="uid://bhul54i7fb6xo" path="res://resouces/stylebox/label_bg_panel.stylebox" id="3_ib1hi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbp1o"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_uk811"]
+font_size = 18
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -255.0
+offset_right = 320.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "QUICK_GAME"
+label_settings = SubResource("LabelSettings_qbp1o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="dificult" type="Label" parent="."]
+layout_mode = 2
+text = "DIFICULT"
+label_settings = SubResource("LabelSettings_uk811")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="select_dificult" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_eqqcc")
+stretch_mode = 3
+
+[node name="difficult" type="Label" parent="select_dificult"]
+layout_mode = 2
+offset_left = 21.0
+offset_right = 163.0
+offset_bottom = 31.0
+text = "SOLDIER"
+label_settings = SubResource("LabelSettings_uk811")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="down" type="Button" parent="select_dificult"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 30.0
+offset_bottom = 31.0
+focus_mode = 0
+flat = true
+
+[node name="up" type="Button" parent="select_dificult"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_left = 154.0
+offset_top = -1.0
+offset_right = 186.0
+offset_bottom = 31.0
+focus_mode = 0
+flat = true
+
+[node name="Level" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Difficult1" type="TextureRect" parent="Level"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("1_k2pq6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult2" type="TextureRect" parent="Level"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("1_k2pq6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult3" type="TextureRect" parent="Level"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("1_k2pq6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult4" type="TextureRect" parent="Level"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("1_k2pq6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Difficult5" type="TextureRect" parent="Level"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("1_k2pq6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="opponent" type="Label" parent="."]
+layout_mode = 2
+text = "OPPONENT"
+label_settings = SubResource("LabelSettings_uk811")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="select_opponent" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_eqqcc")
+stretch_mode = 3
+
+[node name="opponent" type="Label" parent="select_opponent"]
+layout_mode = 2
+offset_left = 21.0
+offset_right = 163.0
+offset_bottom = 31.0
+text = "MAKINO"
+label_settings = SubResource("LabelSettings_uk811")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="down" type="Button" parent="select_opponent"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 30.0
+offset_bottom = 31.0
+focus_mode = 0
+flat = true
+
+[node name="up" type="Button" parent="select_opponent"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_left = 154.0
+offset_top = -1.0
+offset_right = 186.0
+offset_bottom = 31.0
+focus_mode = 0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_ib1hi")
+bbcode_enabled = true
+text = "muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa muita coisa"
+fit_content = true
+scroll_active = false
