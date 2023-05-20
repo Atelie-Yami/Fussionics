@@ -1,6 +1,8 @@
 class_name ChipSetAmethist extends ChipSet
 
 
+static var bob := Node.new()
+
 static func get_modus(_analysis: BotChip.FieldAnalysis) -> Bot.ModusOperandi:
 	if not _analysis.has_my_elements_in_field and _analysis.has_rival_elements_in_field:
 		return Bot.ModusOperandi.DEFENSIVE

@@ -23,7 +23,6 @@ var animation_2 := 0.0
 var _slots: Array[Vector2i]
 var _defended: Array[Vector2i]
 var _defensors: Array[Vector2i]
-var _defensor := Vector2(20, 0)
 var element_in_action := Vector2(20, 0)
 
 
@@ -33,11 +32,11 @@ func _init():
 
 
 func set_slots(elements: Dictionary, _mode: int, args = null):
+	_defensors.clear()
 	_defended.clear()
 	_slots.clear()
 	mode = _mode
 	time = 0.0
-	_defensor.x = 20
 	
 	if mode == Mode.ATTACK:
 		var has_enemies: bool
@@ -105,8 +104,8 @@ func _draw():
 			
 			draw_texture_rect(SHIELD_NORMAL, _rect, false, Color.SKY_BLUE * animation * INDICATION_ALPHA)
 	
-	if _defensor.x < 20:
-		var _pos := Vector2(_defensor * SLOT_SIZE) + _motion - Vector2(5, 5)
+	for slot in _defensors:
+		var _pos := Vector2(slot * SLOT_SIZE) + _motion - Vector2(5, 5)
 		var _rect := Rect2(_pos, RECT_SIZE - (_motion * 2))
 		var _color_a := animation
 		
