@@ -17,26 +17,24 @@ particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 spread = 160.0
 gravity = Vector3(0, -300, 0)
-initial_velocity_min = 30.0
-initial_velocity_max = 30.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 damping_min = 100.0
 damping_max = 100.0
-scale_min = 0.04
-scale_max = 0.15
+scale_min = 0.06
+scale_max = 0.12
 color_ramp = SubResource("GradientTexture1D_gbxdv")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kiy6b"]
 atlas = ExtResource("1_rlbv4")
-region = Rect2(1049, 900, 201, 200)
+region = Rect2(1299, 930, 201, 140)
 
 [node name="sundry_particles" type="GPUParticles2D"]
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_kpgud")
 texture = SubResource("AtlasTexture_kiy6b")
 speed_scale = 1.4
-explosiveness = 0.95
+explosiveness = 0.8
 randomness = 1.0
 
 [node name="Timer" type="Timer" parent="."]

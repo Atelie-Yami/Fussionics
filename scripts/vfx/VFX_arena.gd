@@ -5,9 +5,9 @@ enum Type {
 }
 
 const HALOS_PARTICLES_PARTICLES := preload("res://scenes/vfx/halos_particles_get_widget.tscn")
+const START_SKILL_PARTICLES := preload("res://scenes/vfx/start_skill_particles.tscn")
 const SUNDRY_PARTICLES := preload("res://scenes/vfx/sundry_particles.tscn")
 const MORE_PARTICLES := preload("res://scenes/vfx/more_particles.tscn")
-const START_SKILL_PARTICLES := preload("res://scenes/vfx/start_skill_particles.tscn")
 const ELEMENT_DEAD := preload("res://scenes/vfx/element_dead.tscn")
 
 var particles_2_RID: RID

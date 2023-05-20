@@ -199,7 +199,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 					elif decision.targets.size() == 1 and decision.targets[0] is Molecule and bot.player.energy:
 						var molecule: Molecule = decision.targets[0]
 						for element in molecule.configuration:
-							if not GameJudge.can_element_link(element):
+							if not is_instance_valid(element) or not GameJudge.can_element_link(element):
 								continue
 							
 							var empty_slots: Array = bot.get_neighbor_empty_slot(element.grid_position)

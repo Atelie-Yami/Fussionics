@@ -22,6 +22,7 @@ var animation := 0.0
 var animation_2 := 0.0
 var _slots: Array[Vector2i]
 var _defended: Array[Vector2i]
+var _defensors: Array[Vector2i]
 var _defensor := Vector2(20, 0)
 var element_in_action := Vector2(20, 0)
 
@@ -40,19 +41,27 @@ func set_slots(elements: Dictionary, _mode: int, args = null):
 	
 	if mode == Mode.ATTACK:
 		var has_enemies: bool
-		for slot in elements:
-			if elements[slot].player == PlayerController.Players.B:
-				if elements[slot].element.in_reactor:
-					continue
-				has_enemies = true
-				
-				if elements[slot].molecule and elements[slot].molecule.defender:
-					if elements[slot].molecule.defender == elements[slot].element:
-						_defensor = elements[slot].element.grid_position
+		for slot_position in elements:
+			var slot: ArenaSlot = elements[slot_position]
+			
+			if slot.player == PlayerController.Players.A or slot.element.in_reactor:
+				continue
+			
+			has_enemies = true
+			
+			if slot.molecule:
+				if slot.molecule.defender:
+					if slot.molecule.defender == slot.element:
+						_defensors.append(slot.element.grid_position)
 					else:
-						_defended.append(elements[slot].element.grid_position)
-				else:
-					_slots.append(elements[slot].element.grid_position)
+						_defended.append(slot.element.grid_position)
+					continue
+			
+			elif slot.defend_mode:
+				_defensors.append(slot.element.grid_position)
+				continue
+			
+			_slots.append(slot.element.grid_position)
 		
 		Gameplay.world.attack_omega.visible = not has_enemies
 		
