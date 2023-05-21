@@ -1,5 +1,7 @@
 extends Node
 
+const NON_PHASE_SELECTED := -1 # parametro do Match onde não foi definido nenhuma fase
+
 const LOAD_SCREEN := preload("res://scenes/load_screen.tscn")
 const MOUSE_IMAGE := {
 	DEFAULT = preload("res://assets/img/mouse/default.png"),
@@ -17,10 +19,11 @@ class Match:
 	var progress_mode: bool
 	var bot_chip: GDScript
 	var campaign: int
+	var phase: int
 	var level: int
 	
-	func _init(c: int, l: int, p: bool, chip: String, deck: Array):
-		campaign = c; level = l; progress_mode = p
+	func _init(c: int, l: int, f: int, p: bool, chip: String, deck: Array):
+		campaign = c; level = l; phase = f; progress_mode = p
 		bot_chip = load(chip)
 		bot_deck = deck
 
@@ -67,17 +70,31 @@ func mouse_image():
 	Input.set_custom_mouse_cursor(MOUSE_IMAGE.DESLINK,     Input.CURSOR_HSPLIT,        Vector2(16, 16))
 
 
-func start_game(saga_id: int, level_id: int):
+func start_game(saga_id: int, phase_id: int):
 	var saga: Dictionary = GameBook.SAGAS[saga_id]
-	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][level_id]
+	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][phase_id]
 	var progress_mode = (
-			(saga_id == save.campaign_progress and level_id == save.saga_progress) or 
-			(saga_id > save.campaign_progress and level_id == 0)
+			(saga_id == save.campaign_progress and phase_id == save.saga_progress) or 
+			(saga_id > save.campaign_progress and phase_id == 0)
 	)
+	var level = GameBook.LEVEL_CONFIG[saga_id].find_key(phase)
 	game_match = Match.new(
-			saga_id, level_id, progress_mode,
-			saga[GameBook.Campagn.BOTS][phase[GameBook.Campagn.PHASES_CONFIG]],
+			saga_id, level, phase_id, progress_mode,
+			saga[GameBook.Campagn.BOTS][level],
 			phase[GameBook.Campagn.WIDGETS],
+	)
+	restart_game()
+
+
+func start_direct_game(saga_id: int, level_id: int):
+	var saga: Dictionary = GameBook.SAGAS[saga_id]
+	var phases: Array = saga[GameBook.Campagn.PHASES_CONFIG]
+	var level: Dictionary = GameBook.LEVEL_CONFIG[saga_id][level_id]
+	
+	game_match = Match.new(
+			saga_id, level_id, NON_PHASE_SELECTED, false,
+			saga[GameBook.Campagn.BOTS][level_id],
+			level[GameBook.Campagn.WIDGETS],
 	)
 	restart_game()
 

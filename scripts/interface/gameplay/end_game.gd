@@ -15,10 +15,12 @@ var tween: Tween
 
 func _ready():
 	var saga = GameBook.SAGAS[GameConfig.game_match.campaign]
-	var phase: Dictionary = saga[GameBook.Campagn.PHASES_CONFIG][GameConfig.game_match.level]
+	var phase: Dictionary = GameBook.LEVEL_CONFIG[GameConfig.game_match.campaign][GameConfig.game_match.level]
 	
-	rich_text_label.text = tr("CHALLENGER") + tr(GameBook.PhaseConfig.keys()[phase[GameBook.Campagn.PHASES_CONFIG]])
-	rich_text_label.text += "[p]" + tr("PHASE") + str(GameConfig.game_match.level + 1)
+	rich_text_label.text = tr("CHALLENGER") + tr(GameBook.PhaseConfig.keys()[GameConfig.game_match.level])
+	
+	if GameConfig.game_match.phase != GameConfig.NON_PHASE_SELECTED:
+		rich_text_label.text += "[p]" + tr("PHASE") + str(GameConfig.game_match.phase + 1)
 	
 	if not (phase[GameBook.Campagn.DROPS] as Array).is_empty():
 		rich_text_label.text += "\n\n\n" + tr("DROPS")

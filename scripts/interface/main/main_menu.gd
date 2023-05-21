@@ -11,6 +11,7 @@ enum State {
 @onready var links = $links
 @onready var campaign = $campaign/campaign
 @onready var deck = $deck/Deck
+@onready var quick_game = $quick_game
 
 
 var state: State:
@@ -20,6 +21,7 @@ var state: State:
 
 
 func _machine():
+	quick_game.animation(state == State.QUICK_GAME)
 	campaign.animation(state == State.CAMPAIGN)
 	buttons.animation(state == State.MAIN_MENU)
 	links.animation(state == State.MAIN_MENU)

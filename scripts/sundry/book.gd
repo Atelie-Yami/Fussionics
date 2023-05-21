@@ -7,7 +7,7 @@ enum PhaseConfig {
 	NORMAL, MINIBOSS_A, MINIBOSS_B, MINIBOSS_C, BOSS
 }
 enum Campagn {
-	NAME, PHASES_CONFIG, SKINS, SKINS_BACKGROUND, BOTS, COLOR, WIDGETS, DROPS
+	NAME, PHASES_CONFIG, SKINS, SKINS_BACKGROUND, BOTS, COLOR, WIDGETS, DROPS, LEVEL_CONFIG
 }
 enum Series {
 	ALKALINE, ALKALINE_EARTH, LANTANIDIUM, ACTINIDIUM, TRANSITION, OTHERS, SEMI, METALLOID, HALOGEN, NOBLE, UNKNOWN
@@ -174,48 +174,44 @@ const WIDGETS := {
 	2: {
 		Ranking.ENHANCED: [EffectType.SKILL, preload("res://scripts/elements/effects/lithium.gd")],
 	},
-}	
+}
+const LEVEL_CONFIG := {
+	Sagas.MAKINO: {
+		PhaseConfig.NORMAL: {
+			Campagn.WIDGETS: [],
+			Campagn.DROPS: []
+		},
+		PhaseConfig.MINIBOSS_A: {
+			Campagn.WIDGETS: [[0, BaseEffect.Ranking.IMPROVED]],
+			Campagn.DROPS: [[0, BaseEffect.Ranking.IMPROVED]]
+		},
+		PhaseConfig.MINIBOSS_B: {
+			Campagn.WIDGETS: [[0, BaseEffect.Ranking.IMPROVED]],
+			Campagn.DROPS: [[0, BaseEffect.Ranking.IMPROVED]]
+		},
+		PhaseConfig.MINIBOSS_C: {
+			Campagn.WIDGETS: [[0, BaseEffect.Ranking.IMPROVED]],
+			Campagn.DROPS: [[0, BaseEffect.Ranking.IMPROVED]]
+		},
+		PhaseConfig.BOSS: {
+			Campagn.WIDGETS: [[0, BaseEffect.Ranking.IMPROVED], [1, BaseEffect.Ranking.IMPROVED]],
+			Campagn.DROPS: [[1, BaseEffect.Ranking.IMPROVED]]
+		}
+	},
+}
 const SAGAS := {
 	Sagas.MAKINO: {
 		Campagn.NAME: "Makino",
 		Campagn.COLOR: "#7ec8b2",
 		Campagn.SKINS_BACKGROUND: preload("res://assets/img/saga/makino.png"),
 		Campagn.PHASES_CONFIG: [
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.NORMAL,
-				Campagn.WIDGETS: [],
-				Campagn.DROPS: []
-			},
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.NORMAL,
-				Campagn.WIDGETS: [],
-				Campagn.DROPS: []
-			},
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.NORMAL,
-				Campagn.WIDGETS: [],
-				Campagn.DROPS: []
-			},
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.MINIBOSS_A,
-				Campagn.WIDGETS: [[0, BaseEffect.Ranking.IMPROVED]],
-				Campagn.DROPS: [[0, BaseEffect.Ranking.IMPROVED]]
-			},
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.NORMAL,
-				Campagn.WIDGETS: [],
-				Campagn.DROPS: []
-			},
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.NORMAL,
-				Campagn.WIDGETS: [],
-				Campagn.DROPS: []
-			},
-			{
-				Campagn.PHASES_CONFIG: PhaseConfig.BOSS,
-				Campagn.WIDGETS: [[0, BaseEffect.Ranking.IMPROVED], [1, BaseEffect.Ranking.IMPROVED]],
-				Campagn.DROPS: [[1, BaseEffect.Ranking.IMPROVED]]
-			},
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.NORMAL],
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.NORMAL],
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.NORMAL],
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.MINIBOSS_A],
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.NORMAL],
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.NORMAL],
+			LEVEL_CONFIG[Sagas.MAKINO][PhaseConfig.BOSS],
 		],
 		Campagn.SKINS: {
 			PhaseConfig.MINIBOSS_A: preload("res://assets/img/saga/makino_icone.png"),
@@ -268,3 +264,6 @@ const WIDGET_DROPS = {
 		7: [6, BaseEffect.Ranking.IMPROVED],
 	},
 }
+
+
+

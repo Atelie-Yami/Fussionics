@@ -20,7 +20,7 @@ func _campaign_pressed():
 
 
 func _quick_game_pressed():
-	pass # Replace with function body.
+	main_menu.state = main_menu.State.QUICK_GAME
 
 
 func _deck_pressed():

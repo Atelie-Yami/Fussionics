@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://snj7e1bo2ftc"]
+[gd_scene load_steps=42 format=3 uid="uid://snj7e1bo2ftc"]
 
 [ext_resource type="Theme" uid="uid://clvv0cytr1xuo" path="res://resouces/themes/main.tres" id="1_81oey"]
 [ext_resource type="Script" path="res://scripts/interface/main/main_menu.gd" id="2_iafsg"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://scripts/interface/widgets/deck_widget_slot.gd" id="20_p8nu7"]
 [ext_resource type="Script" path="res://scripts/interface/widgets/base_widget_slot.gd" id="20_sdbt4"]
 [ext_resource type="PackedScene" uid="uid://xv227macm1rr" path="res://scenes/interface/main_menu/quick_game.tscn" id="21_lup7s"]
+[ext_resource type="Script" path="res://scripts/interface/main/animation.gd" id="21_meelo"]
 
 [sub_resource type="Shader" id="Shader_my6u5"]
 code = "shader_type canvas_item;
@@ -1571,8 +1572,13 @@ theme_override_styles/panel = ExtResource("18_vspi1")
 script = ExtResource("20_p8nu7")
 
 [node name="quick_game" type="CanvasLayer" parent="."]
+script = ExtResource("21_meelo")
 
-[node name="VBoxContainer" parent="quick_game" instance=ExtResource("21_lup7s")]
+[node name="quick_game_screen" parent="quick_game" instance=ExtResource("21_lup7s")]
+offset_top = -151.0
+offset_bottom = 151.0
+scale = Vector2(1.2, 1.2)
+pivot_offset = Vector2(260, 200)
 
 [node name="vfx" type="CanvasLayer" parent="."]
 
