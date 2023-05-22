@@ -1,25 +1,45 @@
 class_name ChipSetAmethist extends ChipSet
 
 
-static var bob := Node.new()
-
 static func get_modus(_analysis: BotChip.FieldAnalysis) -> Bot.ModusOperandi:
 	if not _analysis.has_my_elements_in_field and _analysis.has_rival_elements_in_field:
 		return Bot.ModusOperandi.DEFENSIVE
 	
-	if _analysis.has_my_elements_in_field and not _analysis.has_rival_elements_in_field:
+	if not _analysis.has_rival_elements_in_field:
 		return Bot.ModusOperandi.AGGRESSIVE
 	
-#	for m in _analysis.my_molecules:
-#		var power: int = GameJudge.calcule_max_molecule_eletrons_power(m)
-#		if power > 7 and GameJudge.is_molecule_opened(m):
-#			return Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE
-#
-#	if _analysis.my_molecules.is_empty():
-#		for e in _analysis.my_single_elements:
-#			if e.atomic_number > 3:
-#				return Bot.ModusOperandi.STRATEGICAL_DEFENSIVE
-#
+	else:
+		if _analysis.my_molecules.is_empty():
+			return Bot.ModusOperandi.STRATEGICAL_DEFENSIVE
+		
+		for m in _analysis.my_molecules:
+			var power: int = GameJudge.calcule_max_molecule_eletrons_power(m)
+			if power < 8 and GameJudge.is_molecule_opened(m):
+				continue
+			
+			var best_match: Element
+			for element in _analysis.rival_single_elements:
+				if not best_match:
+					best_match = element
+					continue
+				
+				if element.eletrons < best_match.eletrons or element.neutrons < best_match.neutrons:
+					best_match = element
+			
+			if best_match:
+				if best_match.neutrons < power:
+					return Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE
+				else:
+					return Bot.ModusOperandi.STRATEGICAL_DEFENSIVE
+			
+			elif _analysis.rival_molecules:
+				for m_rival in _analysis.rival_molecules:
+					var power2: int = GameJudge.calcule_max_molecule_eletrons_power(m_rival)
+					return (
+							Bot.ModusOperandi.STRATEGICAL_DEFENSIVE if power2 > power else
+							Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE
+					)
+	
 	return Bot.ModusOperandi.UNDECIDED
 
 # ----------------------------------------------------------------------------------------------- #
@@ -122,6 +142,61 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 	
 	return decision_list
 
+
+static func tatical_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	var decision_list: Array[BotChip.Decision]
+	var best_match_molecule: Molecule
+	var best_match_header: Element
+	var best_match_power: int
+	
+	for m in analysis.my_molecules:
+		if not best_match_molecule:
+			best_match_molecule = m
+			continue
+		
+		var power: int = GameJudge.calcule_max_molecule_eletrons_power(m)
+		if power <= best_match_power:
+			continue
+		
+		var element_header: Element = GameJudge.get_powerful_element_in_molecule(m)
+		if best_match_header:
+			if (
+					(element_header.eletrons + element_header.valentia) <
+					(best_match_header.eletrons + best_match_header.valentia)
+			):
+				continue
+		
+		best_match_molecule = m
+		best_match_header = element_header
+		best_match_power = power
+	
+	var opening_list: Array[Element] = insight_molecule_get_opening_elements(best_match_molecule)
+	
+	if opening_list.is_empty():
+		return indecided(bot, analysis)
+	
+	if opening_list.size() > 2 and bot.player.energy > 7:
+		var strip = max(int(bot.player.energy / opening_list.size()), 1)
+		
+		for e in opening_list:
+			var d := insight_potentialize_element(e)
+			decision_list.append(d)
+			d.directive = BotChip.Directive.MAX_ENERGY
+			d.args = strip
+	
+	else:
+		decision_list.append(insight_create_element_merge_molecule(best_match_molecule))
+	
+	return decision_list
+
+
+static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	var decision_list: Array[BotChip.Decision]
+	
+	
+	
+	return decision_list
+
 # ----------------------------------------------------------------------------------------------- #
 # EXECUTE
 # ----------------------------------------------------------------------------------------------- #
@@ -133,6 +208,10 @@ static func execute(bot: Bot, desicions: Array[BotChip.Decision]):
 static func execute_decision(bot: Bot, decision: BotChip.Decision):
 	if decision.decision_link:
 		await execute_decision(bot, decision.decision_link)
+	
+	var energy: int = bot.player.energy -1
+	if decision.directive == BotChip.Directive.MAX_ENERGY:
+		energy = decision.args[0]
 	
 	match decision.action:
 		BotChip.Action.COOK:
@@ -153,7 +232,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 				await bot.move_element_to_slot(decision.targets[0], Vector2i(9, 4 if reactor_selector else 0))
 				bot.start(0.2)
 				await bot.timeout
-				await bot.create_element(bot.player.energy -1, Vector2i(11, 4 if reactor_selector else 0))
+				await bot.create_element(energy, Vector2i(11, 4 if reactor_selector else 0))
 		
 		BotChip.Action.CREATE:
 			if not bot.player.energy:
@@ -182,60 +261,24 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 			match decision.action_target:
 				BotChip.ActionTarget.MY_ELEMENT:
 					if (
-							decision.targets.size() == 1 and decision.targets[0] is Element
-							and GameJudge.can_element_link(decision.targets[0]) and bot.player.energy
-					):
-						if GameJudge.REACTOR_OUT_POSITIONS.has(decision.targets[0].grid_position):
-							var position = bot.get_empty_slot()
-							if position != null:
-								await bot.move_element_to_slot(decision.targets[0], position)
-						
-						var positions: Array = bot.get_neighbor_empty_slot(decision.targets[0].grid_position)
-						if positions.is_empty():
-							return
-						
-						var element_A = await bot.create_element(bot.player.energy -1, positions[0])
-						if element_A:
-							await Gameplay.arena.link_elements(element_A, decision.targets[0])
-					
-					elif decision.targets.size() == 1 and decision.targets[0] is Molecule and bot.player.energy:
-						var molecule: Molecule = decision.targets[0]
-						for element in molecule.configuration:
-							if not is_instance_valid(element) or not GameJudge.can_element_link(element):
-								continue
-							
-							var empty_slots: Array = bot.get_neighbor_empty_slot(element.grid_position)
-							if empty_slots.is_empty():
-								continue
-							
-							var element_A: Element = await bot.create_element(bot.player.energy -1, empty_slots[0])
-							if element_A:
-								await GameJudge.make_full_link_elements(element_A, element)
-								break
-					
-					elif (
-							decision.targets.size() == 2 and decision.targets[0] is Element and
-							decision.targets[1] is Element
+							decision.targets.size() == 2 and
+							decision.targets[0] is Element and decision.targets[1] is Element
 					):
 						for element in decision.targets:
 							if not element is Element or not GameJudge.can_element_link(element):
 								return
 						
-						var element_A: Element = decision.targets[0]
-						var element_B: Element = decision.targets[1]
-						
-						if not GameJudge.is_positions_neighbor(element_A.grid_position, element_B.grid_position):
-							for i in 2:
-								var empty_slots: Array = bot.get_neighbor_empty_slot(decision.targets[i].grid_position)
-								if empty_slots.is_empty():
-									continue
-									
-								await bot.move_element_to_slot(decision.targets[(i + 1) % 2], empty_slots[0])
-								break
-						
-						if GameJudge.is_positions_neighbor(element_A.grid_position, element_B.grid_position):
-							await GameJudge.make_full_link_elements(element_A, element_B)
+						await execute_merge_element_to_element(bot, decision.targets[0], decision.targets[1])
 					
+					if not bot.player.energy or decision.targets.size() != 1:
+						return
+					
+					if decision.targets[0] is Element and GameJudge.can_element_link(decision.targets[0]):
+						await execute_merge_element_new_element(bot, decision.targets[0], energy)
+					
+					elif decision.targets[0] is Molecule:
+						await execute_merge_molecule_new_element(bot, decision.targets[0], energy)
+						
 				BotChip.ActionTarget.MY_MOLECULE: 
 					var molecule: Molecule = decision.targets[0]
 					for element in molecule.configuration:
@@ -262,7 +305,53 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 			pass
 		
 		BotChip.Action.POTENTIALIZE:
-			pass
+			match decision.action_target:
+				BotChip.ActionTarget.MY_ELEMENT: # elemento q ta numa molecula
+					if not bot.player.energy:
+						return
+					
+					var element: Element = decision.targets[0]
+					if (
+							decision.targets.size() == 1 and element is Element and
+							GameJudge.can_element_link(element)
+					):
+						# se tem lugar livre
+						var positions: Array = bot.get_neighbor_empty_slot(element.grid_position)
+						if not positions.is_empty():
+							await execute_merge_element_new_element(bot, element, energy)
+							return
+						
+						# nao tem mas tem rival ao lado
+						var rival_positions: Array[Element] = bot.get_neighbor_rival_elements(element.grid_position)
+						if not rival_positions.is_empty():
+							if rival_positions[0].atomic_number > element.atomic_number:
+								await execute_remove_rival_merge_element(bot, rival_positions[0], element, energy)
+								return
+							
+							else:
+								# se tem alguma molecula q pode remover esse elemento
+								pass
+						
+						# não tem mas tem elemento solto ao lado
+						var ally_elements: Array[Element] = bot.get_neighbor_allied_elements(element.grid_position)
+						for e in ally_elements:
+							if Gameplay.arena.elements[e.grid_position].molecule:
+								continue
+							
+							var pos = bot.get_empty_slot()
+							if not pos:
+								continue
+							
+							await bot.move_element_to_slot(ally_elements[0], pos)
+							bot.start(0.5)
+							await bot.timeout
+							
+							positions = bot.get_neighbor_empty_slot(element.grid_position)
+							if positions.is_empty():
+								continue
+							
+							await execute_merge_element_new_element(bot, element, energy)
+							return
 
 
 static func execute_create_handler(bot: Bot, energy: int):
@@ -331,6 +420,75 @@ static func execute_create_molecule(bot: Bot, atomic_number_1: int, atomic_numbe
 	
 	if element_A and element_B:
 		await GameJudge.make_full_link_elements(element_A, element_B)
+
+
+static func execute_merge_element_new_element(bot: Bot, element: Element, energy: int):
+	if GameJudge.REACTOR_OUT_POSITIONS.has(element.grid_position):
+		var position = bot.get_empty_slot()
+		if position != null:
+			await bot.move_element_to_slot(element, position)
+	
+	var positions: Array = bot.get_neighbor_empty_slot(element.grid_position)
+	if positions.is_empty():
+		return
+	
+	var element_A = await bot.create_element(energy, positions[0])
+	if element_A:
+		await Gameplay.arena.link_elements(element_A, element)
+
+
+static func execute_merge_element_to_element(bot: Bot, element_A: Element, element_B: Element):
+	if not GameJudge.is_positions_neighbor(element_A.grid_position, element_B.grid_position):
+		for i in 2:
+			var empty_slots: Array = bot.get_neighbor_empty_slot([element_A, element_B][i].grid_position)
+			if empty_slots.is_empty():
+				continue
+				
+			await bot.move_element_to_slot([element_A, element_B][(i + 1) % 2], empty_slots[0])
+			break
+	
+	if GameJudge.is_positions_neighbor(element_A.grid_position, element_B.grid_position):
+		await GameJudge.make_full_link_elements(element_A, element_B)
+
+
+static func execute_merge_molecule_new_element(bot: Bot, molecule: Molecule, energy: int):
+	for element in molecule.configuration:
+		if not is_instance_valid(element) or not GameJudge.can_element_link(element):
+			continue
+		
+		var empty_slots: Array = bot.get_neighbor_empty_slot(element.grid_position)
+		if empty_slots.is_empty():
+			continue
+		
+		var element_A: Element = await bot.create_element(energy, empty_slots[0])
+		if element_A:
+			await GameJudge.make_full_link_elements(element_A, element)
+			return
+
+
+static func execute_remove_rival_merge_element(bot: Bot, element_rival: Element , element: Element, energy: int):
+	var slot_rival: ArenaSlot = Gameplay.arena.elements[element_rival.grid_position]
+	if (
+		not slot_rival.molecule and
+		GameJudge.combat_check_result(
+				element, element_rival, slot_rival.defend_mode
+		) == GameJudge.Result.WINNER
+	):
+		await Gameplay.arena.attack_element(
+				element.grid_position, element_rival.grid_position
+		)
+		
+		bot.start(0.5)
+		await bot.timeout
+		
+		if not is_instance_valid(element):
+			return
+		
+		var positions: Array = bot.get_neighbor_empty_slot(element.grid_position)
+		if positions.is_empty():
+			return
+		
+		await execute_merge_element_new_element(bot, element, energy)
 
 # ----------------------------------------------------------------------------------------------- #
 # LOCKDOWN

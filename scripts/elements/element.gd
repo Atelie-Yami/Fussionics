@@ -21,7 +21,6 @@ const MAX_PASSIVE_ICON := 3
 const FONT_SIZE := 48.0
 const FONT_ATRIBUTES_SIZE := 13.0
 
-var max_valentia: int
 var valentia: int ## Indica quantos links esse elemento pode ter em simultâneo.
 @onready var number_electrons_in_valencia: int = valentia
 

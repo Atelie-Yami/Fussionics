@@ -79,6 +79,14 @@ static func insight_create_element() -> BotChip.Decision:
 	return decision
 
 
+static func insight_potentialize_element(element_pivot) -> BotChip.Decision:
+	var decision := BotChip.Decision.new()
+	decision.action_target = BotChip.ActionTarget.MY_ELEMENT
+	decision.action = BotChip.Action.POTENTIALIZE
+	decision.targets = element_pivot
+	return decision
+
+
 static func insight_get_slots_nearly(bot: Bot, slots_count: int) -> Array:
 	var positions: Array
 	
@@ -141,3 +149,17 @@ static func insight_set_element_defende_mode(element: Element):
 	var slot: ArenaSlot = Gameplay.arena.elements[element.grid_position]
 	if not slot.eletrons_charged:
 		await Gameplay.arena.defend_mode(element.grid_position)
+
+
+static func insight_molecule_get_opening_elements(molecule: Molecule) -> Array[Element]:
+	var opening_list: Array[Element]
+	for e in molecule.configuration:
+		if e.number_electrons_in_valencia == 0:
+			continue
+		
+		for link in e.links:
+			if not e.links[link]:
+				opening_list.append(e)
+				break
+		
+	return opening_list

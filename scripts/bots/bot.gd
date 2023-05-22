@@ -2,10 +2,11 @@ class_name Bot extends Timer
 ## classe que detem os links e referencias do jogo, classe generica
 
 enum ModusOperandi {
-	AGGRESSIVE, DEFENSIVE, UNDECIDED,
-	STRATEGICAL_AGGRESSIVE, STRATEGICAL_DEFENSIVE,
+	AGGRESSIVE, DEFENSIVE, UNDECIDED, STRATEGICAL_AGGRESSIVE, STRATEGICAL_DEFENSIVE,
 }
 const MAX_SEARCH_TEST := 40
+const NON_PLAYER := -1 # sem player definido
+const NEIGHBOR_SLOTS := [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]
 
 var chip: BotChip
 var deck := GameBook.DECK.duplicate(true)
@@ -62,7 +63,7 @@ func get_reactor_empty() -> int:
 
 func get_neighbor_empty_slot(pos: Vector2i):
 	var targets := []
-	for _offset in [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]:
+	for _offset in NEIGHBOR_SLOTS:
 		var target: Vector2i = pos + _offset
 		
 		if (
@@ -75,14 +76,24 @@ func get_neighbor_empty_slot(pos: Vector2i):
 
 
 func get_neighbor_allied_elements(pos: Vector2i):
+	return get_neighbor_elements(pos, 1)
+
+
+func get_neighbor_rival_elements(pos: Vector2i):
+	return get_neighbor_elements(pos, 0)
+
+
+func get_neighbor_elements(pos: Vector2i, player: int):
 	var targets := []
-	for _offset in [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]:
+	for _offset in NEIGHBOR_SLOTS:
 		var target: Vector2i = pos + _offset
 		
-		if Gameplay.arena.elements.has(target) and Gameplay.arena.elements[target].player == 1:
-			targets.append(target)
+		if Gameplay.arena.elements.has(target):
+			if player == NON_PLAYER or Gameplay.arena.elements[target].player == player:
+				targets.append(target)
 	
 	return targets
+	
 
 
 func create_element(atomic_number: int, position: Vector2i):

@@ -28,5 +28,4 @@ func load_images(_texture: Texture, color: String):
 func _input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel") and position.x < 1900:
 		animation(false)
-		boss.animation(false)
 

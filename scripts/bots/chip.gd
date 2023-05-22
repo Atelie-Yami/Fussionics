@@ -8,10 +8,11 @@ enum ActionTarget {
 	MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
 }
 enum Directive {
-	NON, # sem diretiva
-	FORCED, # força a execução a garantir sucesso
-	RELINK, # remova os links e os ligue novamente
-	CLEAR_SLOT # remova o elemento do slot caso haja algo
+	NON = 0, # sem diretiva
+	FORCED = 1, # força a execução a garantir sucesso
+	RELINK = 2, # remova os links e os ligue novamente
+	CLEAR_SLOT = 4, # remova o elemento do slot caso haja algo
+	MAX_ENERGY = 8
 }
 
 class FieldAnalysis:
@@ -36,6 +37,7 @@ class Decision:
 	var action_target: ActionTarget
 	var directive: Directive
 	var targets: Array
+	var args: Array
 
 
 func analysis(bot: Bot) -> FieldAnalysis:
