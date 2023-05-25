@@ -22,6 +22,9 @@ func _ready():
 
 
 func _play():
+	start(0.5)
+	await timeout
+	
 	var analysis: BotChip.FieldAnalysis = await chip.analysis(self)
 	modus_operandi = chip.get_modus(analysis) ## da pra analizar o modus_operandi antes de atualizar
 	

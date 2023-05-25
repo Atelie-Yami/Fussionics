@@ -324,13 +324,12 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 						# nao tem mas tem rival ao lado
 						var rival_positions: Array[Element] = bot.get_neighbor_rival_elements(element.grid_position)
 						if not rival_positions.is_empty():
-							if rival_positions[0].atomic_number > element.atomic_number:
-								await execute_remove_rival_merge_element(bot, rival_positions[0], element, energy)
-								return
+							return
 							
-							else:
-								# se tem alguma molecula q pode remover esse elemento
-								pass
+							# se o elemento rival tá em molecula == return
+							# se tem algum elemento exeto oq vai dar merge, q possa derrotar o rival
+							# se tem alguma molecula q pode remover esse elemento, exeto essa
+							pass
 						
 						# não tem mas tem elemento solto ao lado
 						var ally_elements: Array[Element] = bot.get_neighbor_allied_elements(element.grid_position)
@@ -465,31 +464,6 @@ static func execute_merge_molecule_new_element(bot: Bot, molecule: Molecule, ene
 			await GameJudge.make_full_link_elements(element_A, element)
 			return
 
-
-static func execute_remove_rival_merge_element(bot: Bot, element_rival: Element , element: Element, energy: int):
-	var slot_rival: ArenaSlot = Gameplay.arena.elements[element_rival.grid_position]
-	if (
-		not slot_rival.molecule and
-		GameJudge.combat_check_result(
-				element, element_rival, slot_rival.defend_mode
-		) == GameJudge.Result.WINNER
-	):
-		await Gameplay.arena.attack_element(
-				element.grid_position, element_rival.grid_position
-		)
-		
-		bot.start(0.5)
-		await bot.timeout
-		
-		if not is_instance_valid(element):
-			return
-		
-		var positions: Array = bot.get_neighbor_empty_slot(element.grid_position)
-		if positions.is_empty():
-			return
-		
-		await execute_merge_element_new_element(bot, element, energy)
-
 # ----------------------------------------------------------------------------------------------- #
 # LOCKDOWN
 # ----------------------------------------------------------------------------------------------- #
@@ -578,4 +552,38 @@ static func lockdown_indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 
 
 static func lockdown_tatical(bot: Bot, analysis: BotChip.FieldAnalysis):
-	pass
+	await lockdown_defensive(bot, analysis)
+	
+	bot.start(0.3)
+	await bot.timeout
+	
+	var my_best_element: Element
+	var rival_best_element: Element
+	
+	for molecule in analysis.my_molecules:
+		var my_element: Element = GameJudge.get_powerful_element_in_molecule(molecule)
+		
+		if not my_best_element:
+			my_best_element = my_element
+			continue
+		
+		if my_element.atomic_number > my_best_element.atomic_number:
+			my_best_element = my_element
+		
+		
+	for rival_molecule in analysis.rival_molecules:
+		var rival_element: Element = GameJudge.get_powerful_element_in_molecule(rival_molecule)
+		
+		if not rival_best_element:
+			rival_best_element = rival_element
+			continue
+		
+		if rival_element.atomic_number > rival_best_element.atomic_number:
+			rival_best_element = rival_element
+	
+	if not my_best_element or not rival_best_element:
+		return
+	
+	if my_best_element.atomic_number > rival_best_element.atomic_number:
+		await lockdown_aggressive(bot, analysis)
+	
