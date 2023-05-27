@@ -46,7 +46,7 @@ func analysis(bot: Bot) -> FieldAnalysis:
 	bot.start(0.3)
 	await bot.timeout
 	
-	for slot in (Gameplay.arena.elements as Dictionary).values():
+	for slot in (Arena.elements as Dictionary).values():
 		slot = (slot as ArenaSlot)
 		if slot.player == PlayerController.Players.A:
 			if GameJudge.is_element_in_reactor(slot.element.grid_position):

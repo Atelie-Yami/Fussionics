@@ -46,7 +46,7 @@ func get_empty_slot():
 		_flat_test += 1
 		
 		var position_test := Vector2i(randi_range(0, 7), randi_range(0, 4))
-		if not Gameplay.arena.elements.has(position_test):
+		if not Arena.elements.has(position_test):
 			return position_test
 
 
@@ -70,7 +70,7 @@ func get_neighbor_empty_slot(pos: Vector2i):
 		var target: Vector2i = pos + _offset
 		
 		if (
-				not Gameplay.arena.elements.has(target) and
+				not Arena.elements.has(target) and
 				target.x >= 0 and target.x < 8 and target.y >= 0 and target.y < 5
 		):
 			targets.append(target)
@@ -91,8 +91,8 @@ func get_neighbor_elements(pos: Vector2i, player: int):
 	for _offset in NEIGHBOR_SLOTS:
 		var target: Vector2i = pos + _offset
 		
-		if Gameplay.arena.elements.has(target):
-			if player == NON_PLAYER or Gameplay.arena.elements[target].player == player:
+		if Arena.elements.has(target):
+			if player == NON_PLAYER or Arena.elements[target].player == player:
 				targets.append(target)
 	
 	return targets
@@ -101,8 +101,8 @@ func get_neighbor_elements(pos: Vector2i, player: int):
 
 func create_element(atomic_number: int, position: Vector2i):
 	var element = Gameplay.arena.create_element(atomic_number, PlayerController.Players.B, position, false)
-	Gameplay.arena.current_players[PlayerController.Players.B].spend_energy(atomic_number + 1)
-	Gameplay.world.vfx.emit_element_instanciated(
+	PlayerController.current_players[PlayerController.Players.B].spend_energy(atomic_number + 1)
+	Gameplay.vfx.emit_element_instanciated(
 			element.global_position + Vector2(40, 40), element.legancy.modulate
 	)
 	

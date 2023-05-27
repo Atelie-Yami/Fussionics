@@ -2,10 +2,15 @@ extends Node2D
 
 const ARENA_POSITION := Vector2(605, 320)
 
+var time: float = 0.0
+
+@onready var world: Gameplay = $".."
+@onready var visualizer = $visualizer
+@onready var button_actions := [$element_action, $element_action2, $element_action3, $element_action4, $element_action5]
 
 func _ready():
-	Gameplay.show_action_buttons.connect(_show_action_buttons)
-	Gameplay.element_selected.connect(_element_selected)
+	world.show_action_buttons.connect(_show_action_buttons)
+	world.is_element_selected.connect(_element_selected)
 
 
 func _element_selected(value: bool):
@@ -14,7 +19,12 @@ func _element_selected(value: bool):
 
 
 func _process(delta):
-	global_position = Gameplay.element_focus.global_position
+	if Gameplay.selected_element:
+		global_position = Gameplay.selected_element.global_position + Vector2(40, 40)
+	
+	time += delta
+	var _scale = abs(cos(time * 4.0)) * 0.1
+	visualizer.scale = Vector2(1.0 + _scale, 1.0 + _scale)
 
 
 func _notification(what: int):
@@ -26,7 +36,7 @@ func _show_action_buttons(actions: Array[Gameplay.ElementActions]):
 	if ElementEffectManager.is_processing_tasks or Gameplay.arena.action_in_process:
 		return
 	
-	get_children().map(func(c): c.visible = false)
+	button_actions.map(func(c): c.visible = false)
 	
 	var size: float = actions.size()
 	var angle: float
@@ -50,8 +60,8 @@ func _show_action_buttons(actions: Array[Gameplay.ElementActions]):
 			rad = deg_to_rad((deg_diff * count) - (angle - (deg_diff / 2.0)))
 		
 		var polar = Vector2(cos(rad), sin(rad))
-		get_child(action).position = (polar * 80) - Vector2(25, 25)
-		get_child(action).visible = true
+		button_actions[action].position = (polar * 80) - Vector2(25, 25)
+		button_actions[action].visible = true
 		count += 1
 
 

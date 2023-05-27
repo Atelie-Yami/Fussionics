@@ -67,7 +67,7 @@ static func can_remove_element(element: Element) -> bool:
 
 static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 	if defender.molecule and defender.molecule.defender:
-		defender = Gameplay.arena.elements[defender.molecule.defender.grid_position]
+		defender = Arena.get_slot(defender.molecule.defender.grid_position)
 	
 	var result: Result = combat_check_result(attacker.element, defender.element, defender.defend_mode)
 	disable_slot(attacker)
@@ -77,7 +77,7 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 	
 	match result:
 		Result.WINNER:
-			await Gameplay.world.vfx.handler_attack(
+			await Gameplay.vfx.handler_attack(
 					attacker.element, defender.element.global_position + Vector2(40, 40)
 			)
 			
@@ -90,20 +90,20 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 			await Gameplay.arena.remove_element(defender.element.grid_position, true)
 			
 			if can_take_damage:
-				Gameplay.arena.current_players[defender.player].take_damage(damage)
+				PlayerController.current_players[defender.player].take_damage(damage)
 		
 		Result.COUNTERATTACK:
 			if defender.defend_mode:
 				return
 			
 			if combat_check_result(defender.element, attacker.element, false) == Result.WINNER:
-				await Gameplay.world.vfx.handler_attack(
+				await Gameplay.vfx.handler_attack(
 						attacker.element, defender.element.global_position + Vector2(40, 40)
 				)
-				await Gameplay.world.vfx.emit_defended_vfx(
+				await Gameplay.vfx.emit_defended_vfx(
 						defender.element.global_position + Vector2(40, 40)
 				)
-				await Gameplay.world.vfx.handler_attack(
+				await Gameplay.vfx.handler_attack(
 						defender.element, attacker.element.global_position + Vector2(40, 40)
 				)
 				
@@ -113,13 +113,13 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 				damage = defender.element.eletrons - attacker.element.neutrons - 1
 				
 				await Gameplay.arena.remove_element(attacker.element.grid_position, true)
-				Gameplay.arena.current_players[attacker.player].take_damage(damage)
+				PlayerController.current_players[attacker.player].take_damage(damage)
 		
 		Result.DRAW:
-			await Gameplay.world.vfx.handler_attack(
+			await Gameplay.vfx.handler_attack(
 					attacker.element, defender.element.global_position + Vector2(40, 40)
 			)
-			await Gameplay.world.vfx.emit_defended_vfx(
+			await Gameplay.vfx.emit_defended_vfx(
 					defender.element.global_position + Vector2(40, 40)
 			)
 			await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
@@ -168,13 +168,13 @@ static func get_weak_element_molecule(molecule: Molecule) -> Element:
 
 
 static func get_neighbor_enemies(position: Vector2i, enemies: Array[Element]):
-	var player = Gameplay.arena.elements[position].player
+	var player = Arena.get_slot(position).player
 	
 	for x in [-1, 0, 1]:
 		for y in [-1, 0, 1]:
 			var _pos = position + Vector2i(x, y)
-			if Gameplay.arena.elements.has(_pos) and Gameplay.arena.elements[_pos].player != player:
-				enemies.append(Gameplay.arena.elements[_pos].element)
+			if Arena.elements.has(_pos) and Arena.elements[_pos].player != player:
+				enemies.append(Arena.elements[_pos].element)
 
 
 static func get_active_elements_in_molecule(molecule: Molecule):
@@ -223,7 +223,7 @@ static func charge_eletrons_power(header: Element, molecule: Molecule):
 			element.eletrons = 0
 		
 		lec.global_position = element.global_position + Vector2(53, -10)
-		Gameplay.add_child(lec)
+		Gameplay.vfx.add_child(lec)
 		
 		charged_elements.append(element)
 	
@@ -236,13 +236,13 @@ static func charge_eletrons_power(header: Element, molecule: Molecule):
 		
 		var lec = EletronChangeLable.new(-1)
 		lec.global_position = element.global_position + Vector2(53, -10)
-		Gameplay.add_child(lec)
+		Gameplay.vfx.add_child(lec)
 	
 	header.eletrons += power
 	
 	var lec = EletronChangeLable.new(power)
 	lec.global_position = header.global_position + Vector2(53, -10)
-	Gameplay.add_child(lec)
+	Gameplay.vfx.add_child(lec)
 
 
 static func is_neighbor_to_link(position: Vector2i):

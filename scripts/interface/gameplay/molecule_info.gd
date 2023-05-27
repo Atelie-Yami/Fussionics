@@ -39,7 +39,8 @@ func _unhandled_input(event: InputEvent):
 func load_info(element: Element):
 	_reset()
 	
-	var slot = Gameplay.arena.elements[element.grid_position]
+	
+	var slot: ArenaSlot = Arena.get_slot(element.grid_position)
 	var molecule: Molecule = slot.molecule
 	
 	if not molecule:

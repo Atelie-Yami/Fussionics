@@ -17,11 +17,11 @@ func _ready():
 
 
 func _elements_update():
-	fusion_a.actived = arena.elements.has(Vector2i(12, 0)) and arena.elements.has(Vector2i(14, 0))
-	fusion_b.actived = arena.elements.has(Vector2i( 9, 0)) and arena.elements.has(Vector2i(11, 0))
+	fusion_a.actived = Arena.elements.has(Vector2i(12, 0)) and Arena.elements.has(Vector2i(14, 0))
+	fusion_b.actived = Arena.elements.has(Vector2i( 9, 0)) and Arena.elements.has(Vector2i(11, 0))
 	
-	accelr_a.actived = arena.elements.has(Vector2i(12, 4)) and arena.elements.has(Vector2i(14, 4))
-	accelr_b.actived = arena.elements.has(Vector2i( 9, 4)) and arena.elements.has(Vector2i(11, 4))
+	accelr_a.actived = Arena.elements.has(Vector2i(12, 4)) and Arena.elements.has(Vector2i(14, 4))
+	accelr_b.actived = Arena.elements.has(Vector2i( 9, 4)) and Arena.elements.has(Vector2i(11, 4))
 
 
 func fusion_elements(element_A: Element, element_B: Element, element_C: Element, player: int):
@@ -41,7 +41,7 @@ func fusion_elements(element_A: Element, element_B: Element, element_C: Element,
 	(fusion_b if player else fusion_a).start(element_C.glow.modulate)
 	camera_arena.shake(2.5)
 	element_C.visible = true
-	Gameplay.world.vfx.emit_element_instanciated(element_C.global_position + Vector2(40, 40), element_C.legancy.modulate)
+	Gameplay.vfx.emit_element_instanciated(element_C.global_position + Vector2(40, 40), element_C.legancy.modulate)
 
 
 func accelr_elements(element_A: Element, element_B: Element, element_C: Element, player: int):
@@ -71,7 +71,7 @@ func accelr_elements(element_A: Element, element_B: Element, element_C: Element,
 	element_A.visible = false
 	element_B.visible = false
 	element_C.visible = true
-	Gameplay.world.vfx.emit_element_instanciated(element_C.global_position + Vector2(40, 40), element_C.legancy.modulate)
+	Gameplay.vfx.emit_element_instanciated(element_C.global_position + Vector2(40, 40), element_C.legancy.modulate)
 	
 	await motion(
 			create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN),

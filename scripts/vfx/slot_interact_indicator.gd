@@ -62,7 +62,7 @@ func set_slots(elements: Dictionary, _mode: int, args = null):
 			
 			_slots.append(slot.element.grid_position)
 		
-		Gameplay.world.attack_omega.visible = not has_enemies
+		Gameplay.attack_omega.visible = not has_enemies
 		
 	elif args != null:
 		var _position = args as Vector2i

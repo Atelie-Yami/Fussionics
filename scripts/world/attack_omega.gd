@@ -5,9 +5,11 @@ const ANIMATION_SPEED := 2.5
 var time := 0.0
 var animation := 0.0
 
+@onready var world: Gameplay = $"../.."
 
-func _init():
-	Gameplay.set_to_default.connect(_set_to_default)
+
+func _ready():
+	world.set_to_default.connect(_set_to_default)
 	visibility_changed.connect(_visibility_changed)
 
 

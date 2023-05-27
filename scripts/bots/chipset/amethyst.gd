@@ -289,7 +289,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 						
 						var ally_slots: Array = bot.get_neighbor_allied_elements(element.grid_position)
 						for position in ally_slots:
-							var slot: ArenaSlot = Gameplay.arena.elements[position]
+							var slot: ArenaSlot = Arena.get_slot(position)
 							
 							if slot.molecule == molecule or not GameJudge.can_element_link(slot.element):
 								continue
@@ -334,7 +334,7 @@ static func execute_decision(bot: Bot, decision: BotChip.Decision):
 						# não tem mas tem elemento solto ao lado
 						var ally_elements: Array[Element] = bot.get_neighbor_allied_elements(element.grid_position)
 						for e in ally_elements:
-							if Gameplay.arena.elements[e.grid_position].molecule:
+							if Arena.get_slot(e.grid_position).molecule:
 								continue
 							
 							var pos = bot.get_empty_slot()
@@ -482,7 +482,7 @@ static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 			
 			element = list[0]
 		
-		var slot: ArenaSlot = Gameplay.arena.elements[element.grid_position]
+		var slot: ArenaSlot = Arena.get_slot(element.grid_position)
 		if not slot.eletrons_charged:
 			GameJudge.charge_eletrons_power(element, molecule)
 			slot.eletrons_charged = true
@@ -504,7 +504,7 @@ static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 		bot.start(0.2)
 		await bot.timeout
 		
-		if Gameplay.arena.elements[element.grid_position].can_act:
+		if Arena.get_slot(element.grid_position).can_act:
 			await insight_molecule_match_attack(element, analysis.rival_molecules)
 		
 	var can_direct_attack := true

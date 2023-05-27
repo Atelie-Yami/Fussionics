@@ -73,7 +73,7 @@ var effect_pool := {
 
 func _init():
 	Gameplay.arena.add_child(border_line)
-	border_line.global_position = Gameplay.arena.GRID_OFFSET - Vector2i(5, 5)
+	border_line.global_position = Arena.GRID_OFFSET - Vector2i(5, 5)
 
 
 func update_border():
@@ -101,7 +101,7 @@ func redux_ref():
 
 func prepare_element_for_attack(header: Element):
 	configuration.map(_handle_element_action.bind(header))
-	Gameplay.arena.elements[header.grid_position].can_act = false
+	Arena.get_slot(header.grid_position).can_act = false
 	header.disabled = true
 
 
@@ -143,7 +143,7 @@ func remove_element(element: Element):
 
 func add_element(element: Element):
 	configuration.append(element)
-	Gameplay.arena.elements[element.grid_position].molecule = self
+	Arena.get_slot(element.grid_position).molecule = self
 
 
 func get_eletron_power() -> int:

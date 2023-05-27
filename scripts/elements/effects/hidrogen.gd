@@ -12,4 +12,4 @@ func _init(_element: Element):
 
 
 func execute():
-	Gameplay.arena.current_players[0].heal(1)
+	PlayerController.current_players[0].heal(1)

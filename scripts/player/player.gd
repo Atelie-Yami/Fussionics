@@ -37,8 +37,8 @@ var life: int = MAX_LIFE:
 func set_turn(active: bool):
 	var defend_mode_list: Array[ArenaSlot]
 	
-	for pos in arena.elements:
-		var slot: ArenaSlot = arena.elements[pos]
+	for pos in Arena.elements:
+		var slot: ArenaSlot = Arena.elements[pos]
 		if slot.player == player:
 			slot.element.reset()
 			
@@ -63,8 +63,8 @@ func set_turn(active: bool):
 	
 
 func disable_elements():
-	for pos in arena.elements:
-		arena.elements[pos].disable()
+	for pos in Arena.elements:
+		Arena.elements[pos].disable()
 
 
 func take_damage(danage: int):

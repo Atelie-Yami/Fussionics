@@ -108,7 +108,7 @@ func _process(delta):
 func _input(event: InputEvent):
 	if event.is_action_pressed("test"):
 		var arr: Array[Element] = [self]
-		await Gameplay.world.vfx.handler(arr, [Vector2.ZERO] as Array[Vector2], 0, 0)
+		await Gameplay.vfx.handler(arr, [Vector2.ZERO] as Array[Vector2], 0, 0)
 
 
 func _exit_tree():

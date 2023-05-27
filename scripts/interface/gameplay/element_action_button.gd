@@ -4,7 +4,9 @@ extends Button
 @export var action: Gameplay.ElementActions
 
 
+@onready var world: Gameplay = $"../.."
+
 
 func __pressed():
-	Gameplay._action_pressed(action)
+	world.action_pressed(action)
 	get_parent().visible = false

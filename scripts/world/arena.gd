@@ -1,4 +1,4 @@
-class_name Arena extends PlayerController
+class_name Arena extends Control
 
 signal elements_update
 
@@ -9,26 +9,24 @@ const FORJE_SLOTS_OFFSET := [
 	Vector2i(810, 0), Vector2i(990, 0), Vector2i(900, 0),         # slots 16, 17, 18
 	Vector2i(720, 450), Vector2i(900, 450), Vector2i(810, 540),   # slots 19, 20, 21
 ]
+const GRID_OFFSET := Vector2i(605, 320)
+const SLOT_SIZE := Vector2i(90, 90)
 
-## os slots
-# ------------------------- #
-##   slot   |    x    |  y  |
-##  fusao A | 12 e 14 |  0  |
-##  fusao B |  9 e 11 |  0  |
-## accelr A | 12 e 14 |  4  |
-## accelr B |  9 e 11 |  4  |
-# ------------------------- #
 
-## {Vector2i position : ArenaSlot slot}
 var action_in_process: bool
 var reactor_canceled_by_effect: bool
 
 @export var reactor_path: NodePath
 @onready var reactors = get_node(reactor_path)
+@onready var turn_machine: TurnMachine = %turn_machine
+
+static var elements: Dictionary
 
 
-func _init():
-	Gameplay.arena = self
+func _ready():
+	for c in get_children():
+		await  get_tree().create_timer(0.03).timeout
+		c.animation()
 
 
 func move_element(pre_slot: Vector2i, final_slot: Vector2i):
@@ -101,18 +99,18 @@ func remove_element(slot_position: Vector2i, animated: bool):
 
 func _remove_element(slot: ArenaSlot, slot_position: Vector2i, animated: bool):
 	if animated:
-		await Gameplay.world.vfx.emit_end_vfx(slot.element)
+		await Gameplay.vfx.emit_end_vfx(slot.element)
 	
 	slot.element.queue_free()
 	elements.erase(slot_position)
 
 
-func create_element(atomic_number: int, player: Players, _position: Vector2i, focus: bool):
+func create_element(atomic_number: int, player: PlayerController.Players, _position: Vector2i, focus: bool):
 	if action_in_process or not _check_slot_empty(_position) or _check_slot_only_out(_position):
 		return
 	
 	action_in_process = true
-	var element: Element = ElementNodePlayer.new() if player == Players.A else ElementNodeRival.new()
+	var element: Element = ElementNodePlayer.new() if player == PlayerController.Players.A else ElementNodeRival.new()
 	var slot = ArenaSlot.new(element, player)
 	
 	element.build(atomic_number)
@@ -122,7 +120,7 @@ func create_element(atomic_number: int, player: Players, _position: Vector2i, fo
 	if focus:
 		Gameplay.selected_element = element
 	
-	current_players[player].add_child(element)
+	PlayerController.current_players[player].add_child(element)
 	
 	element.active = _position.y < 8
 	element.global_position = _get_snapped_slot_position(_position)
@@ -189,7 +187,7 @@ func unlink_elements(element_A: Element, element_B: Element):
 		var player = elements[element_A.grid_position].player
 		
 		await ElementEffectManager.call_effects(player, BaseEffect.SkillType.UNLINKED)
-		current_players[player].spend_energy(1)
+		PlayerController.current_players[player].spend_energy(1)
 
 
 func attack_element(attacker: Vector2i, defender: Vector2i):
@@ -239,13 +237,13 @@ func direct_attack(attacker: Vector2i):
 	action_in_process = true
 	
 	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
-	await Gameplay.world.vfx.handler_attack(
+	await Gameplay.vfx.handler_attack(
 			slot_attacker.element, Vector2(109 if slot_attacker.player else 1811, 540)
 	)
 	if slot_attacker.molecule:
 		await slot_attacker.molecule.effects_cluster_direct_attack(slot_attacker)
 	
-	current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
+	PlayerController.current_players[0 if slot_attacker.player else 1].take_damage(slot_attacker.element.eletrons)
 	slot_attacker.element.disabled = true
 	slot_attacker.can_act = false
 	
@@ -279,7 +277,7 @@ func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: 
 	remove_element(slot_fusion_B, false)
 	
 	if atn > 24:
-			Gameplay.arena.current_players[current_player].take_damage(atn - 24)
+			PlayerController.current_players[current_player].take_damage(atn - 24)
 
 
 func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: int, current_player: PlayerController.Players):
@@ -332,11 +330,126 @@ func _drop_data(_p, data):
 		move_element(data.grid_position, final_position)
 	
 	elif data is DeckSlot:
-		var element = create_element(data.element, Players.A, final_position, false)
-		current_players[Players.A].spend_energy(data.element +1)
-		Gameplay.world.vfx.emit_element_instanciated(
+		var element = create_element(data.element, PlayerController.Players.A, final_position, false)
+		PlayerController.current_players[PlayerController.Players.A].spend_energy(data.element +1)
+		Gameplay.vfx.emit_element_instanciated(
 				element.global_position + Vector2(40, 40), element.legancy.modulate
 		)
+
+
+func _can_drop_data(_p, data):
+	return (
+			turn_machine.current_stage == TurnMachine.State.MAIN
+			and turn_machine.current_player == TurnMachine.Players.A
+	)
+
+
+func _check_slot_empty(slot: Vector2i):
+	return not elements.has(slot)
+
+
+func _check_slot_only_out(slot: Vector2i):
+	return slot.y == 12 or slot.y == 15 or slot.y == 18 or slot.y == 21
+
+
+func _get_snapped_slot_position(slot: Vector2i):
+	var _slot = (slot - Vector2i(16, 0)) if slot.x > 11 else slot
+	return (SLOT_SIZE * _slot) + GRID_OFFSET
+
+
+func _handle_molecule(element: Element):
+	var molecule_config: Array[Element]
+	var molecula: Molecule
+	
+	if element.has_link:
+		_procedural_search_link_nodes(element, molecule_config)
+	
+	if molecule_config.is_empty():
+		if elements[element.grid_position].molecule:
+			elements[element.grid_position].molecule.redux_ref()
+		elements[element.grid_position].molecule = null
+		
+	else:
+		molecula = Molecule.new()
+		molecula.configuration = molecule_config
+		
+		if is_instance_valid(elements[element.grid_position].molecule.border_line):
+			elements[element.grid_position].molecule.border_line.queue_free()
+		
+		for e in molecule_config:
+			elements[e.grid_position].molecule = molecula
+			molecula.gain_ref()
+
+
+static func get_slot(_position: Vector2i) -> ArenaSlot:
+	var slot: ArenaSlot
+	if elements.has(_position):
+		slot = elements[_position]
+	return slot
+
+
+func _link_elements(element_a: Element, element_b: Element):
+	for link in element_a.links:
+		var ligament_a = element_a.links[link]
+		if not ligament_a:
+			continue
+		
+		for _link in element_b.links:
+			var ligament_b = element_b.links[_link]
+			if not ligament_b:
+				continue
+			
+			if ligament_a == ligament_b and ligament_a.level < 3:
+				ligament_a.evolve_ligament()
+				return
+
+
+func _unlink_elements(element_A: Element, element_B: Element):
+	for link in element_A.links:
+		var ligament_A: Molecule.Ligament = element_A.links[link]
+		if not ligament_A:
+			continue
+		
+		for _link in element_B.links:
+			var ligament_B: Molecule.Ligament = element_B.links[_link]
+			if not ligament_B:
+				continue
+			
+			if ligament_A == ligament_B:
+				if ligament_A.level > 1:
+					ligament_A.demote_ligament()
+				
+				else:
+					ligament_A.remove()
+				
+				return true
+	return false
+
+
+func _procedural_search_link_nodes(element_parent: Element, anchored_array: Array[Element]):
+	for l in element_parent.links:
+		var link: Molecule.Ligament = element_parent.links[l]
+		if not link: continue
+		
+		if link.element_A == element_parent:
+			_procedural_search_test(link.element_B, anchored_array)
+		
+		elif link.element_B == element_parent:
+			_procedural_search_test(link.element_A, anchored_array)
+
+
+func _procedural_search_test(element: Element, anchored_array: Array[Element]):
+	if anchored_array.find(element) != -1:
+		return
+	
+	anchored_array.append(element)
+	_procedural_search_link_nodes(element, anchored_array)
+
+
+
+
+
+
 
 
 

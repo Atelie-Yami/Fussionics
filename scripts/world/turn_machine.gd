@@ -111,10 +111,10 @@ func _cook():
 	var slot_accelr_A = Vector2i(slot, 4)
 	var slot_accelr_B = Vector2i(slot + 2, 4)
 	
-	if arena.elements.has(slot_fusion_A) and arena.elements.has(slot_fusion_B):
+	if Arena.elements.has(slot_fusion_A) and Arena.elements.has(slot_fusion_B):
 		await arena.fusion_elements(slot_fusion_A, slot_fusion_B, slot, current_player as PlayerController.Players)
 	
-	if arena.elements.has(slot_accelr_A) and arena.elements.has(slot_accelr_B):
+	if Arena.elements.has(slot_accelr_A) and Arena.elements.has(slot_accelr_B):
 		await arena.accelr_elements(slot_accelr_A, slot_accelr_B, slot, current_player as PlayerController.Players)
 
 

@@ -3,7 +3,7 @@ class_name ElementNodePlayer extends Element
 
 func _gui_input(event: InputEvent):
 	if event.is_action_pressed("mouse_right"):
-		Gameplay.world.element_info.show_info(self)
+		Gameplay.element_info.show_info(self)
 
 	if not event.is_action_pressed("mouse_click") or disabled or in_reactor:
 		return
@@ -11,7 +11,7 @@ func _gui_input(event: InputEvent):
 	match Gameplay.action_state:
 		Gameplay.ActionState.NORMAL:
 			_set_current_node_state(NodeState.SELECTED)
-			Gameplay.world.passive_status.set_element(self)
+			Gameplay.passive_status.set_element(self)
 
 		Gameplay.ActionState.LINK:
 			if number_electrons_in_valencia > 0 and GameJudge.is_neighbor_to_link(grid_position):
@@ -73,4 +73,4 @@ func _drop_data(_p, data):
 	effect = skill[1].new(self)
 	effect.ranking = data.ranking
 	
-	Gameplay.world.vfx.emit_get_widget(global_position + Vector2(40, 40), legancy.modulate)
+	Gameplay.vfx.emit_get_widget(global_position + Vector2(40, 40), legancy.modulate)
