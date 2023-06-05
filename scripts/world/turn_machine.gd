@@ -50,7 +50,7 @@ func _main_phase_timeout():
 func _machine():
 	match current_stage:
 		State.PRE_INIT:
-			await ElementEffectManager.call_effects(
+			await BaseEffect.call_effects(
 					current_player as PlayerController.Players,
 					BaseEffect.SkillType.PRE_INIT_PHASE
 			)
@@ -60,7 +60,7 @@ func _machine():
 			next_phase()
 		
 		State.INIT:
-			await ElementEffectManager.call_effects(
+			await BaseEffect.call_effects(
 					current_player as PlayerController.Players,
 					BaseEffect.SkillType.INIT_PHASE
 			)
@@ -71,11 +71,11 @@ func _machine():
 			next_phase()
 		
 		State.MAIN:
-			await ElementEffectManager.call_effects(
+			await BaseEffect.call_effects(
 					current_player as PlayerController.Players,
 					BaseEffect.SkillType.MAIN_PHASE
 			)
-			await ElementEffectManager.call_passive_effects(current_player as PlayerController.Players)
+			await PassiveEffect.call_passive_effects(current_player as PlayerController.Players)
 			
 			start(TURN_TIME)
 			if not timeout.is_connected(_main_phase_timeout):
@@ -84,7 +84,7 @@ func _machine():
 			main_turn.emit(current_player)
 		
 		State.END:
-			await ElementEffectManager.call_effects(
+			await BaseEffect.call_effects(
 					current_player as PlayerController.Players,
 					BaseEffect.SkillType.END_PHASE
 			)

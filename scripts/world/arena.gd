@@ -175,7 +175,7 @@ func link_elements(element_a: Element, element_b: Element):
 		molecule.link_elements(element_a, element_b)
 		molecule.update_border()
 	
-	await ElementEffectManager.call_effects(slot_a.player, BaseEffect.SkillType.LINKED)
+	await BaseEffect.call_effects(slot_a.player, BaseEffect.SkillType.LINKED)
 	action_in_process = false
 
 
@@ -186,7 +186,7 @@ func unlink_elements(element_A: Element, element_B: Element):
 		
 		var player = elements[element_A.grid_position].player
 		
-		await ElementEffectManager.call_effects(player, BaseEffect.SkillType.UNLINKED)
+		await BaseEffect.call_effects(player, BaseEffect.SkillType.UNLINKED)
 		PlayerController.current_players[player].spend_energy(1)
 
 
@@ -199,8 +199,8 @@ func attack_element(attacker: Vector2i, defender: Vector2i):
 	
 	action_in_process = true
 	
-	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
-	await ElementEffectManager.call_effects(elements[defender].player, BaseEffect.SkillType.PRE_DEFEND)
+	await BaseEffect.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
+	await BaseEffect.call_effects(elements[defender].player, BaseEffect.SkillType.PRE_DEFEND)
 	
 	if slot_attacker.molecule:
 		await slot_attacker.molecule.effects_cluster_assembly(slot_attacker, slot_defender, Molecule.Kit.ATTACK)
@@ -225,7 +225,7 @@ func defend_mode(element: Vector2i):
 	slot.defend_mode = true
 	GameJudge.disable_slot(slot)
 	
-	await ElementEffectManager.call_effects(slot.player, BaseEffect.SkillType.DEFEND_MODE)
+	await BaseEffect.call_effects(slot.player, BaseEffect.SkillType.DEFEND_MODE)
 	action_in_process = false
 
 
@@ -236,7 +236,7 @@ func direct_attack(attacker: Vector2i):
 	var slot_attacker: ArenaSlot = elements[attacker]
 	action_in_process = true
 	
-	await ElementEffectManager.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
+	await BaseEffect.call_effects(elements[attacker].player, BaseEffect.SkillType.PRE_ATTACK)
 	await Gameplay.vfx.handler_attack(
 			slot_attacker.element, Vector2(109 if slot_attacker.player else 1811, 540)
 	)
@@ -257,7 +257,7 @@ func fusion_elements(slot_fusion_A: Vector2i, slot_fusion_B: Vector2i, slot_id: 
 	)
 	
 	reactor_canceled_by_effect = false
-	await ElementEffectManager.call_effects(current_player, BaseEffect.SkillType.COOKED_FUSION)
+	await BaseEffect.call_effects(current_player, BaseEffect.SkillType.COOKED_FUSION)
 	if reactor_canceled_by_effect:
 		return
 	
@@ -301,7 +301,7 @@ func accelr_elements(slot_accelr_A: Vector2i, slot_accelr_B: Vector2i, slot_id: 
 			)
 		
 		reactor_canceled_by_effect = false
-		await ElementEffectManager.call_effects(current_player, BaseEffect.SkillType.COOKED_ACCELR)
+		await BaseEffect.call_effects(current_player, BaseEffect.SkillType.COOKED_ACCELR)
 		if reactor_canceled_by_effect:
 			return
 		

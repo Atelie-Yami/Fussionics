@@ -18,7 +18,6 @@ config/icon="res://assets/img/marketing/icon.png"
 [autoload]
 
 GameConfig="*res://scripts/autoloads/game_config.gd"
-ElementEffectManager="*res://scripts/autoloads/element_effect_manager.gd"
 
 [debug]
 

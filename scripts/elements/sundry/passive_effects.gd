@@ -51,6 +51,11 @@ var level: int:
 
 var _registred: bool
 
+static var effects_pool := {
+	PlayerController.Players.A: [],
+	PlayerController.Players.B: []
+}
+
 
 func effect():
 	pass
@@ -62,11 +67,16 @@ func remove():
 
 ## registra esse efeito de acordo com o tempo de ação
 func register(player: PlayerController.Players):
-	ElementEffectManager.passive_pool_effects[player].append(self)
+	effects_pool[player].append(self)
 	_registred = true
 
 
 ## remove o registro
 func unregister(player: PlayerController.Players):
 	if _registred:
-		ElementEffectManager.passive_pool_effects[player].erase(self)
+		effects_pool[player].erase(self)
+
+
+static func call_passive_effects(player: PlayerController.Players):
+	effects_pool[player].map(func(e): e.effect())
+

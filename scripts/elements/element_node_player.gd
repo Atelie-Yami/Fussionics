@@ -34,6 +34,7 @@ func _get_drag_data(_p):
 		return null
 
 	var preview: Element = duplicate()
+	preview.sob.visible = false
 	preview.modulate.a = 0.66
 	preview.scale *= 0.75
 

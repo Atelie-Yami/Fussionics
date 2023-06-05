@@ -14,6 +14,7 @@ const SLOT_WHITE := preload("res://assets/img/elements/element_frame_white.png")
 
 const GLOW := preload("res://scenes/elements/glow.tscn")
 const LEGANCY := preload("res://scenes/elements/legancy.tscn")
+const NUMBER_RENDER := preload("res://scripts/sundry/element_number_render.gd")
 
 const LIGAMENT_SPACCAMENT := 10.0
 const LIGAMENT_SIDE_SPACCAMENT := LIGAMENT_SPACCAMENT / 2.0
@@ -72,6 +73,7 @@ var max_neutrons: int
 var is_dead_flag: bool
 var factor_dead: float
 
+var sob: Control = NUMBER_RENDER.new()
 var glow: Sprite2D = GLOW.instantiate()
 var legancy: Panel = LEGANCY.instantiate()
 var effect #: BaseEffect
@@ -83,6 +85,7 @@ func _init():
 	focus_mode = Control.FOCUS_NONE
 	add_child(legancy)
 	add_child(glow)
+	add_child(sob)
 	glow.position = Vector2(40, 40)
 
 
@@ -93,10 +96,14 @@ func _ready():
 
 
 func _process(delta):
+	sob.atomic_number = atomic_number
+	sob.eletrons = eletrons
+	sob.neutrons = neutrons
+	sob.queue_redraw()
 	queue_redraw()
 	# dar uma corzinha pra tudo
-	modulate = (Color.WHITE * 0.7) +  (GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] * 0.3)
-	modulate.a = 1.0
+	self_modulate = (Color.WHITE * 0.7) +  (GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] * 0.3)
+	self_modulate.a = 1.0
 	glow.modulate = GameBook.COLOR_SERIES[GameBook.ELEMENTS[atomic_number][GameBook.SERIE]] if active else Color(0.1, 0.1, 0.1, 1.0)
 	
 	if is_dead_flag:
@@ -152,7 +159,6 @@ func _draw():
 	
 	if is_dead_flag:
 		draw_texture_rect(SLOT_WHITE, Rect2(-8, -8, 96, 96), false, Color.WHITE * factor_dead)
-		
 		return
 	
 	# obter a cor
@@ -169,19 +175,7 @@ func _draw():
 			FUTURE_SALLOW, Vector2(41 - string_size.x, ((string_size.y + 7) / 2) + 40) + position_offset,
 			GameBook.ELEMENTS[atomic_number][GameBook.SYMBOL], HORIZONTAL_ALIGNMENT_CENTER, -1, FONT_SIZE, symbol_color
 	)
-	# atomic number
-	draw_string(
-			GIANT_ROBOT, Vector2(11, 16), str(neutrons +1), HORIZONTAL_ALIGNMENT_RIGHT,
-			-1, FONT_ATRIBUTES_SIZE, symbol_color
-	)
-	# eletrons
-	var eletrons_string_size = GIANT_ROBOT.get_string_size(
-			str(eletrons), HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_ATRIBUTES_SIZE
-	)
-	draw_string(
-			GIANT_ROBOT, Vector2(68 - eletrons_string_size.x, 16), str(eletrons),
-			HORIZONTAL_ALIGNMENT_LEFT, 200, FONT_ATRIBUTES_SIZE, symbol_color
-	)
+	
 	# icone de passivo
 	if not debuffs.is_empty():
 		for i in min(debuffs.size(), MAX_PASSIVE_ICON):

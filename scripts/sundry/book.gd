@@ -266,40 +266,6 @@ const WIDGET_DROPS = {
 }
 
 
-#class Widget:
-#	var atomic_number: int
-#	var ranking: BaseEffect.Ranking
-#	func _init(a, r):
-#		atomic_number = a; ranking = r
-#
-#class LevelConfig:
-#	var level: PhaseConfig
-#	var widgets: Array[Widget]
-#	var drops: Array[Widget]
-#	func _init(l, w, d):
-#		level = l; widgets = w; drops = d
-#
-#
-#static var SUPERLib := [
-#	LevelConfig.new(
-#			PhaseConfig.NORMAL,
-#			[
-#					Widget.new(0, BaseEffect.Ranking.NORMAL),
-#					Widget.new(1, BaseEffect.Ranking.IMPROVED)
-#			],
-#			[Widget.new(0, BaseEffect.Ranking.IMPROVED)],
-#	),
-#	LevelConfig.new(
-#			PhaseConfig.NORMAL,
-#			[
-#					Widget.new(0, BaseEffect.Ranking.NORMAL),
-#					Widget.new(1, BaseEffect.Ranking.IMPROVED)
-#			],
-#			[Widget.new(0, BaseEffect.Ranking.IMPROVED)],
-#	)
-#]
-#
-#var level: LevelConfig = GameBook.SUPERLib[0]
-#var widget: Widget = level.widgets[0]
+
 
 

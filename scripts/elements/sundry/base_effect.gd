@@ -50,6 +50,25 @@ enum Ranking {
 	ELITE,    ## tem um efeito poderoso
 }
 
+const TIME_CAST_EFFECT := 0.2
+const EFFECTS_POOL := {
+	SkillType.PRE_INIT_PHASE: [],
+	SkillType.COOKED_FUSION: [],
+	SkillType.COOKED_ACCELR: [],
+	SkillType.INIT_PHASE: [],
+	SkillType.MAIN_PHASE: [],
+	SkillType.END_PHASE: [],
+	SkillType.LINKED: [],
+	SkillType.UNLINKED: [],
+	SkillType.PRE_ATTACK: [],
+	SkillType.POS_ATTACK: [],
+	SkillType.PRE_DEFEND: [],
+	SkillType.POS_DEFEND: [],
+	SkillType.POS_ACTION: [],
+	SkillType.DEFEND_MODE: [],
+	SkillType.PASSIVE: [],
+}
+
 ## aqui se define onde essa skill vai ser chamada.
 var mechanic_mode: MechanicMode
 var target_mode: TargetMode
@@ -67,19 +86,58 @@ var player: PlayerController.Players
 var _registred: bool
 var active := true
 
+static var is_processing_tasks := false
+static var effects_pool := {
+	PlayerController.Players.A: EFFECTS_POOL.duplicate(true),
+	PlayerController.Players.B: EFFECTS_POOL.duplicate(true),
+}
+
 
 ## registra esse efeito de acordo com o tempo de ação
 func register():
-	ElementEffectManager.effects_pool_players[player][skill_type].append(self)
+	effects_pool[player][skill_type].append(self)
 	_registred = true
 
 
 ## remove o registro
 func unregister():
 	if _registred:
-		ElementEffectManager.effects_pool_players[player][skill_type].erase(self)
+		effects_pool[player][skill_type].erase(self)
+
+
+## vai ditar a condição pra q o efeito aconteça
+func condition() -> bool:
+	return true
 
 
 ## aqui acontece o efeito
 func execute():
 	pass
+
+
+static func call_effects(player: PlayerController.Players, type: BaseEffect.SkillType):
+	is_processing_tasks = true
+	
+	var timer := Timer.new()
+	Gameplay.arena.add_child(timer)
+	timer.one_shot = true
+	
+	for effect in effects_pool[player][type]:
+		if not effect.condition():
+			continue
+		
+		effect.execute()
+		timer.start(TIME_CAST_EFFECT)
+		await timer.timeout
+		
+		for _players in PlayerController.Players:
+			for counter_effect in effects_pool[_players][BaseEffect.SkillType.POS_ACTION]:
+				if not counter_effect.condition():
+					continue
+				
+				counter_effect.execute()
+				timer.start(TIME_CAST_EFFECT)
+				await timer.timeout
+	
+	timer.queue_free()
+	is_processing_tasks = false

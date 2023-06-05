@@ -79,11 +79,11 @@ static func insight_create_element() -> BotChip.Decision:
 	return decision
 
 
-static func insight_potentialize_element(element_pivot) -> BotChip.Decision:
+static func insight_potentialize_element(element_pivot: Element) -> BotChip.Decision:
 	var decision := BotChip.Decision.new()
 	decision.action_target = BotChip.ActionTarget.MY_ELEMENT
 	decision.action = BotChip.Action.POTENTIALIZE
-	decision.targets = element_pivot
+	decision.targets = [element_pivot]
 	return decision
 
 
@@ -106,16 +106,17 @@ static func insight_get_slots_nearly(bot: Bot, slots_count: int) -> Array:
 	return positions
 
 
+static func insight_combat_element_attack(element: Element, target: Element, defend_mode: bool) -> bool:
+	if GameJudge.combat_check_result(element, target, defend_mode) == GameJudge.Result.WINNER:
+		await Gameplay.arena.attack_element(element.grid_position, target.grid_position)
+		return true
+	return false
+
 static func insight_element_match_attack(element: Element, targets: Array[Element]):
-	for i in range(1, targets.size()):
-		var rival_slot: ArenaSlot = Arena.elements[targets[-i].grid_position]
-		if (
-				GameJudge.combat_check_result(
-						element, targets[-i], rival_slot.defend_mode
-				) == GameJudge.Result.WINNER
-		):
-			await Gameplay.arena.attack_element(element.grid_position, targets[-i].grid_position)
-			targets.erase(targets[-i])
+	for element_rival in targets:
+		var rival_slot: ArenaSlot = Arena.elements[element_rival.grid_position]
+		if await insight_combat_element_attack(element, element_rival, rival_slot.defend_mode):
+			targets.erase(element_rival)
 			return
 
 
@@ -123,26 +124,11 @@ static func insight_molecule_match_attack(element: Element, targets: Array[Molec
 	for rival_molecules in targets:
 		if rival_molecules.defender:
 			var rival_slot: ArenaSlot = Arena.elements[rival_molecules.defender.grid_position]
-			if (
-					GameJudge.combat_check_result(
-							element, rival_molecules.defender, rival_slot.defend_mode
-					) == GameJudge.Result.WINNER
-			):
-				await Gameplay.arena.attack_element(
-						element.grid_position, rival_molecules.defender.grid_position
-				)
-			continue
-		
-		var weak_element: Element = GameJudge.get_weak_element_molecule(rival_molecules)
-		if (
-				GameJudge.combat_check_result(
-						element, weak_element, false
-				) == GameJudge.Result.WINNER
-		):
-			await Gameplay.arena.attack_element(
-					element.grid_position, weak_element.grid_position
-			)
-			continue
+			await insight_combat_element_attack(element, rival_molecules.defender, rival_slot.defend_mode)
+		else:
+			var rival_element := GameJudge.get_weak_element_molecule(rival_molecules)
+			var rival_slot: ArenaSlot = Arena.elements[rival_element.grid_position]
+			await insight_combat_element_attack(element, rival_element, rival_slot.defend_mode)
 
 
 static func insight_set_element_defende_mode(element: Element):
@@ -163,3 +149,32 @@ static func insight_molecule_get_opening_elements(molecule: Molecule) -> Array[E
 				break
 		
 	return opening_list
+
+
+static func insight_get_best_match_molecule(molecules: Array[Molecule]):
+	var best_match_molecule: Molecule
+	var best_match_header: Element
+	var best_match_power: int
+	
+	for m in molecules:
+		if not best_match_molecule:
+			best_match_molecule = m
+			continue
+		
+		var power: int = GameJudge.calcule_max_molecule_eletrons_power(m)
+		if power <= best_match_power:
+			continue
+		
+		var element_header: Element = GameJudge.get_powerful_element_in_molecule(m)
+		if best_match_header:
+			if (
+					(element_header.eletrons + element_header.valentia) <
+					(best_match_header.eletrons + best_match_header.valentia)
+			):
+				continue
+		
+		best_match_molecule = m
+		best_match_header = element_header
+		best_match_power = power
+	
+	return [best_match_molecule, best_match_header]

@@ -1,3 +1,4 @@
+@static_unload
 class_name Gameplay extends Node2D
 
 signal set_to_default
@@ -48,6 +49,8 @@ static var arena: Arena
 static var vfx: VFX
 
 static var world: Gameplay
+
+
 
 
 func _ready():

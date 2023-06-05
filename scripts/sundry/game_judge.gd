@@ -81,8 +81,8 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 					attacker.element, defender.element.global_position + Vector2(40, 40)
 			)
 			
-			await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
-			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
+			await BaseEffect.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
+			await BaseEffect.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 			
 			damage = attacker.element.eletrons - defender.element.neutrons - 1
 			can_take_damage = not defender.defend_mode
@@ -107,8 +107,8 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 						defender.element, attacker.element.global_position + Vector2(40, 40)
 				)
 				
-				await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
-				await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
+				await BaseEffect.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
+				await BaseEffect.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 				
 				damage = defender.element.eletrons - attacker.element.neutrons - 1
 				
@@ -122,8 +122,8 @@ static func combat(attacker: ArenaSlot, defender: ArenaSlot):
 			await Gameplay.vfx.emit_defended_vfx(
 					defender.element.global_position + Vector2(40, 40)
 			)
-			await ElementEffectManager.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
-			await ElementEffectManager.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
+			await BaseEffect.call_effects(attacker.player, BaseEffect.SkillType.POS_ATTACK)
+			await BaseEffect.call_effects(defender.player, BaseEffect.SkillType.POS_DEFEND)
 
 
 static func disable_slot(slot):
@@ -186,7 +186,7 @@ static func get_active_elements_in_molecule(molecule: Molecule):
 	return list
 
 
-static func calcule_max_molecule_eletrons_power(molecule: Molecule):
+static func calcule_max_molecule_eletrons_power(molecule: Molecule) -> int:
 	var power := 0
 	
 	for element in molecule.configuration:

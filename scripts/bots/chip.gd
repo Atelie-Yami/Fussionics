@@ -17,19 +17,19 @@ enum Directive {
 
 class FieldAnalysis:
 	var my_molecules: Array[Molecule]
+	var rival_molecules: Array[Molecule]
+	
 	var my_single_elements: Array[Element]
+	var rival_single_elements: Array[Element]
 	
 	var my_elements_in_reactor: Array[Element]
 	var rival_elements_in_reactor: Array[Element]
 	
-	var rival_single_elements: Array[Element]
-	var rival_molecules: Array[Molecule]
+	var my_powerful_single_elements: Element
+	var rival_powerful_single_elements: Element
 	
-	var has_my_elements_in_reactor: bool
-	var has_rival_elements_in_reactor: bool
-	
-	var has_my_elements_in_field: bool
-	var has_rival_elements_in_field: bool
+	var my_powerful_molecules: Molecule
+	var rival_powerful_molecules: Molecule
 
 class Decision:
 	var decision_link: Decision # se tem outra tarefa antes dessa completar
@@ -49,35 +49,46 @@ func analysis(bot: Bot) -> FieldAnalysis:
 	for slot in (Arena.elements as Dictionary).values():
 		slot = (slot as ArenaSlot)
 		if slot.player == PlayerController.Players.A:
-			if GameJudge.is_element_in_reactor(slot.element.grid_position):
-				field_analysis.has_rival_elements_in_reactor = true
-				field_analysis.rival_elements_in_reactor.append(slot.element)
-				continue
-			else:
-				field_analysis.has_rival_elements_in_field = true
-			
-			if slot.molecule:
-				if not field_analysis.rival_molecules.has(slot.molecule):
-					field_analysis.rival_molecules.append(slot.molecule)
-			else:
-				field_analysis.rival_single_elements.append(slot.element)
+			element_analysis(
+					slot, field_analysis.rival_elements_in_reactor, field_analysis.rival_molecules,
+					field_analysis.rival_powerful_molecules, field_analysis.rival_single_elements,
+					field_analysis.rival_powerful_single_elements
+			)
 		else:
-			if GameJudge.is_element_in_reactor(slot.element.grid_position):
-				field_analysis.has_my_elements_in_reactor = true
-				field_analysis.my_elements_in_reactor.append(slot.element)
-				continue
-			
-			field_analysis.has_my_elements_in_field = true
-			
-			if slot.molecule:
-				if not field_analysis.my_molecules.has(slot.molecule):
-					field_analysis.my_molecules.append(slot.molecule)
-			else:
-				field_analysis.my_single_elements.append(slot.element)
+			element_analysis(
+					slot, field_analysis.my_elements_in_reactor, field_analysis.my_molecules,
+					field_analysis.my_powerful_molecules, field_analysis.my_single_elements,
+					field_analysis.my_powerful_single_elements
+			)
 	
 	bot.start(0.3)
 	await bot.timeout
 	return field_analysis
+
+
+func element_analysis(
+		slot: ArenaSlot, elements_in_reactor: Array[Element],
+		molecules: Array[Molecule], powerful_molecule: Molecule,
+		single_elements: Array[Element], powerful_single_element: Element
+):
+	if GameJudge.is_element_in_reactor(slot.element.grid_position):
+		elements_in_reactor.append(slot.element)
+		return
+	
+	if not slot.molecule:
+		single_elements.append(slot.element)
+		
+		if powerful_single_element == null or powerful_single_element.atomic_number > slot.element.atomic_number:
+			powerful_single_element = slot.element
+		
+	elif not molecules.has(slot.molecule):
+		molecules.append(slot.molecule)
+		if (
+				powerful_molecule == null or
+				GameJudge.calcule_max_molecule_eletrons_power(powerful_molecule) >
+				GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
+		):
+			powerful_molecule = slot.molecule
 
 
 func get_modus(analysis: FieldAnalysis):
