@@ -12,7 +12,7 @@ enum Directive {
 	FORCED = 1, # força a execução a garantir sucesso
 	RELINK = 2, # remova os links e os ligue novamente
 	CLEAR_SLOT = 4, # remova o elemento do slot caso haja algo
-	MAX_ENERGY = 8
+	MAX_ENERGY = 8 # define o maximo de energia a ser gasto
 }
 
 class FieldAnalysis:
@@ -35,60 +35,63 @@ class Decision:
 	var decision_link: Decision # se tem outra tarefa antes dessa completar
 	var action: Action
 	var action_target: ActionTarget
-	var directive: Directive
+	var directive: Dictionary
 	var targets: Array
 	var args: Array
 
 
 func analysis(bot: Bot) -> FieldAnalysis:
 	var field_analysis := FieldAnalysis.new()
-	
 	bot.start(0.3)
 	await bot.timeout
 	
 	for slot in (Arena.elements as Dictionary).values():
 		slot = (slot as ArenaSlot)
 		if slot.player == PlayerController.Players.A:
-			element_analysis(
-					slot, field_analysis.rival_elements_in_reactor, field_analysis.rival_molecules,
-					field_analysis.rival_powerful_molecules, field_analysis.rival_single_elements,
-					field_analysis.rival_powerful_single_elements
-			)
+			if GameJudge.is_element_in_reactor(slot.element.grid_position):
+				field_analysis.rival_elements_in_reactor.append(slot.element)
+				continue
+			
+			if not slot.molecule:
+				field_analysis.rival_single_elements.append(slot.element)
+				if (
+					not field_analysis.rival_powerful_single_elements or
+					field_analysis.rival_powerful_single_elements.atomic_number > slot.element.atomic_number
+				):
+					field_analysis.rival_powerful_single_elements = slot.element
+			
+			elif not field_analysis.rival_molecules.has(slot.molecule):
+				field_analysis.rival_molecules.append(slot.molecule)
+				if (
+					not field_analysis.rival_powerful_molecules or
+					GameJudge.calcule_max_molecule_eletrons_power(field_analysis.rival_powerful_molecules) >
+					GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
+				):
+					field_analysis.rival_powerful_molecules = slot.molecule
 		else:
-			element_analysis(
-					slot, field_analysis.my_elements_in_reactor, field_analysis.my_molecules,
-					field_analysis.my_powerful_molecules, field_analysis.my_single_elements,
-					field_analysis.my_powerful_single_elements
-			)
-	
+			if GameJudge.is_element_in_reactor(slot.element.grid_position):
+				field_analysis.my_elements_in_reactor.append(slot.element)
+				continue
+			
+			if not slot.molecule:
+				field_analysis.my_single_elements.append(slot.element)
+				if (
+					not field_analysis.my_powerful_single_elements or
+					field_analysis.my_powerful_single_elements.atomic_number > slot.element.atomic_number
+				):
+					field_analysis.my_powerful_single_elements = slot.element
+			
+			elif not field_analysis.my_molecules.has(slot.molecule):
+				field_analysis.my_molecules.append(slot.molecule)
+				if (
+					not field_analysis.my_powerful_molecules or
+					GameJudge.calcule_max_molecule_eletrons_power(field_analysis.my_powerful_molecules) >
+					GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
+				):
+					field_analysis.my_powerful_molecules = slot.molecule
 	bot.start(0.3)
 	await bot.timeout
 	return field_analysis
-
-
-func element_analysis(
-		slot: ArenaSlot, elements_in_reactor: Array[Element],
-		molecules: Array[Molecule], powerful_molecule: Molecule,
-		single_elements: Array[Element], powerful_single_element: Element
-):
-	if GameJudge.is_element_in_reactor(slot.element.grid_position):
-		elements_in_reactor.append(slot.element)
-		return
-	
-	if not slot.molecule:
-		single_elements.append(slot.element)
-		
-		if powerful_single_element == null or powerful_single_element.atomic_number > slot.element.atomic_number:
-			powerful_single_element = slot.element
-		
-	elif not molecules.has(slot.molecule):
-		molecules.append(slot.molecule)
-		if (
-				powerful_molecule == null or
-				GameJudge.calcule_max_molecule_eletrons_power(powerful_molecule) >
-				GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
-		):
-			powerful_molecule = slot.molecule
 
 
 func get_modus(analysis: FieldAnalysis):
@@ -118,10 +121,6 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.Fie
 	
 	var ops: Array[BotChip.Decision]
 	return ops
-
-
-func execute(bot: Bot, desicions: Array[BotChip.Decision]):
-	pass
 
 
 func lockdown(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi):

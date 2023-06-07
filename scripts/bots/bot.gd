@@ -12,6 +12,9 @@ var chip: BotChip
 var deck := GameBook.DECK.duplicate(true)
 var modus_operandi: ModusOperandi = ModusOperandi.UNDECIDED
 
+var analysis: BotChip.FieldAnalysis
+var desicions: Array[BotChip.Decision]
+
 @onready var player: Player = $".."
 
 
@@ -25,13 +28,23 @@ func _play():
 	start(0.5)
 	await timeout
 	
-	var analysis: BotChip.FieldAnalysis = await chip.analysis(self)
-	modus_operandi = chip.get_modus(analysis) ## da pra analizar o modus_operandi antes de atualizar
+	analysis = await chip.analysis(self)
+	modus_operandi = chip.get_modus(analysis)
+	desicions = chip.call_modus_action(modus_operandi, self, analysis)
 	
-	var desicions: Array[BotChip.Decision] = chip.call_modus_action(modus_operandi, self, analysis)
-	await chip.execute(self, desicions)
+	for desicion in desicions:
+		if desicion.decision_link:
+			await ChipSet.execute_decision(self, desicion.decision_link)
+		await ChipSet.execute_decision(self, desicion)
 	
 	var pos_analysis: BotChip.FieldAnalysis = await chip.analysis(self)
+	desicions = chip.call_modus_action(ModusOperandi.UNDECIDED, self, pos_analysis)
+	
+	for desicion in desicions:
+		if desicion.decision_link:
+			await ChipSet.execute_decision(self, desicion.decision_link)
+		await ChipSet.execute_decision(self, desicion)
+	
 	await chip.lockdown(self, pos_analysis, modus_operandi)
 	end_turn()
 
@@ -96,7 +109,6 @@ func get_neighbor_elements(pos: Vector2i, player: int):
 				targets.append(target)
 	
 	return targets
-	
 
 
 func create_element(atomic_number: int, position: Vector2i):

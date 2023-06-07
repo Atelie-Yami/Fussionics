@@ -1,12 +1,12 @@
-class_name AmethistChipSet extends "res://scripts/bots/chipset/amethyst_execute.gd"
+class_name AmethistChipSet extends ChipSet
 
 
 static func get_modus(_analysis: BotChip.FieldAnalysis) -> Bot.ModusOperandi:
-	if _analysis.rival_single_elements.is_empty() or _analysis.rival_molecules.is_empty():
+	if _analysis.rival_single_elements.is_empty() and _analysis.rival_molecules.is_empty():
 		return Bot.ModusOperandi.AGGRESSIVE
 	
 	if (
-			(_analysis.my_single_elements.is_empty() or _analysis.my_molecules.is_empty()) and
+			(_analysis.my_single_elements.is_empty() and _analysis.my_molecules.is_empty()) and
 		not (_analysis.rival_single_elements.is_empty() or _analysis.rival_molecules.is_empty())
 	):
 		return Bot.ModusOperandi.DEFENSIVE
@@ -14,33 +14,8 @@ static func get_modus(_analysis: BotChip.FieldAnalysis) -> Bot.ModusOperandi:
 	if _analysis.my_molecules.is_empty():
 		return Bot.ModusOperandi.STRATEGICAL_DEFENSIVE
 	
-	for m in _analysis.my_molecules:
-		var power: int = GameJudge.calcule_max_molecule_eletrons_power(m)
-		if power < 8 and GameJudge.is_molecule_opened(m):
-			continue
-		
-		var best_match: Element
-		for element in _analysis.rival_single_elements:
-			if not best_match:
-				best_match = element
-				continue
-			
-			if element.eletrons < best_match.eletrons or element.neutrons < best_match.neutrons:
-				best_match = element
-		
-		if best_match:
-			return (
-					Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE if best_match.neutrons < power else
-					Bot.ModusOperandi.STRATEGICAL_DEFENSIVE
-			)
-		
-		elif _analysis.rival_molecules:
-			for m_rival in _analysis.rival_molecules:
-				var power2: int = GameJudge.calcule_max_molecule_eletrons_power(m_rival)
-				return (
-						Bot.ModusOperandi.STRATEGICAL_DEFENSIVE if power2 > power else
-						Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE
-				)
+	if _analysis.rival_molecules.is_empty():
+		return Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE
 	
 	return Bot.ModusOperandi.UNDECIDED
 
@@ -101,7 +76,7 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 		d.action = BotChip.Action.MERGE
 		
 		for m in analysis.my_molecules:
-			if GameJudge.is_molecule_opened(m): ## se da pra por elementos na molecula
+			if GameJudge.is_molecule_opened(m):
 				d.targets.append(m)
 	
 	if analysis.my_single_elements.is_empty():
@@ -124,9 +99,18 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 	
 	else:
 		var match_element: Element
-		
 		for e in analysis.my_single_elements:
-			if e.number_electrons_in_valencia <= 0 or not GameJudge.can_element_link(e):
+			if not GameJudge.can_element_link(e):
+				for i in 4:
+					if Arena.elements.has(GameJudge.REACTOR_POSITIONS[i]):
+						continue
+					
+					var d := BotChip.Decision.new()
+					decision_list.append(d)
+					
+					d.action_target = BotChip.ActionTarget.MY_ELEMENT
+					d.action = BotChip.Action.COOK
+					d.targets = [e]
 				continue
 			
 			if not match_element:
@@ -161,8 +145,7 @@ static func tatical_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 		for e in opening_list:
 			var d := insight_potentialize_element(e)
 			decision_list.append(d)
-			d.directive = BotChip.Directive.MAX_ENERGY
-			d.args = strip
+			d.directive[BotChip.Directive.MAX_ENERGY] = strip
 	
 	else:
 		decision_list.append(insight_create_element_merge_molecule(best_match_molecule))
@@ -180,9 +163,6 @@ static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	if best_match_molecule:
 		opening_list = insight_molecule_get_opening_elements(best_match_molecule)
 	
-	if opening_list.is_empty():
-		return defensive(bot, analysis)
-	
 	for molecule in opening_list:
 		if molecule != best_match_molecule:
 			continue
@@ -193,13 +173,139 @@ static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 		decision_list.append(insight_create_element_merge_molecule(best_match_molecule))
 		return decision_list
 	
+	if opening_list.is_empty():
+		return defensive(bot, analysis)
+	
 	var strip = max(int(bot.player.energy / opening_list.size()), 1)
-		
+	
 	for e in opening_list:
 		var d := insight_potentialize_element(e)
 		decision_list.append(d)
 		d.directive = BotChip.Directive.MAX_ENERGY
-		d.args = strip
+		d.args = [strip]
 	
 	return decision_list
 
+
+# ----------------------------------------------------------------------------------------------- #
+# LOCKDOWN
+# ----------------------------------------------------------------------------------------------- #
+static func lockdown_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	if Gameplay.arena.turn_machine.turn_count == 0:
+		return
+	
+	for molecule in analysis.my_molecules:
+		var element: Element = GameJudge.get_powerful_element_in_molecule(molecule)
+		
+		if not GameJudge.can_element_attack(element):
+			var list: Array =  GameJudge.get_active_elements_in_molecule(molecule)
+			
+			if list.is_empty():
+				continue
+			
+			element = list[0]
+		
+		var slot: ArenaSlot = Arena.get_slot(element.grid_position)
+		if not slot.eletrons_charged:
+			GameJudge.charge_eletrons_power(element, molecule)
+			slot.eletrons_charged = true
+		
+		await insight_element_match_attack(element, analysis.rival_single_elements)
+		
+		bot.start(0.1)
+		await bot.timeout
+		
+		if slot.can_act:
+			await insight_molecule_match_attack(element, analysis.rival_molecules)
+	
+	for element in analysis.my_single_elements:
+		if not is_instance_valid(element):
+			continue
+		
+		await insight_element_match_attack(element, analysis.rival_single_elements)
+		
+		bot.start(0.2)
+		await bot.timeout
+		
+		if Arena.get_slot(element.grid_position).can_act:
+			await insight_molecule_match_attack(element, analysis.rival_molecules)
+		
+	var can_direct_attack := true
+	for rival_element in analysis.rival_single_elements:
+		if is_instance_valid(rival_element):
+			can_direct_attack = false
+			break
+	
+	if can_direct_attack:
+		for molecule in analysis.rival_molecules:
+			if molecule:
+				can_direct_attack = false
+				break
+	
+	if can_direct_attack:
+		for element in analysis.my_single_elements:
+			await Gameplay.arena.direct_attack(element.grid_position)
+	
+	bot.start(0.3)
+	await bot.timeout
+
+
+static func lockdown_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
+	for molecule in analysis.my_molecules:
+		var element: Element = GameJudge.get_powerful_element_in_molecule(molecule)
+		await insight_set_element_defende_mode(element)
+		
+		bot.start(0.1)
+		await bot.timeout
+	
+	for element in analysis.my_single_elements:
+		await insight_set_element_defende_mode(element)
+		
+		bot.start(0.1)
+		await bot.timeout
+
+
+static func lockdown_indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
+	await lockdown_aggressive(bot, analysis)
+	
+	bot.start(0.3)
+	await bot.timeout
+	
+	await lockdown_defensive(bot, analysis)
+
+
+static func lockdown_tatical(bot: Bot, analysis: BotChip.FieldAnalysis):
+	await lockdown_defensive(bot, analysis)
+	
+	bot.start(0.3)
+	await bot.timeout
+	
+	var my_best_element: Element
+	var rival_best_element: Element
+	
+	for molecule in analysis.my_molecules:
+		var my_element: Element = GameJudge.get_powerful_element_in_molecule(molecule)
+		
+		if not my_best_element:
+			my_best_element = my_element
+			continue
+		
+		if my_element.atomic_number > my_best_element.atomic_number:
+			my_best_element = my_element
+		
+		
+	for rival_molecule in analysis.rival_molecules:
+		var rival_element: Element = GameJudge.get_powerful_element_in_molecule(rival_molecule)
+		
+		if not rival_best_element:
+			rival_best_element = rival_element
+			continue
+		
+		if rival_element.atomic_number > rival_best_element.atomic_number:
+			rival_best_element = rival_element
+	
+	if not my_best_element or not rival_best_element:
+		return
+	
+	if my_best_element.atomic_number > rival_best_element.atomic_number:
+		await lockdown_aggressive(bot, analysis)

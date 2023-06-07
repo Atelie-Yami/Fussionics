@@ -157,6 +157,9 @@ static func get_powerful_element_in_molecule(molecule: Molecule) -> Element:
 static func get_weak_element_molecule(molecule: Molecule) -> Element:
 	var best_match: Element
 	for element in molecule.configuration:
+		if not is_instance_valid(element):
+			continue
+		
 		if not best_match:
 			best_match = element
 			continue
@@ -279,3 +282,12 @@ static func is_element_header_to_molecule(element: Element):
 			element.effect and element.effect is MoleculeEffect and
 			element.effect.molecule_effect_type != MoleculeEffect.MoleculeEffectType.TRIGGER
 	)
+
+
+static func int_to_bite(num: int) -> Array[int]:
+	var bites: Array[int]
+	while num > 0:
+		bites.append(num % 2)
+		num = int(num / 2)
+	bites.reverse()
+	return bites
