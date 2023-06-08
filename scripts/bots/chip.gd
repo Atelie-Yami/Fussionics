@@ -32,6 +32,8 @@ class FieldAnalysis:
 	var rival_powerful_molecules: Molecule
 
 class Decision:
+	var is_completed: bool
+	var is_decision_linked: bool
 	var decision_link: Decision # se tem outra tarefa antes dessa completar
 	var action: Action
 	var action_target: ActionTarget
@@ -96,6 +98,18 @@ func analysis(bot: Bot) -> FieldAnalysis:
 
 func get_modus(analysis: FieldAnalysis):
 	pass
+
+
+func execute(desicions: Array[Decision], bot: Bot):
+	for desicion in desicions:
+		if desicion.is_completed:
+			continue
+		
+		if desicion.decision_link:
+			var res = await ChipSet.execute_decision(bot, desicion.decision_link)
+			await ChipSet.execute_decision(bot, desicion, res)
+		else:
+			await ChipSet.execute_decision(bot, desicion)
 
 
 func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.FieldAnalysis) -> Array[BotChip.Decision]:

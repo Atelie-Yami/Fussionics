@@ -26,6 +26,21 @@ static func defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	if analysis.my_molecules.size() > 0:
 		decision_list.append(insight_create_element_merge_molecule(analysis.my_molecules[0]))
 	
+	if analysis.my_single_elements.size() == 1:
+		var decision_link := BotChip.Decision.new()
+		decision_link.action = BotChip.Action.CREATE
+		decision_link.is_decision_linked = true
+		decision_list.append(decision_link)
+		
+		var decision := BotChip.Decision.new()
+		decision.decision_link = decision_link
+		decision.action = BotChip.Action.COOK
+		decision.action_target = BotChip.ActionTarget.MY_ELEMENT
+		decision.targets = [analysis.my_single_elements[0]]
+		decision_list.append(decision)
+		
+		analysis.my_single_elements.erase(analysis.my_single_elements[0])
+		
 	elif bot.player.energy > 7:
 		decision_list.append(insight_create_molecule())
 	else:
@@ -58,71 +73,6 @@ static func aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 		decision_list.append(insight_create_molecule())
 	else:
 		decision_list.append(insight_create_element())
-	
-	return decision_list
-
-
-static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
-	var decision_list: Array[BotChip.Decision]
-	
-	if analysis.my_molecules.size() == 1:
-		decision_list.append(insight_create_element_merge_molecule(analysis.my_molecules[0]))
-	
-	elif analysis.my_molecules.size() > 1:
-		var d := BotChip.Decision.new()
-		decision_list.append(d)
-		
-		d.action_target = BotChip.ActionTarget.MY_MOLECULE
-		d.action = BotChip.Action.MERGE
-		
-		for m in analysis.my_molecules:
-			if GameJudge.is_molecule_opened(m):
-				d.targets.append(m)
-	
-	if analysis.my_single_elements.is_empty():
-		if bot.player.energy > 8:
-			decision_list.append(insight_create_molecule())
-		else:
-			decision_list.append(insight_create_element())
-	
-	elif analysis.my_single_elements.size() == 1:
-		var d := BotChip.Decision.new()
-		decision_list.append(d)
-		
-		d.action_target = BotChip.ActionTarget.MY_ELEMENT
-		d.targets = [analysis.my_single_elements[0]]
-		
-		if analysis.my_single_elements[0].atomic_number < 4:
-			d.action = BotChip.Action.COOK
-		else:
-			d.action = BotChip.Action.MERGE
-	
-	else:
-		var match_element: Element
-		for e in analysis.my_single_elements:
-			if not GameJudge.can_element_link(e):
-				for i in 4:
-					if Arena.elements.has(GameJudge.REACTOR_POSITIONS[i]):
-						continue
-					
-					var d := BotChip.Decision.new()
-					decision_list.append(d)
-					
-					d.action_target = BotChip.ActionTarget.MY_ELEMENT
-					d.action = BotChip.Action.COOK
-					d.targets = [e]
-				continue
-			
-			if not match_element:
-				match_element = e
-				continue
-			
-			var d := BotChip.Decision.new()
-			decision_list.append(d)
-			
-			d.action_target = BotChip.ActionTarget.MY_ELEMENT
-			d.targets = [e, match_element]
-			d.action = BotChip.Action.MERGE
 	
 	return decision_list
 
@@ -181,8 +131,81 @@ static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	for e in opening_list:
 		var d := insight_potentialize_element(e)
 		decision_list.append(d)
-		d.directive = BotChip.Directive.MAX_ENERGY
-		d.args = [strip]
+		d.directive[BotChip.Directive.MAX_ENERGY] = strip
+	
+	return decision_list
+
+
+static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
+	var decision_list: Array[BotChip.Decision]
+	
+	if analysis.my_molecules.size() == 1:
+		decision_list.append(insight_create_element_merge_molecule(analysis.my_molecules[0]))
+	
+	elif analysis.my_molecules.size() > 1:
+		var d := BotChip.Decision.new()
+		decision_list.append(d)
+		
+		d.action_target = BotChip.ActionTarget.MY_MOLECULE
+		d.action = BotChip.Action.MERGE
+		
+		for m in analysis.my_molecules:
+			if GameJudge.is_molecule_opened(m):
+				d.targets.append(m)
+	
+	if analysis.my_single_elements.is_empty():
+		if bot.player.energy > 8:
+			decision_list.append(insight_create_molecule())
+		else:
+			decision_list.append(insight_create_element())
+	
+	elif analysis.my_single_elements.size() == 1:
+		var d := BotChip.Decision.new()
+		decision_list.append(d)
+		
+		d.action_target = BotChip.ActionTarget.MY_ELEMENT
+		d.targets = [analysis.my_single_elements[0]]
+		
+		if analysis.my_single_elements[0].atomic_number < 4:
+			d.action = BotChip.Action.COOK
+		else:
+			d.action = BotChip.Action.MERGE
+		
+		analysis.my_single_elements.erase(analysis.my_single_elements[0])
+	
+	else:
+		var match_element: Element
+		var sucess_list: Array[Element]
+		
+		for e in analysis.my_single_elements:
+			if not GameJudge.can_element_link(e):
+				for i in 4:
+					if Arena.elements.has(GameJudge.REACTOR_POSITIONS[i]):
+						continue
+					
+					var d := BotChip.Decision.new()
+					decision_list.append(d)
+					
+					d.action_target = BotChip.ActionTarget.MY_ELEMENT
+					d.action = BotChip.Action.COOK
+					d.targets = [e]
+				continue
+			
+			if not match_element:
+				match_element = e
+				continue
+			
+			var d := BotChip.Decision.new()
+			decision_list.append(d)
+			
+			d.action_target = BotChip.ActionTarget.MY_ELEMENT
+			d.targets = [e, match_element]
+			d.action = BotChip.Action.MERGE
+			
+			sucess_list.append(e)
+		
+		for e in sucess_list:
+			analysis.my_single_elements.erase(e)
 	
 	return decision_list
 

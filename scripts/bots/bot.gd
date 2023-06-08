@@ -31,19 +31,11 @@ func _play():
 	analysis = await chip.analysis(self)
 	modus_operandi = chip.get_modus(analysis)
 	desicions = chip.call_modus_action(modus_operandi, self, analysis)
-	
-	for desicion in desicions:
-		if desicion.decision_link:
-			await ChipSet.execute_decision(self, desicion.decision_link)
-		await ChipSet.execute_decision(self, desicion)
+	await chip.execute(desicions, self)
 	
 	var pos_analysis: BotChip.FieldAnalysis = await chip.analysis(self)
 	desicions = chip.call_modus_action(ModusOperandi.UNDECIDED, self, pos_analysis)
-	
-	for desicion in desicions:
-		if desicion.decision_link:
-			await ChipSet.execute_decision(self, desicion.decision_link)
-		await ChipSet.execute_decision(self, desicion)
+	await chip.execute(desicions, self)
 	
 	await chip.lockdown(self, pos_analysis, modus_operandi)
 	end_turn()

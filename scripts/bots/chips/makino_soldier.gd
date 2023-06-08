@@ -26,10 +26,6 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, _analysis: BotChip.Fi
 	return ops
 
 
-func execute(bot: Bot, desicions: Array[BotChip.Decision]):
-	await AmethistChipSet.execute(bot, desicions)
-
-
 func lockdown(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi):
 	match modus:
 		Bot.ModusOperandi.AGGRESSIVE:

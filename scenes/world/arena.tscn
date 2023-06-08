@@ -1,58 +1,58 @@
 [gd_scene load_steps=117 format=3 uid="uid://dosa0c0s4tkny"]
 
-[ext_resource type="Script" path="res://scripts/world/world.gd" id="1_a4ow6"]
-[ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="1_hlcug"]
-[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="1_ylyog"]
-[ext_resource type="Shader" path="res://scripts/shaders/arena_zone_indicator.gdshader" id="2_c7l4g"]
-[ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="3_2ehmk"]
-[ext_resource type="Shader" path="res://scripts/shaders/fussion_slot.gdshader" id="5_lvlx3"]
-[ext_resource type="Script" path="res://scripts/world/reactors.gd" id="5_o5tgb"]
-[ext_resource type="PackedScene" uid="uid://dwikojy78658y" path="res://scenes/vfx/fusion_vfx.tscn" id="6_75uax"]
-[ext_resource type="Texture2D" uid="uid://dusb46g4bysw2" path="res://resouces/noise/random_noise_color.tres" id="6_odbmm"]
-[ext_resource type="PackedScene" uid="uid://bokt3h5duv0br" path="res://scenes/world/arena_slots.tscn" id="7_1651p"]
-[ext_resource type="Script" path="res://scripts/interface/gameplay/omega_gui.gd" id="8_jy5ie"]
-[ext_resource type="Texture2D" uid="uid://h2mssyj3xtdi" path="res://assets/img/elements/Slot_2.png" id="8_krhtp"]
-[ext_resource type="PackedScene" uid="uid://cl7rrneqpylmq" path="res://scenes/vfx/accelr_vfx.tscn" id="9_nckdy"]
-[ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="10_6e11s"]
-[ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="10_6paj4"]
-[ext_resource type="PackedScene" uid="uid://xmbj2ue8jsst" path="res://scenes/elements/element_action_button.tscn" id="10_jw2y0"]
-[ext_resource type="Shader" path="res://scripts/shaders/omega.gdshader" id="11_53l0m"]
-[ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="12_7bste"]
-[ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="12_uoua2"]
-[ext_resource type="Script" path="res://scripts/player/player.gd" id="13_wjs4m"]
-[ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="14_j8jwv"]
-[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="14_virs7"]
-[ext_resource type="PackedScene" uid="uid://dsbid6s4o58bs" path="res://scenes/interface/gameplay/passive_status.tscn" id="15_1splr"]
-[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="15_7qkxm"]
-[ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="15_tapr6"]
-[ext_resource type="Script" path="res://scripts/vfx/dead_star_animation.tres.gd" id="16_fscc4"]
-[ext_resource type="Texture2D" uid="uid://cosq08vrujqag" path="res://assets/img/interface/sword.png" id="16_gf66l"]
-[ext_resource type="Script" path="res://scripts/world/attack_omega.gd" id="17_e32wq"]
-[ext_resource type="Script" path="res://scripts/bots/bot.gd" id="18_pcprk"]
-[ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="19_rqw3s"]
-[ext_resource type="Script" path="res://scripts/interface/gameplay/gui.gd" id="21_l3veq"]
-[ext_resource type="PackedScene" uid="uid://c8olai4bngrps" path="res://scenes/interface/gameplay/molecule_info.tscn" id="23_ftybf"]
-[ext_resource type="PackedScene" uid="uid://c6dfidibu2j5g" path="res://scenes/interface/gameplay/element_info.tscn" id="23_x34jh"]
-[ext_resource type="PackedScene" uid="uid://dxrd42my48q37" path="res://scenes/interface/gameplay/passive_descrition.tscn" id="24_5uukm"]
-[ext_resource type="Texture2D" uid="uid://seoayge3pkrm" path="res://resouces/atlas/gameplay/icon_shiled.atlastex" id="25_5h1c1"]
-[ext_resource type="PackedScene" uid="uid://cfyrrvl0nbfwn" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="25_58ht4"]
-[ext_resource type="PackedScene" uid="uid://v413e1bd5ce2" path="res://scenes/interface/gameplay/widgets.tscn" id="34_mo2f7"]
-[ext_resource type="PackedScene" uid="uid://cp4c3erm1ajyf" path="res://scenes/interface/gameplay/end_game.tscn" id="36_dihyf"]
-[ext_resource type="PackedScene" uid="uid://bu0r65h3xcsu" path="res://scenes/interface/gameplay/start_game.tscn" id="38_3qupm"]
-[ext_resource type="Script" path="res://scripts/vfx/VFX_arena.gd" id="39_dw5ux"]
-[ext_resource type="Script" path="res://scripts/vfx/slot_interact_indicator.gd" id="41_hxiq3"]
-[ext_resource type="Texture2D" uid="uid://cuevrwn5kfrvu" path="res://assets/img/elements/element_moldure4.png" id="42_3jo0t"]
+[ext_resource type="Script" path="res://scripts/world/world.gd" id="1_u2so6"]
+[ext_resource type="Script" path="res://scripts/vfx/slot_interact_indicator.gd" id="2_sx2ms"]
+[ext_resource type="PackedScene" uid="uid://bi2dsgexfvmh1" path="res://scenes/vfx/background_2.tscn" id="3_iu40v"]
+[ext_resource type="Shader" path="res://scripts/shaders/arena_zone_indicator.gdshader" id="4_72035"]
+[ext_resource type="Script" path="res://scripts/vfx/alert_zone.gd" id="5_jfc2b"]
+[ext_resource type="Script" path="res://scripts/world/turn_machine.gd" id="6_vhud8"]
+[ext_resource type="Script" path="res://scripts/world/reactors.gd" id="7_p0s6v"]
+[ext_resource type="PackedScene" uid="uid://dwikojy78658y" path="res://scenes/vfx/fusion_vfx.tscn" id="8_bbl6e"]
+[ext_resource type="Shader" path="res://scripts/shaders/fussion_slot.gdshader" id="9_yjr8f"]
+[ext_resource type="Texture2D" uid="uid://dusb46g4bysw2" path="res://resouces/noise/random_noise_color.tres" id="10_h85jd"]
+[ext_resource type="PackedScene" uid="uid://cl7rrneqpylmq" path="res://scenes/vfx/accelr_vfx.tscn" id="11_qpy4x"]
+[ext_resource type="PackedScene" uid="uid://bokt3h5duv0br" path="res://scenes/world/arena_slots.tscn" id="12_x1fad"]
+[ext_resource type="Script" path="res://scripts/world/player_controller.gd" id="13_3fci5"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="14_2k0ck"]
+[ext_resource type="Texture2D" uid="uid://h2mssyj3xtdi" path="res://assets/img/elements/Slot_2.png" id="15_5yw1r"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/omega_gui.gd" id="16_n67rl"]
+[ext_resource type="Shader" path="res://scripts/shaders/omega.gdshader" id="17_apiu5"]
+[ext_resource type="FontFile" uid="uid://cdsd7fxfdwayp" path="res://assets/fonts/GiantRobotArmy-Medium.ttf" id="18_n40i5"]
+[ext_resource type="Script" path="res://scripts/vfx/dead_star_animation.tres.gd" id="19_uyp54"]
+[ext_resource type="Texture2D" uid="uid://cosq08vrujqag" path="res://assets/img/interface/sword.png" id="20_ro0ou"]
+[ext_resource type="Script" path="res://scripts/world/attack_omega.gd" id="21_guvn8"]
+[ext_resource type="Script" path="res://scripts/bots/bot.gd" id="22_4kowr"]
+[ext_resource type="Script" path="res://scripts/world/camera_arena.gd" id="23_yh2hq"]
+[ext_resource type="PackedScene" uid="uid://dsbid6s4o58bs" path="res://scenes/interface/gameplay/passive_status.tscn" id="24_if6pg"]
+[ext_resource type="Script" path="res://scripts/world/action_button_handler.gd" id="25_fsrnr"]
+[ext_resource type="PackedScene" uid="uid://xmbj2ue8jsst" path="res://scenes/elements/element_action_button.tscn" id="26_17vye"]
+[ext_resource type="Texture2D" uid="uid://rgewtt4wyltf" path="res://assets/img/elements/action_select.svg" id="27_2x8rq"]
+[ext_resource type="Texture2D" uid="uid://bth7g2u105njl" path="res://assets/img/buttons/icons.svg" id="28_55eys"]
+[ext_resource type="Texture2D" uid="uid://seoayge3pkrm" path="res://resouces/atlas/gameplay/icon_shiled.atlastex" id="29_d0tpa"]
+[ext_resource type="Texture2D" uid="uid://cuevrwn5kfrvu" path="res://assets/img/elements/element_moldure4.png" id="30_kh5yc"]
+[ext_resource type="PackedScene" uid="uid://c6dfidibu2j5g" path="res://scenes/interface/gameplay/element_info.tscn" id="31_he3b7"]
+[ext_resource type="PackedScene" uid="uid://c8olai4bngrps" path="res://scenes/interface/gameplay/molecule_info.tscn" id="32_g4biw"]
+[ext_resource type="PackedScene" uid="uid://dxrd42my48q37" path="res://scenes/interface/gameplay/passive_descrition.tscn" id="33_mfqa1"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/gui.gd" id="34_jogmx"]
+[ext_resource type="Texture2D" uid="uid://c52xs35e2wn04" path="res://assets/img/panels/Panel_Containers.svg" id="35_26fhk"]
+[ext_resource type="Texture2D" uid="uid://d24qc26hco0vf" path="res://assets/img/elements/element_moldure.png" id="36_0sa87"]
+[ext_resource type="Script" path="res://scripts/interface/gameplay/deck_slot.gd" id="37_n44tl"]
+[ext_resource type="PackedScene" uid="uid://v413e1bd5ce2" path="res://scenes/interface/gameplay/widgets.tscn" id="38_pxdel"]
+[ext_resource type="PackedScene" uid="uid://cfyrrvl0nbfwn" path="res://scenes/interface/pause_menu/pause_menu.tscn" id="39_1nvu2"]
+[ext_resource type="PackedScene" uid="uid://cp4c3erm1ajyf" path="res://scenes/interface/gameplay/end_game.tscn" id="40_rofk3"]
+[ext_resource type="PackedScene" uid="uid://bu0r65h3xcsu" path="res://scenes/interface/gameplay/start_game.tscn" id="41_xxv64"]
+[ext_resource type="Script" path="res://scripts/vfx/VFX_arena.gd" id="42_hjws3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_od0fm"]
 resource_local_to_scene = true
-shader = ExtResource("2_c7l4g")
+shader = ExtResource("4_72035")
 shader_parameter/motion_side = 1.0
 shader_parameter/base_color = Color(0, 0.968627, 0.870588, 0.482353)
 shader_parameter/fade = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jxc7g"]
 resource_local_to_scene = true
-shader = ExtResource("2_c7l4g")
+shader = ExtResource("4_72035")
 shader_parameter/motion_side = -1.0
 shader_parameter/base_color = Color(0.92549, 0.301961, 0.631373, 0.482353)
 shader_parameter/fade = 0.0
@@ -66,29 +66,29 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk0vp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekbxv"]
 resource_local_to_scene = true
-shader = ExtResource("5_lvlx3")
+shader = ExtResource("9_yjr8f")
 shader_parameter/powered = 0.0
-shader_parameter/noise_texture = ExtResource("6_odbmm")
+shader_parameter/noise_texture = ExtResource("10_h85jd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvf5p"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ucf0"]
 resource_local_to_scene = true
-shader = ExtResource("5_lvlx3")
+shader = ExtResource("9_yjr8f")
 shader_parameter/powered = 0.0
-shader_parameter/noise_texture = ExtResource("6_odbmm")
+shader_parameter/noise_texture = ExtResource("10_h85jd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8fene"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ww2v"]
 resource_local_to_scene = true
-shader = ExtResource("5_lvlx3")
+shader = ExtResource("9_yjr8f")
 shader_parameter/powered = 0.0
-shader_parameter/noise_texture = ExtResource("6_odbmm")
+shader_parameter/noise_texture = ExtResource("10_h85jd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotw2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ldlap"]
 resource_local_to_scene = true
-shader = ExtResource("5_lvlx3")
+shader = ExtResource("9_yjr8f")
 shader_parameter/powered = 0.0
-shader_parameter/noise_texture = ExtResource("6_odbmm")
+shader_parameter/noise_texture = ExtResource("10_h85jd")
 
 [sub_resource type="Gradient" id="Gradient_xvn7o"]
 interpolation_mode = 2
@@ -105,7 +105,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y6pn1"]
-shader = ExtResource("11_53l0m")
+shader = ExtResource("17_apiu5")
 shader_parameter/colors = PackedColorArray(0.572549, 1, 1, 1, 1, 0.690196, 1, 1, 1, 0.682353, 0.607843, 1, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.690196, 0.580392, 0.713726, 1, 0.588235, 1, 1, 0.0392157, 0.639216)
 shader_parameter/diffs = PackedVector2Array(0, 0.1, -1, 0.3, 0, -0.8, 0.35, -0.65, 0, 0, -0.6, 0.4, 1, 0)
 shader_parameter/speeds = PackedFloat32Array(3, 4, 3, 5, 10, 10, 30)
@@ -113,11 +113,11 @@ shader_parameter/lenghts = PackedFloat32Array(-0.55, -0.45, -0.4, 0.5, 0.08, 0.0
 shader_parameter/particle_texture = SubResource("GradientTexture2D_pq8af")
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpb4x"]
-font = ExtResource("14_virs7")
+font = ExtResource("18_n40i5")
 font_size = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_c3xq3"]
-font = ExtResource("14_virs7")
+font = ExtResource("18_n40i5")
 font_size = 52
 
 [sub_resource type="Gradient" id="Gradient_87m0d"]
@@ -314,42 +314,42 @@ content_margin_bottom = 4.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ruh63"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ntdq"]
-atlas = ExtResource("15_7qkxm")
+atlas = ExtResource("28_55eys")
 region = Rect2(519, 359, 230, 230)
 margin = Rect2(20, 20, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vnb5y"]
-atlas = ExtResource("15_7qkxm")
+atlas = ExtResource("28_55eys")
 region = Rect2(1038, 621, 230, 230)
 margin = Rect2(20, 20, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u78wn"]
-atlas = ExtResource("15_7qkxm")
+atlas = ExtResource("28_55eys")
 region = Rect2(1300, 600, 270, 270)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oy12e"]
-atlas = ExtResource("15_7qkxm")
+atlas = ExtResource("28_55eys")
 region = Rect2(770, 330, 260, 260)
 margin = Rect2(10, 10, 20, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kc8xs"]
-atlas = ExtResource("19_rqw3s")
+atlas = ExtResource("35_26fhk")
 region = Rect2(866, 579, 975, 123)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adfhc"]
-texture = ExtResource("14_j8jwv")
+texture = ExtResource("36_0sa87")
 modulate_color = Color(1, 1, 1, 0.176471)
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4l38"]
-font = ExtResource("14_virs7")
+font = ExtResource("18_n40i5")
 font_size = 48
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dchwg"]
-atlas = ExtResource("19_rqw3s")
+atlas = ExtResource("35_26fhk")
 region = Rect2(888, 783, 401, 150)
 
 [sub_resource type="LabelSettings" id="LabelSettings_p4cfa"]
-font = ExtResource("14_virs7")
+font = ExtResource("18_n40i5")
 font_size = 30
 
 [sub_resource type="Shader" id="Shader_2tkdk"]
@@ -398,7 +398,7 @@ func _process(delta):
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r7rx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ds21w"]
-atlas = ExtResource("15_7qkxm")
+atlas = ExtResource("28_55eys")
 region = Rect2(658, 74, 183, 198)
 
 [sub_resource type="GDScript" id="GDScript_i0b5j"]
@@ -573,18 +573,18 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [node name="world" type="Node2D"]
-script = ExtResource("1_a4ow6")
+script = ExtResource("1_u2so6")
 metadata/_edit_horizontal_guides_ = [851.0]
 metadata/_edit_vertical_guides_ = [464.0]
 
 [node name="slot_interact_indicator" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("41_hxiq3")
+script = ExtResource("2_sx2ms")
 
 [node name="element_drag_preview" type="Node2D" parent="."]
 
-[node name="background_2" parent="." instance=ExtResource("1_ylyog")]
+[node name="background_2" parent="." instance=ExtResource("3_iu40v")]
 
 [node name="alert_zone_player" type="ColorRect" parent="background_2"]
 material = SubResource("ShaderMaterial_od0fm")
@@ -593,7 +593,7 @@ anchors_preset = -1
 anchor_right = 0.4125
 anchor_bottom = 1.0
 grow_vertical = 2
-script = ExtResource("3_2ehmk")
+script = ExtResource("5_jfc2b")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
@@ -606,7 +606,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
-script = ExtResource("3_2ehmk")
+script = ExtResource("5_jfc2b")
 side = 1
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
@@ -639,42 +639,42 @@ metadata/_edit_use_anchors_ = true
 [node name="turn_machine" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
-script = ExtResource("1_hlcug")
+script = ExtResource("6_vhud8")
 
 [node name="reactors" type="Node" parent="."]
-script = ExtResource("5_o5tgb")
+script = ExtResource("7_p0s6v")
 arena_path = NodePath("../arena")
 
-[node name="fusion_A" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_yk0vp")
+[node name="fusion_A" parent="reactors" instance=ExtResource("8_bbl6e")]
+material = SubResource("ShaderMaterial_ekbxv")
 
-[node name="fusion_B" parent="reactors" instance=ExtResource("6_75uax")]
-material = SubResource("ShaderMaterial_tvf5p")
+[node name="fusion_B" parent="reactors" instance=ExtResource("8_bbl6e")]
+material = SubResource("ShaderMaterial_0ucf0")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
-[node name="accelr_A" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_8fene")
+[node name="accelr_A" parent="reactors" instance=ExtResource("11_qpy4x")]
+material = SubResource("ShaderMaterial_3ww2v")
 
-[node name="accelr_B" parent="reactors" instance=ExtResource("9_nckdy")]
-material = SubResource("ShaderMaterial_iotw2")
+[node name="accelr_B" parent="reactors" instance=ExtResource("11_qpy4x")]
+material = SubResource("ShaderMaterial_ldlap")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
 
-[node name="arena" parent="." instance=ExtResource("7_1651p")]
+[node name="arena" parent="." instance=ExtResource("12_x1fad")]
 custom_minimum_size = Vector2(710, 440)
 reactor_path = NodePath("../reactors")
 
 [node name="PlayerController" type="Node" parent="."]
-script = ExtResource("12_uoua2")
+script = ExtResource("13_3fci5")
 player_A = NodePath("../Player_A")
 player_B = NodePath("../Player_B")
 
 [node name="Player_A" type="Node2D" parent="."]
 position = Vector2(960, 540)
-script = ExtResource("13_wjs4m")
+script = ExtResource("14_2k0ck")
 area_damage_path = NodePath("../background_2/omega_A_damage")
 
 [node name="omega" type="TextureRect" parent="Player_A"]
@@ -689,9 +689,9 @@ offset_right = -787.0
 offset_bottom = 64.0
 grow_vertical = 2
 mouse_filter = 0
-texture = ExtResource("8_krhtp")
+texture = ExtResource("15_5yw1r")
 expand_mode = 1
-script = ExtResource("8_jy5ie")
+script = ExtResource("16_n67rl")
 
 [node name="atomo" type="ColorRect" parent="Player_A/omega"]
 show_behind_parent = true
@@ -750,7 +750,7 @@ visibility_rect = Rect2(-512, -512, 1024, 1024)
 
 [node name="dead" type="Node2D" parent="Player_A"]
 position = Vector2(-851, 0)
-script = ExtResource("16_fscc4")
+script = ExtResource("19_uyp54")
 camera_path = NodePath("../../CameraArena")
 
 [node name="particles" type="GPUParticles2D" parent="Player_A/dead"]
@@ -784,7 +784,7 @@ texture = SubResource("GradientTexture2D_n4jn2")
 
 [node name="Player_B" type="Node2D" parent="."]
 position = Vector2(960, 540)
-script = ExtResource("13_wjs4m")
+script = ExtResource("14_2k0ck")
 player = 1
 area_damage_path = NodePath("../background_2/omega_B_damage")
 
@@ -805,10 +805,10 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
-texture = ExtResource("16_gf66l")
+texture = ExtResource("20_ro0ou")
 expand_mode = 1
 stretch_mode = 4
-script = ExtResource("17_e32wq")
+script = ExtResource("21_guvn8")
 metadata/_edit_lock_ = true
 
 [node name="omega" type="TextureRect" parent="Player_B"]
@@ -826,9 +826,9 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 mouse_filter = 0
-texture = ExtResource("8_krhtp")
+texture = ExtResource("15_5yw1r")
 expand_mode = 1
-script = ExtResource("8_jy5ie")
+script = ExtResource("16_n67rl")
 metadata/_edit_use_anchors_ = true
 
 [node name="atomo" type="ColorRect" parent="Player_B/omega"]
@@ -890,11 +890,11 @@ visibility_rect = Rect2(-512, -512, 1024, 1024)
 
 [node name="Bot" type="Timer" parent="Player_B"]
 one_shot = true
-script = ExtResource("18_pcprk")
+script = ExtResource("22_4kowr")
 
 [node name="dead" type="Node2D" parent="Player_B"]
 position = Vector2(851, 0)
-script = ExtResource("16_fscc4")
+script = ExtResource("19_uyp54")
 camera_path = NodePath("../../CameraArena")
 
 [node name="particles" type="GPUParticles2D" parent="Player_B/dead"]
@@ -931,20 +931,20 @@ texture = SubResource("GradientTexture2D_n4jn2")
 visible = false
 position = Vector2(960, 0)
 position_smoothing_enabled = true
-script = ExtResource("10_6paj4")
+script = ExtResource("23_yh2hq")
 turbulence_force = 0.5
 element_info_path = NodePath("../info_panel/element_info")
 background_path = NodePath("../background_2")
 
-[node name="passive_status" parent="." instance=ExtResource("15_1splr")]
+[node name="passive_status" parent="." instance=ExtResource("24_if6pg")]
 visible = false
 
 [node name="actions" type="Node2D" parent="."]
 visible = false
 z_index = 1
-script = ExtResource("10_6e11s")
+script = ExtResource("25_fsrnr")
 
-[node name="element_action" parent="actions" instance=ExtResource("10_jw2y0")]
+[node name="element_action" parent="actions" instance=ExtResource("26_17vye")]
 offset_left = -124.0
 offset_top = -83.0
 offset_right = -74.0
@@ -954,7 +954,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
 text = "
 "
-icon = ExtResource("12_7bste")
+icon = ExtResource("27_2x8rq")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -973,7 +973,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_8ntdq")
 expand_mode = 1
 
-[node name="element_action2" parent="actions" instance=ExtResource("10_jw2y0")]
+[node name="element_action2" parent="actions" instance=ExtResource("26_17vye")]
 offset_left = -38.0
 offset_top = -131.0
 offset_right = 12.0
@@ -983,7 +983,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
 text = "
 "
-icon = ExtResource("12_7bste")
+icon = ExtResource("27_2x8rq")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -1000,10 +1000,10 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("25_5h1c1")
+texture = ExtResource("29_d0tpa")
 expand_mode = 1
 
-[node name="element_action3" parent="actions" instance=ExtResource("10_jw2y0")]
+[node name="element_action3" parent="actions" instance=ExtResource("26_17vye")]
 offset_left = 54.0
 offset_top = -126.0
 offset_right = 104.0
@@ -1013,7 +1013,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
 text = "
 "
-icon = ExtResource("12_7bste")
+icon = ExtResource("27_2x8rq")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -1033,7 +1033,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_vnb5y")
 expand_mode = 1
 
-[node name="element_action4" parent="actions" instance=ExtResource("10_jw2y0")]
+[node name="element_action4" parent="actions" instance=ExtResource("26_17vye")]
 offset_left = 133.0
 offset_top = -84.0
 offset_right = 183.0
@@ -1043,7 +1043,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
 text = "
 "
-icon = ExtResource("12_7bste")
+icon = ExtResource("27_2x8rq")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -1063,7 +1063,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_u78wn")
 expand_mode = 1
 
-[node name="element_action5" parent="actions" instance=ExtResource("10_jw2y0")]
+[node name="element_action5" parent="actions" instance=ExtResource("26_17vye")]
 offset_left = 161.0
 offset_top = -19.0
 offset_right = 211.0
@@ -1073,7 +1073,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_c5sfv")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ruh63")
 text = "
 "
-icon = ExtResource("12_7bste")
+icon = ExtResource("27_2x8rq")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -1094,11 +1094,11 @@ texture = SubResource("AtlasTexture_oy12e")
 expand_mode = 1
 
 [node name="visualizer" type="Sprite2D" parent="actions"]
-texture = ExtResource("42_3jo0t")
+texture = ExtResource("30_kh5yc")
 
 [node name="info_panel" type="CanvasLayer" parent="."]
 
-[node name="element_info" parent="info_panel" instance=ExtResource("23_x34jh")]
+[node name="element_info" parent="info_panel" instance=ExtResource("31_he3b7")]
 visible = false
 offset_left = 29.0
 offset_top = 165.0
@@ -1106,10 +1106,10 @@ offset_right = 409.0
 offset_bottom = 311.0
 molecule_info_path = NodePath("../molecule_info")
 
-[node name="molecule_info" parent="info_panel" instance=ExtResource("23_ftybf")]
+[node name="molecule_info" parent="info_panel" instance=ExtResource("32_g4biw")]
 visible = false
 
-[node name="passive_descrition" parent="." instance=ExtResource("24_5uukm")]
+[node name="passive_descrition" parent="." instance=ExtResource("33_mfqa1")]
 visible = false
 offset_left = 422.0
 offset_top = 199.0
@@ -1117,7 +1117,7 @@ offset_right = 568.0
 offset_bottom = 341.0
 
 [node name="GUI" type="CanvasLayer" parent="."]
-script = ExtResource("21_l3veq")
+script = ExtResource("34_jogmx")
 
 [node name="deck" type="TextureRect" parent="GUI"]
 visible = false
@@ -1145,7 +1145,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
 
@@ -1153,7 +1153,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 1
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1162,7 +1162,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 2
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1171,7 +1171,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 3
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1180,7 +1180,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 4
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1189,7 +1189,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 5
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1198,7 +1198,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 6
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1207,7 +1207,7 @@ element_info_path = NodePath("../../../../info_panel/element_info")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_adfhc")
-script = ExtResource("15_tapr6")
+script = ExtResource("37_n44tl")
 element = 7
 player_a_path = NodePath("../../../../Player_A")
 element_info_path = NodePath("../../../../info_panel/element_info")
@@ -1282,13 +1282,13 @@ offset_right = 158.0
 offset_bottom = 148.0
 grow_horizontal = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("14_virs7")
+theme_override_fonts/font = ExtResource("18_n40i5")
 theme_override_font_sizes/font_size = 32
 disabled = true
 text = "NEXT_TURN"
 flat = true
 
-[node name="widgets" parent="GUI" instance=ExtResource("34_mo2f7")]
+[node name="widgets" parent="GUI" instance=ExtResource("38_pxdel")]
 visible = false
 
 [node name="blur" type="ColorRect" parent="GUI"]
@@ -1327,19 +1327,19 @@ script = SubResource("GDScript_i0b5j")
 blur_path = NodePath("../blur")
 pause_menu_path = NodePath("../PauseMenu")
 
-[node name="PauseMenu" parent="GUI" instance=ExtResource("25_58ht4")]
+[node name="PauseMenu" parent="GUI" instance=ExtResource("39_1nvu2")]
 visible = false
 
-[node name="end_game" parent="GUI" instance=ExtResource("36_dihyf")]
+[node name="end_game" parent="GUI" instance=ExtResource("40_rofk3")]
 visible = false
 modulate = Color(1, 1, 1, 0)
 pivot_offset = Vector2(520, 128)
 
-[node name="start_game" parent="GUI" instance=ExtResource("38_3qupm")]
+[node name="start_game" parent="GUI" instance=ExtResource("41_xxv64")]
 modulate = Color(1, 1, 1, 0)
 
 [node name="VFX" type="Node2D" parent="."]
-script = ExtResource("39_dw5ux")
+script = ExtResource("42_hjws3")
 
 [node name="Timer" type="Timer" parent="VFX"]
 one_shot = true
@@ -1358,7 +1358,7 @@ position = Vector2(960, 540)
 emitting = false
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_h7tjp")
-texture = ExtResource("25_5h1c1")
+texture = ExtResource("29_d0tpa")
 lifetime = 0.3
 visibility_rect = Rect2(-960, -540, 1920, 1080)
 
