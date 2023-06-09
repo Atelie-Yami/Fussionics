@@ -1,19 +1,6 @@
 class_name BotChip extends RefCounted
 ## classe que detem as caracteristicas e modus operandi do bot
 
-enum Action {
-	DESTROY, DEFEND, POTENTIALIZE, MITIGATE, MERGE, COOK, CREATE
-}
-enum ActionTarget {
-	MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
-}
-enum Directive {
-	NON = 0, # sem diretiva
-	FORCED = 1, # força a execução a garantir sucesso
-	RELINK = 2, # remova os links e os ligue novamente
-	CLEAR_SLOT = 4, # remova o elemento do slot caso haja algo
-	MAX_ENERGY = 8 # define o maximo de energia a ser gasto
-}
 
 class FieldAnalysis:
 	var my_molecules: Array[Molecule]
@@ -30,16 +17,6 @@ class FieldAnalysis:
 	
 	var my_powerful_molecules: Molecule
 	var rival_powerful_molecules: Molecule
-
-class Decision:
-	var is_completed: bool
-	var is_decision_linked: bool
-	var decision_link: Decision # se tem outra tarefa antes dessa completar
-	var action: Action
-	var action_target: ActionTarget
-	var directive: Dictionary
-	var targets: Array
-	var args: Array
 
 
 func analysis(bot: Bot) -> FieldAnalysis:
@@ -112,7 +89,7 @@ func execute(desicions: Array[Decision], bot: Bot):
 			await ChipSet.execute_decision(bot, desicion)
 
 
-func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.FieldAnalysis) -> Array[BotChip.Decision]:
+func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.FieldAnalysis) -> Array[Decision]:
 	match modus:
 		Bot.ModusOperandi.AGGRESSIVE:
 			pass
@@ -133,7 +110,7 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: BotChip.Fie
 		Bot.ModusOperandi.UNDECIDED:
 			pass
 	
-	var ops: Array[BotChip.Decision]
+	var ops: Array[Decision]
 	return ops
 
 

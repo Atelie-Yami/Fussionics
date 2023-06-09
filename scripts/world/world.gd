@@ -51,8 +51,6 @@ static var vfx: VFX
 static var world: Gameplay
 
 
-
-
 func _ready():
 	vfx = $VFX
 	arena = $arena

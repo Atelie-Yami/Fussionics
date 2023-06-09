@@ -13,7 +13,7 @@ var deck := GameBook.DECK.duplicate(true)
 var modus_operandi: ModusOperandi = ModusOperandi.UNDECIDED
 
 var analysis: BotChip.FieldAnalysis
-var desicions: Array[BotChip.Decision]
+var desicions: Array[Decision]
 
 @onready var player: Player = $".."
 
@@ -67,6 +67,24 @@ func get_reactor_empty() -> int:
 	): 
 		return 1 # aceleração
 	return -1 # nenhum
+
+
+func get_slots_nearly(slots_count: int) -> Array:
+	var positions: Array
+	var count := Bot.MAX_SEARCH_TEST
+	while count > 0:
+		count -= 1
+	
+		var position1 = get_empty_slot()
+		if position1 == null:
+			continue
+		
+		positions = get_neighbor_empty_slot(position1)
+		if positions.size() > (slots_count - 2):
+			positions.push_front(position1)
+			break
+	
+	return positions
 
 
 func get_neighbor_empty_slot(pos: Vector2i):
@@ -125,5 +143,13 @@ func move_element_to_slot(element: Element, slot_position: Vector2i):
 	await Gameplay.arena.move_element(element.grid_position, slot_position)
 
 
-func element_attack(element_atk: Element, element_def: Element):
-	pass
+func attack(element_atk: Element, element_def: Element, defend_mode: bool) -> bool:
+	if GameJudge.combat_check_result(element_atk, element_def, defend_mode) == GameJudge.Result.WINNER:
+		await Gameplay.arena.attack_element(element_atk.grid_position, element_def.grid_position)
+		return true
+	return false
+
+
+func set_defende_mode(element: Element):
+	if not Arena.elements[element.grid_position].eletrons_charged:
+		await Gameplay.arena.defend_mode(element.grid_position)
