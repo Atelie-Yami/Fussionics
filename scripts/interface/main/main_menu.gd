@@ -13,7 +13,6 @@ enum State {
 @onready var deck = $deck/Deck
 @onready var quick_game = $quick_game
 
-
 var state: State:
 	set(value):
 		state = value

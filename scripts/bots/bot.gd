@@ -28,12 +28,12 @@ func _play():
 	start(0.5)
 	await timeout
 	
-	analysis = await chip.analysis(self)
+	analysis = chip.analysis(self)
 	modus_operandi = chip.get_modus(analysis)
 	desicions = chip.call_modus_action(modus_operandi, self, analysis)
 	await chip.execute(desicions, self)
 	
-	var pos_analysis: BotChip.FieldAnalysis = await chip.analysis(self)
+	var pos_analysis: BotChip.FieldAnalysis = chip.analysis(self)
 	desicions = chip.call_modus_action(ModusOperandi.UNDECIDED, self, pos_analysis)
 	await chip.execute(desicions, self)
 	
@@ -141,6 +141,16 @@ func move_element_to_slot(element: Element, slot_position: Vector2i):
 	await tween.finished
 	
 	await Gameplay.arena.move_element(element.grid_position, slot_position)
+
+
+func move_element_to_ramdom_slot(element: Element):
+	var pos = get_empty_slot()
+	if pos == null:
+		pos = get_empty_slot()
+		if pos == null:
+			return
+	
+	await move_element_to_slot(element, pos)
 
 
 func attack(element_atk: Element, element_def: Element, defend_mode: bool) -> bool:

@@ -49,7 +49,7 @@ static func execute_decision(bot: Bot, decision: Decision, decision_link_result 
 	
 	match decision.action:
 		Decision.Action.COOK:
-			return await execute_cook(bot, decision, energy, decision_link_result)
+			return #await execute_cook(bot, decision, energy, decision_link_result)
 		
 		Decision.Action.CREATE:
 			if not energy:
@@ -118,8 +118,15 @@ static func execute_decision(bot: Bot, decision: Decision, decision_link_result 
 
 
 static func execute_cook(bot: Bot, decision: Decision, energy: int, decision_link_result = null):
+	var is_forced: bool
+	var prev_position: Array[Vector2i]
+	var success: bool
+	
 	for d in decision.directive:
-		if d == Decision.Directive.CLEAR_SLOT:
+		if d == Decision.Directive.FORCED:
+			is_forced = true
+		
+		elif d == Decision.Directive.CLEAR_SLOT:
 			var reactor_slots := [0, 1, 2, 3]
 			
 			if not decision.extra_args.is_empty():
@@ -133,57 +140,73 @@ static func execute_cook(bot: Bot, decision: Decision, energy: int, decision_lin
 			
 			for i in reactor_slots:
 				if Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[i]):
-					var element: Element = Arena.elements[GameJudge.REACTOR_POSITIONS[i]]
-					
-					var pos = bot.get_empty_slot()
-					if pos == null:
-						pos = bot.get_empty_slot()
-						if pos == null:
-							return
-					
-					await bot.move_element_to_slot(element, GameJudge.REACTOR_POSITIONS[i])
+					await bot.move_element_to_ramdom_slot(Arena.elements[GameJudge.REACTOR_POSITIONS[i]])
 					bot.start(0.2)
 					await bot.timeout
 	
-	# parei aqui, amanha continuo
-	
-	var reactor_selector: int = bot.get_reactor_empty()
-	var success: bool
-	
-	if decision_link_result != null:
-		for element in decision_link_result as Array[Element]:
-			for i in 4:
-				Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[i])
-				await bot.move_element_to_slot(element, GameJudge.REACTOR_POSITIONS[i])
-				bot.start(0.2)
-				await bot.timeout
-		success = true
-	
-	if decision.targets.size() == 1:
-		await bot.move_element_to_slot(decision.targets[0], Vector2i(9, 4 if reactor_selector else 0))
-		bot.start(0.2)
-		await bot.timeout
-		return true
+	if not decision.extra_args.is_empty():
+		prev_position = decision.extra_args
 	
 	if decision.targets.size() == 2:
-		if reactor_selector == -1: # sem slot reactor disponivel
-			if (
-					not Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[0]) and
-					Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[1])
-			):
-				var e: Element = Gameplay.arena.elements[GameJudge.REACTOR_POSITIONS[0]]
-				var pos = bot.get_empty_slot()
-				if not pos:
-					return false
+		if is_forced:
+			for i in decision.targets.size():
+				if not Gameplay.arena._check_slot_empty(prev_position[i]):
+					await bot.move_element_to_ramdom_slot(Arena.elements[prev_position[i]])
+	
+				await bot.move_element_to_slot(decision.targets[i], prev_position[i])
+				bot.start(0.2)
+				await bot.timeout
+			return true
+		else:
+			for slot_a in [0, 2]:
+				if success:
+					break
 				
-				await bot.move_element_to_slot(e, pos)
+				if not Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[slot_a]):
+					continue
+				
+				for slot_b in [1, 3]:
+					if not Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[slot_b]):
+						continue
+					
+					await bot.move_element_to_slot(decision.targets[0], GameJudge.REACTOR_POSITIONS[slot_a])
+					await bot.move_element_to_slot(decision.targets[1], GameJudge.REACTOR_POSITIONS[slot_b])
+					success = true
+					break
+	
+	if decision_link_result:
+		for i in decision_link_result.size():
+			if is_forced:
+				if not Gameplay.arena._check_slot_empty(prev_position[i]):
+					await bot.move_element_to_ramdom_slot(Arena.elements[prev_position[i]])
+				await bot.move_element_to_slot(decision_link_result[i], prev_position[i])
+				prev_position.erase(prev_position[i])
 			
-		for i in decision.targets.size():
-			await bot.move_element_to_slot(decision.targets[i], Vector2i(9 + (i * 2), 4 if reactor_selector else 0))
+			else:
+				for slot in 4:
+					if not Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[slot]):
+						continue
+			
+					await bot.move_element_to_slot(decision_link_result[i], GameJudge.REACTOR_POSITIONS[slot])
+					break
+			
 			bot.start(0.2)
 			await bot.timeout
-		return true
+			success = true
 	
+	if decision.targets.size() == 1:
+		if is_forced:
+			if not Gameplay.arena._check_slot_empty(prev_position[0]):
+				await bot.move_element_to_ramdom_slot(Arena.elements[prev_position[0]])
+			await bot.move_element_to_slot(decision.targets[0], prev_position[0])
+			return true
+		
+		for i in 4:
+			if not Gameplay.arena._check_slot_empty(GameJudge.REACTOR_POSITIONS[i]):
+				continue
+			await bot.move_element_to_slot(decision.targets[0], GameJudge.REACTOR_POSITIONS[i])
+			return true
+			
 	return success
 
 
@@ -282,7 +305,7 @@ static func execute_create_molecule(bot: Bot, atomic_number_1: int, atomic_numbe
 		return [element_A, element_B]
 
 
-static func execute_merge_element(bot: Bot, decision: Decision, energy: int, decision_link_result = null):
+static func execute_merge_element(bot: Bot, decision: Decision, energy: int, decision_link_result: Array):
 	if decision.targets.size() == 2:
 		if decision.targets[0] is Element and decision.targets[1] is Element:
 			return await execute_merge_element_to_element(bot, decision.targets[0], decision.targets[1])
@@ -290,14 +313,14 @@ static func execute_merge_element(bot: Bot, decision: Decision, energy: int, dec
 		elif decision.targets[0] is Molecule and decision.targets[1] is Element:
 			return await execute_merge_molecule_element(bot, decision.targets[0], decision.targets[1])
 	
-	if decision.targets.is_empty():
+	if decision.targets.is_empty() or decision_link_result.is_empty():
 		return
 	
 	if decision.targets[0] is Element and GameJudge.can_element_link(decision.targets[0]):
-		return await execute_merge_element_to_element(bot, decision.targets[0], decision_link_result)
+		return await execute_merge_element_to_element(bot, decision.targets[0], decision_link_result[0])
 		
 	elif decision.targets[0] is Molecule:
-		return await execute_merge_molecule_element(bot, decision.targets[0], decision_link_result)
+		return await execute_merge_molecule_element(bot, decision.targets[0], decision_link_result[0])
 
 
 static func execute_merge_molecules(bot: Bot, molecule: Molecule):

@@ -24,8 +24,13 @@ static func defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	var decision_list: Array[Decision]
 	
 	if analysis.my_molecules.size() > 0:
+		var sucess: bool
 		for d in Decision.create_element_merge_molecule(analysis.my_molecules[0]):
 			decision_list.append(d)
+			sucess = true
+		
+		if sucess:
+			analysis.my_molecules.erase(analysis.my_molecules[0])
 	
 	if analysis.my_single_elements.size() == 1:
 		var decision_link := Decision.create_element()
@@ -50,24 +55,24 @@ static func defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 
 static func aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	var decision_list: Array[Decision]
+	var best_match: Molecule
+	var last_power: int
 	
-	if analysis.my_molecules.size() > 0:
-		var best_match: Molecule
-		var last_power: int
-		for molecule in analysis.my_molecules:
-			var molecule_power: int = GameJudge.calcule_max_molecule_eletrons_power(molecule)
-			if not last_power:
-				last_power = molecule_power
-				best_match = molecule
-				continue
+	for molecule in analysis.my_molecules:
+		var molecule_power: int = GameJudge.calcule_max_molecule_eletrons_power(molecule)
+		if not last_power:
+			last_power = molecule_power
+			best_match = molecule
+			continue
+		
+		if last_power != molecule_power:
+			last_power = molecule_power
+			best_match = molecule
 			
-			if last_power != molecule_power:
-				last_power = molecule_power
-				best_match = molecule
-				
-		if best_match:
-			for d in Decision.create_element_merge_molecule(best_match):
-				decision_list.append(d)
+	if best_match:
+		for d in Decision.create_element_merge_molecule(best_match):
+			decision_list.append(d)
+		analysis.my_molecules.erase(best_match)
 	
 	elif bot.player.energy > 6:
 		decision_list.append(Decision.create_molecule())
@@ -87,6 +92,8 @@ static func tatical_aggressive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	
 	if opening_list.is_empty():
 		return aggressive(bot, analysis)
+	
+	analysis.my_molecules.erase(best_match_molecule)
 	
 	if opening_list.size() > 2 and bot.player.energy > 7:
 		var strip = max(int(bot.player.energy / opening_list.size()), 1)
@@ -118,6 +125,7 @@ static func tatical_defensive(bot: Bot, analysis: BotChip.FieldAnalysis):
 	
 	if best_match_molecule:
 		opening_list = insight_molecule_get_opening_elements(best_match_molecule)
+		analysis.my_molecules.erase(best_match_molecule)
 	
 	for molecule in opening_list:
 		if molecule != best_match_molecule:
@@ -155,8 +163,12 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 	var decision_list: Array[Decision]
 	
 	if analysis.my_molecules.size() == 1:
+		var sucess: bool
 		for d in Decision.create_element_merge_molecule(analysis.my_molecules[0]):
 			decision_list.append(d)
+			sucess = true
+		if sucess:
+			analysis.my_molecules.erase(analysis.my_molecules[0])
 	
 	elif analysis.my_molecules.size() > 1:
 		var d := Decision.new()
@@ -168,6 +180,9 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 		for m in analysis.my_molecules:
 			if GameJudge.is_molecule_opened(m):
 				d.targets.append(m)
+		
+		for m in d.targets:
+			analysis.my_molecules.erase(m)
 	
 	if analysis.my_single_elements.is_empty():
 		if bot.player.energy > 8:
@@ -205,6 +220,7 @@ static func indecided(bot: Bot, analysis: BotChip.FieldAnalysis):
 					d.action_target = Decision.ActionTarget.MY_ELEMENT
 					d.action = Decision.Action.COOK
 					d.targets = [e]
+					break
 				continue
 			
 			if not match_element:

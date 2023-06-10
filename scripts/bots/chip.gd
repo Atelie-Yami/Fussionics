@@ -21,9 +21,6 @@ class FieldAnalysis:
 
 func analysis(bot: Bot) -> FieldAnalysis:
 	var field_analysis := FieldAnalysis.new()
-	bot.start(0.3)
-	await bot.timeout
-	
 	for slot in (Arena.elements as Dictionary).values():
 		slot = (slot as ArenaSlot)
 		if slot.player == PlayerController.Players.A:
@@ -68,8 +65,6 @@ func analysis(bot: Bot) -> FieldAnalysis:
 					GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
 				):
 					field_analysis.my_powerful_molecules = slot.molecule
-	bot.start(0.3)
-	await bot.timeout
 	return field_analysis
 
 
