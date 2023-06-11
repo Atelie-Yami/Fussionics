@@ -29,6 +29,14 @@ static func combat_check_result(element_attacker: Element, element_defender: Ele
 	return Result.DRAW
 
 
+static func can_element_move(pre_slot: Vector2i, final_slot: Vector2i) -> bool:
+	return (
+		not Arena.elements.has(final_slot)
+		and not Arena._check_slot_only_out(final_slot)
+		and not Arena.elements[pre_slot].element.has_link
+	)
+
+
 static func can_element_link(element: Element) -> bool:
 	var has_ligament_empty: bool
 	for link in element.links:

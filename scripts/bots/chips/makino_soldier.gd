@@ -5,7 +5,7 @@ func get_modus(_analysis: FieldAnalysis) -> Bot.ModusOperandi:
 	return AmethistChipSet.get_modus(_analysis)
 
 
-func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, _analysis: BotChip.FieldAnalysis) -> Array[Decision]:
+func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, _analysis: FieldAnalysis) -> Array[Decision]:
 	match modus:
 		Bot.ModusOperandi.AGGRESSIVE:
 			return AmethistChipSet.aggressive(bot, _analysis)
@@ -26,7 +26,7 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, _analysis: BotChip.Fi
 	return ops
 
 
-func lockdown(bot: Bot, analysis: BotChip.FieldAnalysis, modus: Bot.ModusOperandi):
+func lockdown(bot: Bot, analysis: FieldAnalysis, modus: Bot.ModusOperandi):
 	match modus:
 		Bot.ModusOperandi.AGGRESSIVE:
 			await AmethistChipSet.lockdown_aggressive(bot, analysis)

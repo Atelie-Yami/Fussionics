@@ -1,3 +1,4 @@
+@static_unload
 class_name Arena extends Control
 
 signal elements_update
@@ -24,6 +25,8 @@ static var elements: Dictionary
 
 
 func _ready():
+	elements.clear()
+	
 	for c in get_children():
 		await  get_tree().create_timer(0.03).timeout
 		c.animation()
@@ -348,7 +351,7 @@ func _check_slot_empty(slot: Vector2i):
 	return not elements.has(slot)
 
 
-func _check_slot_only_out(slot: Vector2i):
+static func _check_slot_only_out(slot: Vector2i):
 	return slot.y == 12 or slot.y == 15 or slot.y == 18 or slot.y == 21
 
 

@@ -1,3 +1,4 @@
+@static_unload
 class_name PlayerController extends Node
 
 enum Players {A, B}
@@ -12,6 +13,7 @@ static var current_players: Array[Player]
 
 
 func _ready():
+	current_players.clear()
 	current_players.append(get_node(player_A))
 	current_players.append(get_node(player_B))
 	

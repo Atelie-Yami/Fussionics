@@ -1,7 +1,13 @@
 class_name Decision extends RefCounted
 
 enum Action {
-	DESTROY, DEFEND, POTENTIALIZE, MITIGATE, MERGE, COOK, CREATE, TRANSLATE
+	DESTROY,  # destruir elemento rival     #
+	DEFEND,   # defender elemento proprio   #
+	MITIGATE, # reduzir poder de molecula   #
+	MERGE,    # unir elementos e moleculas  # 
+	COOK,     # cozinhar nos fornos         # OK
+	CREATE,   # criar elementos             # OK
+	MOVE,     # mover elemento              #
 }
 enum ActionTarget {
 	MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
@@ -42,13 +48,6 @@ static func create_element() -> Decision:
 	decision.action = Action.CREATE
 	return decision
 
-
-static func potentialize_element(element_pivot: Element) -> Decision:
-	var decision := Decision.new()
-	decision.action_target = ActionTarget.MY_ELEMENT
-	decision.action = Action.POTENTIALIZE
-	decision.targets = [element_pivot]
-	return decision
 
 
 static func create_element_merge_molecule(molecule: Molecule) -> Array:

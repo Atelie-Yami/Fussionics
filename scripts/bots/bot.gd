@@ -12,7 +12,7 @@ var chip: BotChip
 var deck := GameBook.DECK.duplicate(true)
 var modus_operandi: ModusOperandi = ModusOperandi.UNDECIDED
 
-var analysis: BotChip.FieldAnalysis
+var analysis: FieldAnalysis
 var desicions: Array[Decision]
 
 @onready var player: Player = $".."
@@ -28,12 +28,12 @@ func _play():
 	start(0.5)
 	await timeout
 	
-	analysis = chip.analysis(self)
+	analysis = FieldAnalysis.make(self)
 	modus_operandi = chip.get_modus(analysis)
 	desicions = chip.call_modus_action(modus_operandi, self, analysis)
 	await chip.execute(desicions, self)
 	
-	var pos_analysis: BotChip.FieldAnalysis = chip.analysis(self)
+	var pos_analysis := FieldAnalysis.make(self)
 	desicions = chip.call_modus_action(ModusOperandi.UNDECIDED, self, pos_analysis)
 	await chip.execute(desicions, self)
 	
@@ -135,6 +135,9 @@ func create_element(atomic_number: int, position: Vector2i):
 
 func move_element_to_slot(element: Element, slot_position: Vector2i):
 	var final_position: Vector2 = Gameplay.arena._get_snapped_slot_position(slot_position)
+	
+	if not GameJudge.can_element_move(element.grid_position, final_position):
+		return
 	
 	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(element, "global_position", final_position, 0.4)
