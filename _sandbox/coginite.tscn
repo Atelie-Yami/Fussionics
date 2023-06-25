@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://bytprirfrwf5t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5vuf"]
+bg_color = Color(0.6, 0.6, 0.423529, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="GraphEdit" type="GraphEdit"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+right_disconnects = true
+use_snap = false
+minimap_enabled = false
+
+[node name="GraphNode" type="GraphNode" parent="."]
+layout_mode = 0
+offset_left = 763.0
+offset_top = 392.0
+offset_right = 1039.0
+offset_bottom = 564.0
+mouse_filter = 1
+title = "Marajoara"
+position_offset = Vector2(763, 392)
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+
+[node name="Button" type="Button" parent="GraphNode"]
+layout_mode = 2
+text = "mano"
+
+[node name="Label" type="Label" parent="GraphNode"]
+layout_mode = 2
+text = "mais simples doque parece"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GraphNode"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_r5vuf")
+bbcode_enabled = true
+text = "[center][color=#aa66ff]confia"

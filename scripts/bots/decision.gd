@@ -49,7 +49,6 @@ static func create_element() -> Decision:
 	return decision
 
 
-
 static func create_element_merge_molecule(molecule: Molecule) -> Array:
 	var decision_link := create_element()
 	decision_link.is_decision_linked = true

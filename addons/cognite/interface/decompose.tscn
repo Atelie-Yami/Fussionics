@@ -1,0 +1,107 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3n2yt51h60wa"]
+
+[ext_resource type="Script" path="res://addons/cognite/interface/graph_decompose.gd" id="1_14ghg"]
+
+[node name="decompose" type="GraphNode"]
+self_modulate = Color(0.823529, 1, 0.941176, 1)
+offset_left = 518.0
+offset_top = 206.0
+offset_right = 669.0
+offset_bottom = 431.0
+mouse_filter = 1
+title = "Decompose"
+position_offset = Vector2(518, 206)
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(0.823529, 1, 0.941176, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = true
+slot/2/right_type = 56
+slot/2/right_color = Color(0.85098, 0.329412, 0, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = true
+slot/3/right_type = 56
+slot/3/right_color = Color(0.85098, 0.329412, 0, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = true
+slot/4/right_type = 56
+slot/4/right_color = Color(0.85098, 0.329412, 0, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_icon = null
+slot/5/right_enabled = true
+slot/5/right_type = 87
+slot/5/right_color = Color(1, 0.188235, 0.188235, 1)
+slot/5/right_icon = null
+slot/5/draw_stylebox = true
+script = ExtResource("1_14ghg")
+
+[node name="analysis" type="Label" parent="."]
+layout_mode = 2
+text = "analysis"
+
+[node name="field" type="OptionButton" parent="."]
+layout_mode = 2
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "field"
+popup/item_0/id = 0
+popup/item_1/text = "my field"
+popup/item_1/id = 1
+popup/item_2/text = "rival field"
+popup/item_2/id = 2
+
+[node name="elements" type="Label" parent="."]
+layout_mode = 2
+text = "elements"
+horizontal_alignment = 2
+
+[node name="molecules" type="Label" parent="."]
+layout_mode = 2
+text = "molecules"
+horizontal_alignment = 2
+
+[node name="forje" type="Label" parent="."]
+layout_mode = 2
+text = "forje"
+horizontal_alignment = 2
+
+[node name="energy" type="Label" parent="."]
+layout_mode = 2
+text = "energy"
+horizontal_alignment = 2
+
+[connection signal="item_selected" from="field" to="." method="_on_field_item_selected"]

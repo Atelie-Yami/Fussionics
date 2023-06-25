@@ -1,4 +1,4 @@
-extends Node
+class_name GitPlugin extends Node
 
 
 #func _ready():

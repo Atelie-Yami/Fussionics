@@ -1,0 +1,104 @@
+[gd_scene load_steps=2 format=3 uid="uid://bag7xnn0fwahp"]
+
+[ext_resource type="Script" path="res://addons/cognite/interface/graph_decision.gd" id="1_307p3"]
+
+[node name="decision" type="GraphNode"]
+self_modulate = Color(1, 0.901961, 0.443137, 1)
+offset_left = 1184.0
+offset_top = 226.0
+offset_right = 1362.0
+offset_bottom = 461.0
+mouse_filter = 1
+title = "Decision"
+position_offset = Vector2(1184, 226)
+show_close = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = true
+slot/2/left_type = 56
+slot/2/left_color = Color(0.85098, 0.329412, 0, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = true
+slot/3/left_type = 40
+slot/3/left_color = Color(1, 0.901961, 0.443137, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_icon = null
+slot/5/right_enabled = true
+slot/5/right_type = 40
+slot/5/right_color = Color(1, 0.901961, 0.443137, 1)
+slot/5/right_icon = null
+slot/5/draw_stylebox = true
+script = ExtResource("1_307p3")
+
+[node name="action" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "action"
+popup/item_0/id = 0
+
+[node name="action_target" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "action target"
+popup/item_0/id = 0
+
+[node name="targets" type="Label" parent="."]
+layout_mode = 2
+text = "targets"
+
+[node name="decision_link" type="Label" parent="."]
+layout_mode = 2
+text = "decision link"
+
+[node name="directive" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Directive"
+
+[node name="self" type="Label" parent="."]
+layout_mode = 2
+text = "self"
+horizontal_alignment = 2
+
+[connection signal="item_selected" from="action" to="." method="_on_action_item_selected"]
+[connection signal="item_selected" from="action_target" to="." method="_on_action_target_item_selected"]
+[connection signal="text_submitted" from="directive" to="." method="_on_directive_text_submitted"]

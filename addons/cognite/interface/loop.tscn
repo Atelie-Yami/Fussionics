@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5mnavud2ol8o"]
+
+[ext_resource type="Script" path="res://addons/cognite/interface/graph_loop.gd" id="1_l1tnn"]
+
+[node name="loop" type="GraphNode"]
+self_modulate = Color(0.637056, 0.484547, 1, 1)
+offset_left = 814.0
+offset_top = 146.0
+offset_right = 992.0
+offset_bottom = 259.0
+mouse_filter = 1
+title = "Loop"
+position_offset = Vector2(814, 146)
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 99
+slot/0/left_color = Color(0.533333, 0.207843, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 56
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 56
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 99
+slot/1/right_color = Color(0.533333, 0.207843, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_l1tnn")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Number or array"
+flat = true
+caret_mid_grapheme = false
+
+[node name="item" type="Label" parent="."]
+layout_mode = 2
+text = "item"
+horizontal_alignment = 2
+
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]

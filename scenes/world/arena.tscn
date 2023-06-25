@@ -66,25 +66,25 @@ colors = PackedColorArray(0.75, 0, 0.0124998, 0.32549, 0.760784, 0.231373, 0.490
 gradient = SubResource("Gradient_76ubx")
 use_hdr = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2wn5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp3qm"]
 resource_local_to_scene = true
 shader = ExtResource("9_86deu")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("10_u4r2l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1ufw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ohb1"]
 resource_local_to_scene = true
 shader = ExtResource("9_86deu")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("10_u4r2l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rj5tb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvrt6"]
 resource_local_to_scene = true
 shader = ExtResource("9_86deu")
 shader_parameter/powered = 0.0
 shader_parameter/noise_texture = ExtResource("10_u4r2l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jj5lv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e101q"]
 resource_local_to_scene = true
 shader = ExtResource("9_86deu")
 shader_parameter/powered = 0.0
@@ -646,19 +646,19 @@ script = ExtResource("7_0550k")
 arena_path = NodePath("../arena")
 
 [node name="fusion_A" parent="reactors" instance=ExtResource("8_xy4n1")]
-material = SubResource("ShaderMaterial_n2wn5")
+material = SubResource("ShaderMaterial_cp3qm")
 
 [node name="fusion_B" parent="reactors" instance=ExtResource("8_xy4n1")]
-material = SubResource("ShaderMaterial_q1ufw")
+material = SubResource("ShaderMaterial_2ohb1")
 offset_left = 1392.0
 offset_right = 1699.0
 flip_h = true
 
 [node name="accelr_A" parent="reactors" instance=ExtResource("11_dd3pj")]
-material = SubResource("ShaderMaterial_rj5tb")
+material = SubResource("ShaderMaterial_mvrt6")
 
 [node name="accelr_B" parent="reactors" instance=ExtResource("11_dd3pj")]
-material = SubResource("ShaderMaterial_jj5lv")
+material = SubResource("ShaderMaterial_e101q")
 offset_left = 1391.0
 offset_right = 1697.0
 flip_h = true
