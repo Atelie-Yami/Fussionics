@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://j6lgo8hsb58x"]
+
+[ext_resource type="Script" path="res://addons/cognite/cognite_source.gd" id="1_pbyrc"]
+
+[resource]
+script = ExtResource("1_pbyrc")
+chipset_modus = 0
+graph_nodes = {}

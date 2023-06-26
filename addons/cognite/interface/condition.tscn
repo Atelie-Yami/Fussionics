@@ -65,7 +65,7 @@ caret_mid_grapheme = false
 layout_mode = 2
 focus_mode = 0
 flat = true
-item_count = 3
+item_count = 4
 selected = 0
 popup/item_0/text = "condition"
 popup/item_0/id = 0
@@ -74,6 +74,8 @@ popup/item_1/text = "is greater than"
 popup/item_1/id = 1
 popup/item_2/text = "is less than"
 popup/item_2/id = 2
+popup/item_3/text = "is equals than"
+popup/item_3/id = 3
 
 [node name="B" type="LineEdit" parent="."]
 layout_mode = 2

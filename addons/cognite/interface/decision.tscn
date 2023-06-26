@@ -40,17 +40,17 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 slot/3/left_enabled = true
-slot/3/left_type = 40
-slot/3/left_color = Color(1, 0.901961, 0.443137, 1)
+slot/3/left_type = 56
+slot/3/left_color = Color(0.85098, 0.329412, 0, 1)
 slot/3/left_icon = null
 slot/3/right_enabled = false
 slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
-slot/4/left_enabled = false
-slot/4/left_type = 0
-slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_enabled = true
+slot/4/left_type = 40
+slot/4/left_color = Color(1, 0.901961, 0.443137, 1)
 slot/4/left_icon = null
 slot/4/right_enabled = false
 slot/4/right_type = 0
@@ -70,29 +70,51 @@ script = ExtResource("1_307p3")
 
 [node name="action" type="OptionButton" parent="."]
 layout_mode = 2
-item_count = 1
+item_count = 5
 selected = 0
 popup/item_0/text = "action"
 popup/item_0/id = 0
+popup/item_1/text = "my element"
+popup/item_1/id = 1
+popup/item_2/text = "my molecule"
+popup/item_2/id = 2
+popup/item_3/text = "rival element"
+popup/item_3/id = 3
+popup/item_4/text = "rival molecule"
+popup/item_4/id = 4
 
 [node name="action_target" type="OptionButton" parent="."]
 layout_mode = 2
-item_count = 1
+item_count = 8
 selected = 0
 popup/item_0/text = "action target"
 popup/item_0/id = 0
+popup/item_1/text = "Destroy"
+popup/item_1/id = 1
+popup/item_2/text = "Defend"
+popup/item_2/id = 2
+popup/item_3/text = "Mitigate"
+popup/item_3/id = 3
+popup/item_4/text = "Merge"
+popup/item_4/id = 4
+popup/item_5/text = "Cook"
+popup/item_5/id = 5
+popup/item_6/text = "Create"
+popup/item_6/id = 6
+popup/item_7/text = "Move"
+popup/item_7/id = 7
 
 [node name="targets" type="Label" parent="."]
 layout_mode = 2
 text = "targets"
 
+[node name="directive" type="Label" parent="."]
+layout_mode = 2
+text = "directive"
+
 [node name="decision_link" type="Label" parent="."]
 layout_mode = 2
 text = "decision link"
-
-[node name="directive" type="LineEdit" parent="."]
-layout_mode = 2
-placeholder_text = "Directive"
 
 [node name="self" type="Label" parent="."]
 layout_mode = 2
@@ -101,4 +123,3 @@ horizontal_alignment = 2
 
 [connection signal="item_selected" from="action" to="." method="_on_action_item_selected"]
 [connection signal="item_selected" from="action_target" to="." method="_on_action_target_item_selected"]
-[connection signal="text_submitted" from="directive" to="." method="_on_directive_text_submitted"]

@@ -1,12 +1,18 @@
+@tool
 class_name CogniteGraphNode extends GraphNode
 
 
-@onready var graph_edit: GraphEdit = get_parent()
+var graph_resource: Resource
+var graph_edit: GraphEdit
 
 
 func _init():
 	show_close = true
 	close_request.connect(_delete)
+	dragged.connect(_dragged)
+	
+	await ready
+	graph_edit = get_parent()
 
 
 func _delete():
@@ -16,3 +22,5 @@ func _delete():
 	queue_free()
 
 
+func _dragged(from: Vector2, to: Vector2):
+	graph_resource.graph_nodes[name.replace("@", "_")].properties["position_offset"] = to

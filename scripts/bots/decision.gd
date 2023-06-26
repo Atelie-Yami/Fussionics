@@ -13,10 +13,11 @@ enum ActionTarget {
 	MY_ELEMENT, MY_MOLECULE, RIVAL_ELEMENT, RIVAL_MOLECULE,
 }
 enum Directive {
-	FORCED,     # força a execução a garantir sucesso
-	RELINK,     # remova os links e os ligue novamente
-	CLEAR_SLOT, # remova o elemento do slot caso haja algo
-	MAX_ENERGY, # define o maximo de energia a ser gasto
+	FORCED,      # força a execução a garantir sucesso
+	RELINK,      # remova os links e os ligue novamente
+	CLEAR_SLOT,  # remova o elemento do slot caso haja algo
+	MAX_ENERGY,  # define o maximo de energia a ser gasto
+	HALF_ENERGY, # define que irá usar metade da energia disponivel
 }
 enum Tags {
 	FUSION, ACCELR, 
@@ -42,10 +43,13 @@ static func create_molecule() -> Decision:
 	return decision
 
 
-static func create_element() -> Decision:
+static func create_element(energy = null) -> Decision:
 	var decision := Decision.new()
 	decision.action_target = ActionTarget.MY_ELEMENT
 	decision.action = Action.CREATE
+	if energy:
+		decision.directive = {Directive.MAX_ENERGY: energy}
+		
 	return decision
 
 
