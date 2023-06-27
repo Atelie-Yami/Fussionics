@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://i0t5mgci8jno"]
+
+[ext_resource type="Script" path="res://addons/cognite/interface/graph_directive.gd" id="1_ts58x"]
+
+[node name="GraphNode" type="GraphNode"]
+self_modulate = Color(1, 0.784314, 0.47451, 1)
+offset_right = 36.0
+offset_bottom = 54.0
+title = "Directive"
+show_close = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = true
+slot/1/left_type = 99
+slot/1/left_color = Color(0.533333, 0.207843, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 56
+slot/1/right_color = Color(0.85098, 0.329412, 0, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_ts58x")
+
+[node name="directive" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "directive"
+popup/item_0/id = 0
+popup/item_0/separator = true
+
+[node name="value" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Value"
+alignment = 1
+
+[connection signal="item_selected" from="directive" to="." method="_on_directive_item_selected"]
+[connection signal="text_changed" from="value" to="." method="_on_value_text_changed"]

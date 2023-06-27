@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_pbyrc")
-chipset_modus = 0
+hash = 100
+chipset_selection = 0
 graph_nodes = {}

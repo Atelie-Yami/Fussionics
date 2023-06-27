@@ -16,6 +16,10 @@ const GRAPH_NODES := [
 	preload("res://addons/cognite/interface/loop.tscn"),
 	preload("res://addons/cognite/interface/condition.tscn"),
 	preload("res://addons/cognite/interface/best_match.tscn"),
+	preload("res://addons/cognite/interface/directive.tscn"),
+]
+const GRAPH_NAMES := [
+	"Decision", "Decompose", "Loop", "Condition", "Best_Match", "Directive"
 ]
 
 var nodes: Array[GraphNode]
@@ -23,6 +27,7 @@ var current_resource
 var is_ready: bool
 
 @onready var select_graphnode = $HBoxContainer/select_graphnode
+@onready var chipset_selection = $modus/chipset_selection
 
 
 func _ready():
@@ -61,12 +66,11 @@ func load_resource(resource):
 func apply_resource():
 	var links: Array
 	
+	chipset_selection.selected = current_resource.chipset_selection
+	
 	for node in current_resource.graph_nodes:
 		var pack: Dictionary = current_resource.graph_nodes[node]
-		
-		var graph_node: GraphNode = create_graph(pack.type)
-		graph_node.name = node
-		print("graph_node.name ", graph_node.name)
+		var graph_node: GraphNode = create_graph(pack.type, node)
 		
 		for prop in pack.properties:
 			graph_node.set(prop, pack.properties[prop])
@@ -77,34 +81,35 @@ func apply_resource():
 		connect_node(connections[0], connections[1], connections[2], connections[3])
 
 
-func create_graph(type: int):
+func create_graph(type: int, _name: String):
+	select_graphnode.selected = 0
+	
 	var graph_node: GraphNode = GRAPH_NODES[type].instantiate()
+	graph_node.position_offset = Vector2(500, 300)
+	graph_node.graph_resource = current_resource
+	graph_node.name = _name
+	
 	nodes.append(graph_node)
 	add_child(graph_node)
-	
-	select_graphnode.selected = 0
-	graph_node.position_offset = Vector2(500, 300)
-	
-	graph_node.graph_resource = current_resource
-	print(graph_node.name)
-	
 	return graph_node
 
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	current_resource.graph_nodes[from_node.replace("@", "_")].connections.append([from_node, from_port, to_node, to_port])
+	current_resource.graph_nodes[from_node].connections.append([from_node, from_port, to_node, to_port])
 	connect_node(from_node, from_port, to_node, to_port)
 
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
-	current_resource.graph_nodes[from_node.replace("@", "_")].connections.erase([from_node, from_port, to_node, to_port])
+	current_resource.graph_nodes[from_node].connections.erase([from_node, from_port, to_node, to_port])
 	disconnect_node(from_node, from_port, to_node, to_port)
 
 
 func _on_select_graphnode_item_selected(index):
-	var graph_node: GraphNode = create_graph(index - 1)
-	var new_name = graph_node.name.replace("@", "_")
-	current_resource.append_node(new_name, index - 1)
-	print(new_name)
+	var _name = GRAPH_NAMES[index - 1] + str(current_resource.get_hash())
+	var graph_node: GraphNode = create_graph(index - 1, _name)
+	current_resource.append_node(_name, index - 1)
+	print(_name)
 
 
+func _on_chipset_selection_item_selected(index):
+	current_resource.chipset_selection = index

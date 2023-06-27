@@ -11,6 +11,7 @@ offset_bottom = 693.0
 mouse_filter = 1
 title = "best match"
 position_offset = Vector2(532, 580)
+show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 56
 slot/0/left_color = Color(0.85098, 0.329412, 0, 1)
