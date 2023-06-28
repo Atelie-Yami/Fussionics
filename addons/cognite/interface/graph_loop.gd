@@ -18,5 +18,4 @@ func _on_line_edit_text_changed(new_text):
 	graph_resource.graph_nodes[name]["properties"]["loop"] = selected_number
 
 
-func _on_close_request():
-	pass # Replace with function body.
+

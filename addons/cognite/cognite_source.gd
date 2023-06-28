@@ -5,7 +5,9 @@ const GRAPH_RESOURCE = {"type": 0, "properties": {}, "connections": []}
 
 @export var hash := 100
 @export var chipset_selection: int
-@export var graph_nodes: Dictionary
+@export var graph_nodes := {
+	"modus": {"type": 70, "properties": {}, "connections": []},
+}
 # {name: {"type": int, "properties": Dictionary, "connections": Array[Array]}}
 
 

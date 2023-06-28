@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dvafn0sqntoa6"]
+
+[ext_resource type="Script" path="res://addons/cognite/cognite_source.gd" id="1_hbcbm"]
+
+[resource]
+script = ExtResource("1_hbcbm")
+hash = 100
+chipset_selection = 0
+graph_nodes = {
+"modus": {
+"connections": [],
+"properties": {},
+"type": 70
+}
+}

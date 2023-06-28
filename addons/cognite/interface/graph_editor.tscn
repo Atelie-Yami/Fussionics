@@ -1,13 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://4it2akw1x6vf"]
+[gd_scene load_steps=5 format=3 uid="uid://4it2akw1x6vf"]
 
+[ext_resource type="Script" path="res://addons/cognite/graph_editor.gd" id="1_1ddum"]
 [ext_resource type="Script" path="res://addons/cognite/interface/graph_editor.gd" id="1_wtxwf"]
+[ext_resource type="Texture2D" uid="uid://dqxiaogpa3f7n" path="res://addons/cognite/resource/artwork_godot.jpg" id="2_jlpa2"]
 
-[node name="GraphEdit" type="GraphEdit"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs77b"]
+bg_color = Color(0.00784314, 0.0313726, 0.168627, 0.407843)
+
+[node name="graph_editor" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1ddum")
+metadata/_edit_lock_ = true
+
+[node name="rect" type="TextureRect" parent="."]
+modulate = Color(0.0862745, 0.184314, 0.556863, 0.494118)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jlpa2")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/bg = SubResource("StyleBoxFlat_cs77b")
 right_disconnects = true
 use_snap = false
 minimap_enabled = false
@@ -15,13 +45,13 @@ arrange_nodes_button_hidden = true
 script = ExtResource("1_wtxwf")
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="GraphEdit"]
 layout_mode = 0
 offset_left = 273.0
-offset_right = 679.0
+offset_right = 273.0
 offset_bottom = 40.0
 
-[node name="select_graphnode" type="OptionButton" parent="HBoxContainer"]
+[node name="select_graphnode" type="OptionButton" parent="GraphEdit/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 flat = true
@@ -44,7 +74,7 @@ popup/item_5/id = 5
 popup/item_6/text = "Directive"
 popup/item_6/id = 6
 
-[node name="modus" type="GraphNode" parent="."]
+[node name="modus" type="GraphNode" parent="GraphEdit"]
 layout_mode = 0
 offset_left = 117.0
 offset_top = 306.0
@@ -109,7 +139,7 @@ slot/5/right_color = Color(0.823529, 1, 0.941176, 1)
 slot/5/right_icon = null
 slot/5/draw_stylebox = true
 
-[node name="chipset_selection" type="OptionButton" parent="modus"]
+[node name="chipset_selection" type="OptionButton" parent="GraphEdit/modus"]
 layout_mode = 2
 focus_mode = 0
 item_count = 3
@@ -122,41 +152,41 @@ popup/item_1/id = 1
 popup/item_2/text = "Sapphire"
 popup/item_2/id = 2
 
-[node name="aggressive" type="Label" parent="modus"]
+[node name="aggressive" type="Label" parent="GraphEdit/modus"]
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
 text = "aggressive
 "
 horizontal_alignment = 2
 
-[node name="defensive" type="Label" parent="modus"]
+[node name="defensive" type="Label" parent="GraphEdit/modus"]
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
 text = "defensive"
 horizontal_alignment = 2
 
-[node name="tatical_aggressive" type="Label" parent="modus"]
+[node name="tatical_aggressive" type="Label" parent="GraphEdit/modus"]
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
 text = "tatical_aggressive
 "
 horizontal_alignment = 2
 
-[node name="tatical_defensive" type="Label" parent="modus"]
+[node name="tatical_defensive" type="Label" parent="GraphEdit/modus"]
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
 text = "tatical_defensive
 "
 horizontal_alignment = 2
 
-[node name="undecided" type="Label" parent="modus"]
+[node name="undecided" type="Label" parent="GraphEdit/modus"]
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
 text = "undecided
 "
 horizontal_alignment = 2
 
-[node name="decisions" type="GraphNode" parent="."]
+[node name="decisions" type="GraphNode" parent="GraphEdit"]
 layout_mode = 0
 offset_left = 1554.0
 offset_top = 395.0
@@ -176,11 +206,23 @@ slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
 
-[node name="Label" type="Label" parent="decisions"]
+[node name="Label" type="Label" parent="GraphEdit/decisions"]
 layout_mode = 2
 text = "append"
 
-[connection signal="connection_request" from="." to="." method="_on_connection_request"]
-[connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
-[connection signal="item_selected" from="HBoxContainer/select_graphnode" to="." method="_on_select_graphnode_item_selected"]
-[connection signal="item_selected" from="modus/chipset_selection" to="." method="_on_chipset_selection_item_selected"]
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Select or create a CogniteSource to start editing"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[connection signal="connection_request" from="GraphEdit" to="GraphEdit" method="_on_connection_request"]
+[connection signal="disconnection_request" from="GraphEdit" to="GraphEdit" method="_on_disconnection_request"]
+[connection signal="item_selected" from="GraphEdit/HBoxContainer/select_graphnode" to="GraphEdit" method="_on_select_graphnode_item_selected"]
+[connection signal="item_selected" from="GraphEdit/modus/chipset_selection" to="GraphEdit" method="_on_chipset_selection_item_selected"]

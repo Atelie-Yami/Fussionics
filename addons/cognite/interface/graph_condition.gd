@@ -21,10 +21,6 @@ func _on_condition_item_selected(index):
 	graph_resource.graph_nodes[name]["properties"]["condition"] = index
 
 
-func _on_close_request():
-	pass # Replace with function body.
-
-
 func _on_a_text_changed(new_text: String):
 	var selected_number = int(new_text)
 	line_edit_A.text = str(selected_number)

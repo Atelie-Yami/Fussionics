@@ -6,7 +6,6 @@ var interface := preload("res://addons/cognite/interface/graph_editor.tscn").ins
 var selection: EditorSelection
 
 
-
 func _enter_tree():
 	add_control_to_bottom_panel(interface, "Cognite")
 	
@@ -20,6 +19,7 @@ func _enter_tree():
 	inspector_response.plugin = self
 	
 	add_inspector_plugin(inspector_response)
+	get_editor_interface().get_file_system_dock().resource_removed.connect(interface.resource_removed)
 
 
 func _exit_tree():

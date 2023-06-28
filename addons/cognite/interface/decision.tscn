@@ -13,8 +13,8 @@ title = "Decision"
 position_offset = Vector2(1184, 226)
 show_close = true
 slot/0/left_enabled = false
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_type = 99
+slot/0/left_color = Color(0.533333, 0.207843, 1, 1)
 slot/0/left_icon = null
 slot/0/right_enabled = false
 slot/0/right_type = 0
@@ -58,14 +58,23 @@ slot/4/right_color = Color(1, 1, 1, 1)
 slot/4/right_icon = null
 slot/4/draw_stylebox = true
 slot/5/left_enabled = false
-slot/5/left_type = 0
-slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_type = 99
+slot/5/left_color = Color(0.533333, 0.207843, 1, 1)
 slot/5/left_icon = null
-slot/5/right_enabled = true
+slot/5/right_enabled = false
 slot/5/right_type = 40
 slot/5/right_color = Color(1, 0.901961, 0.443137, 1)
 slot/5/right_icon = null
 slot/5/draw_stylebox = true
+slot/6/left_enabled = true
+slot/6/left_type = 99
+slot/6/left_color = Color(0.533333, 0.207843, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = true
+slot/6/right_type = 40
+slot/6/right_color = Color(1, 0.901961, 0.443137, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
 script = ExtResource("1_307p3")
 
 [node name="action" type="OptionButton" parent="."]
@@ -93,6 +102,11 @@ text = "directive"
 [node name="decision_link" type="Label" parent="."]
 layout_mode = 2
 text = "decision link"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Priority"
+alignment = 1
 
 [node name="self" type="Label" parent="."]
 layout_mode = 2
