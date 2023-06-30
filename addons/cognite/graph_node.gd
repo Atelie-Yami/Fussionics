@@ -26,7 +26,6 @@ func _ready():
 	if not graph_resource:
 		return
 	
-	construct()
 	size = Vector2.ONE
 
 

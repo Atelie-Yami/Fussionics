@@ -66,6 +66,42 @@ slot/5/right_type = 87
 slot/5/right_color = Color(1, 0.188235, 0.188235, 1)
 slot/5/right_icon = null
 slot/5/draw_stylebox = true
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color(1, 1, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = true
+slot/6/right_type = 1
+slot/6/right_color = Color(0.0156863, 0.752941, 0, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
+slot/7/left_enabled = false
+slot/7/left_type = 0
+slot/7/left_color = Color(1, 1, 1, 1)
+slot/7/left_icon = null
+slot/7/right_enabled = true
+slot/7/right_type = 1
+slot/7/right_color = Color(0.0156863, 0.752941, 0, 1)
+slot/7/right_icon = null
+slot/7/draw_stylebox = true
+slot/8/left_enabled = false
+slot/8/left_type = 0
+slot/8/left_color = Color(1, 1, 1, 1)
+slot/8/left_icon = null
+slot/8/right_enabled = true
+slot/8/right_type = 63
+slot/8/right_color = Color(1, 0.247059, 1, 1)
+slot/8/right_icon = null
+slot/8/draw_stylebox = true
+slot/9/left_enabled = false
+slot/9/left_type = 0
+slot/9/left_color = Color(1, 1, 1, 1)
+slot/9/left_icon = null
+slot/9/right_enabled = true
+slot/9/right_type = 63
+slot/9/right_color = Color(1, 0.247059, 1, 1)
+slot/9/right_icon = null
+slot/9/draw_stylebox = true
 script = ExtResource("1_14ghg")
 
 [node name="analysis" type="Label" parent="."]
@@ -102,6 +138,26 @@ horizontal_alignment = 2
 [node name="energy" type="Label" parent="."]
 layout_mode = 2
 text = "energy"
+horizontal_alignment = 2
+
+[node name="powerful_element" type="Label" parent="."]
+layout_mode = 2
+text = "powerful element"
+horizontal_alignment = 2
+
+[node name="weak_element" type="Label" parent="."]
+layout_mode = 2
+text = "weak element"
+horizontal_alignment = 2
+
+[node name="powerful_molecule" type="Label" parent="."]
+layout_mode = 2
+text = "powerful molecule"
+horizontal_alignment = 2
+
+[node name="weak_molecule" type="Label" parent="."]
+layout_mode = 2
+text = "weak molecule"
 horizontal_alignment = 2
 
 [connection signal="item_selected" from="field" to="." method="_on_field_item_selected"]

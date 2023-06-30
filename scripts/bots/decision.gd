@@ -64,3 +64,4 @@ static func create_element_merge_molecule(molecule: Molecule) -> Array:
 	decision.targets = [molecule]
 	
 	return [decision_link, decision]
+

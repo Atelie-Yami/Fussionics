@@ -1,1 +1,1 @@
-extends ChipSet
+class_name SapphireChipSet extends ChipSet

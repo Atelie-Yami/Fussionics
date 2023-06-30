@@ -9,9 +9,6 @@ var selection: EditorSelection
 func _enter_tree():
 	add_control_to_bottom_panel(interface, "Cognite")
 	
-	var icon = get_editor_interface().get_base_control().get_theme_icon("GDScript", "EditorIcons")
-	add_custom_type("CogniteSource", "Resource", preload("res://addons/cognite/cognite_source.gd"), icon)
-	
 	selection = get_editor_interface().get_selection()
 	selection.selection_changed.connect(_EditorInterface_selection_changed)
 	

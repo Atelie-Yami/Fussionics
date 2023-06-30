@@ -1,8 +1,6 @@
 @tool
 extends GraphEdit
 
-const GRAPH_RESOURCE =  preload("res://addons/cognite/cognite_source.gd")
-
 const GRAPH_NODES := [
 	preload("res://addons/cognite/interface/decision.tscn"),
 	preload("res://addons/cognite/interface/decompose.tscn"),
@@ -16,7 +14,7 @@ const GRAPH_NAMES := [
 ]
 
 var nodes: Array[GraphNode]
-var current_resource
+var current_resource: CogniteSource
 var is_ready: bool
 
 @onready var select_graphnode = $HBoxContainer/select_graphnode
@@ -27,16 +25,20 @@ func _ready():
 	add_valid_connection_type(99, 40)
 	add_valid_connection_type(99, 56)
 	add_valid_connection_type(99, 87)
+	add_valid_connection_type(99, 63)
+	add_valid_connection_type(99, 1)
 	add_valid_connection_type(0, 99)
+	add_valid_connection_type(1, 99)
 	add_valid_connection_type(40, 99)
 	add_valid_connection_type(56, 99)
+	add_valid_connection_type(63, 99)
 	add_valid_connection_type(87, 99)
 	
 	if current_resource:
 		apply_resource()
 	
 	else:
-		current_resource = GRAPH_RESOURCE.new()
+		current_resource = CogniteSource.new()
 	
 	is_ready = true
 
@@ -83,9 +85,10 @@ func create_graph(type: int, _name: String):
 	graph_node.position_offset = Vector2(500, 300)
 	graph_node.graph_resource = current_resource
 	add_child(graph_node)
-	graph_node.set_name(_name)
 	nodes.append(graph_node)
+	graph_node.set_name(_name)
 	
+	graph_node.construct()
 	return graph_node
 
 
@@ -96,6 +99,7 @@ func remove_graph(node: Node):
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	current_resource.graph_nodes[from_node].connections.append([from_node, from_port, to_node, to_port])
+	print([from_node, from_port, to_node, to_port])
 	connect_node(from_node, from_port, to_node, to_port)
 
 

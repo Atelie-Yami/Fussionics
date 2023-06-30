@@ -1,5 +1,17 @@
+@static_unload
 class_name BotChip extends RefCounted
-## classe que detem as caracteristicas e modus operandi do bot
+
+static var modus: Callable
+static var modus_action := {
+	Bot.ModusOperandi.UNDECIDED: [],
+	Bot.ModusOperandi.DEFENSIVE: [],
+	Bot.ModusOperandi.AGGRESSIVE: [],
+	Bot.ModusOperandi.STRATEGICAL_DEFENSIVE: [],
+	Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE: [],
+}
+static var instructions := {
+	"decompose": null,
+}
 
 
 func get_modus(analysis: FieldAnalysis):
@@ -23,18 +35,14 @@ func call_modus_action(modus: Bot.ModusOperandi, bot: Bot, analysis: FieldAnalys
 		Bot.ModusOperandi.AGGRESSIVE:
 			pass
 		
-		
 		Bot.ModusOperandi.DEFENSIVE:
 			pass
-		
 		
 		Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE:
 			pass
 		
-		
 		Bot.ModusOperandi.STRATEGICAL_DEFENSIVE:
 			pass
-		
 		
 		Bot.ModusOperandi.UNDECIDED:
 			pass

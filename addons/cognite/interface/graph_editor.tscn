@@ -31,6 +31,7 @@ stretch_mode = 6
 metadata/_edit_lock_ = true
 
 [node name="GraphEdit" type="GraphEdit" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,6 +166,13 @@ layout_mode = 2
 text = "defensive"
 horizontal_alignment = 2
 
+[node name="undecided" type="Label" parent="GraphEdit/modus"]
+self_modulate = Color(0.823529, 1, 0.941176, 1)
+layout_mode = 2
+text = "undecided
+"
+horizontal_alignment = 2
+
 [node name="tatical_aggressive" type="Label" parent="GraphEdit/modus"]
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
@@ -176,13 +184,6 @@ horizontal_alignment = 2
 self_modulate = Color(0.823529, 1, 0.941176, 1)
 layout_mode = 2
 text = "tatical_defensive
-"
-horizontal_alignment = 2
-
-[node name="undecided" type="Label" parent="GraphEdit/modus"]
-self_modulate = Color(0.823529, 1, 0.941176, 1)
-layout_mode = 2
-text = "undecided
 "
 horizontal_alignment = 2
 

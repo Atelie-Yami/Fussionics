@@ -6,7 +6,9 @@ class Report:
 	var elements: Array[Element]
 	var elements_in_reactor: Array[Element]
 	var powerful_element: Element
+	var weak_element: Element
 	var powerful_molecule: Molecule
+	var weak_molecule: Molecule
 
 var my_field: Report
 var rival_field: Report
@@ -36,6 +38,9 @@ static func analyze_element(slot: ArenaSlot, report: Report):
 		report.elements.append(slot.element)
 		if not report.powerful_element or report.powerful_element.atomic_number > slot.element.atomic_number:
 			report.powerful_element = slot.element
+		
+		if not report.weak_element or report.weak_element.atomic_number < slot.element.atomic_number:
+			report.weak_element = slot.element
 	
 	elif not report.molecules.has(slot.molecule):
 		report.molecules.append(slot.molecule)
@@ -46,3 +51,10 @@ static func analyze_element(slot: ArenaSlot, report: Report):
 			GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
 		):
 			report.powerful_molecule = slot.molecule
+		
+		if (
+			not report.weak_molecule or
+			GameJudge.calcule_max_molecule_eletrons_power(report.powerful_molecule) <
+			GameJudge.calcule_max_molecule_eletrons_power(slot.molecule)
+		):
+			report.weak_molecule = slot.molecule
