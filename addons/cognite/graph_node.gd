@@ -35,8 +35,9 @@ func construct():
 
 func _delete():
 	for c in graph_edit.get_connection_list():
-		if c["from"] == name:
-			graph_edit.disconnect_node(c["from"], c["from_port"], c["to"], c["to_port"])
+		if c.from == name or c.to == name:
+			graph_edit.disconnect_node(c.from, c.from_port, c.to, c.to_port)
+		
 	(graph_resource.graph_nodes as Dictionary).erase(name)
 	graph_edit.remove_graph(self)
 

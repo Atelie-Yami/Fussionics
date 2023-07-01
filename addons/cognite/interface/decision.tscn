@@ -52,9 +52,9 @@ slot/4/left_enabled = true
 slot/4/left_type = 40
 slot/4/left_color = Color(1, 0.901961, 0.443137, 1)
 slot/4/left_icon = null
-slot/4/right_enabled = false
-slot/4/right_type = 0
-slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_enabled = true
+slot/4/right_type = 40
+slot/4/right_color = Color(1, 0.901961, 0.443137, 1)
 slot/4/right_icon = null
 slot/4/draw_stylebox = true
 slot/5/left_enabled = false
@@ -102,6 +102,7 @@ text = "directive"
 [node name="decision_link" type="Label" parent="."]
 layout_mode = 2
 text = "decision link"
+horizontal_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 2

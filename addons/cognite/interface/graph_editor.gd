@@ -93,6 +93,7 @@ func create_graph(type: int, _name: String):
 
 
 func remove_graph(node: Node):
+	
 	nodes.erase(node)
 	node.queue_free()
 
