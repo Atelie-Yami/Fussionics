@@ -23,8 +23,11 @@ enum Tags {
 	FUSION, ACCELR, 
 }
 
+var priority: int
 var is_completed: bool
-var is_decision_linked: bool
+var is_decision_linked: bool:
+	get:
+		return decision_link != null
 
 var action_target: ActionTarget
 var action: Action

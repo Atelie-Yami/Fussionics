@@ -31,20 +31,20 @@ var origin: BaseEffect
 ## forma q esse efeito desgasta com o tempo
 var cust_type: PassiveEffectLifetimeType
 
-var max_life_time: int
 ## quantas vezes ainda falta para acabar esse efeito
+var max_life_time: int
 var life_time: int:
 	set(value):
 		life_time = min(value, max_life_time)
 
-var max_stacks: int
 ## se estacar, vai ser marcado aqui
+var max_stacks: int
 var stack: int:
 	set(value):
 		stack = min(value, max_stacks)
 
-var max_level: int
 ## se possuir niveis, vai ser marcado aqui
+var max_level: int
 var level: int:
 	set(value):
 		level = min(value, max_level)
