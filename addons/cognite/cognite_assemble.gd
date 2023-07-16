@@ -5,6 +5,65 @@ enum NodeTypes {
 	NON, DECISION, DECOMPOSE, LOOP, CONDITION, BEST_MATCH, DIRECTIVE, MODUS = 70
 }
 
+class AssembleModuleDecompose:
+	signal elements(item)
+	signal molecules(item)
+	signal elements_in_reactor(item)
+	signal energy(item)
+	signal powerful_element(item)
+	signal weak_element(item)
+	signal powerful_molecule(item)
+	signal weak_molecule(item)
+	
+	var analysis: FieldAnalysis
+	var bot: Bot
+	var field: int
+	
+	func transmite():
+		var report: FieldAnalysis.Report = analysis.my_field if field == 1 else analysis.rival_field
+		elements.emit(report.elements)
+		molecules.emit(report.molecules)
+		elements_in_reactor.emit(report.elements_in_reactor)
+		energy.emit(bot.player.energy)
+		powerful_element.emit(report.powerful_element)
+		weak_element.emit(report.weak_element)
+		powerful_molecule.emit(report.powerful_molecule)
+		weak_molecule.emit(report.weak_molecule)
+
+class AssembleModuleDecision:
+	signal decision(obj)
+	
+	var action: int
+	var act_target: int
+	var directive: Array
+	var targets: Array
+	var priority: int
+	var decision_link: Decision
+	
+	func transmite():
+		var d = Decision.new()
+		d.action = action
+		d.targets = targets
+		d.priority = priority
+		d.directive = directive
+		d.action_target = act_target
+		d.decision_link = decision_link
+		decision.emit(d)
+
+class AssembleModuleLoop:
+	signal issuer(item)
+	var callable: Callable = receptor
+	func receptor(loops, list):
+		if list:
+			for i in list:
+				if list is Array:      issuer.emit(i)
+				if list is Dictionary: issuer.emit([i, list[i]])
+				if list is int:        issuer.emit(i)
+		else:
+			for i in loops:
+				issuer.emit(i)
+
+
 var assemble_modus := [
 	AmethistChipSet.get_modus,
 	SapphireChipSet.get_modus,
@@ -18,6 +77,7 @@ var modus_action := {
 	Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE: [],
 }
 
+var nodes: Array
 var chipset_selection: int
 
 
@@ -26,135 +86,104 @@ func run(modus: Bot.ModusOperandi, bot: Bot, analysis: FieldAnalysis):
 		_decompose.call(bot, analysis)
 
 
-func assemble(graph_nodes: Dictionary):
+func assemble(analysis: FieldAnalysis, bot: Bot, graph_nodes: Dictionary):
 	BotChip.modus = assemble_modus[chipset_selection]
 	
-	# a contrução final vai ser um ecadeamento de Callables com os nodes conectados num grafo
+	for node in graph_nodes.values():
+		match node.type:
+			NodeTypes.BEST_MATCH:
+				AssembleModuleDecision
+			NodeTypes.CONDITION:
+				pass
+			NodeTypes.DECISION:
+				AssembleModuleDecision.new()
+			NodeTypes.DIRECTIVE:
+				pass
+			NodeTypes.LOOP:
+				pass
+		
+		
 	
-	# Callable(
-		# Callable(
-			# Callable(
-				# Callable(args), binds
-			# ), binds
-		#), binds)
-	
-	# todos os Callables devem receber "analysis: FieldAnalysis, bot: Bot" como argumento final
 	
 	for connection in graph_nodes.modus.connections:
 		var node: Dictionary = graph_nodes[connection[2]]
-		var _decompose: Callable = decompose.bind(node.properties.field)
-		modus_action[connection[1]].append(_decompose)
-		
-		# isso deveria ser recursivo, pq vai usar a porta do item anterior para conectar no callable
-		# ja tem a porta de saida, entao da pra usar isso no callable do node receptor
+		var decompose = AssembleModuleDecompose.new()
+		decompose.callable.bind(node.properties.field)
+		modus_action[connection[1]].append(decompose)
 		
 		var callables: Dictionary
 		for link in node.connections as Array[Array]:
 			var linked_node: Dictionary = graph_nodes[link[2]]
-			var callable: Callable = procedural_asseble(linked_node, graph_nodes)
 			
-			callables[callable] = link[1]
-		_decompose.bind(callables)
+			var left_node = procedural_asseble(linked_node, graph_nodes)
+			decompose.signals[link[1]].connect(left_node.callable)
+
+
+func procedural_asseble(node: Dictionary, graph_nodes: Dictionary, right_node = null):
+	var self_graph: Object
+	var left_graph: Object
 	
-	# o Callable final precisa returnar no Array[Decision]
+	var _name = graph_nodes.find_key(node)
+	if _name == null:
+		return
+	
+	graph_nodes.erase(_name)
+	
+	match node.type:
+		NodeTypes.BEST_MATCH:
+			pass
+		NodeTypes.CONDITION:
+			self_graph = AssembleModuleDecision.new()
+			self_graph.callable.bind(node.properties.action, node.properties.action_target)
+			
+			
+			
+			for nodes in graph_nodes.values():
+				for link in nodes.connections:
+					if link[2] == _name:
+						procedural_asseble(nodes, graph_nodes, _name)
+			
+			
+		NodeTypes.DECISION:
+			pass
+		NodeTypes.DIRECTIVE:
+			pass
+		NodeTypes.LOOP:
+			self_graph = AssembleModuleLoop.new()
+			self_graph.callable.bind(node.properties.loop if node.properties.has("loop") else 0)
+	
+	for link in node.connections as Array[Array]:
+		var linked_node: Dictionary = graph_nodes[link[2]]
+		left_graph = procedural_asseble(linked_node, graph_nodes)
+	
+	match node.type:
+		NodeTypes.LOOP:
+			self_graph.issuer.connect(left_graph.callable)
+
+	return self_graph
 
 
-func procedural_asseble(node: Dictionary, graph_nodes: Dictionary):
-	var callable: Callable
+func reverse_procedural_asseble(node, graph_nodes, left_node_name):
+	var self_graph: Object
+	var left_graph: Object
+	
+	var _name = graph_nodes.find_key(node)
+	if _name == null:
+		return
+	graph_nodes.erase(_name)
 	
 	match node.type:
 		NodeTypes.BEST_MATCH:
 			pass
 		NodeTypes.CONDITION:
 			pass
-		NodeTypes.DECISION:
-			pass
-		NodeTypes.DIRECTIVE:
-			pass
-		NodeTypes.LOOP:
-			if node.connections.size() == 1:
-				var linked_node: Dictionary = graph_nodes[node.connections[0][2]]
-				var left_graph: Callable = procedural_asseble(linked_node, graph_nodes)
-				
-				callable = loop.bind(node, left_graph)
-			
-			elif node.connections.size() > 1:
-				var call_list: Array[Callable]
-				
-				for link in node.connections as Array[Array]:
-					var linked_node: Dictionary = graph_nodes[link[2]]
-					var left_graph: Callable = procedural_asseble(linked_node, graph_nodes)
-					var _loop = loop.bind(node, left_graph)
-					
-					call_list.append(_loop)
-				
-				callable = Callable(
-					func(args = null):
-						for c in call_list:
-							c.call(args) if args else c.call()
-				)
 	
-	return callable
-
-
-func decompose(field: int, callables: Dictionary, analysis: FieldAnalysis, bot: Bot):
-	var report: FieldAnalysis.Report = analysis.my_field if field == 1 else analysis.rival_field
-	for c in callables:
-		c.call([
-		report.elements,
-		report.molecules,
-		report.elements_in_reactor,
-		bot.player.energy,
-		report.powerful_element,
-		report.weak_element,
-		report.powerful_molecule,
-		report.weak_molecule
-	][callables[c]])
-
-
-func decision():
-	pass
-
-
-func loop(node: Dictionary, callable: Callable, list):
-	if list != null:
-		if list is Array:
-			return _loop1.bind(list.duplicate(true), callable)
+	for link in node.connections as Array[Array]:
+		var linked_node: Dictionary = graph_nodes[link[2]]
+		graph_nodes.find_key(node)
 		
-		if list is Dictionary:
-			return _loop2.bind(list.duplicate(true), callable)
-		
-		if list is int:
-			return _loop0.bind(list, callable)
-	
-	else:
-		return _loop0.bind(node.properties.loop, callable)
-
-func _loop0(count: int, callable: Callable):
-	for i in count:
-		callable.call()
-
-func _loop1(array: Array, callable: Callable):
-	for i in array:
-		callable.call(i)
-
-func _loop2(dic: Dictionary, callable: Callable):
-	for n in dic:
-		callable.call([n, dic[n]])
-
-
-func condition():
-	pass
-
-
-func best_match():
-	pass
-
-
-func directive():
-	pass
-
-
+		if link[2] != left_node_name:
+			left_graph = procedural_asseble(linked_node, graph_nodes)
 
 
 

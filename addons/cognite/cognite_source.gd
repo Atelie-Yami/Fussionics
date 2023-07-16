@@ -2,9 +2,6 @@
 class_name CogniteSource extends Resource
 
 
-
-
-
 @export var hash := 100
 @export var chipset_selection: int
 @export var graph_nodes := {
