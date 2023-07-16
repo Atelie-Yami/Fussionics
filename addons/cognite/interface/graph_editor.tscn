@@ -8,6 +8,7 @@
 bg_color = Color(0.00784314, 0.0313726, 0.168627, 0.407843)
 
 [node name="graph_editor" type="Control"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

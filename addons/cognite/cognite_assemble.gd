@@ -5,6 +5,17 @@ enum NodeTypes {
 	NON, DECISION, DECOMPOSE, LOOP, CONDITION, BEST_MATCH, DIRECTIVE, MODUS = 70
 }
 
+class AssembleModule:
+	signal issuer_1
+	
+	var properties: Dictionary # {property_name: value}
+	
+	func _transmite(): # metodo para se caso esse modulo nao receba parametros
+		pass
+	
+	func receiver_1(): # metodo referente a primeira porta e assim por diante
+		pass
+
 class AssembleModuleDecompose:
 	signal elements(item)
 	signal molecules(item)
@@ -15,16 +26,17 @@ class AssembleModuleDecompose:
 	signal powerful_molecule(item)
 	signal weak_molecule(item)
 	
-	var analysis: FieldAnalysis
-	var bot: Bot
-	var field: int
+	var properties: Dictionary
 	
-	func transmite():
-		var report: FieldAnalysis.Report = analysis.my_field if field == 1 else analysis.rival_field
+#	var bot: Bot
+#	var field: int
+	
+	func receiver_0(analysis: FieldAnalysis):
+		var report: FieldAnalysis.Report = analysis.my_field if properties.field == 1 else analysis.rival_field
 		elements.emit(report.elements)
 		molecules.emit(report.molecules)
 		elements_in_reactor.emit(report.elements_in_reactor)
-		energy.emit(bot.player.energy)
+		energy.emit(properties.bot.player.energy)
 		powerful_element.emit(report.powerful_element)
 		weak_element.emit(report.weak_element)
 		powerful_molecule.emit(report.powerful_molecule)
@@ -33,35 +45,154 @@ class AssembleModuleDecompose:
 class AssembleModuleDecision:
 	signal decision(obj)
 	
-	var action: int
-	var act_target: int
-	var directive: Array
+	var properties: Dictionary
+	
 	var targets: Array
-	var priority: int
+	var directive: Array
 	var decision_link: Decision
+	
+	func receiver_0(array: Array):
+		targets = array
+	
+	func receiver_1(array: Array):
+		directive = array
+	
+	func receiver_2(link: Decision):
+		decision_link = link
+	
+	func receiver_3():
+		pass
 	
 	func transmite():
 		var d = Decision.new()
-		d.action = action
+		d.action = properties.action
 		d.targets = targets
-		d.priority = priority
+		d.priority = properties.priority
 		d.directive = directive
-		d.action_target = act_target
+		d.action_target = properties.act_target
 		d.decision_link = decision_link
 		decision.emit(d)
 
 class AssembleModuleLoop:
 	signal issuer(item)
-	var callable: Callable = receptor
-	func receptor(loops, list):
+	
+	var properties: Dictionary
+	var list
+	
+	func receiver_0(_list):
+		list = _list
+	
+	func transmite():
 		if list:
 			for i in list:
 				if list is Array:      issuer.emit(i)
 				if list is Dictionary: issuer.emit([i, list[i]])
 				if list is int:        issuer.emit(i)
 		else:
-			for i in loops:
+			for i in properties.loop:
 				issuer.emit(i)
+
+class AssembleModuleCondition:
+	signal issuer
+	
+	var condition_A
+	var condition_B
+	var properties: Dictionary
+	
+	func receiver_0(item):
+		condition_A = item
+		
+	func receiver_1(item):
+		condition_B = item
+	
+	func transmite():
+		if not condition_A:
+			condition_A = properties.line_edit_A
+		if not condition_B:
+			condition_B = properties.line_edit_B
+		
+		if (
+			(properties.condition == 1 and condition_A > condition_B) or
+			(properties.condition == 2 and condition_A < condition_B) or 
+			(properties.condition == 3 and condition_A == condition_B)
+		):
+			issuer.emit()
+
+class AssembleModuleBestmatch:
+	signal issuer(item)
+	
+	var properties: Dictionary
+	var array
+	
+	func receiver_0(_array):
+		array = _array
+	
+	func transmite():
+		match properties.match:
+			1:
+				var opening_list: Array[Element]
+				for e in array as Array[Element]:
+					if e.number_electrons_in_valencia == 0:
+						continue
+					
+					for link in e.links:
+						if not e.links[link]:
+							opening_list.append(e)
+							break
+				
+				if not opening_list.is_empty():
+					issuer.emit(opening_list)
+			2:
+				var best_match: Element
+				for element in array as Array[Element]:
+					if not best_match:
+						best_match = element
+						continue
+					
+					if element.eletrons > best_match.eletrons or element.neutrons > best_match.neutrons:
+						best_match = element
+				
+				if best_match:
+					issuer.emit(best_match)
+			3:
+				var active_list: Array[Element]
+				for e in array as Array[Element]:
+					if e.active:
+						active_list.append(e)
+				
+				issuer.emit(active_list)
+			4:
+				var best_match: Molecule
+				var best_result: int
+				for molecule in array as Array[Molecule]:
+					if not best_match or GameJudge.calcule_max_molecule_eletrons_power(molecule) > best_result:
+						best_match = molecule
+						best_result = GameJudge.calcule_max_molecule_eletrons_power(best_match)
+				
+				if best_match:
+					issuer.emit(best_match)
+			5:
+				if not array.is_empty():
+					issuer.emit(array[0])
+			6:
+				if not array.is_empty():
+					issuer.emit(array[-1])
+
+class AssembleModuleDirective:
+	signal issuer(item)
+	
+	var properties: Dictionary
+	
+	func receiver_0(item):
+		var list: Dictionary
+		list[properties.directive] = item
+		issuer.emit(list)
+
+
+var built_types := [
+	null, AssembleModuleDecision, AssembleModuleDecompose, AssembleModuleLoop, AssembleModuleCondition,
+	AssembleModuleBestmatch, AssembleModuleDirective
+]
 
 
 var assemble_modus := [
@@ -89,101 +220,28 @@ func run(modus: Bot.ModusOperandi, bot: Bot, analysis: FieldAnalysis):
 func assemble(analysis: FieldAnalysis, bot: Bot, graph_nodes: Dictionary):
 	BotChip.modus = assemble_modus[chipset_selection]
 	
-	for node in graph_nodes.values():
-		match node.type:
-			NodeTypes.BEST_MATCH:
-				AssembleModuleDecision
-			NodeTypes.CONDITION:
-				pass
-			NodeTypes.DECISION:
-				AssembleModuleDecision.new()
-			NodeTypes.DIRECTIVE:
-				pass
-			NodeTypes.LOOP:
-				pass
+	var mounted_nodes: Dictionary
+	
+	for node in graph_nodes:
+		if graph_nodes[node].type == 70:
+			continue
 		
+		var _node = built_types[graph_nodes[node].type].new()
+		for prop_name in node.properties:
+			_node.properties[prop_name] = node.properties[prop_name]
 		
+		mounted_nodes[node] = _node
 	
-	
-	for connection in graph_nodes.modus.connections:
-		var node: Dictionary = graph_nodes[connection[2]]
-		var decompose = AssembleModuleDecompose.new()
-		decompose.callable.bind(node.properties.field)
-		modus_action[connection[1]].append(decompose)
+	for node in graph_nodes:
+		if graph_nodes[node].type == 70:
+			continue
 		
-		var callables: Dictionary
-		for link in node.connections as Array[Array]:
-			var linked_node: Dictionary = graph_nodes[link[2]]
+		var current_node: RefCounted = mounted_nodes[node]
+		for link in graph_nodes[node].connections as Array[Array]:
+			var port: Dictionary = current_node.get_signal_list()[link[1]]
+			var callable = Callable(mounted_nodes[link[2]], "receiver_" + str(link[3]))
 			
-			var left_node = procedural_asseble(linked_node, graph_nodes)
-			decompose.signals[link[1]].connect(left_node.callable)
-
-
-func procedural_asseble(node: Dictionary, graph_nodes: Dictionary, right_node = null):
-	var self_graph: Object
-	var left_graph: Object
-	
-	var _name = graph_nodes.find_key(node)
-	if _name == null:
-		return
-	
-	graph_nodes.erase(_name)
-	
-	match node.type:
-		NodeTypes.BEST_MATCH:
-			pass
-		NodeTypes.CONDITION:
-			self_graph = AssembleModuleDecision.new()
-			self_graph.callable.bind(node.properties.action, node.properties.action_target)
-			
-			
-			
-			for nodes in graph_nodes.values():
-				for link in nodes.connections:
-					if link[2] == _name:
-						procedural_asseble(nodes, graph_nodes, _name)
-			
-			
-		NodeTypes.DECISION:
-			pass
-		NodeTypes.DIRECTIVE:
-			pass
-		NodeTypes.LOOP:
-			self_graph = AssembleModuleLoop.new()
-			self_graph.callable.bind(node.properties.loop if node.properties.has("loop") else 0)
-	
-	for link in node.connections as Array[Array]:
-		var linked_node: Dictionary = graph_nodes[link[2]]
-		left_graph = procedural_asseble(linked_node, graph_nodes)
-	
-	match node.type:
-		NodeTypes.LOOP:
-			self_graph.issuer.connect(left_graph.callable)
-
-	return self_graph
-
-
-func reverse_procedural_asseble(node, graph_nodes, left_node_name):
-	var self_graph: Object
-	var left_graph: Object
-	
-	var _name = graph_nodes.find_key(node)
-	if _name == null:
-		return
-	graph_nodes.erase(_name)
-	
-	match node.type:
-		NodeTypes.BEST_MATCH:
-			pass
-		NodeTypes.CONDITION:
-			pass
-	
-	for link in node.connections as Array[Array]:
-		var linked_node: Dictionary = graph_nodes[link[2]]
-		graph_nodes.find_key(node)
-		
-		if link[2] != left_node_name:
-			left_graph = procedural_asseble(linked_node, graph_nodes)
+			current_node.connect(port.name, callable)
 
 
 
