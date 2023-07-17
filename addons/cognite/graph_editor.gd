@@ -9,7 +9,6 @@ enum PortTypes {
 	INT = 87,      # ff3030
 	MOLECULE = 63, # ff3fff
 	ELEMENT = 1,   # 04c000
-	
 }
 
 @onready var graph_edit = $GraphEdit

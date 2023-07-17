@@ -5,16 +5,34 @@ enum NodeTypes {
 	NON, DECISION, DECOMPOSE, LOOP, CONDITION, BEST_MATCH, DIRECTIVE, MODUS = 70
 }
 
-class AssembleModule:
-	signal issuer_1
+class AssembleModuleModus:
+	signal aggressive(analisys)
+	signal defensive(analisys)
+	signal undecided(analisys)
+	signal tatical_agressive(analisys)
+	signal tatical_defensive(analisys)
 	
-	var properties: Dictionary # {property_name: value}
+	var chipsets := [AmethistChipSet, SapphireChipSet]
+	var signals := [aggressive, defensive, undecided, tatical_agressive, tatical_defensive]
+	var chipset: int
+	var bot: Bot
 	
-	func _transmite(): # metodo para se caso esse modulo nao receba parametros
-		pass
+	func transmite():
+		var analysis = FieldAnalysis.make(bot)
+		var modus_operandi = chipsets[chipset].get_modus(analysis)
+		signals[modus_operandi].emit(analysis)
+
+class AssembleModuleExecute:
+	var chipsets := [AmethistChipSet, SapphireChipSet]
+	var decisions: Array[Decision]
+	var chipset: int
+	var bot: Bot
 	
-	func receiver_1(): # metodo referente a primeira porta e assim por diante
-		pass
+	func receiver_0(decision: Decision):
+		decisions.append(decision)
+	
+	func transmite():
+		await chipsets[chipset].execute(decisions, bot)
 
 class AssembleModuleDecompose:
 	signal elements(item)
@@ -27,9 +45,6 @@ class AssembleModuleDecompose:
 	signal weak_molecule(item)
 	
 	var properties: Dictionary
-	
-#	var bot: Bot
-#	var field: int
 	
 	func receiver_0(analysis: FieldAnalysis):
 		var report: FieldAnalysis.Report = analysis.my_field if properties.field == 1 else analysis.rival_field
@@ -48,28 +63,30 @@ class AssembleModuleDecision:
 	var properties: Dictionary
 	
 	var targets: Array
-	var directive: Array
+	var directive: Dictionary
 	var decision_link: Decision
 	
 	func receiver_0(array: Array):
 		targets = array
 	
-	func receiver_1(array: Array):
+	func receiver_1(array: Dictionary):
 		directive = array
+		transmite()
 	
 	func receiver_2(link: Decision):
 		decision_link = link
+		transmite()
 	
-	func receiver_3():
-		pass
+	func receiver_3(args):
+		transmite()
 	
 	func transmite():
 		var d = Decision.new()
 		d.action = properties.action
 		d.targets = targets
-		d.priority = properties.priority
+#		d.priority = properties.priority
 		d.directive = directive
-		d.action_target = properties.act_target
+		d.action_target = properties.action_target
 		d.decision_link = decision_link
 		decision.emit(d)
 
@@ -190,14 +207,8 @@ class AssembleModuleDirective:
 
 
 var built_types := [
-	null, AssembleModuleDecision, AssembleModuleDecompose, AssembleModuleLoop, AssembleModuleCondition,
+	AssembleModuleDecision, AssembleModuleDecompose, AssembleModuleLoop, AssembleModuleCondition,
 	AssembleModuleBestmatch, AssembleModuleDirective
-]
-
-
-var assemble_modus := [
-	AmethistChipSet.get_modus,
-	SapphireChipSet.get_modus,
 ]
 
 var modus_action := {
@@ -208,40 +219,43 @@ var modus_action := {
 	Bot.ModusOperandi.STRATEGICAL_AGGRESSIVE: [],
 }
 
-var nodes: Array
-var chipset_selection: int
+var mounted_nodes: Dictionary
 
 
-func run(modus: Bot.ModusOperandi, bot: Bot, analysis: FieldAnalysis):
-	for _decompose in modus_action[modus] as Array[Callable]:
-		_decompose.call(bot, analysis)
+func run():
+	mounted_nodes.modus.transmite()
+	await mounted_nodes.decisions.transmite()
 
 
-func assemble(analysis: FieldAnalysis, bot: Bot, graph_nodes: Dictionary):
-	BotChip.modus = assemble_modus[chipset_selection]
-	
-	var mounted_nodes: Dictionary
+func assemble(bot: Bot, graph_nodes: Dictionary):
+	for node in graph_nodes:
+		var _node
+		match graph_nodes[node].type:
+			70: _node = AssembleModuleModus.new()
+			55: _node = AssembleModuleExecute.new()
+			_: _node = built_types[graph_nodes[node].type].new()
+		
+		match graph_nodes[node].type:
+			70, 55:
+				_node.chipset = graph_nodes[node].properties.chipset
+				mounted_nodes[node] = _node
+				_node.bot = bot
+			_:
+				for prop_name in graph_nodes[node].properties:
+					_node.properties[prop_name] = graph_nodes[node].properties[prop_name]
+				
+				mounted_nodes[node] = _node
 	
 	for node in graph_nodes:
-		if graph_nodes[node].type == 70:
-			continue
-		
-		var _node = built_types[graph_nodes[node].type].new()
-		for prop_name in node.properties:
-			_node.properties[prop_name] = node.properties[prop_name]
-		
-		mounted_nodes[node] = _node
-	
-	for node in graph_nodes:
-		if graph_nodes[node].type == 70:
-			continue
-		
 		var current_node: RefCounted = mounted_nodes[node]
 		for link in graph_nodes[node].connections as Array[Array]:
 			var port: Dictionary = current_node.get_signal_list()[link[1]]
-			var callable = Callable(mounted_nodes[link[2]], "receiver_" + str(link[3]))
 			
+			var callable = Callable(mounted_nodes[link[2]], "receiver_" + str(link[3]))
 			current_node.connect(port.name, callable)
 
 
-
+func decisions_list(decision):
+	print(decision)
+	
+#	await chip

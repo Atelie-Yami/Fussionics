@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CogniteSource" load_steps=2 format=3 uid="uid://2ndyjag5fusk"]
+
+[ext_resource type="Script" path="res://addons/cognite/cognite_source.gd" id="1_tueud"]
+
+[resource]
+script = ExtResource("1_tueud")
+hash = 101
+graph_nodes = {
+"Decision101": {
+"connections": [[&"Decision101", 0, &"decisions", 0]],
+"properties": {
+"action": 1,
+"action_target": 6
+},
+"type": 0
+},
+"modus": {
+"connections": [[&"modus", 2, &"Decision101", 3]],
+"properties": {
+"chipset": 1
+},
+"type": 70
+}
+}

@@ -17,7 +17,7 @@ const MOUSE_IMAGE := {
 class Match:
 	var bot_deck: Array
 	var progress_mode: bool
-	var bot_chip: GDScript
+	var bot_chip: CogniteSource
 	var campaign: int
 	var phase: int
 	var level: int

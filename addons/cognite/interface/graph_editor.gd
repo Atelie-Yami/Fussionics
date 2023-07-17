@@ -61,7 +61,7 @@ func load_resource(resource):
 func apply_resource():
 	var links: Array
 	
-	chipset_selection.selected = current_resource.chipset_selection
+	chipset_selection.selected = current_resource.graph_nodes.modus.properties["chipset"] +1
 	
 	for node in current_resource.graph_nodes:
 		var pack: Dictionary = current_resource.graph_nodes[node]
@@ -93,7 +93,6 @@ func create_graph(type: int, _name: String):
 
 
 func remove_graph(node: Node):
-	
 	nodes.erase(node)
 	node.queue_free()
 
@@ -116,4 +115,4 @@ func _on_select_graphnode_item_selected(index):
 
 
 func _on_chipset_selection_item_selected(index):
-	current_resource.chipset_selection = index
+	current_resource.graph_nodes.modus.properties["chipset"] = index -1

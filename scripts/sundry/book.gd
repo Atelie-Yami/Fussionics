@@ -218,9 +218,9 @@ const SAGAS := {
 			PhaseConfig.BOSS: preload("res://assets/img/saga/makino_icone.png"),
 		},
 		Campagn.BOTS: {
-			PhaseConfig.NORMAL: "res://scripts/bots/chips/makino_soldier.gd",
-			PhaseConfig.MINIBOSS_A: "res://scripts/bots/chips/makino_soldier.gd",
-			PhaseConfig.BOSS: "res://scripts/bots/chips/makino_soldier.gd",
+			PhaseConfig.NORMAL: "res://addons/cognite/resource/teste.tres",
+			PhaseConfig.MINIBOSS_A: "res://addons/cognite/resource/teste.tres",
+			PhaseConfig.BOSS: "res://addons/cognite/resource/teste.tres",
 		},
 	},
 	Sagas.CHAM_INK: {

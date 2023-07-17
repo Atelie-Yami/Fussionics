@@ -3,9 +3,9 @@ class_name CogniteSource extends Resource
 
 
 @export var hash := 100
-@export var chipset_selection: int
 @export var graph_nodes := {
-	"modus": {"type": 70, "properties": {}, "connections": []},
+	"modus": {"type": 70, "properties": {"chipset": 0}, "connections": []},
+	"decisions": {"type": 55, "properties": {"chipset": 0}, "connections": []},
 }
 
 func append_node(_name: String, type: int):
