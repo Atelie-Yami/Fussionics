@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CogniteSource" load_steps=2 format=3 uid="uid://2ndyjag5fusk"]
+[gd_resource type="Resource" script_class="CogniteSource" load_steps=2 format=3 uid="uid://ht58o1fcfc1p"]
 
 [ext_resource type="Script" path="res://addons/cognite/cognite_source.gd" id="1_tueud"]
 
@@ -9,15 +9,23 @@ graph_nodes = {
 "Decision101": {
 "connections": [[&"Decision101", 0, &"decisions", 0]],
 "properties": {
-"action": 1,
-"action_target": 6
+"action": 6,
+"action_target": 1,
+"position_offset": Vector2(531.46, 262.49)
 },
 "type": 0
 },
-"modus": {
-"connections": [[&"modus", 2, &"Decision101", 3]],
+"decisions": {
+"connections": [],
 "properties": {
-"chipset": 1
+"chipset": 0
+},
+"type": 55
+},
+"modus": {
+"connections": [[&"modus", 2, &"Decision101", 3], [&"modus", 1, &"Decision101", 3], [&"modus", 0, &"Decision101", 3], [&"modus", 3, &"Decision101", 3], [&"modus", 4, &"Decision101", 3]],
+"properties": {
+"chipset": 0
 },
 "type": 70
 }

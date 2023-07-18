@@ -19,6 +19,7 @@ var is_ready: bool
 
 @onready var select_graphnode = $HBoxContainer/select_graphnode
 @onready var chipset_selection = $modus/chipset_selection
+@onready var decisions_execute_chipset = $decisions/decisions_chipset
 
 
 func _ready():
@@ -62,11 +63,12 @@ func apply_resource():
 	var links: Array
 	
 	chipset_selection.selected = current_resource.graph_nodes.modus.properties["chipset"] +1
+	decisions_execute_chipset.selected = current_resource.graph_nodes.decisions.properties["chipset"] +1
 	
 	for node in current_resource.graph_nodes:
 		var pack: Dictionary = current_resource.graph_nodes[node]
 		
-		if node != "modus":
+		if node != "modus" and node != "decisions":
 			var graph_node: GraphNode = create_graph(pack.type, node)
 			
 			for prop in pack.properties:
@@ -99,7 +101,6 @@ func remove_graph(node: Node):
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
 	current_resource.graph_nodes[from_node].connections.append([from_node, from_port, to_node, to_port])
-	print([from_node, from_port, to_node, to_port])
 	connect_node(from_node, from_port, to_node, to_port)
 
 
@@ -116,3 +117,7 @@ func _on_select_graphnode_item_selected(index):
 
 func _on_chipset_selection_item_selected(index):
 	current_resource.graph_nodes.modus.properties["chipset"] = index -1
+
+
+func _on_decisions_chipset_item_selected(index):
+	current_resource.graph_nodes.decisions.properties["chipset"] = index -1

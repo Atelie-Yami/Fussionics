@@ -191,8 +191,8 @@ horizontal_alignment = 2
 layout_mode = 0
 offset_left = 1554.0
 offset_top = 395.0
-offset_right = 1664.0
-offset_bottom = 497.0
+offset_right = 1704.0
+offset_bottom = 508.0
 mouse_filter = 1
 title = "Decisions"
 position_offset = Vector2(1554, 395)
@@ -220,7 +220,7 @@ slot/1/draw_stylebox = true
 layout_mode = 2
 text = "append"
 
-[node name="OptionButton" type="OptionButton" parent="GraphEdit/decisions"]
+[node name="decisions_chipset" type="OptionButton" parent="GraphEdit/decisions"]
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -248,3 +248,4 @@ metadata/_edit_lock_ = true
 [connection signal="disconnection_request" from="GraphEdit" to="GraphEdit" method="_on_disconnection_request"]
 [connection signal="item_selected" from="GraphEdit/HBoxContainer/select_graphnode" to="GraphEdit" method="_on_select_graphnode_item_selected"]
 [connection signal="item_selected" from="GraphEdit/modus/chipset_selection" to="GraphEdit" method="_on_chipset_selection_item_selected"]
+[connection signal="item_selected" from="GraphEdit/decisions/decisions_chipset" to="GraphEdit" method="_on_decisions_chipset_item_selected"]

@@ -8,7 +8,6 @@ const MAX_SEARCH_TEST := 40
 const NON_PLAYER := -1 # sem player definido
 const NEIGHBOR_SLOTS := [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]
 
-var chip: BotChip
 var deck := GameBook.DECK.duplicate(true)
 var modus_operandi: ModusOperandi = ModusOperandi.UNDECIDED
 
@@ -20,9 +19,7 @@ var desicions: Array[Decision]
 
 
 func _ready():
-	print(GameConfig.game_match.bot_chip.graph_nodes)
 	cognite_assemble.assemble(self, GameConfig.game_match.bot_chip.graph_nodes)
-	
 	player.play.connect(_play)
 
 
@@ -31,17 +28,8 @@ func _play():
 	await timeout
 	
 	await cognite_assemble.run()
-	
-#	analysis = FieldAnalysis.make(self)
-#	modus_operandi = chip.get_modus(analysis)
-#	desicions = chip.call_modus_action(modus_operandi, self, analysis)
-#	await chip.execute(desicions, self)
-#
-#	var pos_analysis := FieldAnalysis.make(self)
-#	desicions = chip.call_modus_action(ModusOperandi.UNDECIDED, self, pos_analysis)
-#	await chip.execute(desicions, self)
-#
 #	await chip.lockdown(self, pos_analysis, modus_operandi)
+	
 	end_turn()
 
 

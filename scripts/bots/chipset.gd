@@ -23,6 +23,20 @@ static func tatical_defensive(bot: Bot, analysis: FieldAnalysis):
 	return decision_list
 
 # ----------------------------------------------------------------------------------------------- #
+# EXECUTE
+# ----------------------------------------------------------------------------------------------- #
+static func execute(desicions: Array[Decision], bot: Bot):
+	for desicion in desicions:
+		if desicion.is_completed:
+			continue
+		
+		if desicion.decision_link:
+			var res: Array = await ExecutionChip.execute_decision(bot, desicion.decision_link, [])
+			await ExecutionChip.execute_decision(bot, desicion, res)
+		else:
+			await ExecutionChip.execute_decision(bot, desicion, [])
+
+# ----------------------------------------------------------------------------------------------- #
 # LOCKDOWN
 # ----------------------------------------------------------------------------------------------- #
 static func lockdown_aggressive(bot: Bot, analysis: FieldAnalysis):
@@ -128,3 +142,4 @@ static func _recursive_insight_merge_my_single_elements(bot: Bot, elements: Arra
 		return
 	
 	await _recursive_insight_merge_my_single_elements(bot, element_list)
+# ----------------------------------------------------------------------------------------------- #

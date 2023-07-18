@@ -32,7 +32,7 @@ class AssembleModuleExecute:
 		decisions.append(decision)
 	
 	func transmite():
-		await chipsets[chipset].execute(decisions, bot)
+		await ChipSet.execute(decisions, bot)
 
 class AssembleModuleDecompose:
 	signal elements(item)
@@ -69,24 +69,22 @@ class AssembleModuleDecision:
 	func receiver_0(array: Array):
 		targets = array
 	
-	func receiver_1(array: Dictionary):
-		directive = array
-		transmite()
+	func receiver_1(list: Dictionary):
+		directive = list
 	
 	func receiver_2(link: Decision):
 		decision_link = link
-		transmite()
 	
 	func receiver_3(args):
 		transmite()
 	
 	func transmite():
 		var d = Decision.new()
-		d.action = properties.action
+		d.action = properties.action -1
 		d.targets = targets
 #		d.priority = properties.priority
 		d.directive = directive
-		d.action_target = properties.action_target
+		d.action_target = properties.action_target -1
 		d.decision_link = decision_link
 		decision.emit(d)
 
@@ -116,11 +114,47 @@ class AssembleModuleCondition:
 	var condition_B
 	var properties: Dictionary
 	
-	func receiver_0(item):
+	var await_args: int = 0
+	var awaiting_assignment: bool
+	
+	func receiver_0(args):
+		awaiting_assignment = false
+		
+		if await_args == 0:
+			if properties.has("line_edit_A") and properties.has("line_edit_B"):
+				transmite()
+			
+			else:
+				awaiting_assignment = true
+		
+		else:
+			if properties.has("line_edit_A") or properties.has("line_edit_B"):
+				transmite()
+			
+			else:
+				awaiting_assignment = true
+	
+	func receiver_1(item):
 		condition_A = item
 		
-	func receiver_1(item):
+		await_args += 1
+		if await_args > 1:
+			transmite()
+			
+		elif awaiting_assignment:
+			receiver_0(null)
+		
+		
+	func receiver_2(item):
 		condition_B = item
+		
+		await_args += 1
+		if await_args > 1:
+			transmite()
+		
+		elif awaiting_assignment:
+			receiver_0(null)
+		
 	
 	func transmite():
 		if not condition_A:
@@ -255,7 +289,3 @@ func assemble(bot: Bot, graph_nodes: Dictionary):
 			current_node.connect(port.name, callable)
 
 
-func decisions_list(decision):
-	print(decision)
-	
-#	await chip
