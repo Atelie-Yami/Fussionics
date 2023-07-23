@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_tueud")
-hash = 101
+hash = 102
 graph_nodes = {
 "Decision101": {
 "connections": [[&"Decision101", 0, &"decisions", 0]],
@@ -14,6 +14,13 @@ graph_nodes = {
 "position_offset": Vector2(531.46, 262.49)
 },
 "type": 0
+},
+"Waiter102": {
+"connections": [],
+"properties": {
+"position_offset": Vector2(902.93, 203.2)
+},
+"type": 6
 },
 "decisions": {
 "connections": [],

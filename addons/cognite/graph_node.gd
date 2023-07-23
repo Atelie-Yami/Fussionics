@@ -44,3 +44,6 @@ func _delete():
 
 func _dragged(from: Vector2, to: Vector2):
 	graph_resource.graph_nodes[name].properties["position_offset"] = to
+
+
+

@@ -110,6 +110,7 @@ class AssembleModuleLoop:
 class AssembleModuleCondition:
 	signal issuer
 	
+	var args
 	var condition_A
 	var condition_B
 	var properties: Dictionary
@@ -117,7 +118,8 @@ class AssembleModuleCondition:
 	var await_args: int = 0
 	var awaiting_assignment: bool
 	
-	func receiver_0(args):
+	func receiver_0(_args):
+		args = _args
 		awaiting_assignment = false
 		
 		if await_args == 0:
@@ -238,6 +240,42 @@ class AssembleModuleDirective:
 		var list: Dictionary
 		list[properties.directive] = item
 		issuer.emit(list)
+
+class AssembleModuleWaiter:
+	signal statament
+	
+	var properties: Dictionary
+	
+	var issuer_list: Dictionary
+	
+	func receiver(args, port):
+		issuer_list[port] = args
+	
+	func receiver_0(args): issuer_list[0] = args
+	func receiver_1(args): issuer_list[1] = args
+	func receiver_2(args): issuer_list[2] = args
+	func receiver_3(args): issuer_list[3] = args
+	func receiver_4(args): issuer_list[4] = args
+	func receiver_5(args): issuer_list[5] = args
+	func receiver_6(args): issuer_list[6] = args
+	func receiver_7(args): issuer_list[7] = args
+	func receiver_8(args): issuer_list[8] = args
+	func receiver_9(args): issuer_list[9] = args
+	
+	func construct():
+		for i in properties.size_count:
+			add_user_signal("issuer_" + str(i), [{ "name": "args", "type": TYPE_MAX}])
+	
+	func transmite():
+		pass
+
+class AssembleModuleParallel:
+	signal issuer
+	
+	var properties: Dictionary
+	
+	func transmite():
+		issuer.emit()
 
 
 var built_types := [

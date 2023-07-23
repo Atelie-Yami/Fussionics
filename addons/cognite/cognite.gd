@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 var inspector_response := preload("res://addons/cognite/inspector_response.gd").new()
-var interface := preload("res://addons/cognite/interface/graph_editor.tscn").instantiate()
+var interface := preload("res://addons/cognite/interface/graph_scenes/graph_editor.tscn").instantiate()
 var selection: EditorSelection
 
 

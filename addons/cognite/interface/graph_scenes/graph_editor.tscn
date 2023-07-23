@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://4it2akw1x6vf"]
 
-[ext_resource type="Script" path="res://addons/cognite/graph_editor.gd" id="1_1ddum"]
-[ext_resource type="Script" path="res://addons/cognite/interface/graph_editor.gd" id="1_wtxwf"]
-[ext_resource type="Texture2D" uid="uid://dqxiaogpa3f7n" path="res://addons/cognite/resource/artwork_godot.jpg" id="2_jlpa2"]
+[ext_resource type="Script" path="res://addons/cognite/graph_editor.gd" id="1_ogb0p"]
+[ext_resource type="Texture2D" uid="uid://dqxiaogpa3f7n" path="res://addons/cognite/resource/artwork_godot.jpg" id="2_mmj5h"]
+[ext_resource type="Script" path="res://addons/cognite/interface/graph_editor.gd" id="3_5apsj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs77b"]
 bg_color = Color(0.00784314, 0.0313726, 0.168627, 0.407843)
@@ -15,7 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1ddum")
+script = ExtResource("1_ogb0p")
 metadata/_edit_lock_ = true
 
 [node name="rect" type="TextureRect" parent="."]
@@ -26,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_jlpa2")
+texture = ExtResource("2_mmj5h")
 expand_mode = 1
 stretch_mode = 6
 metadata/_edit_lock_ = true
@@ -43,7 +43,7 @@ right_disconnects = true
 use_snap = false
 minimap_enabled = false
 arrange_nodes_button_hidden = true
-script = ExtResource("1_wtxwf")
+script = ExtResource("3_5apsj")
 metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GraphEdit"]
@@ -56,7 +56,7 @@ offset_bottom = 40.0
 layout_mode = 2
 focus_mode = 0
 flat = true
-item_count = 7
+item_count = 9
 selected = 0
 popup/item_0/text = "graphs"
 popup/item_0/id = 0
@@ -74,6 +74,10 @@ popup/item_5/text = "Best match"
 popup/item_5/id = 5
 popup/item_6/text = "Directive"
 popup/item_6/id = 6
+popup/item_7/text = "Waiter"
+popup/item_7/id = 7
+popup/item_8/text = "Parallel"
+popup/item_8/id = 8
 
 [node name="modus" type="GraphNode" parent="GraphEdit"]
 layout_mode = 0

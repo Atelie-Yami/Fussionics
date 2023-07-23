@@ -2,15 +2,17 @@
 extends GraphEdit
 
 const GRAPH_NODES := [
-	preload("res://addons/cognite/interface/decision.tscn"),
-	preload("res://addons/cognite/interface/decompose.tscn"),
-	preload("res://addons/cognite/interface/loop.tscn"),
-	preload("res://addons/cognite/interface/condition.tscn"),
-	preload("res://addons/cognite/interface/best_match.tscn"),
-	preload("res://addons/cognite/interface/directive.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/decision.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/decompose.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/loop.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/condition.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/best_match.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/directive.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/waiter.tscn"),
+	preload("res://addons/cognite/interface/graph_scenes/parallel_branch.tscn"),
 ]
 const GRAPH_NAMES := [
-	"Decision", "Decompose", "Loop", "Condition", "Best_Match", "Directive"
+	"Decision", "Decompose", "Loop", "Condition", "Best_Match", "Directive", "Waiter", "Parallel"
 ]
 
 var nodes: Array[GraphNode]
