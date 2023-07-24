@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CogniteSource" load_steps=2 format=3 uid="uid://q6dkwxyxx0hp"]
+
+[ext_resource type="Script" path="res://addons/cognite/cognite_source.gd" id="1_c50ui"]
+
+[resource]
+script = ExtResource("1_c50ui")
+hash = 100
+graph_nodes = {
+"decisions": {
+"connections": [],
+"properties": {
+"chipset": 0
+},
+"type": 55
+},
+"modus": {
+"connections": [],
+"properties": {
+"chipset": 0
+},
+"type": 70
+}
+}

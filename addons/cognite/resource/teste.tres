@@ -1,24 +1,94 @@
-[gd_resource type="Resource" script_class="CogniteSource" load_steps=2 format=3 uid="uid://ht58o1fcfc1p"]
+[gd_resource type="Resource" script_class="CogniteSource" load_steps=2 format=3 uid="uid://coilep3w41ma3"]
 
 [ext_resource type="Script" path="res://addons/cognite/cognite_source.gd" id="1_tueud"]
 
 [resource]
 script = ExtResource("1_tueud")
-hash = 102
+hash = 113
 graph_nodes = {
-"Decision101": {
-"connections": [[&"Decision101", 0, &"decisions", 0]],
+"Best_Match112": {
+"connections": [[&"Best_Match112", 0, &"Waiter113", 0]],
+"properties": {
+"match": 2,
+"position_offset": Vector2(570.95, 174.71)
+},
+"type": 4
+},
+"Condition102": {
+"connections": [[&"Condition102", 0, &"Decision103", 3]],
+"properties": {
+"condition": 2,
+"line_edit_B": 5,
+"position_offset": Vector2(750.537, 447.951)
+},
+"type": 3
+},
+"Condition108": {
+"connections": [[&"Condition108", 0, &"Waiter109", 1], [&"Condition108", 0, &"Waiter113", 2]],
+"properties": {
+"condition": 1,
+"line_edit_B": 5,
+"position_offset": Vector2(751.13, 340.26)
+},
+"type": 3
+},
+"Condition110": {
+"connections": [[&"Condition110", 0, &"Waiter109", 0], [&"Condition110", 0, &"Waiter113", 1]],
+"properties": {
+"condition": 2,
+"line_edit_B": 10,
+"position_offset": Vector2(750.8, 232.46)
+},
+"type": 3
+},
+"Decision103": {
+"connections": [[&"Decision103", 0, &"decisions", 0]],
 "properties": {
 "action": 6,
 "action_target": 1,
-"position_offset": Vector2(531.46, 262.49)
+"position_offset": Vector2(962.843, 303.717)
 },
 "type": 0
 },
-"Waiter102": {
-"connections": [],
+"Decision107": {
+"connections": [[&"Decision107", 0, &"Decision111", 2]],
 "properties": {
-"position_offset": Vector2(902.93, 203.2)
+"action": 6,
+"action_target": 1,
+"position_offset": Vector2(758.17, -8.66001)
+},
+"type": 0
+},
+"Decision111": {
+"connections": [[&"Decision111", 0, &"decisions", 0]],
+"properties": {
+"action": 5,
+"action_target": 1,
+"position_offset": Vector2(1138.22, 35.67)
+},
+"type": 0
+},
+"Decompose101": {
+"connections": [[&"Decompose101", 3, &"Condition102", 1], [&"Decompose101", 3, &"Condition108", 1], [&"Decompose101", 3, &"Condition110", 1], [&"Decompose101", 0, &"Best_Match112", 0]],
+"properties": {
+"field": 1,
+"position_offset": Vector2(385.164, 170.668)
+},
+"type": 1
+},
+"Parallel104": {
+"connections": [[&"Parallel104", 0, &"Waiter105", 0], [&"Parallel104", 0, &"Decision107", 3]],
+"properties": {
+"position_offset": Vector2(620.01, 50.63),
+"priority": 1
+},
+"type": 7
+},
+"Waiter113": {
+"connections": [[&"Waiter113", 1, &"Decision111", 0], [&"Waiter113", 0, &"Decision111", 3]],
+"properties": {
+"position_offset": Vector2(981.69, 163.27),
+"size_count": 3
 },
 "type": 6
 },
@@ -30,7 +100,7 @@ graph_nodes = {
 "type": 55
 },
 "modus": {
-"connections": [[&"modus", 2, &"Decision101", 3], [&"modus", 1, &"Decision101", 3], [&"modus", 0, &"Decision101", 3], [&"modus", 3, &"Decision101", 3], [&"modus", 4, &"Decision101", 3]],
+"connections": [[&"modus", 2, &"Decompose101", 0]],
 "properties": {
 "chipset": 0
 },

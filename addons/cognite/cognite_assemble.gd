@@ -18,9 +18,11 @@ class AssembleModuleModus:
 	var bot: Bot
 	
 	func transmite():
+		print(self)
 		var analysis = FieldAnalysis.make(bot)
 		var modus_operandi = chipsets[chipset].get_modus(analysis)
 		signals[modus_operandi].emit(analysis)
+		print(signals[modus_operandi])
 
 class AssembleModuleExecute:
 	var chipsets := [AmethistChipSet, SapphireChipSet]
@@ -47,6 +49,7 @@ class AssembleModuleDecompose:
 	var properties: Dictionary
 	
 	func receiver_0(analysis: FieldAnalysis):
+		print(self)
 		var report: FieldAnalysis.Report = analysis.my_field if properties.field == 1 else analysis.rival_field
 		elements.emit(report.elements)
 		molecules.emit(report.molecules)
@@ -159,6 +162,7 @@ class AssembleModuleCondition:
 		
 	
 	func transmite():
+		print(self)
 		if not condition_A:
 			condition_A = properties.line_edit_A
 		if not condition_B:
@@ -245,29 +249,40 @@ class AssembleModuleWaiter:
 	signal statament
 	
 	var properties: Dictionary
-	
+	var waiter_count := 0
 	var issuer_list: Dictionary
 	
 	func receiver(args, port):
 		issuer_list[port] = args
+		waiter_count += 1
+		
+		if waiter_count == properties.size_count:
+			transmite()
 	
-	func receiver_0(args): issuer_list[0] = args
-	func receiver_1(args): issuer_list[1] = args
-	func receiver_2(args): issuer_list[2] = args
-	func receiver_3(args): issuer_list[3] = args
-	func receiver_4(args): issuer_list[4] = args
-	func receiver_5(args): issuer_list[5] = args
-	func receiver_6(args): issuer_list[6] = args
-	func receiver_7(args): issuer_list[7] = args
-	func receiver_8(args): issuer_list[8] = args
-	func receiver_9(args): issuer_list[9] = args
+	func receiver_0(args): receiver(args, 0)
+	func receiver_1(args): receiver(args, 1)
+	func receiver_2(args): receiver(args, 2)
+	func receiver_3(args): receiver(args, 3)
+	func receiver_4(args): receiver(args, 4)
+	func receiver_5(args): receiver(args, 5)
+	func receiver_6(args): receiver(args, 6)
+	func receiver_7(args): receiver(args, 7)
+	func receiver_8(args): receiver(args, 8)
+	func receiver_9(args): receiver(args, 9)
 	
 	func construct():
 		for i in properties.size_count:
 			add_user_signal("issuer_" + str(i), [{ "name": "args", "type": TYPE_MAX}])
 	
 	func transmite():
-		pass
+		print(issuer_list) # teste
+		return             # teste
+		
+		for port in issuer_list:
+			if issuer_list[port]:
+				emit_signal("issuer_" + str(port), issuer_list[port])
+			else:
+				emit_signal("issuer_" + str(port))
 
 class AssembleModuleParallel:
 	signal issuer
@@ -280,7 +295,7 @@ class AssembleModuleParallel:
 
 var built_types := [
 	AssembleModuleDecision, AssembleModuleDecompose, AssembleModuleLoop, AssembleModuleCondition,
-	AssembleModuleBestmatch, AssembleModuleDirective
+	AssembleModuleBestmatch, AssembleModuleDirective, AssembleModuleWaiter, AssembleModuleParallel
 ]
 
 var modus_action := {
@@ -292,9 +307,14 @@ var modus_action := {
 }
 
 var mounted_nodes: Dictionary
+var parallel_nodes: Array[Array] = [[], [], [], [], []]
 
 
 func run():
+	for i in 5:
+		for node in parallel_nodes[4 - i]:
+			node.transmite()
+	
 	mounted_nodes.modus.transmite()
 	await mounted_nodes.decisions.transmite()
 
@@ -315,8 +335,12 @@ func assemble(bot: Bot, graph_nodes: Dictionary):
 			_:
 				for prop_name in graph_nodes[node].properties:
 					_node.properties[prop_name] = graph_nodes[node].properties[prop_name]
-				
 				mounted_nodes[node] = _node
+		
+		match graph_nodes[node].type:
+			1: _node.properties["bot"] = bot
+			6: _node.construct()
+			7: parallel_nodes[_node.properties.priority].append(_node)
 	
 	for node in graph_nodes:
 		var current_node: RefCounted = mounted_nodes[node]

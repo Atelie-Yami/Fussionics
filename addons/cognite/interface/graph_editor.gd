@@ -64,14 +64,14 @@ func load_resource(resource):
 func apply_resource():
 	var links: Array
 	
-	chipset_selection.selected = current_resource.graph_nodes.modus.properties["chipset"] +1
-	decisions_execute_chipset.selected = current_resource.graph_nodes.decisions.properties["chipset"] +1
+	chipset_selection.selected = current_resource.graph_nodes.modus.properties.chipset +1
+	decisions_execute_chipset.selected = current_resource.graph_nodes.decisions.properties.chipset +1
 	
 	for node in current_resource.graph_nodes:
 		var pack: Dictionary = current_resource.graph_nodes[node]
 		
 		if node != "modus" and node != "decisions":
-			var graph_node: GraphNode = create_graph(pack.type, node)
+			var graph_node: GraphNode = await create_graph(pack.type, node)
 			
 			for prop in pack.properties:
 				graph_node.set(prop, pack.properties[prop])
@@ -91,6 +91,9 @@ func create_graph(type: int, _name: String):
 	add_child(graph_node)
 	nodes.append(graph_node)
 	graph_node.set_name(_name)
+	graph_node.name = _name
+	
+	await get_tree().process_frame
 	
 	graph_node.construct()
 	return graph_node

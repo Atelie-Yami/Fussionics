@@ -17,6 +17,7 @@ func append_node(_name: String, type: int):
 func update_node(_name: String, properties: Dictionary, connections: Array[Array]):
 	graph_nodes[_name].properties  = properties
 	graph_nodes[_name].connections = connections
+	Resource
 
 
 func get_hash() -> int:
@@ -26,12 +27,6 @@ func get_hash() -> int:
 
 func is_cognite_resource():
 	return true
-
-
-
-
-
-
 
 
 func condition(condition: int, args):
