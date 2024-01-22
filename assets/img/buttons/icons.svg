@@ -27,9 +27,9 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      showguides="true"
-     inkscape:zoom="0.87906882"
-     inkscape:cx="1227.4352"
-     inkscape:cy="1067.607"
+     inkscape:zoom="0.31079776"
+     inkscape:cx="722.33467"
+     inkscape:cy="838.16562"
      inkscape:window-width="1360"
      inkscape:window-height="709"
      inkscape:window-x="0"
@@ -212,4 +212,12 @@
      id="rect494"
      style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.964817;stroke-linecap:square;stroke-opacity:1;paint-order:fill markers stroke"
      d="M 1500,1013.8894 V 1070 L 1400,986.11083 1300,1070 v -56.1106 L 1400,930 Z"
+     sodipodi:nodetypes="ccccccc" /><path
+     id="path885"
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.964817;stroke-linecap:square;stroke-opacity:1;paint-order:fill markers stroke"
+     d="M 400.6106,1387.7513 H 344.5 l 83.8892,-100 -83.8892,-100 h 56.1106 l 83.8894,100 z"
+     sodipodi:nodetypes="ccccccc" /><path
+     id="path887"
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.964817;stroke-linecap:square;stroke-opacity:1;paint-order:fill markers stroke"
+     d="m 188.52359,1187.7513 h 56.1106 l -83.8892,100 83.8892,100 h -56.1106 l -83.8894,-100 z"
      sodipodi:nodetypes="ccccccc" /></svg>

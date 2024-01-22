@@ -1,7 +1,7 @@
 @tool
 class_name CogniteGraphNode extends GraphNode
 
-
+var show_close: bool
 var graph_resource: Resource
 var graph_edit: GraphEdit
 var is_ready: bool

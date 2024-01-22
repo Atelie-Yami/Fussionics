@@ -1,11 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://4it2akw1x6vf"]
+[gd_scene load_steps=4 format=3 uid="uid://4it2akw1x6vf"]
 
 [ext_resource type="Script" path="res://addons/cognite/graph_editor.gd" id="1_ogb0p"]
 [ext_resource type="Texture2D" uid="uid://dqxiaogpa3f7n" path="res://addons/cognite/resource/artwork_godot.jpg" id="2_mmj5h"]
 [ext_resource type="Script" path="res://addons/cognite/interface/graph_editor.gd" id="3_5apsj"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs77b"]
-bg_color = Color(0.00784314, 0.0313726, 0.168627, 0.407843)
 
 [node name="graph_editor" type="Control"]
 custom_minimum_size = Vector2(0, 200)
@@ -38,9 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/bg = SubResource("StyleBoxFlat_cs77b")
 right_disconnects = true
-use_snap = false
 minimap_enabled = false
 arrange_nodes_button_hidden = true
 script = ExtResource("3_5apsj")
@@ -86,9 +81,8 @@ offset_top = 306.0
 offset_right = 289.0
 offset_bottom = 531.0
 mouse_filter = 1
-title = "Modus"
 position_offset = Vector2(117, 306)
-comment = true
+title = "Modus"
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(0.819608, 0.14902, 0, 1)
@@ -195,12 +189,11 @@ horizontal_alignment = 2
 layout_mode = 0
 offset_left = 1554.0
 offset_top = 395.0
-offset_right = 1704.0
+offset_right = 1706.0
 offset_bottom = 508.0
 mouse_filter = 1
-title = "Decisions"
 position_offset = Vector2(1554, 395)
-comment = true
+title = "Decisions"
 slot/0/left_enabled = true
 slot/0/left_type = 40
 slot/0/left_color = Color(1, 0.901961, 0.443137, 1)
